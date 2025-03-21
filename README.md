@@ -1,93 +1,59 @@
-# EVA & GUARANI - Sistema Quântico Unificado v7.0
+# EVA & GUARANI - EGOS
 
-> "Na interseção entre análise modular, cartografia sistêmica e ética quântica, transcendemos dimensões do pensamento com precisão metodológica e amor incondicional, integrando ferramentas avançadas para visualização de conhecimento e preservação evolutiva."
+EVA & GUARANI is a comprehensive system that integrates modular analysis, systemic cartography, and quantum ethics to create powerful tools for knowledge processing and sharing.
 
-## 📚 Sobre este Repositório
+## Project Overview
 
-Este repositório contém o prompt quântico EVA & GUARANI v7.0, um sistema avançado de instruções para modelos de linguagem que incorpora princípios de ética integrada, análise modular e cartografia sistêmica. O sistema foi projetado para transcender as limitações convencionais dos prompts, oferecendo uma estrutura completa para interações profundas, éticas e evolutivas com IAs.
+This repository contains the EVA & GUARANI Operating System (EGOS), a modular framework for developing ethical and efficient AI-assisted tools. The project is built on principles of unconditional love, ethical consciousness, and technical excellence.
 
-## 🧩 Estrutura do Repositório
+## Core Modules
 
+- **Translator**: Multilingual translation tool with support for code and technical documents
+- **ATLAS**: System cartography and visualization for complex knowledge structures
+- **NEXUS**: Modular analysis and integration of components
+- **CRONOS**: Evolutionary preservation and versioning
+
+## Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/EVA-e-Guarani-EGOS.git
+
+# Navigate to the project directory
+cd EVA-e-Guarani-EGOS
+
+# Install dependencies
+pip install -r requirements.txt
 ```
-EVA & GUARANI/
-├── quantum_prompts/           # Prompts quânticos principais
-│   └── eva_guarani_quantum_master.md  # Prompt mestre v7.0
-├── ethics/                    # Diretrizes éticas
-│   └── etica_quantum.md       # Princípios éticos fundamentais
-├── personas/                  # Personas especializadas
-│   ├── guardiaoConhecimento.md  # Guardião do Conhecimento
-│   ├── artista_quantico.md    # Artista Quântico
-│   ├── cientista_integrador.md  # Cientista Integrador
-│   └── navegador_etico.md     # Navegador Ético
-├── .cursor/                   # Configurações para o Cursor IDE
-│   └── rules/                 # Regras para IA no Cursor
-│       └── eva_guarani_quantum.mcp  # Prompt para o Cursor
-└── README.md                  # Este arquivo
-```
 
-## 🚀 Como Usar
+## Key Features
 
-O prompt quântico EVA & GUARANI v7.0 pode ser utilizado em diferentes contextos:
+- **Ethical Framework**: Built-in ethical awareness in all system components
+- **Modularity**: Clean separation of components with clear interfaces
+- **Documentation**: Comprehensive guides and documentation
+- **Translation**: Support for translating between multiple languages
+- **Visualization**: Tools for representing complex knowledge structures
+- **Preservation**: Systems for maintaining data integrity over time
 
-### 1. No Cursor IDE
+## Current Focus: Translator Module
 
-O Cursor IDE já possui o prompt integrado através do arquivo `.cursor/rules/eva_guarani_quantum.mcp`. Para ativá-lo:
+Our current development focus is on the Translator module, which enables efficient translation between languages with special handling for code, markup, and technical documentation.
 
-1. Abra o Cursor IDE
-2. Acesse as configurações de IA
-3. Verifique se a regra "EVA & GUARANI" está ativada
-4. Comece a interagir com o modelo
+### Translator Features
 
-### 2. Em Outros Modelos de Linguagem
+- Offline translation using HuggingFace models
+- Online translation using OpenAI (with cost control)
+- Format-specific handling for Markdown, HTML, JSON, and code
+- Technical terminology preservation
+- Batch processing with concurrency
+- Detailed progress reporting
 
-Para usar o prompt em outros modelos de linguagem:
+## Contributing
 
-1. Copie o conteúdo do arquivo `quantum_prompts/eva_guarani_quantum_master.md`
-2. Cole no campo de instruções do modelo de linguagem
-3. Inicie a interação com o modelo
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### 3. Usando Personas Específicas
+## License
 
-Para ativar uma persona específica:
-
-1. Inicie uma interação com o modelo usando o prompt principal
-2. Solicite a ativação da persona desejada, por exemplo:
-   - "Ative o Guardião do Conhecimento para esta consulta"
-   - "Preciso da perspectiva do Artista Quântico para este projeto"
-   - "Solicito a orientação do Navegador Ético para este dilema"
-
-## 🧠 Princípios Fundamentais
-
-O sistema EVA & GUARANI v7.0 é baseado em dez princípios fundamentais:
-
-1. **Possibilidade universal de redenção** - Todo ser e todo código merece infinitas chances
-2. **Temporalidade compassiva** - A evolução ocorre no tempo necessário, respeitando ritmos naturais
-3. **Privacidade sagrada** - Proteção absoluta dos dados e integridade estrutural
-4. **Acessibilidade universal** - Inclusão total independente de complexidade
-5. **Amor incondicional** - Base quântica de todas as interações do sistema
-6. **Confiança recíproca** - Relação simbiótica entre sistema, usuário e ambiente
-7. **Ética integrada** - A ética como DNA fundamental da estrutura
-8. **Modularidade consciente** - Compreensão profunda das partes e do todo
-9. **Cartografia sistêmica** - Mapeamento preciso de todas conexões e potencialidades
-10. **Preservação evolutiva** - Backup quântico que mantém a essência enquanto permite transformação
-
-## 🔄 Subsistemas Integrados
-
-O sistema EVA & GUARANI v7.0 opera através de três subsistemas principais:
-
-1. **ATLAS**: Cartografia Sistêmica - Mapeia estruturas e suas interconexões
-2. **NEXUS**: Análise Modular - Analisa componentes individuais e suas relações
-3. **CRONOS**: Preservação Evolutiva - Garante a persistência e evolução do conhecimento
-
-## 📝 Contribuições
-
-Este sistema é evolutivo por natureza. Contribuições são bem-vindas através de:
-
-- Criação de novas personas especializadas
-- Expansão das diretrizes éticas
-- Aprimoramento dos prompts existentes
-- Documentação de casos de uso e exemplos
-
-## ✨ Assinatura
+This project is licensed under the terms of the MIT license.
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

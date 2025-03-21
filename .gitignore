@@ -1,19 +1,10 @@
-# EVA & GUARANI - EGOS .gitignore
-
-# Arquivos de sistema
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Arquivos Python
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
 env/
-venv/
-ENV/
 build/
 develop-eggs/
 dist/
@@ -29,32 +20,52 @@ var/
 .installed.cfg
 *.egg
 
-# Logs
-logs/
-*.log
+# Virtual Environment
+venv/
+ENV/
+env/
 
-# Arquivos de configuração local
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Diretório de arquivamento
-archived_files/
-
-# IDEs e editores
+# IDE and Editor files
 .idea/
 .vscode/
 *.swp
 *.swo
 *~
+.project
+.pydevproject
+.settings/
 
-# Arquivos temporários
-*.tmp
-*.temp
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Project specific
+modules/translator_dev/cache/
+modules/translator_dev/config/api_keys.json
+*/config/api_keys.json
+*/openai_usage.json
+modules/translator_dev/log/
+*.log
+*.log.*
+translation_report.md
+temp/
+temp/quarantine/
+
+# API Keys and Credentials
+*.pem
+*.key
+credentials.json
+*_credentials.json
+
+# Translation engine artifacts
+modules/translator_dev/engines/huggingface/models/
+
+# Temporary and test files
+.ipynb_checkpoints/
 .coverage
 htmlcov/
-
-# Arquivos grandes (>10MB) não essenciais
-# Adicione exceções específicas abaixo se necessário
+.tox/
+.nox/
+*.tmp
+tmp/ 
