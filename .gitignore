@@ -34,6 +34,8 @@ env/
 .project
 .pydevproject
 .settings/
+.history/
+.cursor/
 
 # OS specific files
 .DS_Store
@@ -41,31 +43,65 @@ Thumbs.db
 desktop.ini
 
 # Project specific
-modules/translator_dev/cache/
-modules/translator_dev/config/api_keys.json
-*/config/api_keys.json
-*/openai_usage.json
-modules/translator_dev/log/
+**/cache/
+!**/cache/.gitkeep
+**/models/
+!**/models/.gitkeep
+**/*.model
+**/api_keys.json
+**/openai_usage.json
+**/credentials.json
+**/secrets.json
+**/logs/
+!**/logs/.gitkeep
+translation_report.md
+translation_scan.log
+translation_log.txt
+ai_translation_log.txt
 *.log
 *.log.*
-translation_report.md
 temp/
-temp/quarantine/
+sandbox/
+.ipynb_checkpoints/
 
 # API Keys and Credentials
 *.pem
 *.key
-credentials.json
-*_credentials.json
+*credentials.json
+*apikey*
+*secret*
 
-# Translation engine artifacts
-modules/translator_dev/engines/huggingface/models/
+# Large files and data
+*.zip
+*.tar.gz
+*.tar
+*.rar
+*.7z
+*.bin
+*.h5
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.npy
 
 # Temporary and test files
-.ipynb_checkpoints/
 .coverage
 htmlcov/
 .tox/
 .nox/
 *.tmp
-tmp/ 
+tmp/
+.pytest_cache/
+
+# Keep essential structure but ignore large content
+data/**
+!data/README.md
+!data/**/.gitkeep
+
+modules/translator_dev/engines/huggingface/models/**
+!modules/translator_dev/engines/huggingface/models/.gitkeep
+
+# Large documentation files or generated content
+**/examples/generated/**
+!**/examples/generated/.gitkeep 
