@@ -1,0 +1,13 @@
+
+# ==================================================================
+# COMBINED FILE FROM MULTIPLE SIMILAR FILES
+# Date: 2025-03-22 08:45:54
+# Combined files:
+# - modules\translator_dev\data\models\.gitkeep (kept)
+# - modules\translator_dev\data\sessions\.gitkeep (moved to quarantine)
+# - modules\translator_dev\data\logs\.gitkeep (moved to quarantine)
+# - modules\translator_dev\data\cache\.gitkeep (moved to quarantine)
+# - modules\translator_dev\data\backups\.gitkeep (moved to quarantine)
+# ==================================================================
+
+# Empty file to keep directory structure
