@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eva-guarani"
+version = "8.1.0"
+description = "A quantum-conscious system for advanced code analysis and evolutionary preservation"
+readme = "README.md"
+authors = [
+    { name = "EVA & GUARANI Development Team", email = "dev@evaguarani.org" }
+]
+license = { file = "LICENSE" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Quality Assurance",
+]
+keywords = ["quantum", "code-analysis", "documentation", "preservation"]
+dependencies = [
+    "pyyaml>=6.0.1",
+    "tqdm>=4.66.1",
+    "colorama>=0.4.6",
+    "rich>=13.7.0",
+    "langdetect>=1.0.9",
+    "argparse>=1.4.0",
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+]
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/eva-guarani"
+Documentation = "https://github.com/yourusername/eva-guarani/wiki"
+Repository = "https://github.com/yourusername/eva-guarani.git"
+Issues = "https://github.com/yourusername/eva-guarani/issues"
+
+[tool.setuptools]
+packages = ["BIOS_Q", "src"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --cov=BIOS_Q --cov=src"
+testpaths = [
+    "BIOS_Q/tests",
+    "tests",
+]
+
+[tool.coverage.run]
+source = ["BIOS_Q", "src"]
+omit = ["*/tests/*", "setup.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88 

@@ -1,0 +1,126 @@
+# Sensitive files
+**/eva_guarani_config.json
+**/api_keys.json
+**/*.env
+**/*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+logs/
+*.log.*
+
+# Environment variables and secrets
+.env
+.env.*
+*.key
+api_keys.json
+config.json
+eva_guarani_config.json
+secrets.yaml
+credentials.json
+
+# System specific
+.DS_Store
+Thumbs.db
+
+# Project specific
+quantum_state.json
+metadata_db.json
+.metadata/
+external/logs/
+external/temp/
+external/archive/
+
+# Testing
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Documentation
+docs/_build/
+docs/api/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*~
+
+# Large binary files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+
+# Node modules (if using any JavaScript/TypeScript)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Ignore old QUANTUM_PROMPTS versions and specific files
+QUANTUM_PROMPTS/MASTER/EVA_GUARANI_v7.*.md
+QUANTUM_PROMPTS/MASTER/MASTER_PROMPT_V7.0.md
+QUANTUM_PROMPTS/MASTER/EVA_GUARANI_7.0.md
+QUANTUM_PROMPTS/MASTER/GUIA_INSTALACAO_CURSOR.md
+
+# Ensure example files are NOT ignored
+!*.example.json
+!*.example.yaml
+!*.example.env
+
+# Temporarily ignore specific Cursor/dev files in QUANTUM_PROMPTS/MASTER
+QUANTUM_PROMPTS/MASTER/cursor_settings.json
+QUANTUM_PROMPTS/MASTER/CURSOR_SYSTEM_PROMPT.txt
+QUANTUM_PROMPTS/MASTER/CURSOR_QUANTUM_PROMPT.md
+QUANTUM_PROMPTS/MASTER/unification/
+QUANTUM_PROMPTS/MASTER/docs/
+QUANTUM_PROMPTS/MASTER/logs/
+QUANTUM_PROMPTS/MASTER/mcp/
+QUANTUM_PROMPTS/MASTER/slop/ 
