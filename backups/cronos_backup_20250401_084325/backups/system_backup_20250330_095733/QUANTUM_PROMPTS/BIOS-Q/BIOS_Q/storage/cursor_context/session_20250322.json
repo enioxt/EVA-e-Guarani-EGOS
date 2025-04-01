@@ -1,0 +1,77 @@
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+    "session_id": "mcp_20250322_cursor",
+    "timestamp": "2025-03-22T17:15:30.123456",
+    "topic": "Otimização da preservação de contexto no Cursor para o sistema EVA & GUARANI",
+    "summary": "Implementação de mecanismos específicos para o ambiente Cursor com foco em evitar perda de contexto em resets acidentais",
+    "context": {
+        "problem_identified": "Perda de contexto quando o chat do Cursor é resetado acidentalmente",
+        "solution_proposed": "Implementação de comandos especiais (!save_context, !restore_context) e integração com BIOS-Q",
+        "key_topics": [
+            "Otimização do bot Telegram (avatechartbot)",
+            "Integração do BIOS-Q com o ambiente do Cursor",
+            "Esforços para evitar perda de contexto em resets acidentais",
+            "Distinção clara entre ambientes ([CURSOR], [TERMINAL], [EVA:MÓDULO])"
+        ]
+    },
+    "system_state": {
+        "bios_q": "Implementado, precisa de integração com Cursor",
+        "mycelium": "Analisando conexões entre componentes",
+        "chat_preservation": "Em desenvolvimento para resistir a resets"
+    },
+    "next_steps": [
+        "Implementar sistema de comandos no BIOS-Q para gerenciar contexto no Cursor",
+        "Desenvolver mecanismo de resumo automático periódico",
+        "Criar arquivo específico para mapeamento de contexto Cursor-BIOSQ"
+    ],
+    "mcp_version": "1.0",
+    "metadata": {
+        "created_by": "EVA & GUARANI MCP System",
+        "environment": "Cursor",
+        "prev_conversation_id": "cursor_cache_cleaning"
+    }
+}

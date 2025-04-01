@@ -1,0 +1,90 @@
+{
+    "folders": [
+        {
+            "name": "EVA & GUARANI",
+            "path": "."
+        },
+        {
+            "name": "ATLAS",
+            "path": "core/atlas"
+        },
+        {
+            "name": "NEXUS",
+            "path": "core/nexus"
+        },
+        {
+            "name": "CRONOS",
+            "path": "core/cronos"
+        },
+        {
+            "name": "ETHIK",
+            "path": "core/ethik"
+        },
+        {
+            "name": "TOOLS",
+            "path": "tools"
+        },
+        {
+            "name": "UI",
+            "path": "ui"
+        },
+        {
+            "name": "MODULES",
+            "path": "modules"
+        },
+        {
+            "name": "INTEGRATIONS",
+            "path": "integrations"
+        },
+        {
+            "path": "eva-atendimento"
+        },
+        {
+            "path": "../EVA_GUARANI_BACKUP_COMPLETO"
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/__pycache__": true,
+            "**/.pytest_cache": true,
+            "**/*.pyc": true,
+            ".git": true,
+            ".vscode": true,
+            ".coverage": true,
+            "venv": true,
+            "docs/**": true,
+            "eva-atendimento/**": true
+        },
+        "search.exclude": {
+            "venv/**": true,
+            "**/__pycache__/**": true,
+            "**/.pytest_cache/**": true,
+            "docs/**": true,
+            "backup/**": true,
+            "quarantine/**": true,
+            "eva-atendimento/**": true
+        },
+        "files.watcherExclude": {
+            "**/.git/objects/**": true,
+            "**/.git/subtree-cache/**": true,
+            "**/node_modules/**": true,
+            "venv/**": true,
+            "**/__pycache__/**": true,
+            "**/.pytest_cache/**": true,
+            "docs/**": true,
+            "backup/**": true,
+            "quarantine/**": true,
+            "eva-atendimento/**": true
+        },
+        "editor.formatOnSave": true,
+        "python.analysis.extraPaths": [
+            "./core",
+            "./modules",
+            "./tools",
+            "./integrations"
+        ],
+        "python.linting.enabled": true,
+        "python.analysis.indexing": true,
+        "workbench.editor.languageDetection": true
+    }
+}

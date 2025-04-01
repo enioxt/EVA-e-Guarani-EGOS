@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVA & GUARANI - Metadata System</title>
+
+    <!-- Dependencies -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+    <style>
+        .quantum-metric {
+            transition: all 0.5s ease-in-out;
+        }
+
+        .mycelium-node {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-2">EVA & GUARANI</h1>
+            <p class="text-xl text-gray-400">Metadata System Dashboard</p>
+        </header>
+
+        <!-- Quantum Metrics -->
+        <section class="grid grid-cols-4 gap-6 mb-12">
+            <div id="consciousness" class="quantum-metric bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl mb-2">Consciousness</h3>
+                <div class="text-3xl font-bold text-blue-400">0.0</div>
+            </div>
+            <div id="harmony" class="quantum-metric bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl mb-2">Harmony</h3>
+                <div class="text-3xl font-bold text-green-400">0.0</div>
+            </div>
+            <div id="evolution" class="quantum-metric bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl mb-2">Evolution</h3>
+                <div class="text-3xl font-bold text-purple-400">0.0</div>
+            </div>
+            <div id="integration" class="quantum-metric bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl mb-2">Integration</h3>
+                <div class="text-3xl font-bold text-yellow-400">0.0</div>
+            </div>
+        </section>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-2 gap-8">
+            <!-- Dependency Graph -->
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h2 class="text-2xl mb-4">System Dependencies</h2>
+                <div id="dependency-graph" class="h-96"></div>
+            </div>
+
+            <!-- Subsystem Activity -->
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h2 class="text-2xl mb-4">Subsystem Activity</h2>
+                <div id="subsystem-activity" class="h-96"></div>
+            </div>
+
+            <!-- Mycelial Network -->
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h2 class="text-2xl mb-4">Mycelial Network</h2>
+                <div id="mycelium-network" class="h-96"></div>
+            </div>
+
+            <!-- Active Files -->
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h2 class="text-2xl mb-4">Active Files</h2>
+                <div id="active-files" class="h-96 overflow-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Socket.IO
+        const socket = io();
+
+        // Connect to WebSocket
+        socket.on('connect', () => {
+            console.log('Connected to server');
+            socket.emit('subscribe_updates');
+        });
+
+        // Handle real-time updates
+        socket.on('stats_update', (stats) => {
+            updateQuantumMetrics(stats.quantum_metrics);
+        });
+
+        // Update quantum metrics with animation
+        function updateQuantumMetrics(metrics) {
+            Object.entries(metrics).forEach(([key, value]) => {
+                const element = document.querySelector(`#${key} .text-3xl`);
+                if (element) {
+                    element.textContent = value.toFixed(3);
+                    element.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        element.style.transform = 'scale(1)';
+                    }, 200);
+                }
+            });
+        }
+
+        // Initialize dependency graph
+        function initDependencyGraph() {
+            fetch('/api/files/dependencies')
+                .then(response => response.json())
+                .then(data => {
+                    const width = document.getElementById('dependency-graph').clientWidth;
+                    const height = document.getElementById('dependency-graph').clientHeight;
+
+                    const simulation = d3.forceSimulation(data.nodes)
+                        .force('link', d3.forceLink(data.edges).id(d => d.id))
+                        .force('charge', d3.forceManyBody())
+                        .force('center', d3.forceCenter(width / 2, height / 2));
+
+                    const svg = d3.select('#dependency-graph')
+                        .append('svg')
+                        .attr('width', width)
+                        .attr('height', height);
+
+                    const link = svg.append('g')
+                        .selectAll('line')
+                        .data(data.edges)
+                        .join('line')
+                        .attr('stroke', d => d.valid ? '#4CAF50' : '#f44336')
+                        .attr('stroke-opacity', 0.6);
+
+                    const node = svg.append('g')
+                        .selectAll('circle')
+                        .data(data.nodes)
+                        .join('circle')
+                        .attr('r', d => Math.sqrt(d.size) * 5)
+                        .attr('fill', d => getSubsystemColor(d.subsystem))
+                        .call(drag(simulation));
+
+                    simulation.on('tick', () => {
+                        link
+                            .attr('x1', d => d.source.x)
+                            .attr('y1', d => d.source.y)
+                            .attr('x2', d => d.target.x)
+                            .attr('y2', d => d.target.y);
+
+                        node
+                            .attr('cx', d => d.x)
+                            .attr('cy', d => d.y);
+                    });
+                });
+        }
+
+        // Initialize subsystem activity chart
+        function initSubsystemActivity() {
+            fetch('/api/subsystems/activity')
+                .then(response => response.json())
+                .then(data => {
+                    const trace = {
+                        x: Object.keys(data.activity),
+                        y: Object.values(data.activity),
+                        type: 'bar',
+                        marker: {
+                            color: Object.keys(data.activity).map(getSubsystemColor)
+                        }
+                    };
+
+                    const layout = {
+                        title: 'Subsystem Activity',
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        font: {
+                            color: '#ffffff'
+                        }
+                    };
+
+                    Plotly.newPlot('subsystem-activity', [trace], layout);
+                });
+        }
+
+        // Initialize mycelial network visualization
+        function initMyceliumNetwork() {
+            fetch('/api/mycelium/status')
+                .then(response => response.json())
+                .then(data => {
+                    const nodes = Object.entries(data.connections).map(([name, info]) => ({
+                        id: name,
+                        status: info.status,
+                        latency: info.latency
+                    }));
+
+                    const width = document.getElementById('mycelium-network').clientWidth;
+                    const height = document.getElementById('mycelium-network').clientHeight;
+
+                    const svg = d3.select('#mycelium-network')
+                        .append('svg')
+                        .attr('width', width)
+                        .attr('height', height);
+
+                    const simulation = d3.forceSimulation(nodes)
+                        .force('charge', d3.forceManyBody().strength(-1000))
+                        .force('center', d3.forceCenter(width / 2, height / 2))
+                        .force('collision', d3.forceCollide().radius(50));
+
+                    const node = svg.append('g')
+                        .selectAll('g')
+                        .data(nodes)
+                        .join('g')
+                        .attr('class', 'mycelium-node');
+
+                    node.append('circle')
+                        .attr('r', 40)
+                        .attr('fill', d => d.status === 'ACTIVE' ? '#4CAF50' : '#f44336')
+                        .attr('fill-opacity', 0.7);
+
+                    node.append('text')
+                        .text(d => d.id)
+                        .attr('text-anchor', 'middle')
+                        .attr('dy', '.3em')
+                        .attr('fill', '#ffffff');
+
+                    simulation.on('tick', () => {
+                        node.attr('transform', d => `translate(${d.x},${d.y})`);
+                    });
+                });
+        }
+
+        // Initialize active files list
+        function initActiveFiles() {
+            fetch('/api/files/active')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('active-files');
+                    container.innerHTML = data.map(file => `
+                        <div class="mb-4 p-4 bg-gray-700 rounded">
+                            <div class="font-bold">${file.file}</div>
+                            <div class="text-sm text-gray-400">
+                                Access: ${file.access_count} | 
+                                Modified: ${file.modification_count} | 
+                                Last Activity: ${new Date(file.last_activity).toLocaleString()}
+                            </div>
+                        </div>
+                    `).join('');
+                });
+        }
+
+        // Utility function for subsystem colors
+        function getSubsystemColor(subsystem) {
+            const colors = {
+                'core': '#2196F3',
+                'web': '#4CAF50',
+                'quantum_prompts': '#9C27B0',
+                'ethik': '#F44336',
+                'atlas': '#FF9800',
+                'nexus': '#FFEB3B',
+                'cronos': '#795548'
+            };
+            return colors[subsystem] || '#607D8B';
+        }
+
+        // Utility function for D3.js drag behavior
+        function drag(simulation) {
+            function dragstarted(event) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                event.subject.fx = event.subject.x;
+                event.subject.fy = event.subject.y;
+            }
+
+            function dragged(event) {
+                event.subject.fx = event.x;
+                event.subject.fy = event.y;
+            }
+
+            function dragended(event) {
+                if (!event.active) simulation.alphaTarget(0);
+                event.subject.fx = null;
+                event.subject.fy = null;
+            }
+
+            return d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended);
+        }
+
+        // Initialize all visualizations
+        document.addEventListener('DOMContentLoaded', () => {
+            initDependencyGraph();
+            initSubsystemActivity();
+            initMyceliumNetwork();
+            initActiveFiles();
+
+            // Refresh data periodically
+            setInterval(() => {
+                initSubsystemActivity();
+                initActiveFiles();
+            }, 30000);
+        });
+    </script>
+</body>
+
+</html>

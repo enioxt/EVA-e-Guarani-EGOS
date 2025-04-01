@@ -1,0 +1,81 @@
+---
+metadata:
+  api_endpoints: []
+  author: EVA & GUARANI
+  backup_required: true
+  category: data
+  changelog: []
+  dependencies:
+  - QUANTUM_PROMPTS
+  - BIOS-Q
+  description: Component of the EVA & GUARANI Quantum Unified System
+  documentation_quality: 0.95
+  encoding: utf-8
+  ethical_validation: true
+  last_updated: '2025-03-29'
+  related_files: []
+  required: true
+  review_status: approved
+  security_level: 0.95
+  simulation_capable: false
+  status: active
+  subsystem: MASTER
+  test_coverage: 0.9
+  translation_status: completed
+  type: configuration
+  version: '8.0'
+  windows_compatibility: true
+---
+
+# ==================================================================
+# COMBINED FILE FROM MULTIPLE SIMILAR FILES
+# Date: 2025-03-22 08:45:54
+# Combined files:
+# - data\docker-compose.yaml (kept)
+# - data\docker-compose-image.yaml (moved to quarantine)
+# ==================================================================
+
+services:
+    eliza:
+        command: ["pnpm", "start", "--character=./characters/eliza.character.json"]
+        build:
+            context: .
+            dockerfile: Dockerfile
+        stdin_open: true
+        tty: true
+        volumes:
+            - ./data:/app/data
+        environment:
+            - OPENROUTER_API_KEY=
+            - ELEVENLABS_XI_API_KEY=
+            - ELEVENLABS_MODEL_ID=eleven_multilingual_v2
+            - ELEVENLABS_VOICE_ID=21m00Tcm4TlvDq8ikWAM
+            - ELEVENLABS_VOICE_STABILITY=0.5
+            - ELEVENLABS_VOICE_SIMILARITY_BOOST=0.9
+            - ELEVENLABS_VOICE_STYLE=0.66
+            - ELEVENLABS_VOICE_USE_SPEAKER_BOOST=false
+            - ELEVENLABS_OPTIMIZE_STREAMING_LATENCY=4
+            - ELEVENLABS_OUTPUT_FORMAT=pcm_16000
+            - SOL_ADDRESS=So11111111111111111111111111111111111111112
+            - SLIPPAGE=1
+            - SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
+            - HELIUS_API_KEY=
+            - SERVER_PORT=3000
+        ports:
+            - "3000:3000"
+        restart: always
+
+
+# ==================================================================
+# UNIQUE CONTENT FROM data\docker-compose-image.yaml
+# ==================================================================
+
+
+        platform: linux/amd64
+image: eliza-starter:v1
+DISCORD_APPLICATION_ID=
+            - DISCORD_API_TO
+N=
+            - REDPILL_API_KE
+=
+            - REDPILL_MODEL

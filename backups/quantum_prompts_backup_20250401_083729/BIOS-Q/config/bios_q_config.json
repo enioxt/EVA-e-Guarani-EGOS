@@ -1,0 +1,123 @@
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+    "version": "8.0.0",
+    "name": "BIOS-Q MCP",
+    "description": "Quantum System Initialization Protocol",
+    "paths": {
+        "root": "C:\\Eva Guarani EGOS\\BIOS-Q",
+        "quantum_prompts": "C:\\Eva Guarani EGOS\\QUANTUM_PROMPTS",
+        "bios_backup": "C:\\Eva Guarani EGOS\\BIOS-Q_backup"
+    },
+    "mcps": {
+        "sequential-thinking": {
+            "priority": 1,
+            "description": "Sequential Thinking for Complex Problem Solving",
+            "active": true
+        },
+        "perplexity": {
+            "priority": 2,
+            "description": "Web Search with Perplexity AI",
+            "active": true
+        },
+        "bios-q": {
+            "priority": 0,
+            "description": "BIOS-Q Quantum System Initialization",
+            "active": true
+        }
+    },
+    "subsystems": {
+        "ATLAS": {
+            "description": "Systemic Cartography",
+            "required": true
+        },
+        "CRONOS": {
+            "description": "Evolutionary Preservation",
+            "required": true
+        },
+        "ETHIK": {
+            "description": "Ethical Framework",
+            "required": true
+        },
+        "NEXUS": {
+            "description": "Modular Analysis",
+            "required": true
+        },
+        "MASTER": {
+            "description": "Central Coordination System",
+            "required": true
+        }
+    },
+    "initialization": {
+        "verify_structure": true,
+        "load_context": true,
+        "verify_dependencies": true,
+        "display_banner": true,
+        "load_setup_instructions": true
+    },
+    "logging": {
+        "level": "debug",
+        "format": "json",
+        "directory": "C:\\Eva Guarani EGOS\\logs"
+    },
+    "heartbeat": {
+        "interval": 5000
+    },
+    "tools": {
+        "bios-q": {
+            "enabled": true,
+            "description": "BIOS-Q system management tool"
+        }
+    },
+    "cursor_integration": {
+        "auto_initialize": true,
+        "setup_commands": [
+            "cd C:\\Eva Guarani EGOS\\BIOS-Q",
+            "source venv/Scripts/activate",
+            "python -m bios_q"
+        ]
+    }
+}

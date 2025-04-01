@@ -1,0 +1,34 @@
+ethik:
+  backup_dir: quarantine/ETHIK_backup
+  dependencies:
+  - MASTER
+  ethical_rules:
+  - ethik_rules.json
+  required_tools:
+  - node
+  - npm
+  - truffle
+  - hardhat
+  source_dirs:
+  - ETHIK
+  - core/ethik
+  special_dir: blockchain_backup
+  special_files:
+  - contracts/*
+  - migrations/*
+  target_dir: QUANTUM_PROMPTS/ETHIK
+master:
+  backup_dir: quarantine/MASTER_backup
+  dependencies: []
+  ethical_rules:
+  - master_ethics.json
+  required_tools:
+  - python
+  - node
+  source_dirs:
+  - MASTER
+  special_dir: config_backup
+  special_files:
+  - quantum_prompt.md
+  - quantum_context.md
+  target_dir: QUANTUM_PROMPTS/MASTER

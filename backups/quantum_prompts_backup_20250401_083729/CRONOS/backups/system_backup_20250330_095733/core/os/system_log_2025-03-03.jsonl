@@ -1,0 +1,89 @@
+{"timestamp": "2025-03-03T00:50:55.834988", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T00:50:57.420307", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T10:42:20.729460", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T10:42:39.083128", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 19}}
+{"timestamp": "2025-03-03T10:42:42.753251", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 310}}
+{"timestamp": "2025-03-03T10:43:04.235770", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 54}}
+{"timestamp": "2025-03-03T10:43:09.210129", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 552}}
+{"timestamp": "2025-03-03T10:43:30.575293", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 53}}
+{"timestamp": "2025-03-03T10:43:39.011107", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 581}}
+{"timestamp": "2025-03-03T10:43:41.692649", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 26}}
+{"timestamp": "2025-03-03T10:43:45.119980", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 510}}
+{"timestamp": "2025-03-03T10:44:23.307208", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 107}}
+{"timestamp": "2025-03-03T10:44:37.078379", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 1683}}
+{"timestamp": "2025-03-03T10:45:07.600565", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 50}}
+{"timestamp": "2025-03-03T10:45:18.550247", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 1746}}
+{"timestamp": "2025-03-03T10:45:39.807510", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 46}}
+{"timestamp": "2025-03-03T10:45:42.615439", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 304}}
+{"timestamp": "2025-03-03T10:46:08.137138", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 53}}
+{"timestamp": "2025-03-03T10:46:14.174502", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 983}}
+{"timestamp": "2025-03-03T10:47:43.631223", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 55}}
+{"timestamp": "2025-03-03T10:47:53.869018", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 451}}
+{"timestamp": "2025-03-03T10:53:42.994175", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T11:01:57.188519", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T11:05:13.663506", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T11:05:27.391550", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 2}}
+{"timestamp": "2025-03-03T11:05:31.651289", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-3.5-turbo", "ethical_score": 0.85, "response_length": 60}}
+{"timestamp": "2025-03-03T11:05:35.649299", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 25}}
+{"timestamp": "2025-03-03T11:05:36.556425", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-3.5-turbo", "ethical_score": 0.85, "response_length": 122}}
+{"timestamp": "2025-03-03T11:05:42.793247", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 11}}
+{"timestamp": "2025-03-03T11:05:44.479476", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-3.5-turbo", "ethical_score": 0.85, "response_length": 406}}
+{"timestamp": "2025-03-03T11:05:55.093404", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 48}}
+{"timestamp": "2025-03-03T11:05:59.861503", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-3.5-turbo", "ethical_score": 0.85, "response_length": 578}}
+{"timestamp": "2025-03-03T11:06:04.881968", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 33}}
+{"timestamp": "2025-03-03T11:06:06.855965", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-3.5-turbo", "ethical_score": 0.85, "response_length": 428}}
+{"timestamp": "2025-03-03T11:06:22.863596", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 46}}
+{"timestamp": "2025-03-03T11:06:27.043755", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-3.5-turbo", "ethical_score": 0.85, "response_length": 1311}}
+{"timestamp": "2025-03-03T11:06:47.040815", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 17}}
+{"timestamp": "2025-03-03T11:06:48.782529", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-3.5-turbo", "ethical_score": 0.85, "response_length": 363}}
+{"timestamp": "2025-03-03T11:07:15.825669", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 55}}
+{"timestamp": "2025-03-03T11:07:17.960934", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-3.5-turbo", "ethical_score": 0.85, "response_length": 585}}
+{"timestamp": "2025-03-03T11:07:40.702001", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 40}}
+{"timestamp": "2025-03-03T11:07:42.212316", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-3.5-turbo", "ethical_score": 0.85, "response_length": 230}}
+{"timestamp": "2025-03-03T15:16:34.720032", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T15:16:52.767997", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 2}}
+{"timestamp": "2025-03-03T15:16:55.645822", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 60}}
+{"timestamp": "2025-03-03T15:17:02.762233", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 33}}
+{"timestamp": "2025-03-03T15:17:05.761640", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 417}}
+{"timestamp": "2025-03-03T15:17:22.572152", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 31}}
+{"timestamp": "2025-03-03T15:17:25.742089", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 451}}
+{"timestamp": "2025-03-03T15:17:56.592025", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 5}}
+{"timestamp": "2025-03-03T15:17:58.385326", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 456}}
+{"timestamp": "2025-03-03T15:18:14.706611", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 57}}
+{"timestamp": "2025-03-03T15:18:17.161293", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 651}}
+{"timestamp": "2025-03-03T15:19:27.149611", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 158}}
+{"timestamp": "2025-03-03T15:19:30.534255", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 798}}
+{"timestamp": "2025-03-03T15:20:07.628807", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 53}}
+{"timestamp": "2025-03-03T15:20:14.917596", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 1237}}
+{"timestamp": "2025-03-03T15:20:39.477470", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 98}}
+{"timestamp": "2025-03-03T15:20:45.451489", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 1611}}
+{"timestamp": "2025-03-03T15:22:32.528978", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 55}}
+{"timestamp": "2025-03-03T15:22:36.754745", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 1298}}
+{"timestamp": "2025-03-03T15:29:54.789635", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T15:30:12.502745", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 14}}
+{"timestamp": "2025-03-03T15:30:13.800877", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 121}}
+{"timestamp": "2025-03-03T15:30:21.481159", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 31}}
+{"timestamp": "2025-03-03T15:30:22.630705", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 262}}
+{"timestamp": "2025-03-03T15:30:36.850460", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 39}}
+{"timestamp": "2025-03-03T15:30:38.564069", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 391}}
+{"timestamp": "2025-03-03T15:32:07.269491", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 85}}
+{"timestamp": "2025-03-03T15:32:11.578371", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 1283}}
+{"timestamp": "2025-03-03T15:32:31.004119", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 85}}
+{"timestamp": "2025-03-03T15:32:38.612292", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 1462}}
+{"timestamp": "2025-03-03T15:32:47.681147", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 168}}
+{"timestamp": "2025-03-03T15:32:51.591301", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 1429}}
+{"timestamp": "2025-03-03T15:33:06.090214", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 131}}
+{"timestamp": "2025-03-03T15:33:10.984987", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 1700}}
+{"timestamp": "2025-03-03T15:33:32.131584", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 149}}
+{"timestamp": "2025-03-03T15:33:37.453315", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 2054}}
+{"timestamp": "2025-03-03T15:34:54.158212", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 1681}}
+{"timestamp": "2025-03-03T15:35:25.024955", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 2795}}
+{"timestamp": "2025-03-03T15:35:54.561001", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 18}}
+{"timestamp": "2025-03-03T15:36:02.796122", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 2978}}
+{"timestamp": "2025-03-03T15:36:30.426476", "event_type": "MENSAGEM_RECEBIDA", "description": "Mensagem recebida de Investi[ga]dor (171767219)", "metadata": {"message_length": 43}}
+{"timestamp": "2025-03-03T15:36:42.102788", "event_type": "RESPOSTA_GERADA", "description": "Resposta gerada para Investi[ga]dor (171767219)", "metadata": {"model": "gpt-4o", "ethical_score": 0.85, "response_length": 1952}}
+{"timestamp": "2025-03-03T16:47:39.703481", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T16:51:47.127691", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T16:53:15.187114", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T18:43:45.459963", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}
+{"timestamp": "2025-03-03T21:51:01.434471", "event_type": "INICIALIZA\u00c7\u00c3O", "description": "Sistema de Integra\u00e7\u00e3o Qu\u00e2ntica inicializado", "metadata": {}}

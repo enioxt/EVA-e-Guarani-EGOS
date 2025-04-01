@@ -1,0 +1,122 @@
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+  "timestamp": "2025-03-22T18:36:13.484549",
+  "environment": "Cursor + Claude 3.7 Sonnet",
+  "project": "EVA & GUARANI - EGOS",
+  "modules_discussed": [
+    {
+      "name": "ETHIK",
+      "description": "Sistema de Ética para EVA & GUARANI",
+      "timestamp": "2025-03-22T18:36:13.484571"
+    },
+    {
+      "name": "CRONOS",
+      "description": "Sistema de Preservação Evolutiva",
+      "timestamp": "2025-03-22T18:36:13.484576"
+    },
+    {
+      "name": "NEXUS",
+      "description": "Sistema de Análise Modular",
+      "timestamp": "2025-03-22T18:36:13.484580"
+    },
+    {
+      "name": "ATLAS",
+      "description": "Sistema de Cartografia Sistêmica",
+      "timestamp": "2025-03-22T18:36:13.484583"
+    },
+    {
+      "name": "BIOS-Q",
+      "description": "Sistema de Inicialização Quântica",
+      "timestamp": "2025-03-22T18:36:13.484586"
+    },
+    {
+      "name": "mycelium",
+      "description": "Sistema de análise de conexões",
+      "timestamp": "2025-03-22T18:36:13.484590"
+    },
+    {
+      "name": "MCP",
+      "description": "Memory Context Preservation",
+      "timestamp": "2025-03-22T18:36:13.484593"
+    },
+    {
+      "name": "avatechartbot",
+      "description": "Bot de Telegram integrado",
+      "timestamp": "2025-03-22T18:36:13.485657"
+    }
+  ],
+  "conversation_full": "",
+  "conversation_summary": "\nConversa sobre o sistema MCP (Memory Context Preservation) no EVA & GUARANI EGOS:\n\n- Discussão sobre limitações do ambiente Cursor e seleção de texto via Ctrl+A\n- Desenvolvimento e otimização do sistema MCP para funcionar sem Ctrl+A\n- Criação/atualização de arquivos:\n  - tools/mcp/mcp_capture.py - captura de contexto sem depender de Ctrl+A\n  - tools/mcp/mcp_restore.py - restauração do contexto em formato otimizado\n  - tools/mcp/cursor_commands.py - comandos para executar MCP diretamente no Cursor\n  - tools/mcp/save_mcp.bat e load_mcp.bat - scripts para execução no Windows\n\n- Discussão sobre requisitos para preservação de contexto no ambiente Cursor\n- Integração com o sistema BIOS-Q\n- Fluxo de trabalho para salvar contexto:\n  1. Receber o comando !save_mcp\n  2. Capturar informações da conversa atual\n  3. Extrair módulos e conceitos-chave\n  4. Salvar em JSON para uso posterior\n\n- Módulos relacionados: ETHIK, ATLAS, NEXUS, CRONOS, BIOS-Q, mycelium\n- Integração com projetos: avatechartbot (bot Telegram)\n    \n\n\n## ⚠️ INFORMAÇÕES DE LIMITE DE CONTEXTO ⚠️\n\nO contexto atual está em aproximadamente 2.0% do limite máximo seguro.\nSe o Cursor solicitar um novo chat, isso indica que o limite real foi atingido.\n\n### 🔄 PARA CONTINUAR NO NOVO CHAT:\n\n1. Copie e execute o comando abaixo para carregar o contexto salvo:\n```\ncd /c/Eva\\ \\&\\ Guarani\\ -\\ EGOS/tools/mcp && python cursor_commands.py load_mcp\n```\n\n2. Se o Cursor solicitou um novo chat, informe o sistema para ajustar o limite:\n```\ncd /c/Eva\\ \\&\\ Guarani\\ -\\ EGOS/tools/mcp && python cursor_commands.py update_limit\n```\n\n### 📊 Status do Monitor:\n- Mensagens registradas: 2\n- Caracteres: 2040\n- Fonte do limite: default\n",
+  "key_concepts": {},
+  "action_items": [],
+  "relationships": [
+    {
+      "source": "BIOS-Q",
+      "target": "MCP",
+      "type": "contém",
+      "timestamp": "2025-03-22T18:36:13.485684"
+    },
+    {
+      "source": "MCP",
+      "target": "CURSOR",
+      "type": "integra com",
+      "timestamp": "2025-03-22T18:36:13.485686"
+    },
+    {
+      "source": "mycelium",
+      "target": "NEXUS",
+      "type": "analisa",
+      "timestamp": "2025-03-22T18:36:13.485691"
+    },
+    {
+      "source": "ATLAS",
+      "target": "mycelium",
+      "type": "visualiza",
+      "timestamp": "2025-03-22T18:36:13.485693"
+    }
+  ]
+}

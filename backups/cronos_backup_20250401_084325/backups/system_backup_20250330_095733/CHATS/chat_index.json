@@ -1,0 +1,73 @@
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+    "last_updated": "2024-03-22T20:15:00",
+    "chats": {
+        "current_20240322_201000": {
+            "title": "EVA & GUARANI - Current Conversation",
+            "summary": "Conversation about preserving Cursor chats and implementing conversation context system with BIOS-Q integration",
+            "timestamp": "2024-03-22T20:10:00",
+            "file_path": "CHATS/current_chat.md",
+            "language": "pt"
+        },
+        "cache_cleaning_20240322_201500": {
+            "title": "Limpeza de Cache do Cursor",
+            "summary": "Conversation about cleaning the Cursor cache to improve performance, addressing system freezing issues.",
+            "timestamp": "2024-03-22T20:15:00",
+            "file_path": "CHATS/cursor_cache_cleaning.md",
+            "language": "pt"
+        }
+    },
+    "metadata": {
+        "total_chats": 2,
+        "languages": {
+            "pt": 2,
+            "en": 0
+        },
+        "export_tool_version": "1.0.0",
+        "system_integration": "BIOS-Q enabled"
+    }
+}

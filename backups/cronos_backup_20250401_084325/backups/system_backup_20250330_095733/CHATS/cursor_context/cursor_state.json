@@ -1,0 +1,4875 @@
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+  "last_context": "C:\\Eva & Guarani - EGOS\\CHATS\\bios_q_context_20250324_130637.json",
+  "last_backup": "C:\\Eva & Guarani - EGOS\\CHATS\\backup_context_20250324_130637",
+  "active_files": [],
+  "workspace_state": {
+    "chats": {
+      "backup_context_20250324_110332": {
+        "type": "directory",
+        "contents": {}
+      },
+      "backup_context_20250324_112548": {
+        "type": "directory",
+        "contents": {
+          "chat_index.json": {
+            "type": "file",
+            "size": 1052,
+            "modified": "2025-03-22T08:23:26.360041"
+          },
+          "chat_report.md": {
+            "type": "file",
+            "size": 1808,
+            "modified": "2025-03-22T08:23:40.140651"
+          },
+          "current_chat.md": {
+            "type": "file",
+            "size": 4260,
+            "modified": "2025-03-22T08:23:01.436033"
+          }
+        }
+      },
+      "backup_context_20250324_112723": {
+        "type": "directory",
+        "contents": {
+          "chat_index.json": {
+            "type": "file",
+            "size": 1052,
+            "modified": "2025-03-22T08:23:26.360041"
+          },
+          "chat_report.md": {
+            "type": "file",
+            "size": 1808,
+            "modified": "2025-03-22T08:23:40.140651"
+          },
+          "current_chat.md": {
+            "type": "file",
+            "size": 4260,
+            "modified": "2025-03-22T08:23:01.436033"
+          }
+        }
+      },
+      "backup_context_20250324_112805": {
+        "type": "directory",
+        "contents": {
+          "chat_index.json": {
+            "type": "file",
+            "size": 1052,
+            "modified": "2025-03-22T08:23:26.360041"
+          },
+          "chat_report.md": {
+            "type": "file",
+            "size": 1808,
+            "modified": "2025-03-22T08:23:40.140651"
+          },
+          "current_chat.md": {
+            "type": "file",
+            "size": 4260,
+            "modified": "2025-03-22T08:23:01.436033"
+          }
+        }
+      },
+      "backup_context_20250324_112828": {
+        "type": "directory",
+        "contents": {
+          "chat_index.json": {
+            "type": "file",
+            "size": 1052,
+            "modified": "2025-03-22T08:23:26.360041"
+          },
+          "chat_report.md": {
+            "type": "file",
+            "size": 1808,
+            "modified": "2025-03-22T08:23:40.140651"
+          },
+          "current_chat.md": {
+            "type": "file",
+            "size": 4260,
+            "modified": "2025-03-22T08:23:01.436033"
+          }
+        }
+      },
+      "backup_context_20250324_112836": {
+        "type": "directory",
+        "contents": {
+          "chat_index.json": {
+            "type": "file",
+            "size": 1052,
+            "modified": "2025-03-22T08:23:26.360041"
+          },
+          "chat_report.md": {
+            "type": "file",
+            "size": 1808,
+            "modified": "2025-03-22T08:23:40.140651"
+          },
+          "current_chat.md": {
+            "type": "file",
+            "size": 4260,
+            "modified": "2025-03-22T08:23:01.436033"
+          }
+        }
+      },
+      "backup_context_20250324_112900": {
+        "type": "directory",
+        "contents": {
+          "chat_index.json": {
+            "type": "file",
+            "size": 1052,
+            "modified": "2025-03-22T08:23:26.360041"
+          },
+          "chat_report.md": {
+            "type": "file",
+            "size": 1808,
+            "modified": "2025-03-22T08:23:40.140651"
+          },
+          "current_chat.md": {
+            "type": "file",
+            "size": 4260,
+            "modified": "2025-03-22T08:23:01.436033"
+          }
+        }
+      },
+      "backup_context_20250324_113239": {
+        "type": "directory",
+        "contents": {
+          "chat_index.json": {
+            "type": "file",
+            "size": 1052,
+            "modified": "2025-03-22T08:23:26.360041"
+          },
+          "chat_report.md": {
+            "type": "file",
+            "size": 1808,
+            "modified": "2025-03-22T08:23:40.140651"
+          },
+          "core_principles.md": {
+            "type": "file",
+            "size": 2060,
+            "modified": "2025-03-22T07:46:31.866541"
+          },
+          "current_chat.md": {
+            "type": "file",
+            "size": 4260,
+            "modified": "2025-03-22T08:23:01.436033"
+          },
+          "latest_context.json": {
+            "type": "file",
+            "size": 514,
+            "modified": "2025-03-24T10:50:21.979950"
+          },
+          "VERSION_PERA.md": {
+            "type": "file",
+            "size": 3958,
+            "modified": "2025-03-22T08:01:19.765475"
+          }
+        }
+      },
+      "bios_q_context_20250324_104619.json": {
+        "type": "file",
+        "size": 429,
+        "modified": "2025-03-24T10:46:19.024105"
+      },
+      "bios_q_context_20250324_104811.json": {
+        "type": "file",
+        "size": 429,
+        "modified": "2025-03-24T10:48:11.804139"
+      },
+      "bios_q_context_20250324_105021.json": {
+        "type": "file",
+        "size": 514,
+        "modified": "2025-03-24T10:50:21.979950"
+      },
+      "chat_index.json": {
+        "type": "file",
+        "size": 1052,
+        "modified": "2025-03-22T08:23:26.360041"
+      },
+      "chat_report.md": {
+        "type": "file",
+        "size": 1808,
+        "modified": "2025-03-22T08:23:40.140651"
+      },
+      "current_chat.md": {
+        "type": "file",
+        "size": 4260,
+        "modified": "2025-03-22T08:23:01.436033"
+      },
+      "cursor_cache_cleaning.md": {
+        "type": "file",
+        "size": 1842,
+        "modified": "2025-03-22T08:23:16.503043"
+      },
+      "cursor_context": {
+        "type": "directory",
+        "contents": {
+          "cursor_config.json": {
+            "type": "file",
+            "size": 379,
+            "modified": "2025-03-24T11:32:39.391225"
+          },
+          "cursor_state.json": {
+            "type": "file",
+            "size": 170818,
+            "modified": "2025-03-24T11:32:39.542088"
+          }
+        }
+      },
+      "metadata": {
+        "type": "directory",
+        "contents": {
+          "context_config.json": {
+            "type": "file",
+            "size": 496,
+            "modified": "2025-03-24T11:32:39.550809"
+          },
+          "context_manager.log": {
+            "type": "file",
+            "size": 4512,
+            "modified": "2025-03-24T13:06:37.694535"
+          },
+          "CONTEXT_SYSTEM.md": {
+            "type": "file",
+            "size": 972,
+            "modified": "2025-03-24T11:32:39.551799"
+          }
+        }
+      }
+    },
+    "quantum": {
+      "core_principles.md": {
+        "type": "file",
+        "size": 2060,
+        "modified": "2025-03-22T07:46:31.866541"
+      },
+      "MASTER": {
+        "type": "directory",
+        "contents": {}
+      },
+      "README.md": {
+        "type": "file",
+        "size": 2012,
+        "modified": "2025-03-22T08:42:36.754374"
+      },
+      "RPG": {
+        "type": "directory",
+        "contents": {
+          "overview.md": {
+            "type": "file",
+            "size": 9513,
+            "modified": "2025-03-22T08:37:43.127807"
+          }
+        }
+      },
+      "VERSION_PERA.md": {
+        "type": "file",
+        "size": 3958,
+        "modified": "2025-03-22T08:01:19.765475"
+      }
+    },
+    "core": {
+      "atlas": {
+        "type": "directory",
+        "contents": {
+          "atlas_core.py": {
+            "type": "file",
+            "size": 20564,
+            "modified": "2025-03-21T11:36:00.251374"
+          },
+          "atlas_demo.py": {
+            "type": "file",
+            "size": 5970,
+            "modified": "2025-03-21T11:36:11.832569"
+          },
+          "README.md": {
+            "type": "file",
+            "size": 3514,
+            "modified": "2025-03-21T11:35:07.931502"
+          },
+          "src": {
+            "type": "directory",
+            "contents": {
+              "atlas_core.py": {
+                "type": "file",
+                "size": 6430,
+                "modified": "2025-03-20T16:00:42.966173"
+              }
+            }
+          },
+          "__init__.py": {
+            "type": "file",
+            "size": 7945,
+            "modified": "2025-03-21T11:35:20.830107"
+          },
+          "__pycache__": {
+            "type": "directory",
+            "contents": {
+              "atlas_core.cpython-39.pyc": {
+                "type": "file",
+                "size": 18565,
+                "modified": "2025-03-21T09:01:12.889483"
+              },
+              "__init__.cpython-39.pyc": {
+                "type": "file",
+                "size": 6944,
+                "modified": "2025-03-21T09:01:12.886923"
+              }
+            }
+          }
+        }
+      },
+      "atlas_pre_merge_20250320_082617": {
+        "type": "directory",
+        "contents": {
+          "atlas_demo.py": {
+            "type": "file",
+            "size": 9490,
+            "modified": "2025-03-21T11:37:43.649768"
+          },
+          "cartography.py": {
+            "type": "file",
+            "size": 15675,
+            "modified": "2025-03-21T11:38:16.651174"
+          },
+          "README.md": {
+            "type": "file",
+            "size": 2912,
+            "modified": "2025-03-21T11:36:18.812502"
+          },
+          "ROADMAP_EXECUTIVE.md": {
+            "type": "file",
+            "size": 4307,
+            "modified": "2025-03-21T11:36:28.801634"
+          }
+        }
+      },
+      "config": {
+        "type": "directory",
+        "contents": {
+          "config.json": {
+            "type": "file",
+            "size": 4175,
+            "modified": "2025-03-19T16:42:11.161747"
+          },
+          "core": {
+            "type": "directory",
+            "contents": {
+              "core_config.json": {
+                "type": "file",
+                "size": 1555,
+                "modified": "2025-03-02T12:11:30.082026"
+              }
+            }
+          },
+          "fluentd": {
+            "type": "directory",
+            "contents": {}
+          },
+          "grafana": {
+            "type": "directory",
+            "contents": {
+              "dashboards": {
+                "type": "directory",
+                "contents": {}
+              },
+              "datasources": {
+                "type": "directory",
+                "contents": {}
+              },
+              "provisioning": {
+                "type": "directory",
+                "contents": {
+                  "alert-rules": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "alerting": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "contact-points": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "dashboards": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "datasources": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "notification-policies": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "notification-templates": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "notifiers": {
+                    "type": "directory",
+                    "contents": {}
+                  }
+                }
+              }
+            }
+          },
+          "integration": {
+            "type": "directory",
+            "contents": {}
+          },
+          "modules": {
+            "type": "directory",
+            "contents": {
+              "atlas_config.json": {
+                "type": "file",
+                "size": 1233,
+                "modified": "2025-03-02T12:16:23.803223"
+              },
+              "nexus_config.json": {
+                "type": "file",
+                "size": 1957,
+                "modified": "2025-03-02T14:44:58.145243"
+              }
+            }
+          },
+          "postgres": {
+            "type": "directory",
+            "contents": {}
+          },
+          "prometheus": {
+            "type": "directory",
+            "contents": {}
+          },
+          "README.md": {
+            "type": "file",
+            "size": 2425,
+            "modified": "2025-03-21T11:38:21.872701"
+          },
+          "redis": {
+            "type": "directory",
+            "contents": {}
+          },
+          "settings.py": {
+            "type": "file",
+            "size": 6411,
+            "modified": "2025-03-21T11:38:32.901744"
+          },
+          "src": {
+            "type": "directory",
+            "contents": {
+              "config_core.py": {
+                "type": "file",
+                "size": 12781,
+                "modified": "2025-03-20T11:13:50.467696"
+              }
+            }
+          },
+          "system_config.py": {
+            "type": "file",
+            "size": 8806,
+            "modified": "2025-03-20T10:22:19.458425"
+          },
+          "system_config.yaml": {
+            "type": "file",
+            "size": 2872,
+            "modified": "2025-03-20T10:22:43.739151"
+          }
+        }
+      },
+      "cronos": {
+        "type": "directory",
+        "contents": {
+          "src": {
+            "type": "directory",
+            "contents": {
+              "cronos_core.py": {
+                "type": "file",
+                "size": 11628,
+                "modified": "2025-03-20T15:50:48.703332"
+              }
+            }
+          }
+        }
+      },
+      "cronos_pre_merge_20250320_082617": {
+        "type": "directory",
+        "contents": {
+          "preservation.py": {
+            "type": "file",
+            "size": 20325,
+            "modified": "2025-03-21T11:39:24.608143"
+          },
+          "README.md": {
+            "type": "file",
+            "size": 3252,
+            "modified": "2025-03-21T11:38:43.540395"
+          }
+        }
+      },
+      "ethik": {
+        "type": "directory",
+        "contents": {
+          "ethics.py": {
+            "type": "file",
+            "size": 21126,
+            "modified": "2025-03-21T11:40:35.484251"
+          },
+          "ETHIK_CHAIN_TECHNOLOGY.md": {
+            "type": "file",
+            "size": 5406,
+            "modified": "2025-03-21T11:39:35.649607"
+          },
+          "ethik_config.json": {
+            "type": "file",
+            "size": 349,
+            "modified": "2025-03-21T11:40:39.235454"
+          },
+          "ethik_core.js": {
+            "type": "file",
+            "size": 20218,
+            "modified": "2025-03-21T11:41:14.357913"
+          },
+          "ethik_core.py": {
+            "type": "file",
+            "size": 20163,
+            "modified": "2025-03-21T11:41:54.423516"
+          },
+          "ethik_core_1.py": {
+            "type": "file",
+            "size": 20145,
+            "modified": "2025-03-21T11:42:51.179809"
+          },
+          "ethik_legacy": {
+            "type": "directory",
+            "contents": {}
+          },
+          "legacy": {
+            "type": "directory",
+            "contents": {
+              "js": {
+                "type": "directory",
+                "contents": {}
+              },
+              "server": {
+                "type": "directory",
+                "contents": {}
+              },
+              "static": {
+                "type": "directory",
+                "contents": {
+                  "css": {
+                    "type": "directory",
+                    "contents": {}
+                  }
+                }
+              }
+            }
+          },
+          "modules": {
+            "type": "directory",
+            "contents": {}
+          },
+          "README.md": {
+            "type": "file",
+            "size": 5000,
+            "modified": "2025-03-21T11:39:46.030636"
+          },
+          "src": {
+            "type": "directory",
+            "contents": {
+              "ethik_core.py": {
+                "type": "file",
+                "size": 6827,
+                "modified": "2025-03-20T15:50:01.418171"
+              }
+            }
+          },
+          "__pycache__": {
+            "type": "directory",
+            "contents": {
+              "ethik_core.cpython-39.pyc": {
+                "type": "file",
+                "size": 15992,
+                "modified": "2025-03-21T09:01:16.778287"
+              }
+            }
+          }
+        }
+      },
+      "mcp": {
+        "type": "directory",
+        "contents": {
+          "add_more.py": {
+            "type": "file",
+            "size": 889,
+            "modified": "2025-03-22T17:46:09.764240"
+          },
+          "context_monitor.py": {
+            "type": "file",
+            "size": 15359,
+            "modified": "2025-03-22T17:58:05.270040"
+          },
+          "cursor_commands.py": {
+            "type": "file",
+            "size": 13054,
+            "modified": "2025-03-22T17:52:41.812959"
+          },
+          "final_test.py": {
+            "type": "file",
+            "size": 1678,
+            "modified": "2025-03-22T17:47:14.148998"
+          },
+          "fix_monitor.py": {
+            "type": "file",
+            "size": 2163,
+            "modified": "2025-03-22T18:00:26.186950"
+          },
+          "load.bat": {
+            "type": "file",
+            "size": 134,
+            "modified": "2025-03-22T17:33:37.023769"
+          },
+          "load_mcp.bat": {
+            "type": "file",
+            "size": 67,
+            "modified": "2025-03-22T17:17:49.484967"
+          },
+          "mcp_capture.py": {
+            "type": "file",
+            "size": 6147,
+            "modified": "2025-03-22T17:20:38.020034"
+          },
+          "mcp_manager.py": {
+            "type": "file",
+            "size": 15100,
+            "modified": "2025-03-22T17:04:05.444545"
+          },
+          "mcp_restore.py": {
+            "type": "file",
+            "size": 4611,
+            "modified": "2025-03-22T17:18:26.290606"
+          },
+          "monitor_data.json": {
+            "type": "file",
+            "size": 268,
+            "modified": "2025-03-22T19:01:27.558739"
+          },
+          "print_limits.py": {
+            "type": "file",
+            "size": 1380,
+            "modified": "2025-03-22T17:55:53.108856"
+          },
+          "README.md": {
+            "type": "file",
+            "size": 4558,
+            "modified": "2025-03-22T17:53:03.823308"
+          },
+          "restart_monitor.py": {
+            "type": "file",
+            "size": 1050,
+            "modified": "2025-03-22T17:57:29.588821"
+          },
+          "save.bat": {
+            "type": "file",
+            "size": 128,
+            "modified": "2025-03-22T17:33:24.394567"
+          },
+          "save_mcp.bat": {
+            "type": "file",
+            "size": 67,
+            "modified": "2025-03-22T17:17:40.774259"
+          },
+          "set_limit.py": {
+            "type": "file",
+            "size": 1313,
+            "modified": "2025-03-22T17:59:21.087168"
+          },
+          "start_monitor.bat": {
+            "type": "file",
+            "size": 961,
+            "modified": "2025-03-22T18:02:46.843842"
+          },
+          "start_monitor.py": {
+            "type": "file",
+            "size": 546,
+            "modified": "2025-03-22T18:01:36.467758"
+          },
+          "start_monitor.sh": {
+            "type": "file",
+            "size": 433,
+            "modified": "2025-03-22T17:41:54.904500"
+          },
+          "stop_monitor.py": {
+            "type": "file",
+            "size": 237,
+            "modified": "2025-03-22T18:01:17.510218"
+          },
+          "test_auto_save.py": {
+            "type": "file",
+            "size": 2386,
+            "modified": "2025-03-22T17:44:08.164152"
+          },
+          "update_limit.bat": {
+            "type": "file",
+            "size": 640,
+            "modified": "2025-03-22T18:02:10.586668"
+          },
+          "__pycache__": {
+            "type": "directory",
+            "contents": {
+              "context_monitor.cpython-313.pyc": {
+                "type": "file",
+                "size": 18373,
+                "modified": "2025-03-22T17:58:16.815490"
+              },
+              "mcp_capture.cpython-313.pyc": {
+                "type": "file",
+                "size": 6779,
+                "modified": "2025-03-22T17:20:46.353116"
+              },
+              "mcp_manager.cpython-313.pyc": {
+                "type": "file",
+                "size": 19014,
+                "modified": "2025-03-22T17:04:16.513231"
+              },
+              "mcp_restore.cpython-313.pyc": {
+                "type": "file",
+                "size": 5784,
+                "modified": "2025-03-22T17:20:46.356600"
+              }
+            }
+          }
+        }
+      },
+      "nexus": {
+        "type": "directory",
+        "contents": {
+          "README.md": {
+            "type": "file",
+            "size": 2186,
+            "modified": "2025-03-21T11:42:56.120389"
+          },
+          "src": {
+            "type": "directory",
+            "contents": {
+              "nexus_core.py": {
+                "type": "file",
+                "size": 9060,
+                "modified": "2025-03-20T10:34:20.330491"
+              }
+            }
+          },
+          "__init__.py": {
+            "type": "file",
+            "size": 9546,
+            "modified": "2025-03-21T11:43:09.593689"
+          },
+          "__pycache__": {
+            "type": "directory",
+            "contents": {
+              "__init__.cpython-39.pyc": {
+                "type": "file",
+                "size": 7835,
+                "modified": "2025-03-21T09:01:16.766616"
+              }
+            }
+          }
+        }
+      },
+      "nexus_pre_merge_20250320_082617": {
+        "type": "directory",
+        "contents": {
+          "modular_analysis.py": {
+            "type": "file",
+            "size": 20414,
+            "modified": "2025-03-21T11:43:54.302809"
+          },
+          "README.md": {
+            "type": "file",
+            "size": 2454,
+            "modified": "2025-03-21T11:43:15.741306"
+          }
+        }
+      },
+      "os": {
+        "type": "directory",
+        "contents": {
+          "config": {
+            "type": "directory",
+            "contents": {
+              "integration": {
+                "type": "directory",
+                "contents": {}
+              }
+            }
+          },
+          "core": {
+            "type": "directory",
+            "contents": {}
+          },
+          "create_egos_structure.py": {
+            "type": "file",
+            "size": 17760,
+            "modified": "2025-03-21T11:46:55.613699"
+          },
+          "data": {
+            "type": "directory",
+            "contents": {
+              "atlas": {
+                "type": "directory",
+                "contents": {}
+              },
+              "cronos": {
+                "type": "directory",
+                "contents": {}
+              },
+              "nexus": {
+                "type": "directory",
+                "contents": {}
+              }
+            }
+          },
+          "docs": {
+            "type": "directory",
+            "contents": {
+              "perplexity_guide.md": {
+                "type": "file",
+                "size": 8170,
+                "modified": "2025-03-21T11:47:25.112254"
+              },
+              "perplexity_usage_guide.md": {
+                "type": "file",
+                "size": 4082,
+                "modified": "2025-03-21T11:47:39.825889"
+              },
+              "PROMETHEUS_GRAFANA_INTEGRATION.md": {
+                "type": "file",
+                "size": 10682,
+                "modified": "2025-03-21T11:47:10.527544"
+              }
+            }
+          },
+          "egos_core.py": {
+            "type": "file",
+            "size": 21286,
+            "modified": "2025-03-21T11:48:23.599721"
+          },
+          "ETHIK_CORE_BLOCKCHAIN.md": {
+            "type": "file",
+            "size": 3256,
+            "modified": "2025-03-21T11:44:26.879674"
+          },
+          "examples": {
+            "type": "directory",
+            "contents": {}
+          },
+          "guias_praticos": {
+            "type": "directory",
+            "contents": {}
+          },
+          "logs": {
+            "type": "directory",
+            "contents": {}
+          },
+          "main.py": {
+            "type": "file",
+            "size": 7630,
+            "modified": "2025-03-21T11:48:33.453306"
+          },
+          "modules": {
+            "type": "directory",
+            "contents": {
+              "atlas": {
+                "type": "directory",
+                "contents": {}
+              },
+              "cronos": {
+                "type": "directory",
+                "contents": {}
+              },
+              "integration": {
+                "type": "directory",
+                "contents": {
+                  "prometheus_grafana_art.py": {
+                    "type": "file",
+                    "size": 18628,
+                    "modified": "2025-03-21T11:49:44.897284"
+                  },
+                  "README.md": {
+                    "type": "file",
+                    "size": 6130,
+                    "modified": "2025-03-21T11:48:55.174961"
+                  },
+                  "rpg_music_bridge.py": {
+                    "type": "file",
+                    "size": 19531,
+                    "modified": "2025-03-21T11:50:18.202428"
+                  },
+                  "__init__.py": {
+                    "type": "file",
+                    "size": 4049,
+                    "modified": "2025-03-21T11:49:03.679461"
+                  }
+                }
+              },
+              "nexus": {
+                "type": "directory",
+                "contents": {}
+              },
+              "perplexity_integration.py": {
+                "type": "file",
+                "size": 12476,
+                "modified": "2025-03-21T11:50:42.400189"
+              },
+              "quantum_tools.py": {
+                "type": "file",
+                "size": 7812,
+                "modified": "2025-03-21T11:51:01.066225"
+              },
+              "__init__.py": {
+                "type": "file",
+                "size": 453,
+                "modified": "2025-03-21T11:48:36.053590"
+              }
+            }
+          },
+          "quantum_prompts": {
+            "type": "directory",
+            "contents": {}
+          },
+          "README.md": {
+            "type": "file",
+            "size": 9714,
+            "modified": "2025-03-21T11:44:43.833975"
+          },
+          "RPG_SYSTEM_SUMMARY.md": {
+            "type": "file",
+            "size": 15314,
+            "modified": "2025-03-21T11:45:44.444114"
+          },
+          "scripts": {
+            "type": "directory",
+            "contents": {}
+          },
+          "services": {
+            "type": "directory",
+            "contents": {}
+          },
+          "src": {
+            "type": "directory",
+            "contents": {
+              "os_core.py": {
+                "type": "file",
+                "size": 12607,
+                "modified": "2025-03-20T11:12:19.007339"
+              }
+            }
+          },
+          "system_analysis_20250319_151609.json": {
+            "type": "file",
+            "size": 11322,
+            "modified": "2025-03-21T11:51:39.431151"
+          },
+          "system_analysis_20250319_151609.md": {
+            "type": "file",
+            "size": 2154,
+            "modified": "2025-03-21T11:51:45.683609"
+          },
+          "SYSTEM_ANALYSIS_SUMMARY.md": {
+            "type": "file",
+            "size": 7902,
+            "modified": "2025-03-21T11:46:02.029259"
+          },
+          "system_log_2025-03-03.jsonl": {
+            "type": "file",
+            "size": 17834,
+            "modified": "2025-03-03T21:51:01.438118"
+          },
+          "__main__.py": {
+            "type": "file",
+            "size": 5815,
+            "modified": "2025-03-21T11:46:16.325058"
+          }
+        }
+      },
+      "quantum_approval_ui.py": {
+        "type": "file",
+        "size": 23638,
+        "modified": "2025-03-22T07:57:48.487467"
+      },
+      "quantum_changelog.py": {
+        "type": "file",
+        "size": 32265,
+        "modified": "2025-03-22T08:38:26.443344"
+      },
+      "quantum_mycelium.py": {
+        "type": "file",
+        "size": 34155,
+        "modified": "2025-03-22T08:36:50.790943"
+      },
+      "quantum_utils.py": {
+        "type": "file",
+        "size": 19678,
+        "modified": "2025-03-22T08:17:09.522959"
+      },
+      "README.md": {
+        "type": "file",
+        "size": 4391,
+        "modified": "2025-03-21T13:43:10.974597"
+      },
+      "src": {
+        "type": "directory",
+        "contents": {
+          ".git": {
+            "type": "directory",
+            "contents": {
+              "COMMIT_EDITMSG": {
+                "type": "file",
+                "size": 10169,
+                "modified": "2025-02-26T08:16:20.070236"
+              },
+              "config": {
+                "type": "file",
+                "size": 309,
+                "modified": "2025-02-26T08:18:40.738113"
+              },
+              "description": {
+                "type": "file",
+                "size": 73,
+                "modified": "2025-02-22T21:57:02.613755"
+              },
+              "FETCH_HEAD": {
+                "type": "file",
+                "size": 219,
+                "modified": "2025-03-19T17:44:10.277268"
+              },
+              "HEAD": {
+                "type": "file",
+                "size": 23,
+                "modified": "2025-02-22T21:57:02.640621"
+              },
+              "hooks": {
+                "type": "directory",
+                "contents": {}
+              },
+              "index": {
+                "type": "file",
+                "size": 20971,
+                "modified": "2025-02-26T08:13:11.726868"
+              },
+              "info": {
+                "type": "directory",
+                "contents": {}
+              },
+              "logs": {
+                "type": "directory",
+                "contents": {}
+              },
+              "objects": {
+                "type": "directory",
+                "contents": {
+                  "00": {
+                    "type": "directory",
+                    "contents": {
+                      "91430a36b88af4c9e7f7023c38426ba537c891": {
+                        "type": "file",
+                        "size": 711,
+                        "modified": "2025-02-23T00:29:54.184571"
+                      }
+                    }
+                  },
+                  "05": {
+                    "type": "directory",
+                    "contents": {
+                      "32d7efa882cba76aaf444ef2a2fb30bcdb18d4": {
+                        "type": "file",
+                        "size": 129,
+                        "modified": "2025-02-26T08:13:11.596550"
+                      },
+                      "73c0ad487ce9b8764f04fcbfca798b61053316": {
+                        "type": "file",
+                        "size": 699,
+                        "modified": "2025-03-01T17:09:38.395133"
+                      }
+                    }
+                  },
+                  "06": {
+                    "type": "directory",
+                    "contents": {
+                      "8597c4f80bcf67fb9352243112c39b1f64a95d": {
+                        "type": "file",
+                        "size": 2086,
+                        "modified": "2025-03-01T17:09:38.635939"
+                      },
+                      "f2aa7de2a26f1a55f24efe5f7608c0d5f73dcc": {
+                        "type": "file",
+                        "size": 3331,
+                        "modified": "2025-03-01T17:09:38.716720"
+                      }
+                    }
+                  },
+                  "07": {
+                    "type": "directory",
+                    "contents": {
+                      "f0a4d403fa8fcad8ed1fdfd2b636771fd33864": {
+                        "type": "file",
+                        "size": 2742,
+                        "modified": "2025-02-23T00:29:54.141820"
+                      }
+                    }
+                  },
+                  "09": {
+                    "type": "directory",
+                    "contents": {
+                      "3e2cc486119315628bef5d9dd926a0e64f285c": {
+                        "type": "file",
+                        "size": 228,
+                        "modified": "2025-02-25T15:13:20.379163"
+                      },
+                      "94b04f14110cfc6c1f468b1258d5380e4d2bc6": {
+                        "type": "file",
+                        "size": 148,
+                        "modified": "2025-02-26T08:13:10.982553"
+                      },
+                      "95ead9dd6506d1b11a855834b3d71a170d4a10": {
+                        "type": "file",
+                        "size": 323,
+                        "modified": "2025-03-01T17:09:38.271457"
+                      },
+                      "c91a82ce0b3a2f103c9572a04a2c22c3d64991": {
+                        "type": "file",
+                        "size": 298,
+                        "modified": "2025-02-26T08:13:11.139892"
+                      },
+                      "f6669d1b84d6bdfd8c529e8d6d681f4b67829b": {
+                        "type": "file",
+                        "size": 657,
+                        "modified": "2025-02-25T15:13:20.342213"
+                      }
+                    }
+                  },
+                  "0a": {
+                    "type": "directory",
+                    "contents": {
+                      "a2ca637876146129bc4f27b74c689ace9d3646": {
+                        "type": "file",
+                        "size": 2745,
+                        "modified": "2025-02-26T08:13:11.317121"
+                      }
+                    }
+                  },
+                  "0c": {
+                    "type": "directory",
+                    "contents": {
+                      "2bbcdfe142553e9978178154d8c501366081d4": {
+                        "type": "file",
+                        "size": 712,
+                        "modified": "2025-02-25T15:13:20.432049"
+                      }
+                    }
+                  },
+                  "0f": {
+                    "type": "directory",
+                    "contents": {
+                      "3b809e7cc07ab9868ad38551460c82f26bd5a9": {
+                        "type": "file",
+                        "size": 276,
+                        "modified": "2025-02-26T08:13:11.053651"
+                      },
+                      "4a175bab45bbdcab2ea349e53ea213bb229bea": {
+                        "type": "file",
+                        "size": 2052,
+                        "modified": "2025-02-25T15:13:20.405729"
+                      },
+                      "7d4f36bb5e117d34e27328ba4899789afa0de1": {
+                        "type": "file",
+                        "size": 525,
+                        "modified": "2025-02-25T15:13:20.514736"
+                      },
+                      "fa033a3e539df44db2c162d04ca004423cd539": {
+                        "type": "file",
+                        "size": 1291,
+                        "modified": "2025-02-22T23:29:07.687068"
+                      }
+                    }
+                  },
+                  "10": {
+                    "type": "directory",
+                    "contents": {
+                      "2c8f406ae04ecde8237ca3c84faf336b2a8717": {
+                        "type": "file",
+                        "size": 91,
+                        "modified": "2025-03-01T17:09:38.728514"
+                      }
+                    }
+                  },
+                  "11": {
+                    "type": "directory",
+                    "contents": {
+                      "1b151102c7556500c1d0cbaa3d1a4a09ecd469": {
+                        "type": "file",
+                        "size": 194,
+                        "modified": "2025-02-23T00:29:54.134942"
+                      },
+                      "269dc420256723ff252c49f197ed1f97fb0598": {
+                        "type": "file",
+                        "size": 2590,
+                        "modified": "2025-02-25T15:13:20.510738"
+                      },
+                      "684cc11a5d26e6368cd0c78a4514677a67a762": {
+                        "type": "file",
+                        "size": 885,
+                        "modified": "2025-02-25T15:13:20.439167"
+                      },
+                      "81870d846a31d3b5d03081a630be2ae3d385d6": {
+                        "type": "file",
+                        "size": 70,
+                        "modified": "2025-02-26T08:13:11.492176"
+                      }
+                    }
+                  },
+                  "13": {
+                    "type": "directory",
+                    "contents": {
+                      "61c80bb58eacd654bc4320710411baaae5a7a7": {
+                        "type": "file",
+                        "size": 949,
+                        "modified": "2025-02-25T15:13:20.721325"
+                      }
+                    }
+                  },
+                  "14": {
+                    "type": "directory",
+                    "contents": {
+                      "f7fc3d4b971ab1a7363b45362866aafc7e2935": {
+                        "type": "file",
+                        "size": 663,
+                        "modified": "2025-02-24T14:03:55.621083"
+                      }
+                    }
+                  },
+                  "15": {
+                    "type": "directory",
+                    "contents": {
+                      "0323b4d236113733f7093a3c7333c8f27d2d62": {
+                        "type": "file",
+                        "size": 191,
+                        "modified": "2025-02-26T08:13:10.934797"
+                      }
+                    }
+                  },
+                  "16": {
+                    "type": "directory",
+                    "contents": {
+                      "04b42b440cddc29b9d036b7c77bd3ad77e94fc": {
+                        "type": "file",
+                        "size": 2551,
+                        "modified": "2025-02-26T08:13:11.251568"
+                      },
+                      "cd896f35b887ecbbb71b098c3c3991dec97045": {
+                        "type": "file",
+                        "size": 4484,
+                        "modified": "2025-02-25T15:13:20.384381"
+                      }
+                    }
+                  },
+                  "17": {
+                    "type": "directory",
+                    "contents": {
+                      "02da3d5c841bae650f24fc226709a5d0349587": {
+                        "type": "file",
+                        "size": 178,
+                        "modified": "2025-02-24T14:59:51.472232"
+                      },
+                      "048d64eeb1fe0907fc85787f1ea95a0835421e": {
+                        "type": "file",
+                        "size": 1745,
+                        "modified": "2025-02-26T08:13:11.255833"
+                      },
+                      "4f5491fad2a2298055c43931a0aa2b155d423d": {
+                        "type": "file",
+                        "size": 5271,
+                        "modified": "2025-02-26T08:13:11.109233"
+                      }
+                    }
+                  },
+                  "1a": {
+                    "type": "directory",
+                    "contents": {
+                      "3813573331be90fb08afcf972171a276dacb96": {
+                        "type": "file",
+                        "size": 90,
+                        "modified": "2025-03-01T17:09:38.722514"
+                      },
+                      "5696ad27570cf23ad5bdb5d2ce1ad8f43fae4b": {
+                        "type": "file",
+                        "size": 7390,
+                        "modified": "2025-03-01T17:09:38.887227"
+                      }
+                    }
+                  },
+                  "1c": {
+                    "type": "directory",
+                    "contents": {
+                      "934fe121288539f7a0aa80b31d5fd8b7e2d508": {
+                        "type": "file",
+                        "size": 104,
+                        "modified": "2025-03-01T17:09:38.466798"
+                      }
+                    }
+                  },
+                  "1d": {
+                    "type": "directory",
+                    "contents": {
+                      "4823c2433f1839817a6c81449b1e71ab29e3ae": {
+                        "type": "file",
+                        "size": 209,
+                        "modified": "2025-02-26T08:13:10.926219"
+                      }
+                    }
+                  },
+                  "20": {
+                    "type": "directory",
+                    "contents": {
+                      "fbc5d0100b9257b036c807fc3a9f1e9453e8b6": {
+                        "type": "file",
+                        "size": 245,
+                        "modified": "2025-02-26T16:12:47.083056"
+                      }
+                    }
+                  },
+                  "21": {
+                    "type": "directory",
+                    "contents": {
+                      "76921fd5465bd6f21b0c1b3551d6c87b3551fa": {
+                        "type": "file",
+                        "size": 52,
+                        "modified": "2025-02-23T00:29:54.225101"
+                      }
+                    }
+                  },
+                  "22": {
+                    "type": "directory",
+                    "contents": {
+                      "69ad61f431797a4c53636c2f00f793f336ad03": {
+                        "type": "file",
+                        "size": 56,
+                        "modified": "2025-02-25T15:20:29.046117"
+                      },
+                      "f9c36c9acce3a1b105f8337d30ab7051f5190f": {
+                        "type": "file",
+                        "size": 4025,
+                        "modified": "2025-02-25T15:13:20.451487"
+                      }
+                    }
+                  },
+                  "25": {
+                    "type": "directory",
+                    "contents": {
+                      "b4e0232589b7c20a36484a540d5312468b479e": {
+                        "type": "file",
+                        "size": 1796,
+                        "modified": "2025-02-26T08:13:11.003240"
+                      }
+                    }
+                  },
+                  "26": {
+                    "type": "directory",
+                    "contents": {
+                      "34cf053032179f1e9bc70a5f79c5db5ab10c38": {
+                        "type": "file",
+                        "size": 1481,
+                        "modified": "2025-02-26T08:13:11.217900"
+                      }
+                    }
+                  },
+                  "27": {
+                    "type": "directory",
+                    "contents": {
+                      "28d9aab582c4f4cca3de43475bfc7f7145db27": {
+                        "type": "file",
+                        "size": 559,
+                        "modified": "2025-02-24T14:59:51.482830"
+                      }
+                    }
+                  },
+                  "28": {
+                    "type": "directory",
+                    "contents": {
+                      "81ae52763b2d13bf0c75e76659fea8df0646f0": {
+                        "type": "file",
+                        "size": 158,
+                        "modified": "2025-03-01T17:09:38.663925"
+                      },
+                      "f09088929ff5d6ded1aab3ad51477b0bf08314": {
+                        "type": "file",
+                        "size": 55,
+                        "modified": "2025-03-01T17:09:38.372632"
+                      }
+                    }
+                  },
+                  "29": {
+                    "type": "directory",
+                    "contents": {
+                      "46bc41aa45cdacc84dc7c9e5a448a76fbf91da": {
+                        "type": "file",
+                        "size": 1147,
+                        "modified": "2025-02-24T14:59:51.501081"
+                      },
+                      "99018a9fbddd86177cb3b4e3786020ac75f5e4": {
+                        "type": "file",
+                        "size": 58,
+                        "modified": "2025-02-25T15:13:20.713342"
+                      }
+                    }
+                  },
+                  "2a": {
+                    "type": "directory",
+                    "contents": {
+                      "e8b7a6cc255180f9b11a02f162aec1ca14ab29": {
+                        "type": "file",
+                        "size": 1437,
+                        "modified": "2025-02-26T08:13:11.654806"
+                      }
+                    }
+                  },
+                  "2b": {
+                    "type": "directory",
+                    "contents": {
+                      "4948222e639c44541ef36501086e786db5129b": {
+                        "type": "file",
+                        "size": 13160,
+                        "modified": "2025-02-26T08:13:11.148277"
+                      }
+                    }
+                  },
+                  "2c": {
+                    "type": "directory",
+                    "contents": {
+                      "dcfb92e9821b1d9b6ad56c3d5404012849496d": {
+                        "type": "file",
+                        "size": 3668,
+                        "modified": "2025-03-01T17:09:38.881225"
+                      }
+                    }
+                  },
+                  "2d": {
+                    "type": "directory",
+                    "contents": {
+                      "63522ab16204cdce8870d487771e22b603ae64": {
+                        "type": "file",
+                        "size": 1055,
+                        "modified": "2025-02-26T08:13:11.328284"
+                      },
+                      "e30027cfb1bb302098adaad3633a17a306353f": {
+                        "type": "file",
+                        "size": 8253,
+                        "modified": "2025-03-01T17:09:38.877223"
+                      }
+                    }
+                  },
+                  "2e": {
+                    "type": "directory",
+                    "contents": {
+                      "162bd519a2deab409c3de2388a927d9823680a": {
+                        "type": "file",
+                        "size": 3338,
+                        "modified": "2025-02-24T14:59:51.505897"
+                      }
+                    }
+                  },
+                  "31": {
+                    "type": "directory",
+                    "contents": {
+                      "52274155d35ed7b480cabcd0f27e78d0bc2cfd": {
+                        "type": "file",
+                        "size": 54,
+                        "modified": "2025-02-23T00:29:54.213886"
+                      },
+                      "d08322545e32d0571452a0cf9aec31bf10ef7b": {
+                        "type": "file",
+                        "size": 194,
+                        "modified": "2025-02-22T23:29:07.679146"
+                      },
+                      "f6782cffdb9e52b2b872939ef154f5703c5410": {
+                        "type": "file",
+                        "size": 90,
+                        "modified": "2025-02-26T08:13:11.702271"
+                      }
+                    }
+                  },
+                  "33": {
+                    "type": "directory",
+                    "contents": {
+                      "62c65d6964706b8786fab1e0408fab80d10655": {
+                        "type": "file",
+                        "size": 93,
+                        "modified": "2025-02-26T08:13:11.606564"
+                      },
+                      "8c5b23be36b2c21b80849c8f4b63ea796d6d9b": {
+                        "type": "file",
+                        "size": 1697,
+                        "modified": "2025-02-24T14:03:55.598112"
+                      },
+                      "b0d99d671746783ab80c3c1db1c73246543d5a": {
+                        "type": "file",
+                        "size": 277,
+                        "modified": "2025-02-25T15:20:29.030922"
+                      }
+                    }
+                  },
+                  "35": {
+                    "type": "directory",
+                    "contents": {
+                      "2fd88e7e6ff6bdd38b9d0f2eac33c31e70a867": {
+                        "type": "file",
+                        "size": 163,
+                        "modified": "2025-02-26T08:13:11.036430"
+                      }
+                    }
+                  },
+                  "36": {
+                    "type": "directory",
+                    "contents": {
+                      "72cddb82d567c7e31f0dbea0b9c86807e71ae1": {
+                        "type": "file",
+                        "size": 1207,
+                        "modified": "2025-02-24T14:03:55.627285"
+                      }
+                    }
+                  },
+                  "38": {
+                    "type": "directory",
+                    "contents": {
+                      "13a4a75efaa6d3875a48ea70470fd35f4ba65e": {
+                        "type": "file",
+                        "size": 13232,
+                        "modified": "2025-02-26T08:13:11.161169"
+                      }
+                    }
+                  },
+                  "39": {
+                    "type": "directory",
+                    "contents": {
+                      "de72279733e516b123c712bd261bba27213d06": {
+                        "type": "file",
+                        "size": 4223,
+                        "modified": "2025-02-26T08:13:11.069303"
+                      }
+                    }
+                  },
+                  "3a": {
+                    "type": "directory",
+                    "contents": {
+                      "891641c9bf02f59aac5934160315149d43b99f": {
+                        "type": "file",
+                        "size": 1686,
+                        "modified": "2025-02-26T08:13:11.266901"
+                      },
+                      "8ea47b1b501706edd8cbf55521906e058c5b1a": {
+                        "type": "file",
+                        "size": 1659,
+                        "modified": "2025-02-24T14:03:55.624948"
+                      },
+                      "90493115908c424a355ddba33233ea4bfb0ec9": {
+                        "type": "file",
+                        "size": 249,
+                        "modified": "2025-02-26T08:13:11.181158"
+                      },
+                      "f332e6ce1fcc7060e57f9f990e87f802a5c19f": {
+                        "type": "file",
+                        "size": 2396,
+                        "modified": "2025-02-25T15:13:20.423325"
+                      }
+                    }
+                  },
+                  "3d": {
+                    "type": "directory",
+                    "contents": {
+                      "3f8516c2890f35bbe05a04a6cbebad0b19cc75": {
+                        "type": "file",
+                        "size": 246,
+                        "modified": "2025-02-24T14:59:51.522016"
+                      }
+                    }
+                  },
+                  "40": {
+                    "type": "directory",
+                    "contents": {
+                      "8c2d402d9f04e22a5cdae2910b39c0e8a18308": {
+                        "type": "file",
+                        "size": 3537,
+                        "modified": "2025-03-01T17:09:38.631388"
+                      }
+                    }
+                  },
+                  "41": {
+                    "type": "directory",
+                    "contents": {
+                      "c472d56eb0bd4bf6e1c4f0a88e390f7923b23e": {
+                        "type": "file",
+                        "size": 2262,
+                        "modified": "2025-02-26T08:13:11.200011"
+                      }
+                    }
+                  },
+                  "42": {
+                    "type": "directory",
+                    "contents": {
+                      "93c8fe9574b928c623fec8c0c0813a07753bbc": {
+                        "type": "file",
+                        "size": 1928,
+                        "modified": "2025-02-25T15:13:20.473940"
+                      }
+                    }
+                  },
+                  "43": {
+                    "type": "directory",
+                    "contents": {
+                      "cde5e0de303e9ddfdc978717785426103fcfab": {
+                        "type": "file",
+                        "size": 3639,
+                        "modified": "2025-02-26T08:13:11.294481"
+                      }
+                    }
+                  },
+                  "46": {
+                    "type": "directory",
+                    "contents": {
+                      "6832160c5b2befecdbb52243620cf45a7c3a5b": {
+                        "type": "file",
+                        "size": 1068,
+                        "modified": "2025-02-26T08:13:11.074084"
+                      },
+                      "80928f480efd5c348144b786d989a4920f9041": {
+                        "type": "file",
+                        "size": 908,
+                        "modified": "2025-02-26T08:13:11.091671"
+                      }
+                    }
+                  },
+                  "47": {
+                    "type": "directory",
+                    "contents": {
+                      "42dd0e2f0f59d531f446dbe386b6b0088f25e2": {
+                        "type": "file",
+                        "size": 3892,
+                        "modified": "2025-02-25T15:13:20.499357"
+                      }
+                    }
+                  },
+                  "48": {
+                    "type": "directory",
+                    "contents": {
+                      "4362495cb35508c0b7fb01726e12dd3512ed22": {
+                        "type": "file",
+                        "size": 726,
+                        "modified": "2025-03-01T17:09:38.541219"
+                      }
+                    }
+                  },
+                  "4a": {
+                    "type": "directory",
+                    "contents": {
+                      "036cf1590b26e6e68ae2d8995df27c3f4e43db": {
+                        "type": "file",
+                        "size": 558,
+                        "modified": "2025-02-26T08:16:20.150544"
+                      },
+                      "09c92604a92a1553cf36456f53b83fb5694051": {
+                        "type": "file",
+                        "size": 6995,
+                        "modified": "2025-03-01T17:09:38.458778"
+                      },
+                      "ccf2c674aada6364d60baa6dd5adda074dd35a": {
+                        "type": "file",
+                        "size": 475,
+                        "modified": "2025-02-26T08:13:10.987315"
+                      }
+                    }
+                  },
+                  "4b": {
+                    "type": "directory",
+                    "contents": {
+                      "5787b3ab9693f3b0d6607b3276c6148f50751d": {
+                        "type": "file",
+                        "size": 200,
+                        "modified": "2025-02-26T08:13:11.590678"
+                      },
+                      "6f18e54324300bd3e04258f28e72409d1adead": {
+                        "type": "file",
+                        "size": 92,
+                        "modified": "2025-03-01T17:09:38.390132"
+                      },
+                      "92003aadea9a78e7c089c7aca3d6dcd6bd826e": {
+                        "type": "file",
+                        "size": 863,
+                        "modified": "2025-02-26T08:13:11.724370"
+                      },
+                      "f9560ff257de995a2afb4445090ede741bbf0a": {
+                        "type": "file",
+                        "size": 59,
+                        "modified": "2025-02-23T00:29:54.199392"
+                      }
+                    }
+                  },
+                  "4c": {
+                    "type": "directory",
+                    "contents": {
+                      "595cdf4575baa7ab2761700ca67df089b8c8ea": {
+                        "type": "file",
+                        "size": 551,
+                        "modified": "2025-03-01T17:09:38.286344"
+                      }
+                    }
+                  },
+                  "4d": {
+                    "type": "directory",
+                    "contents": {
+                      "01e58d20d1ff24e8bfaac78f6bad42f66e857d": {
+                        "type": "file",
+                        "size": 273,
+                        "modified": "2025-02-26T08:13:11.172782"
+                      },
+                      "34aa1d0cad9a1afa610e76d9457dc4e929513f": {
+                        "type": "file",
+                        "size": 4596,
+                        "modified": "2025-03-01T17:09:38.328767"
+                      }
+                    }
+                  },
+                  "4e": {
+                    "type": "directory",
+                    "contents": {
+                      "bb7c2607a33853b862b8ee1ad5c8995c3e3372": {
+                        "type": "file",
+                        "size": 5631,
+                        "modified": "2025-03-01T17:09:38.561810"
+                      },
+                      "be3a2de4084273f7adde60cf80589cfdc47921": {
+                        "type": "file",
+                        "size": 1506,
+                        "modified": "2025-03-01T17:09:38.658810"
+                      },
+                      "cddf112bceac46354a11e9a99b5f671e3c2e82": {
+                        "type": "file",
+                        "size": 172,
+                        "modified": "2025-02-25T15:13:20.505880"
+                      }
+                    }
+                  },
+                  "4f": {
+                    "type": "directory",
+                    "contents": {
+                      "9388db9f56fe8c631e04c4a827e50429b92e4f": {
+                        "type": "file",
+                        "size": 64,
+                        "modified": "2025-02-26T08:13:11.674438"
+                      }
+                    }
+                  },
+                  "51": {
+                    "type": "directory",
+                    "contents": {
+                      "adba53a086f7bba689955e85d136a4ca61a42c": {
+                        "type": "file",
+                        "size": 64,
+                        "modified": "2025-02-26T08:13:11.696187"
+                      },
+                      "afc800b32b28129fdf392ed83e41b0a99b7c8f": {
+                        "type": "file",
+                        "size": 252,
+                        "modified": "2025-02-26T08:13:11.059843"
+                      },
+                      "e2d94c378243a1b44cbb34bbfbcd9cd1c345e3": {
+                        "type": "file",
+                        "size": 3376,
+                        "modified": "2025-02-25T15:13:20.419243"
+                      }
+                    }
+                  },
+                  "52": {
+                    "type": "directory",
+                    "contents": {
+                      "14ccc1074df9ff672c6995686d938c9db8b7ef": {
+                        "type": "file",
+                        "size": 224,
+                        "modified": "2025-02-26T08:13:11.588279"
+                      },
+                      "cab141bb60dafdf378c2a2eb2477c35a4eaa71": {
+                        "type": "file",
+                        "size": 1426,
+                        "modified": "2025-02-26T08:13:11.271792"
+                      }
+                    }
+                  },
+                  "53": {
+                    "type": "directory",
+                    "contents": {
+                      "6c4dbab522e9117d7ebdbb5419170199e15bfd": {
+                        "type": "file",
+                        "size": 3507,
+                        "modified": "2025-02-24T14:03:55.579752"
+                      }
+                    }
+                  },
+                  "54": {
+                    "type": "directory",
+                    "contents": {
+                      "4c778016a763419b7aa239734793412c40a33a": {
+                        "type": "file",
+                        "size": 1727,
+                        "modified": "2025-02-26T08:13:11.255833"
+                      },
+                      "7b2abcc0e6c06bef5365dc553cc19453b33020": {
+                        "type": "file",
+                        "size": 94,
+                        "modified": "2025-02-26T08:13:11.692668"
+                      },
+                      "ccd7bb0d99ce1b081fc72bc3077947bb4015fb": {
+                        "type": "file",
+                        "size": 1434,
+                        "modified": "2025-02-26T08:13:11.328284"
+                      }
+                    }
+                  },
+                  "55": {
+                    "type": "directory",
+                    "contents": {
+                      "3eaeb9fe066a7e76bd9cf3723b9583dcf2366b": {
+                        "type": "file",
+                        "size": 296,
+                        "modified": "2025-02-26T08:13:11.118283"
+                      },
+                      "5c10893165d52b69863a84c1d04f1f1d50a896": {
+                        "type": "file",
+                        "size": 1064,
+                        "modified": "2025-02-24T14:03:55.587233"
+                      }
+                    }
+                  },
+                  "56": {
+                    "type": "directory",
+                    "contents": {
+                      "9a7324e26f256c3ee2bdd15423c7e0c9d99f4f": {
+                        "type": "file",
+                        "size": 647,
+                        "modified": "2025-02-23T00:29:54.202354"
+                      },
+                      "a1a22bd1fb1d8d593890c4a1ea14b7117b3479": {
+                        "type": "file",
+                        "size": 364,
+                        "modified": "2025-03-01T17:09:38.481447"
+                      },
+                      "c7a84e31ede819b461482a3811f0b95ad18832": {
+                        "type": "file",
+                        "size": 52,
+                        "modified": "2025-02-26T08:13:11.606564"
+                      }
+                    }
+                  },
+                  "58": {
+                    "type": "directory",
+                    "contents": {
+                      "34c89e1df1aab29a5fd151e50129260aa4fd45": {
+                        "type": "file",
+                        "size": 713,
+                        "modified": "2025-02-25T15:13:20.534118"
+                      },
+                      "fe2f1674a5f76040698c3d13457f8758e92398": {
+                        "type": "file",
+                        "size": 872,
+                        "modified": "2025-02-26T08:13:11.164697"
+                      }
+                    }
+                  },
+                  "5a": {
+                    "type": "directory",
+                    "contents": {
+                      "8c302c1e25003278acf2eaf2d8755a6c7f24f4": {
+                        "type": "file",
+                        "size": 1761,
+                        "modified": "2025-02-23T00:29:54.176000"
+                      }
+                    }
+                  },
+                  "5b": {
+                    "type": "directory",
+                    "contents": {
+                      "17daca5d171daa65d504b618eee1184c6f3c14": {
+                        "type": "file",
+                        "size": 79,
+                        "modified": "2025-02-26T08:13:11.283569"
+                      },
+                      "fd1dd8d9318ec154b34fb744ba0ed990e74448": {
+                        "type": "file",
+                        "size": 3857,
+                        "modified": "2025-03-01T17:09:38.476448"
+                      }
+                    }
+                  },
+                  "5c": {
+                    "type": "directory",
+                    "contents": {
+                      "6089bbf7c1868ee15a9f60a0a523acd4aa19a4": {
+                        "type": "file",
+                        "size": 3813,
+                        "modified": "2025-03-01T17:09:38.649473"
+                      }
+                    }
+                  },
+                  "5d": {
+                    "type": "directory",
+                    "contents": {
+                      "8de2bf141f3e7c492ec4b092035f81539cf3fe": {
+                        "type": "file",
+                        "size": 66,
+                        "modified": "2025-03-01T17:09:38.818566"
+                      },
+                      "db95932e1d40a0a419e4416465509d019249cc": {
+                        "type": "file",
+                        "size": 56,
+                        "modified": "2025-03-01T17:09:38.745141"
+                      }
+                    }
+                  },
+                  "60": {
+                    "type": "directory",
+                    "contents": {
+                      "78dd852b715255c3dced8ed5650fa28bba845e": {
+                        "type": "file",
+                        "size": 886,
+                        "modified": "2025-02-24T14:03:55.584624"
+                      }
+                    }
+                  },
+                  "61": {
+                    "type": "directory",
+                    "contents": {
+                      "5b885f6731d3f3274265fce30a82bcc2db717e": {
+                        "type": "file",
+                        "size": 395,
+                        "modified": "2025-02-23T00:29:54.182512"
+                      }
+                    }
+                  },
+                  "62": {
+                    "type": "directory",
+                    "contents": {
+                      "1d03a6f5396b20ba15423adbbc924a37fc9556": {
+                        "type": "file",
+                        "size": 677,
+                        "modified": "2025-02-25T15:13:20.397603"
+                      },
+                      "283da448376f2378648b19e4366f2b8a8d31b6": {
+                        "type": "file",
+                        "size": 90,
+                        "modified": "2025-03-01T17:09:38.333769"
+                      },
+                      "2af00f4087ec7bb7f8b78030a8e5d382678b2c": {
+                        "type": "file",
+                        "size": 90,
+                        "modified": "2025-02-26T08:13:11.679482"
+                      }
+                    }
+                  },
+                  "63": {
+                    "type": "directory",
+                    "contents": {
+                      "d0119ed7bd136f1e0e3c6ab26021b22eb10e57": {
+                        "type": "file",
+                        "size": 151,
+                        "modified": "2025-03-01T17:09:38.594448"
+                      }
+                    }
+                  },
+                  "64": {
+                    "type": "directory",
+                    "contents": {
+                      "e012f7064d66b663867e7b12c665103ef6be8b": {
+                        "type": "file",
+                        "size": 2950,
+                        "modified": "2025-03-01T17:09:38.279012"
+                      }
+                    }
+                  },
+                  "65": {
+                    "type": "directory",
+                    "contents": {
+                      "0b13a2283abe74ffe412a7592225d27ca5fcaf": {
+                        "type": "file",
+                        "size": 52,
+                        "modified": "2025-03-01T17:09:38.294374"
+                      },
+                      "626407de6f227613aaa65242bb3f260384b528": {
+                        "type": "file",
+                        "size": 1210,
+                        "modified": "2025-02-23T00:29:54.184571"
+                      },
+                      "a92c63581cfea60cfbe0fe721f2ba17ad5e23b": {
+                        "type": "file",
+                        "size": 604,
+                        "modified": "2025-03-01T17:09:38.290374"
+                      }
+                    }
+                  },
+                  "66": {
+                    "type": "directory",
+                    "contents": {
+                      "313ed9bffd7aad1e437b15eb2b95d96d4bee0e": {
+                        "type": "file",
+                        "size": 329,
+                        "modified": "2025-02-26T08:13:11.708428"
+                      },
+                      "4ac0a5ed23f85c8e935e58010e813c7a76e315": {
+                        "type": "file",
+                        "size": 3001,
+                        "modified": "2025-02-26T08:13:11.310884"
+                      }
+                    }
+                  },
+                  "67": {
+                    "type": "directory",
+                    "contents": {
+                      "881e9602a6d037e05a572f5a0b8c61f54cae0c": {
+                        "type": "file",
+                        "size": 60,
+                        "modified": "2025-02-26T08:13:11.526562"
+                      },
+                      "8f984dad9c6b22583a2f14a35528ea372cf097": {
+                        "type": "file",
+                        "size": 1462,
+                        "modified": "2025-02-26T08:13:10.994066"
+                      },
+                      "f08cbaaaa2f902e45e5804648d4d5a97d3d6f4": {
+                        "type": "file",
+                        "size": 117,
+                        "modified": "2025-02-26T08:13:11.716488"
+                      }
+                    }
+                  },
+                  "68": {
+                    "type": "directory",
+                    "contents": {
+                      "5a2f0996ee6acc8406c05926e5c89f9fc6245c": {
+                        "type": "file",
+                        "size": 4548,
+                        "modified": "2025-03-01T17:09:38.854812"
+                      },
+                      "cb1add7b0fd0da188470d630092f09ebd1f888": {
+                        "type": "file",
+                        "size": 3185,
+                        "modified": "2025-03-01T17:09:38.534442"
+                      }
+                    }
+                  },
+                  "6a": {
+                    "type": "directory",
+                    "contents": {
+                      "26ed43c672cc6ca9bd4c58767e0a4743187187": {
+                        "type": "file",
+                        "size": 479,
+                        "modified": "2025-02-26T08:13:11.580632"
+                      }
+                    }
+                  },
+                  "6b": {
+                    "type": "directory",
+                    "contents": {
+                      "2d0f8429e62b144d637ee15396fbb2f369099a": {
+                        "type": "file",
+                        "size": 2955,
+                        "modified": "2025-02-26T08:13:11.080923"
+                      }
+                    }
+                  },
+                  "6c": {
+                    "type": "directory",
+                    "contents": {
+                      "79451137460a0b66004f0d1e4ef7b7c25d2307": {
+                        "type": "file",
+                        "size": 1855,
+                        "modified": "2025-02-26T08:13:11.263697"
+                      }
+                    }
+                  },
+                  "6d": {
+                    "type": "directory",
+                    "contents": {
+                      "3ad57afc49532e41e6e929c32993903f68faaf": {
+                        "type": "file",
+                        "size": 57,
+                        "modified": "2025-02-25T15:13:20.669525"
+                      }
+                    }
+                  },
+                  "6e": {
+                    "type": "directory",
+                    "contents": {
+                      "64297dc9d3e571ad4cb208ed7b25e8be9cb1db": {
+                        "type": "file",
+                        "size": 701,
+                        "modified": "2025-02-25T15:13:20.730150"
+                      },
+                      "e878b0baf22a09aefda8d3fa3cef3d1e9fbdeb": {
+                        "type": "file",
+                        "size": 3563,
+                        "modified": "2025-03-01T17:09:38.553808"
+                      },
+                      "f1675bf883cc0ac8458fe0985c70736f104bba": {
+                        "type": "file",
+                        "size": 8047,
+                        "modified": "2025-03-01T17:09:38.346241"
+                      }
+                    }
+                  },
+                  "6f": {
+                    "type": "directory",
+                    "contents": {
+                      "9cb75eabfc83e92f777086df97c922045707d6": {
+                        "type": "file",
+                        "size": 1996,
+                        "modified": "2025-02-25T15:13:20.486699"
+                      }
+                    }
+                  },
+                  "70": {
+                    "type": "directory",
+                    "contents": {
+                      "1fde6e03b8c1ba3470fa00784192450efef8bf": {
+                        "type": "file",
+                        "size": 1930,
+                        "modified": "2025-02-25T15:13:20.444293"
+                      }
+                    }
+                  },
+                  "73": {
+                    "type": "directory",
+                    "contents": {
+                      "92352ec0f8cb5eef881b1056a4633cd8338774": {
+                        "type": "file",
+                        "size": 63,
+                        "modified": "2025-03-01T17:09:38.871248"
+                      }
+                    }
+                  },
+                  "74": {
+                    "type": "directory",
+                    "contents": {
+                      "144850b2989802e330a7de11cb289adda084ff": {
+                        "type": "file",
+                        "size": 281,
+                        "modified": "2025-02-25T15:13:20.331531"
+                      }
+                    }
+                  },
+                  "75": {
+                    "type": "directory",
+                    "contents": {
+                      "997be7e8130e5f5c1b84c3c5269b9670d25d40": {
+                        "type": "file",
+                        "size": 908,
+                        "modified": "2025-02-26T08:13:11.186306"
+                      },
+                      "e4f3dda55bc9d5cf779903670c846c5d821a92": {
+                        "type": "file",
+                        "size": 827,
+                        "modified": "2025-02-25T15:13:20.347746"
+                      }
+                    }
+                  },
+                  "76": {
+                    "type": "directory",
+                    "contents": {
+                      "1a598708c23c86b83f04ccbe1448f42cd48341": {
+                        "type": "file",
+                        "size": 3474,
+                        "modified": "2025-03-01T17:09:38.378634"
+                      },
+                      "fe30670f9994b27fa03727c74bb68c7cd34380": {
+                        "type": "file",
+                        "size": 101,
+                        "modified": "2025-02-26T08:13:11.543334"
+                      }
+                    }
+                  },
+                  "77": {
+                    "type": "directory",
+                    "contents": {
+                      "29719d01d0a0843d186ab66599d4de02aefd1f": {
+                        "type": "file",
+                        "size": 1576,
+                        "modified": "2025-02-24T14:59:51.510700"
+                      },
+                      "af50a9fd414f9d5e594a3524e0a84b234ed175": {
+                        "type": "file",
+                        "size": 1341,
+                        "modified": "2025-02-26T08:13:11.287935"
+                      },
+                      "b29f283e6e0e375114747299fbfc6223e48b42": {
+                        "type": "file",
+                        "size": 517,
+                        "modified": "2025-02-26T08:13:11.009528"
+                      }
+                    }
+                  },
+                  "79": {
+                    "type": "directory",
+                    "contents": {
+                      "535a6ac2ce2d5f9921a8550fcbfa379ef690d1": {
+                        "type": "file",
+                        "size": 6704,
+                        "modified": "2025-02-25T15:13:20.698629"
+                      }
+                    }
+                  },
+                  "7a": {
+                    "type": "directory",
+                    "contents": {
+                      "5dc67deb790acc8bc3f678139144d1444ad025": {
+                        "type": "file",
+                        "size": 357,
+                        "modified": "2025-02-25T15:13:20.318283"
+                      },
+                      "f6a95129f67566e5c69cff86a5c7f0e357e802": {
+                        "type": "file",
+                        "size": 2543,
+                        "modified": "2025-02-26T08:13:11.324705"
+                      }
+                    }
+                  },
+                  "7b": {
+                    "type": "directory",
+                    "contents": {
+                      "f7b7f6281929a2729f62e5e756c3eef52408e7": {
+                        "type": "file",
+                        "size": 1464,
+                        "modified": "2025-03-01T17:09:38.797218"
+                      }
+                    }
+                  },
+                  "7f": {
+                    "type": "directory",
+                    "contents": {
+                      "7369c52eede2913fd38b05c1519876c4bd29c7": {
+                        "type": "file",
+                        "size": 493,
+                        "modified": "2025-02-25T15:13:20.372825"
+                      },
+                      "83595aa2a049ca9c21b0c10a390c250685e726": {
+                        "type": "file",
+                        "size": 267,
+                        "modified": "2025-02-26T08:13:10.970463"
+                      },
+                      "e48cf91b480a3c42464c19daa84dc5dc083a66": {
+                        "type": "file",
+                        "size": 4268,
+                        "modified": "2025-02-26T08:13:11.164697"
+                      }
+                    }
+                  },
+                  "80": {
+                    "type": "directory",
+                    "contents": {
+                      "4000a6455fa4b57857b5e015d279c2eda1850f": {
+                        "type": "file",
+                        "size": 1992,
+                        "modified": "2025-02-23T00:29:54.180221"
+                      },
+                      "7e906eff924958e7824da2df06256c7b1136da": {
+                        "type": "file",
+                        "size": 731,
+                        "modified": "2025-03-01T17:09:38.451224"
+                      }
+                    }
+                  },
+                  "81": {
+                    "type": "directory",
+                    "contents": {
+                      "43ef7c3771f464a3136e7f2b17f2ae499e2c70": {
+                        "type": "file",
+                        "size": 58,
+                        "modified": "2025-02-26T08:13:11.637118"
+                      }
+                    }
+                  },
+                  "82": {
+                    "type": "directory",
+                    "contents": {
+                      "44a0ff4a9788cbc401bc8793ff0fdd586c719d": {
+                        "type": "file",
+                        "size": 2133,
+                        "modified": "2025-02-26T08:13:11.266901"
+                      },
+                      "9d71ed435109b7c9d1d4e2997d0cc808b1b80d": {
+                        "type": "file",
+                        "size": 117,
+                        "modified": "2025-02-25T15:13:20.638763"
+                      }
+                    }
+                  },
+                  "83": {
+                    "type": "directory",
+                    "contents": {
+                      "13f7c459ddb3fcae5ab282550859a7d4e49fbc": {
+                        "type": "file",
+                        "size": 1159,
+                        "modified": "2025-02-24T14:03:55.592059"
+                      },
+                      "94e622cb3549cc5f12df9aff975a21819740e1": {
+                        "type": "file",
+                        "size": 376,
+                        "modified": "2025-02-26T08:13:11.556192"
+                      }
+                    }
+                  },
+                  "84": {
+                    "type": "directory",
+                    "contents": {
+                      "9d7f53775ea2cd8743c8b3662b3411da28e5d0": {
+                        "type": "file",
+                        "size": 128,
+                        "modified": "2025-02-25T15:13:20.352752"
+                      },
+                      "acff4c9066152c785c93185072a0a2fd78ab14": {
+                        "type": "file",
+                        "size": 444,
+                        "modified": "2025-02-25T15:13:20.543080"
+                      },
+                      "c74f956641efe6d258e91f9b3e628d08828ac4": {
+                        "type": "file",
+                        "size": 53,
+                        "modified": "2025-02-25T15:13:20.362285"
+                      }
+                    }
+                  },
+                  "85": {
+                    "type": "directory",
+                    "contents": {
+                      "07a82827da6a1172a3d6e6fc6f2f227bfbe7cb": {
+                        "type": "file",
+                        "size": 1625,
+                        "modified": "2025-03-01T17:09:38.830420"
+                      }
+                    }
+                  },
+                  "86": {
+                    "type": "directory",
+                    "contents": {
+                      "d0d24d215a6a24775b7421347612738e24ff75": {
+                        "type": "file",
+                        "size": 5263,
+                        "modified": "2025-03-01T17:09:38.861222"
+                      }
+                    }
+                  },
+                  "88": {
+                    "type": "directory",
+                    "contents": {
+                      "0aac5beaf81e9bdf2baebe9382eb340a843609": {
+                        "type": "file",
+                        "size": 1887,
+                        "modified": "2025-02-25T15:13:20.426865"
+                      },
+                      "c2a090434ed7716a8263160dcd9da2c821cf07": {
+                        "type": "file",
+                        "size": 1067,
+                        "modified": "2025-02-24T14:03:55.616206"
+                      }
+                    }
+                  },
+                  "89": {
+                    "type": "directory",
+                    "contents": {
+                      "3629ed9c5945636604cae900a15538983380cd": {
+                        "type": "file",
+                        "size": 75,
+                        "modified": "2025-02-26T08:13:11.616246"
+                      }
+                    }
+                  },
+                  "8b": {
+                    "type": "directory",
+                    "contents": {
+                      "137891791fe96927ad78e64b0aad7bded08bdc": {
+                        "type": "file",
+                        "size": 16,
+                        "modified": "2025-02-26T08:13:11.024120"
+                      },
+                      "a85ba1c09985b35734fd60f711e062dd0fa833": {
+                        "type": "file",
+                        "size": 3011,
+                        "modified": "2025-03-01T17:09:38.627368"
+                      }
+                    }
+                  },
+                  "8d": {
+                    "type": "directory",
+                    "contents": {
+                      "786ab69f77c455b5bf3f0150ab4f93a4e217a8": {
+                        "type": "file",
+                        "size": 60,
+                        "modified": "2025-02-25T15:13:20.590295"
+                      }
+                    }
+                  },
+                  "8e": {
+                    "type": "directory",
+                    "contents": {
+                      "6a5041ff6ebf5ca74f6bca3abb8defb5035a4c": {
+                        "type": "file",
+                        "size": 1483,
+                        "modified": "2025-02-23T00:29:54.166571"
+                      },
+                      "7084dd8771e65fbcbed50ea18154b80f217b78": {
+                        "type": "file",
+                        "size": 63,
+                        "modified": "2025-02-26T08:13:11.663414"
+                      },
+                      "9a231bfd0113079f81213a24341a470b091a8a": {
+                        "type": "file",
+                        "size": 1161,
+                        "modified": "2025-02-25T15:13:20.734215"
+                      },
+                      "c90c73a6e1ddf50361cf4161af9f152e480126": {
+                        "type": "file",
+                        "size": 56,
+                        "modified": "2025-02-26T08:13:11.536660"
+                      }
+                    }
+                  },
+                  "91": {
+                    "type": "directory",
+                    "contents": {
+                      "9062ee377ef203f987f8a73622c7d6acd3cd12": {
+                        "type": "file",
+                        "size": 211,
+                        "modified": "2025-02-25T15:13:20.726072"
+                      },
+                      "fd87f0d4efe66357546ffb458f512fa2787ec6": {
+                        "type": "file",
+                        "size": 3880,
+                        "modified": "2025-02-26T08:13:11.299765"
+                      }
+                    }
+                  },
+                  "94": {
+                    "type": "directory",
+                    "contents": {
+                      "1a8b6cca6f5b8e52fb6d49eae1ccd0a67d9f02": {
+                        "type": "file",
+                        "size": 229,
+                        "modified": "2025-03-01T17:09:38.834422"
+                      },
+                      "3d718cf0fddf91985e156447801d53a46fa0b9": {
+                        "type": "file",
+                        "size": 3307,
+                        "modified": "2025-02-26T08:13:11.224088"
+                      }
+                    }
+                  },
+                  "95": {
+                    "type": "directory",
+                    "contents": {
+                      "b5faa3cd229c25e6624e0ffa56a16692783a7b": {
+                        "type": "file",
+                        "size": 3148,
+                        "modified": "2025-03-01T17:09:38.571501"
+                      },
+                      "b810d623b403556d4b6681f87040ad8968f290": {
+                        "type": "file",
+                        "size": 128,
+                        "modified": "2025-02-26T08:13:11.659639"
+                      }
+                    }
+                  },
+                  "96": {
+                    "type": "directory",
+                    "contents": {
+                      "96d8abc05e7da5eb610127a255619b4d6d1a43": {
+                        "type": "file",
+                        "size": 95,
+                        "modified": "2025-02-26T08:13:11.467856"
+                      }
+                    }
+                  },
+                  "97": {
+                    "type": "directory",
+                    "contents": {
+                      "e815d84606e16018a59bb75f7d6aa4f3c7f1a8": {
+                        "type": "file",
+                        "size": 2909,
+                        "modified": "2025-02-25T15:13:20.414396"
+                      }
+                    }
+                  },
+                  "98": {
+                    "type": "directory",
+                    "contents": {
+                      "2251eaa1cc01a8593873437c5aee812920de77": {
+                        "type": "file",
+                        "size": 1746,
+                        "modified": "2025-02-25T15:13:20.409873"
+                      }
+                    }
+                  },
+                  "99": {
+                    "type": "directory",
+                    "contents": {
+                      "ccaec7414d77c35e2617efcf5efea1e2826c8d": {
+                        "type": "file",
+                        "size": 1472,
+                        "modified": "2025-02-26T08:13:10.943883"
+                      },
+                      "efe1652a79b79dc1cf23d5974dfd926ed7ef10": {
+                        "type": "file",
+                        "size": 110,
+                        "modified": "2025-02-26T08:13:11.561618"
+                      },
+                      "fc5f7a7ead7cf136ec80a312dcc339b5ce1b0b": {
+                        "type": "file",
+                        "size": 232,
+                        "modified": "2025-02-26T08:13:11.549187"
+                      }
+                    }
+                  },
+                  "9a": {
+                    "type": "directory",
+                    "contents": {
+                      "2415dcb6b243840a9e7d6f721a67a0bd8b269a": {
+                        "type": "file",
+                        "size": 2120,
+                        "modified": "2025-02-26T08:13:11.255833"
+                      }
+                    }
+                  },
+                  "9c": {
+                    "type": "directory",
+                    "contents": {
+                      "9345f784bc1e2293b9db1ba5631ac66eb24fe7": {
+                        "type": "file",
+                        "size": 1392,
+                        "modified": "2025-02-26T08:13:11.273810"
+                      }
+                    }
+                  },
+                  "9d": {
+                    "type": "directory",
+                    "contents": {
+                      "8f79c1b16151b3540b50e8723c83a96988720f": {
+                        "type": "file",
+                        "size": 5128,
+                        "modified": "2025-02-26T08:13:11.097123"
+                      }
+                    }
+                  },
+                  "9f": {
+                    "type": "directory",
+                    "contents": {
+                      "4be3d3c99b9721613bc98651b1534b5a6a27b8": {
+                        "type": "file",
+                        "size": 3487,
+                        "modified": "2025-02-25T15:13:20.459432"
+                      },
+                      "b6a0f5d35ddc4552e2f885204d0047cc4b0053": {
+                        "type": "file",
+                        "size": 3018,
+                        "modified": "2025-02-23T00:29:54.171887"
+                      },
+                      "f2ac7c84fb1f65a4bdc6ec03c380432ed912c9": {
+                        "type": "file",
+                        "size": 484,
+                        "modified": "2025-02-26T08:13:11.017969"
+                      }
+                    }
+                  },
+                  "a0": {
+                    "type": "directory",
+                    "contents": {
+                      "e796eaf9bfbde0669bf705052d83a22600da33": {
+                        "type": "file",
+                        "size": 230,
+                        "modified": "2025-02-23T00:29:54.193795"
+                      }
+                    }
+                  },
+                  "a2": {
+                    "type": "directory",
+                    "contents": {
+                      "7c21bf23becb3db77670037aa538f77f443a4d": {
+                        "type": "file",
+                        "size": 657,
+                        "modified": "2025-02-25T15:20:29.040153"
+                      }
+                    }
+                  },
+                  "a3": {
+                    "type": "directory",
+                    "contents": {
+                      "6dcd6792eeb1269086702f2bd1768ccfd8fac4": {
+                        "type": "file",
+                        "size": 778,
+                        "modified": "2025-02-25T15:20:29.044092"
+                      },
+                      "e20ccb9925b87fbad29ce70953040dbf976815": {
+                        "type": "file",
+                        "size": 4529,
+                        "modified": "2025-02-25T15:13:20.325781"
+                      }
+                    }
+                  },
+                  "a4": {
+                    "type": "directory",
+                    "contents": {
+                      "6bcd720697d2454c2defd26e93c16822f01740": {
+                        "type": "file",
+                        "size": 1673,
+                        "modified": "2025-02-26T08:13:11.204777"
+                      },
+                      "f9e63ee02d74783cdf142199d3eede225d2a7a": {
+                        "type": "file",
+                        "size": 1791,
+                        "modified": "2025-02-26T08:13:11.224088"
+                      }
+                    }
+                  },
+                  "a5": {
+                    "type": "directory",
+                    "contents": {
+                      "6b99f626d91960f9ea1abb9052b79a7f9c7c90": {
+                        "type": "file",
+                        "size": 97,
+                        "modified": "2025-02-26T08:13:11.632837"
+                      },
+                      "e1dff157ad46d26c1eb5d5c0f3da95c68582c2": {
+                        "type": "file",
+                        "size": 284,
+                        "modified": "2025-02-25T15:13:20.521041"
+                      }
+                    }
+                  },
+                  "a6": {
+                    "type": "directory",
+                    "contents": {
+                      "636de12a633f39af4f59a93fdd2e0ce5237e44": {
+                        "type": "file",
+                        "size": 93,
+                        "modified": "2025-02-25T15:13:20.574205"
+                      },
+                      "b01e71292f7f40753e362c909472892c5d1fa9": {
+                        "type": "file",
+                        "size": 5130,
+                        "modified": "2025-03-01T17:09:38.546215"
+                      }
+                    }
+                  },
+                  "a7": {
+                    "type": "directory",
+                    "contents": {
+                      "af3a0ec14a3fa37a1076bf92ed9191770bdcfe": {
+                        "type": "file",
+                        "size": 1905,
+                        "modified": "2025-03-01T17:09:38.385946"
+                      },
+                      "fe1b7d8e15278aace3de8c1b4b39f3d5c9df82": {
+                        "type": "file",
+                        "size": 1373,
+                        "modified": "2025-02-25T15:13:20.390256"
+                      }
+                    }
+                  },
+                  "a8": {
+                    "type": "directory",
+                    "contents": {
+                      "6ecbf0c0d42f4cece650897e8fefbca2f78f3f": {
+                        "type": "file",
+                        "size": 117,
+                        "modified": "2025-02-26T08:13:11.531613"
+                      }
+                    }
+                  },
+                  "aa": {
+                    "type": "directory",
+                    "contents": {
+                      "d237308fdd494bd47ad098d64f6faba0f00721": {
+                        "type": "file",
+                        "size": 96,
+                        "modified": "2025-02-26T08:13:11.483629"
+                      }
+                    }
+                  },
+                  "ab": {
+                    "type": "directory",
+                    "contents": {
+                      "6deca5c7ffb4bd5038bab0a18f94ba7ff83f63": {
+                        "type": "file",
+                        "size": 1123,
+                        "modified": "2025-02-23T00:29:54.150637"
+                      },
+                      "9e88e4069f70c5e98abab9fb71bc84f4786f06": {
+                        "type": "file",
+                        "size": 83,
+                        "modified": "2025-02-25T15:13:20.702999"
+                      }
+                    }
+                  },
+                  "ac": {
+                    "type": "directory",
+                    "contents": {
+                      "e31173bbf3b46172c65a3456251d8b1c3fdec0": {
+                        "type": "file",
+                        "size": 6827,
+                        "modified": "2025-02-26T08:13:11.123552"
+                      }
+                    }
+                  },
+                  "ae": {
+                    "type": "directory",
+                    "contents": {
+                      "0fbb9596bb3b9bfc645af60af196d6d62468b0": {
+                        "type": "file",
+                        "size": 61,
+                        "modified": "2025-03-01T17:09:38.653810"
+                      },
+                      "be785dea502cf5a9783a1305304577760e1e51": {
+                        "type": "file",
+                        "size": 2173,
+                        "modified": "2025-02-24T14:59:51.513720"
+                      }
+                    }
+                  },
+                  "af": {
+                    "type": "directory",
+                    "contents": {
+                      "ba23aa919afca8296419eb11c4ef44e314c009": {
+                        "type": "file",
+                        "size": 1402,
+                        "modified": "2025-02-25T15:13:20.538698"
+                      }
+                    }
+                  },
+                  "b0": {
+                    "type": "directory",
+                    "contents": {
+                      "4e79ae73a7dcb91db29cac980e8de40655475a": {
+                        "type": "file",
+                        "size": 5225,
+                        "modified": "2025-03-01T17:09:38.463799"
+                      },
+                      "6be28fbe8c9b078c721f6229e3ae33d0d0c526": {
+                        "type": "file",
+                        "size": 4287,
+                        "modified": "2025-03-01T17:09:38.839659"
+                      }
+                    }
+                  },
+                  "b1": {
+                    "type": "directory",
+                    "contents": {
+                      "02f4acb2a2e81b378d7fd867ca722800a3bea9": {
+                        "type": "file",
+                        "size": 5811,
+                        "modified": "2025-02-26T08:13:11.192436"
+                      }
+                    }
+                  },
+                  "b4": {
+                    "type": "directory",
+                    "contents": {
+                      "f8ff4237fd342c3b038cf23d5ce95d9baf4221": {
+                        "type": "file",
+                        "size": 65,
+                        "modified": "2025-02-26T08:13:11.031582"
+                      }
+                    }
+                  },
+                  "b5": {
+                    "type": "directory",
+                    "contents": {
+                      "04265ee937496fe97d8df9bc838cdfa1992a45": {
+                        "type": "file",
+                        "size": 232,
+                        "modified": "2025-02-25T15:13:20.358274"
+                      },
+                      "c458ea4883b3bd46018d89543e6e945af62d08": {
+                        "type": "file",
+                        "size": 727,
+                        "modified": "2025-03-01T17:09:38.890224"
+                      }
+                    }
+                  },
+                  "b7": {
+                    "type": "directory",
+                    "contents": {
+                      "3686dcabfb35684f473e9ef8fc572900ac5115": {
+                        "type": "file",
+                        "size": 736,
+                        "modified": "2025-02-23T00:29:54.150637"
+                      },
+                      "af4cec11e55966681559f6e0cbe35d90921689": {
+                        "type": "file",
+                        "size": 1649,
+                        "modified": "2025-03-01T17:09:38.892732"
+                      }
+                    }
+                  },
+                  "ba": {
+                    "type": "directory",
+                    "contents": {
+                      "0039453e6102899b4108683d40643fa47b5b21": {
+                        "type": "file",
+                        "size": 5680,
+                        "modified": "2025-02-26T08:13:11.210838"
+                      },
+                      "314f3c242bb73098ed878e030809d01a80a6a2": {
+                        "type": "file",
+                        "size": 94,
+                        "modified": "2025-02-25T15:13:20.367806"
+                      },
+                      "e404486fbf30db83033c3d0bf78eed13232676": {
+                        "type": "file",
+                        "size": 4690,
+                        "modified": "2025-02-26T08:13:11.239404"
+                      }
+                    }
+                  },
+                  "bb": {
+                    "type": "directory",
+                    "contents": {
+                      "da6c6147f6b6b46d922bd8aadbd9f825407b4e": {
+                        "type": "file",
+                        "size": 903,
+                        "modified": "2025-02-24T14:59:51.488354"
+                      }
+                    }
+                  },
+                  "bc": {
+                    "type": "directory",
+                    "contents": {
+                      "c3e5136d59406927923e7be1e368c6245fe0b5": {
+                        "type": "file",
+                        "size": 889,
+                        "modified": "2025-02-25T15:13:20.338011"
+                      }
+                    }
+                  },
+                  "c0": {
+                    "type": "directory",
+                    "contents": {
+                      "003f4b3ec5816d5d95b0b1da560cd438ecf3cb": {
+                        "type": "file",
+                        "size": 3714,
+                        "modified": "2025-02-25T15:13:20.454487"
+                      },
+                      "3474b532c77f620655ea3de86e1b5cf2df0e9f": {
+                        "type": "file",
+                        "size": 2534,
+                        "modified": "2025-02-23T00:29:54.229771"
+                      }
+                    }
+                  },
+                  "c1": {
+                    "type": "directory",
+                    "contents": {
+                      "293188a0204f1574fef9722a956e029cd35f6c": {
+                        "type": "file",
+                        "size": 1362,
+                        "modified": "2025-02-26T08:13:11.164697"
+                      },
+                      "533b7f0c69cd59f2989c5d6ee26f104b72ccf1": {
+                        "type": "file",
+                        "size": 72,
+                        "modified": "2025-02-26T08:13:11.479298"
+                      }
+                    }
+                  },
+                  "c5": {
+                    "type": "directory",
+                    "contents": {
+                      "185e221e94bf76d3999eb0815fc7c7ba3c1257": {
+                        "type": "file",
+                        "size": 99,
+                        "modified": "2025-02-26T08:13:11.281877"
+                      },
+                      "c3965e3143828e4cf2c305bdcdacc0c2e968b0": {
+                        "type": "file",
+                        "size": 2811,
+                        "modified": "2025-03-01T17:09:38.281011"
+                      }
+                    }
+                  },
+                  "c6": {
+                    "type": "directory",
+                    "contents": {
+                      "28d6754298ebcc9593aa7f040942421d2f6341": {
+                        "type": "file",
+                        "size": 1699,
+                        "modified": "2025-02-26T08:13:11.233335"
+                      }
+                    }
+                  },
+                  "c7": {
+                    "type": "directory",
+                    "contents": {
+                      "9aec37bd5b1a051cbeca5c8b89741b6d761996": {
+                        "type": "file",
+                        "size": 2628,
+                        "modified": "2025-02-25T15:13:20.481023"
+                      }
+                    }
+                  },
+                  "c8": {
+                    "type": "directory",
+                    "contents": {
+                      "1d71acc4b7407e6e8beace2380859c69042a3d": {
+                        "type": "file",
+                        "size": 3907,
+                        "modified": "2025-02-26T08:13:11.164697"
+                      },
+                      "b06e7554775b5d4a2f52c34f67e61b30d64e1c": {
+                        "type": "file",
+                        "size": 58,
+                        "modified": "2025-03-01T17:09:38.350540"
+                      }
+                    }
+                  },
+                  "c9": {
+                    "type": "directory",
+                    "contents": {
+                      "310c5baa0784ff03e2b8b9909a2976f96dcb5a": {
+                        "type": "file",
+                        "size": 7224,
+                        "modified": "2025-03-01T17:09:38.866226"
+                      }
+                    }
+                  },
+                  "ca": {
+                    "type": "directory",
+                    "contents": {
+                      "105792974aae48d8d929a6b0fb35bee68c9935": {
+                        "type": "file",
+                        "size": 1062,
+                        "modified": "2025-02-26T08:13:10.960761"
+                      }
+                    }
+                  },
+                  "cb": {
+                    "type": "directory",
+                    "contents": {
+                      "1392d69f6df6b2e58c6d3d748372b91593b8d8": {
+                        "type": "file",
+                        "size": 796,
+                        "modified": "2025-02-26T08:13:11.227134"
+                      },
+                      "baa289cd9736596a063ce9fb478c21eba9f9ff": {
+                        "type": "file",
+                        "size": 1114,
+                        "modified": "2025-02-26T16:12:47.091978"
+                      },
+                      "da3b5b4609da006ebbdb770dded4c7db1fb984": {
+                        "type": "file",
+                        "size": 3094,
+                        "modified": "2025-03-01T17:09:38.849222"
+                      }
+                    }
+                  },
+                  "cc": {
+                    "type": "directory",
+                    "contents": {
+                      "292282e898502dd337d4a1547597bfede8fd76": {
+                        "type": "file",
+                        "size": 1932,
+                        "modified": "2025-02-24T14:59:51.517721"
+                      }
+                    }
+                  },
+                  "cd": {
+                    "type": "directory",
+                    "contents": {
+                      "7ce8e9c04912417a6fb5ba3f94fa891111b6ef": {
+                        "type": "file",
+                        "size": 349,
+                        "modified": "2025-02-26T08:13:11.566922"
+                      },
+                      "847bb867a12396233616e01fb1f25608327d78": {
+                        "type": "file",
+                        "size": 72,
+                        "modified": "2025-02-26T08:13:11.627817"
+                      }
+                    }
+                  },
+                  "ce": {
+                    "type": "directory",
+                    "contents": {
+                      "d302ecffd53638d45b97b160ebd4a7f3ed7671": {
+                        "type": "file",
+                        "size": 1211,
+                        "modified": "2025-02-23T00:29:54.162041"
+                      }
+                    }
+                  },
+                  "cf": {
+                    "type": "directory",
+                    "contents": {
+                      "d462eee1fd57b14acc75ab3287df4d5c93ef3c": {
+                        "type": "file",
+                        "size": 738,
+                        "modified": "2025-02-25T15:13:20.470367"
+                      }
+                    }
+                  },
+                  "d1": {
+                    "type": "directory",
+                    "contents": {
+                      "5f4e1e0561ff4808b511604ad89902c0fbc0e3": {
+                        "type": "file",
+                        "size": 100,
+                        "modified": "2025-02-26T08:13:11.623142"
+                      },
+                      "625554270e9c6cfc6bbbc44c09ebd695e8d720": {
+                        "type": "file",
+                        "size": 1523,
+                        "modified": "2025-02-25T15:13:20.466754"
+                      },
+                      "7a95565f3fab8912f4d609452fe94983abd879": {
+                        "type": "file",
+                        "size": 1903,
+                        "modified": "2025-02-25T15:13:20.463877"
+                      }
+                    }
+                  },
+                  "d2": {
+                    "type": "directory",
+                    "contents": {
+                      "b165414aa4ef39c156e2c376b5ea07d5df58ed": {
+                        "type": "file",
+                        "size": 596,
+                        "modified": "2025-02-25T15:13:20.692602"
+                      },
+                      "e666fe4e613997c80f67824fc8493379656aff": {
+                        "type": "file",
+                        "size": 332,
+                        "modified": "2025-03-01T17:09:38.609355"
+                      }
+                    }
+                  },
+                  "d3": {
+                    "type": "directory",
+                    "contents": {
+                      "7a900e21d3e3b6c35c488c86d398ad2b7884e6": {
+                        "type": "file",
+                        "size": 56,
+                        "modified": "2025-03-01T17:09:38.792216"
+                      },
+                      "89e239a3d61166e2910b78a8146b65200eb80f": {
+                        "type": "file",
+                        "size": 2739,
+                        "modified": "2025-03-01T17:09:38.687222"
+                      },
+                      "a5cd7e7034ab26bce407b57411eb7c09ff2187": {
+                        "type": "file",
+                        "size": 2941,
+                        "modified": "2025-03-01T17:09:38.557806"
+                      }
+                    }
+                  },
+                  "d5": {
+                    "type": "directory",
+                    "contents": {
+                      "790ec1563e595d12cff0fbc977724ddfc313f6": {
+                        "type": "file",
+                        "size": 670,
+                        "modified": "2025-02-25T15:13:20.447908"
+                      }
+                    }
+                  },
+                  "d7": {
+                    "type": "directory",
+                    "contents": {
+                      "8a9ed19ac42e38035731e26ed2facee872baae": {
+                        "type": "file",
+                        "size": 2815,
+                        "modified": "2025-03-01T17:09:38.486035"
+                      },
+                      "f373d96b611fd22a78784f3f92ccae094a9faf": {
+                        "type": "file",
+                        "size": 138,
+                        "modified": "2025-02-24T14:03:55.594077"
+                      }
+                    }
+                  },
+                  "d8": {
+                    "type": "directory",
+                    "contents": {
+                      "40c444470b186e9f1a60c8708815fd281cfbf3": {
+                        "type": "file",
+                        "size": 32,
+                        "modified": "2025-02-26T08:13:11.042379"
+                      },
+                      "5d63a7b7b63c151363d4d8e477b15fbe67ed52": {
+                        "type": "file",
+                        "size": 5734,
+                        "modified": "2025-02-26T08:13:11.085918"
+                      },
+                      "fdb1fccbdbe330697f912c928d6d4216d0d0db": {
+                        "type": "file",
+                        "size": 75,
+                        "modified": "2025-02-26T08:13:11.640236"
+                      }
+                    }
+                  },
+                  "d9": {
+                    "type": "directory",
+                    "contents": {
+                      "8d116f4ba6ec8cd6b52e4a60269896e9104661": {
+                        "type": "file",
+                        "size": 3750,
+                        "modified": "2025-02-26T08:13:11.331348"
+                      },
+                      "b5f6f6c66db75223297636513bf849ea7c0a2d": {
+                        "type": "file",
+                        "size": 1552,
+                        "modified": "2025-02-25T15:13:20.529531"
+                      }
+                    }
+                  },
+                  "db": {
+                    "type": "directory",
+                    "contents": {
+                      "b4f25b1a7ddc376790f33cedea4a0b419eb091": {
+                        "type": "file",
+                        "size": 1772,
+                        "modified": "2025-02-25T15:13:20.493385"
+                      }
+                    }
+                  },
+                  "dc": {
+                    "type": "directory",
+                    "contents": {
+                      "58527bd538aa917617db78367ccd565a20ff7b": {
+                        "type": "file",
+                        "size": 514,
+                        "modified": "2025-02-25T15:13:20.401202"
+                      },
+                      "bab45b6cbf71b84d31e74a09a18dd50f450265": {
+                        "type": "file",
+                        "size": 1455,
+                        "modified": "2025-02-26T08:13:11.263697"
+                      }
+                    }
+                  },
+                  "dd": {
+                    "type": "directory",
+                    "contents": {
+                      "78359efeb4e8402609ffe1f34aa6e5b5bb6204": {
+                        "type": "file",
+                        "size": 245,
+                        "modified": "2025-02-26T08:13:11.513950"
+                      },
+                      "d394d35457cb71282ec6ecf6576ede030246ed": {
+                        "type": "file",
+                        "size": 170,
+                        "modified": "2025-03-01T17:09:38.265492"
+                      }
+                    }
+                  },
+                  "de": {
+                    "type": "directory",
+                    "contents": {
+                      "80c958166ebeebb9cc5ff3a99f31dd04219515": {
+                        "type": "file",
+                        "size": 1654,
+                        "modified": "2025-02-26T08:13:11.270029"
+                      },
+                      "84b7f2e0a5156333d872c1ce7d1a0b5db9eb4a": {
+                        "type": "file",
+                        "size": 192,
+                        "modified": "2025-02-26T08:13:11.574109"
+                      }
+                    }
+                  },
+                  "df": {
+                    "type": "directory",
+                    "contents": {
+                      "a099f6f9c50702f1af789d8159d8c489c1b050": {
+                        "type": "file",
+                        "size": 169,
+                        "modified": "2025-02-26T08:13:11.647340"
+                      },
+                      "eb8d5574c0ffed67e3bb364b23b2ea2a64d04f": {
+                        "type": "file",
+                        "size": 62,
+                        "modified": "2025-03-01T17:09:38.381631"
+                      }
+                    }
+                  },
+                  "e0": {
+                    "type": "directory",
+                    "contents": {
+                      "0d6d50716f8be26e82bf40855c58b79e6b85e8": {
+                        "type": "file",
+                        "size": 89,
+                        "modified": "2025-02-26T08:13:11.671151"
+                      },
+                      "cd37179b53508706605d80dc03e5e729091c95": {
+                        "type": "file",
+                        "size": 69,
+                        "modified": "2025-02-26T08:13:11.685697"
+                      }
+                    }
+                  },
+                  "e3": {
+                    "type": "directory",
+                    "contents": {
+                      "f31bc4b83e255aef54c9d7d362639e5881261b": {
+                        "type": "file",
+                        "size": 92,
+                        "modified": "2025-02-25T15:13:20.707512"
+                      }
+                    }
+                  },
+                  "e4": {
+                    "type": "directory",
+                    "contents": {
+                      "2c66784fa169a9d8336c9ac59e73d1d601b8c9": {
+                        "type": "file",
+                        "size": 3508,
+                        "modified": "2025-02-24T14:59:51.479834"
+                      },
+                      "97ff85125c55dcec4753ff07f1137909960c20": {
+                        "type": "file",
+                        "size": 2372,
+                        "modified": "2025-02-26T08:13:11.305560"
+                      }
+                    }
+                  },
+                  "e7": {
+                    "type": "directory",
+                    "contents": {
+                      "3b37974f0cda8b53d41d266219eb680fdaf77b": {
+                        "type": "file",
+                        "size": 5215,
+                        "modified": "2025-02-26T08:13:10.952339"
+                      }
+                    }
+                  },
+                  "e8": {
+                    "type": "directory",
+                    "contents": {
+                      "189661f611f564f11d3aa4ef0e2d1a2d3c5d29": {
+                        "type": "file",
+                        "size": 78,
+                        "modified": "2025-02-26T08:13:11.520394"
+                      }
+                    }
+                  },
+                  "e9": {
+                    "type": "directory",
+                    "contents": {
+                      "33d941150299477e9e895ab2cb2a189682d1ea": {
+                        "type": "file",
+                        "size": 448,
+                        "modified": "2025-02-25T15:13:20.687592"
+                      },
+                      "63637402728e09ffb2feb56f8a668048051462": {
+                        "type": "file",
+                        "size": 2044,
+                        "modified": "2025-02-25T15:13:20.718486"
+                      },
+                      "85459960356c50359a4235c7a14e4e543f0337": {
+                        "type": "file",
+                        "size": 7349,
+                        "modified": "2025-02-26T08:13:11.152705"
+                      }
+                    }
+                  },
+                  "ea": {
+                    "type": "directory",
+                    "contents": {
+                      "998bb0788baa0a8c1f2991f1c0ba1aaace0179": {
+                        "type": "file",
+                        "size": 6471,
+                        "modified": "2025-03-01T17:09:38.357900"
+                      }
+                    }
+                  },
+                  "eb": {
+                    "type": "directory",
+                    "contents": {
+                      "b85b3eaa2fe98e10a60ddb419def715797ffaf": {
+                        "type": "file",
+                        "size": 756,
+                        "modified": "2025-02-25T15:13:20.435633"
+                      }
+                    }
+                  },
+                  "ec": {
+                    "type": "directory",
+                    "contents": {
+                      "2164b531bfcce6e18843fa7e0bf6dff96bfa9c": {
+                        "type": "file",
+                        "size": 657,
+                        "modified": "2025-03-01T17:09:38.275008"
+                      },
+                      "24c2e0b81c57fefa5e44bce1ccd5eb6df3688e": {
+                        "type": "file",
+                        "size": 5658,
+                        "modified": "2025-02-26T08:13:11.275826"
+                      },
+                      "3aed7cbc2526ecefcff7abcd6c2150f7d9d5c4": {
+                        "type": "file",
+                        "size": 290,
+                        "modified": "2025-02-25T15:20:29.027217"
+                      },
+                      "a8789e5268b5004d1504b8402cb96d722bc1ff": {
+                        "type": "file",
+                        "size": 6154,
+                        "modified": "2025-03-01T17:09:38.472447"
+                      }
+                    }
+                  },
+                  "ed": {
+                    "type": "directory",
+                    "contents": {
+                      "412e723621813423f1b48c5fbce80cc0f78f0a": {
+                        "type": "file",
+                        "size": 1160,
+                        "modified": "2025-02-24T14:59:51.495073"
+                      }
+                    }
+                  },
+                  "ee": {
+                    "type": "directory",
+                    "contents": {
+                      "d7b2348cc94c660a3d9c5ff469c3274d1283e0": {
+                        "type": "file",
+                        "size": 5955,
+                        "modified": "2025-03-01T17:09:38.814098"
+                      }
+                    }
+                  },
+                  "ef": {
+                    "type": "directory",
+                    "contents": {
+                      "1de62bfc579efc30103a623464a51b08f65d91": {
+                        "type": "file",
+                        "size": 5573,
+                        "modified": "2025-02-26T08:13:11.245286"
+                      }
+                    }
+                  },
+                  "f1": {
+                    "type": "directory",
+                    "contents": {
+                      "58509632cf6efb71087af6e2e296191bce1e2f": {
+                        "type": "file",
+                        "size": 3923,
+                        "modified": "2025-02-26T08:13:11.255323"
+                      },
+                      "b26196dc6377b3f05aa5cc90e099d388d21dc0": {
+                        "type": "file",
+                        "size": 329,
+                        "modified": "2025-02-26T08:13:11.134255"
+                      }
+                    }
+                  },
+                  "f3": {
+                    "type": "directory",
+                    "contents": {
+                      "b970f158ae0ce8129185ebd0c50cd5df0a694d": {
+                        "type": "file",
+                        "size": 200,
+                        "modified": "2025-02-24T14:03:55.574582"
+                      }
+                    }
+                  },
+                  "f4": {
+                    "type": "directory",
+                    "contents": {
+                      "71e0100437251710ee7166cb38a105097196e0": {
+                        "type": "file",
+                        "size": 1323,
+                        "modified": "2025-02-26T08:13:11.164697"
+                      },
+                      "a89228da28f869fb7250d21ae1d6c78f527ebe": {
+                        "type": "file",
+                        "size": 4812,
+                        "modified": "2025-03-01T17:09:38.843505"
+                      }
+                    }
+                  },
+                  "f5": {
+                    "type": "directory",
+                    "contents": {
+                      "3bb2edb426ccdf5a43d57b67d847f1a2f4f011": {
+                        "type": "file",
+                        "size": 2740,
+                        "modified": "2025-02-22T23:29:07.684782"
+                      },
+                      "5bb98d8172341be1918fdbd250e41f43570d17": {
+                        "type": "file",
+                        "size": 339,
+                        "modified": "2025-03-01T17:09:38.340243"
+                      },
+                      "a64d71a9385c20bf1bfa7bf9cd27717687f1cf": {
+                        "type": "file",
+                        "size": 63,
+                        "modified": "2025-02-26T08:13:11.473760"
+                      }
+                    }
+                  },
+                  "f7": {
+                    "type": "directory",
+                    "contents": {
+                      "e650eaada880499146ed89591ad654da4869b0": {
+                        "type": "file",
+                        "size": 249,
+                        "modified": "2025-02-26T08:13:11.640236"
+                      }
+                    }
+                  },
+                  "f8": {
+                    "type": "directory",
+                    "contents": {
+                      "69d2b96f7460f51953202462ec6ec97f90008d": {
+                        "type": "file",
+                        "size": 59,
+                        "modified": "2025-02-26T08:13:11.637118"
+                      }
+                    }
+                  },
+                  "f9": {
+                    "type": "directory",
+                    "contents": {
+                      "2a4e4e7f293cf3496ff6e80d16e5c4a3d02838": {
+                        "type": "file",
+                        "size": 295,
+                        "modified": "2025-02-25T15:13:20.653339"
+                      },
+                      "ba772a951bb2f154ad6661ce6e59e5e8caec0a": {
+                        "type": "file",
+                        "size": 1266,
+                        "modified": "2025-02-26T08:13:11.338392"
+                      },
+                      "d9757037f6691a93451780f45de151490908be": {
+                        "type": "file",
+                        "size": 1463,
+                        "modified": "2025-02-26T08:13:11.104170"
+                      }
+                    }
+                  },
+                  "fa": {
+                    "type": "directory",
+                    "contents": {
+                      "639aa352a8a5841ccb03ed5cb95e54429764bd": {
+                        "type": "file",
+                        "size": 189,
+                        "modified": "2025-02-26T08:13:11.497110"
+                      }
+                    }
+                  },
+                  "fc": {
+                    "type": "directory",
+                    "contents": {
+                      "844a266fb4a9bb46bdcb6e9aeb9c2d0c79a624": {
+                        "type": "file",
+                        "size": 590,
+                        "modified": "2025-02-25T15:20:29.035740"
+                      }
+                    }
+                  },
+                  "fe": {
+                    "type": "directory",
+                    "contents": {
+                      "ec5cd50db4d0fca8c4886998d6b8b8273eb8fc": {
+                        "type": "file",
+                        "size": 1314,
+                        "modified": "2025-02-26T08:13:10.974230"
+                      }
+                    }
+                  },
+                  "info": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "pack": {
+                    "type": "directory",
+                    "contents": {
+                      "pack-0029d9acc694d585feb0dbc31ae5d605340dcf32.idx": {
+                        "type": "file",
+                        "size": 15352,
+                        "modified": "2025-02-22T22:30:45.456352"
+                      },
+                      "pack-0029d9acc694d585feb0dbc31ae5d605340dcf32.pack": {
+                        "type": "file",
+                        "size": 27382718,
+                        "modified": "2025-02-26T08:13:11.471878"
+                      },
+                      "pack-0029d9acc694d585feb0dbc31ae5d605340dcf32.rev": {
+                        "type": "file",
+                        "size": 2092,
+                        "modified": "2025-02-22T22:30:45.459536"
+                      },
+                      "pack-ac5e19509d67f5251741e2b8c541a7a829d66b1b.idx": {
+                        "type": "file",
+                        "size": 6084,
+                        "modified": "2025-02-24T12:57:01.731571"
+                      },
+                      "pack-ac5e19509d67f5251741e2b8c541a7a829d66b1b.pack": {
+                        "type": "file",
+                        "size": 155720,
+                        "modified": "2025-03-01T17:09:38.715723"
+                      },
+                      "pack-ac5e19509d67f5251741e2b8c541a7a829d66b1b.rev": {
+                        "type": "file",
+                        "size": 768,
+                        "modified": "2025-02-24T12:57:01.736396"
+                      },
+                      "pack-bc11d8d2588d457513ef1fc3420f1e28fb11b5a4.idx": {
+                        "type": "file",
+                        "size": 5328,
+                        "modified": "2025-03-03T23:40:53.963876"
+                      },
+                      "pack-bc11d8d2588d457513ef1fc3420f1e28fb11b5a4.pack": {
+                        "type": "file",
+                        "size": 366645,
+                        "modified": "2025-03-03T23:40:53.963876"
+                      },
+                      "pack-bc11d8d2588d457513ef1fc3420f1e28fb11b5a4.rev": {
+                        "type": "file",
+                        "size": 660,
+                        "modified": "2025-03-03T23:40:53.970923"
+                      },
+                      "pack-c6f4b50dd5acc5aba218cd5ced291045afbbca0d.idx": {
+                        "type": "file",
+                        "size": 5888,
+                        "modified": "2025-02-22T23:26:05.386873"
+                      },
+                      "pack-c6f4b50dd5acc5aba218cd5ced291045afbbca0d.pack": {
+                        "type": "file",
+                        "size": 376761,
+                        "modified": "2025-02-26T08:13:11.490522"
+                      },
+                      "pack-c6f4b50dd5acc5aba218cd5ced291045afbbca0d.rev": {
+                        "type": "file",
+                        "size": 740,
+                        "modified": "2025-02-22T23:26:05.388876"
+                      }
+                    }
+                  }
+                }
+              },
+              "ORIG_HEAD": {
+                "type": "file",
+                "size": 41,
+                "modified": "2025-02-26T08:34:12.241668"
+              },
+              "refs": {
+                "type": "directory",
+                "contents": {
+                  "heads": {
+                    "type": "directory",
+                    "contents": {
+                      "master": {
+                        "type": "file",
+                        "size": 41,
+                        "modified": "2025-02-26T08:16:20.158638"
+                      }
+                    }
+                  },
+                  "remotes": {
+                    "type": "directory",
+                    "contents": {
+                      "origin": {
+                        "type": "directory",
+                        "contents": {
+                          "main": {
+                            "type": "file",
+                            "size": 41,
+                            "modified": "2025-03-03T23:40:54.046879"
+                          },
+                          "master": {
+                            "type": "file",
+                            "size": 41,
+                            "modified": "2025-02-26T08:18:40.741251"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "tags": {
+                    "type": "directory",
+                    "contents": {}
+                  }
+                }
+              }
+            }
+          },
+          "accessibility": {
+            "type": "directory",
+            "contents": {}
+          },
+          "api": {
+            "type": "directory",
+            "contents": {}
+          },
+          "art": {
+            "type": "directory",
+            "contents": {}
+          },
+          "ava_mind": {
+            "type": "directory",
+            "contents": {
+              "art": {
+                "type": "directory",
+                "contents": {}
+              },
+              "consciousness": {
+                "type": "directory",
+                "contents": {}
+              },
+              "ethics": {
+                "type": "directory",
+                "contents": {}
+              },
+              "profiles": {
+                "type": "directory",
+                "contents": {}
+              },
+              "token": {
+                "type": "directory",
+                "contents": {}
+              },
+              "web": {
+                "type": "directory",
+                "contents": {
+                  "static": {
+                    "type": "directory",
+                    "contents": {
+                      "css": {
+                        "type": "directory",
+                        "contents": {}
+                      },
+                      "js": {
+                        "type": "directory",
+                        "contents": {}
+                      }
+                    }
+                  },
+                  "templates": {
+                    "type": "directory",
+                    "contents": {}
+                  }
+                }
+              }
+            }
+          },
+          "backup": {
+            "type": "directory",
+            "contents": {}
+          },
+          "backups": {
+            "type": "directory",
+            "contents": {}
+          },
+          "bot": {
+            "type": "directory",
+            "contents": {
+              "core": {
+                "type": "directory",
+                "contents": {}
+              },
+              "handlers": {
+                "type": "directory",
+                "contents": {}
+              },
+              "utils": {
+                "type": "directory",
+                "contents": {}
+              }
+            }
+          },
+          "config": {
+            "type": "directory",
+            "contents": {}
+          },
+          "consciousness": {
+            "type": "directory",
+            "contents": {}
+          },
+          "core": {
+            "type": "directory",
+            "contents": {}
+          },
+          "data": {
+            "type": "directory",
+            "contents": {
+              "consciousness": {
+                "type": "directory",
+                "contents": {}
+              }
+            }
+          },
+          "database": {
+            "type": "directory",
+            "contents": {}
+          },
+          "ethics": {
+            "type": "directory",
+            "contents": {}
+          },
+          "ethik": {
+            "type": "directory",
+            "contents": {}
+          },
+          "finance": {
+            "type": "directory",
+            "contents": {}
+          },
+          "infinity_ai": {
+            "type": "directory",
+            "contents": {
+              "config": {
+                "type": "directory",
+                "contents": {}
+              },
+              "consciousness": {
+                "type": "directory",
+                "contents": {}
+              },
+              "core": {
+                "type": "directory",
+                "contents": {
+                  "site": {
+                    "type": "directory",
+                    "contents": {
+                      "assets": {
+                        "type": "directory",
+                        "contents": {
+                          "js": {
+                            "type": "directory",
+                            "contents": {}
+                          }
+                        }
+                      },
+                      "public": {
+                        "type": "directory",
+                        "contents": {}
+                      },
+                      "styles": {
+                        "type": "directory",
+                        "contents": {}
+                      }
+                    }
+                  }
+                }
+              },
+              "dashboard": {
+                "type": "directory",
+                "contents": {
+                  "public": {
+                    "type": "directory",
+                    "contents": {}
+                  }
+                }
+              },
+              "ethics": {
+                "type": "directory",
+                "contents": {
+                  "examples": {
+                    "type": "directory",
+                    "contents": {}
+                  }
+                }
+              },
+              "games": {
+                "type": "directory",
+                "contents": {}
+              },
+              "i18n": {
+                "type": "directory",
+                "contents": {
+                  "locales": {
+                    "type": "directory",
+                    "contents": {}
+                  }
+                }
+              },
+              "middleware": {
+                "type": "directory",
+                "contents": {}
+              },
+              "scripts": {
+                "type": "directory",
+                "contents": {}
+              },
+              "security": {
+                "type": "directory",
+                "contents": {}
+              },
+              "static": {
+                "type": "directory",
+                "contents": {
+                  "art": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "brand": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "css": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "img": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "js": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "pitch": {
+                    "type": "directory",
+                    "contents": {}
+                  }
+                }
+              },
+              "tests": {
+                "type": "directory",
+                "contents": {}
+              },
+              "tools": {
+                "type": "directory",
+                "contents": {}
+              }
+            }
+          },
+          "infinity_ai.egg-info": {
+            "type": "directory",
+            "contents": {}
+          },
+          "infinity_os": {
+            "type": "directory",
+            "contents": {
+              "core": {
+                "type": "directory",
+                "contents": {
+                  "consciousness": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "ethics": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "infrastructure": {
+                    "type": "directory",
+                    "contents": {}
+                  },
+                  "memory": {
+                    "type": "directory",
+                    "contents": {}
+                  }
+                }
+              }
+            }
+          },
+          "integrations": {
+            "type": "directory",
+            "contents": {}
+          },
+          "models": {
+            "type": "directory",
+            "contents": {}
+          },
+          "services": {
+            "type": "directory",
+            "contents": {}
+          },
+          "utils": {
+            "type": "directory",
+            "contents": {}
+          }
+        }
+      },
+      "__init__.py": {
+        "type": "file",
+        "size": 24,
+        "modified": "2025-03-24T08:31:33.315499"
+      },
+      "__pycache__": {
+        "type": "directory",
+        "contents": {
+          "bios_quantum.cpython-313.pyc": {
+            "type": "file",
+            "size": 27835,
+            "modified": "2025-03-22T08:24:45.105883"
+          },
+          "quantum_changelog.cpython-313.pyc": {
+            "type": "file",
+            "size": 35571,
+            "modified": "2025-03-22T08:45:38.344507"
+          },
+          "quantum_mycelium.cpython-313.pyc": {
+            "type": "file",
+            "size": 34694,
+            "modified": "2025-03-22T08:36:56.297850"
+          },
+          "quantum_utils.cpython-313.pyc": {
+            "type": "file",
+            "size": 22068,
+            "modified": "2025-03-22T08:22:31.222871"
+          }
+        }
+      }
+    },
+    "tools": {
+      "archive_unused.py": {
+        "type": "file",
+        "size": 4252,
+        "modified": "2025-03-20T16:40:17.408957"
+      },
+      "assets": {
+        "type": "directory",
+        "contents": {}
+      },
+      "chat_exporter.py": {
+        "type": "file",
+        "size": 17350,
+        "modified": "2025-03-22T08:22:20.012883"
+      },
+      "cleanup.py": {
+        "type": "file",
+        "size": 6548,
+        "modified": "2025-03-20T16:39:21.058336"
+      },
+      "conversation_exporter.py": {
+        "type": "file",
+        "size": 11189,
+        "modified": "2025-03-22T08:14:43.736619"
+      },
+      "deployment": {
+        "type": "directory",
+        "contents": {}
+      },
+      "language": {
+        "type": "directory",
+        "contents": {
+          "ai_translate_file.py": {
+            "type": "file",
+            "size": 10333,
+            "modified": "2025-03-22T08:37:43.112908"
+          },
+          "ai_translation_log.txt": {
+            "type": "file",
+            "size": 11434,
+            "modified": "2025-03-21T11:20:55.951905"
+          },
+          "batch_translate.py": {
+            "type": "file",
+            "size": 1623,
+            "modified": "2025-03-21T11:34:16.332260"
+          },
+          "README.md": {
+            "type": "file",
+            "size": 2531,
+            "modified": "2025-03-21T14:15:06.409691"
+          },
+          "reports": {
+            "type": "directory",
+            "contents": {}
+          },
+          "TRANSLATE_README.md": {
+            "type": "file",
+            "size": 2656,
+            "modified": "2025-03-21T11:11:20.415752"
+          },
+          "translate_tools.bat": {
+            "type": "file",
+            "size": 12752,
+            "modified": "2025-03-21T11:27:47.750116"
+          },
+          "translate_tools.ps1": {
+            "type": "file",
+            "size": 14416,
+            "modified": "2025-03-21T11:11:07.266942"
+          },
+          "translate_to_english.py": {
+            "type": "file",
+            "size": 18641,
+            "modified": "2025-03-21T12:45:20.715985"
+          },
+          "translation_log.txt": {
+            "type": "file",
+            "size": 483295,
+            "modified": "2025-03-21T11:26:23.840928"
+          },
+          "translation_report.md": {
+            "type": "file",
+            "size": 48882,
+            "modified": "2025-03-21T11:26:23.839085"
+          },
+          "use_new_translator.py": {
+            "type": "file",
+            "size": 2869,
+            "modified": "2025-03-21T14:14:50.014812"
+          }
+        }
+      },
+      "launchers": {
+        "type": "directory",
+        "contents": {}
+      },
+      "maintenance": {
+        "type": "directory",
+        "contents": {
+          "fix_paths.py": {
+            "type": "file",
+            "size": 6428,
+            "modified": "2025-03-21T12:45:34.905294"
+          }
+        }
+      },
+      "manage_modules.py": {
+        "type": "file",
+        "size": 13324,
+        "modified": "2025-03-20T16:49:43.433938"
+      },
+      "manage_references.py": {
+        "type": "file",
+        "size": 7831,
+        "modified": "2025-03-20T16:44:02.181227"
+      },
+      "mcp": {
+        "type": "directory",
+        "contents": {
+          "cache": {
+            "type": "directory",
+            "contents": {}
+          },
+          "mcp_commands.ps1": {
+            "type": "file",
+            "size": 1739,
+            "modified": "2025-03-24T10:28:39.230163"
+          },
+          "reorganize_bios.ps1": {
+            "type": "file",
+            "size": 2687,
+            "modified": "2025-03-24T11:03:18.539897"
+          },
+          "__pycache__": {
+            "type": "directory",
+            "contents": {
+              "cursor_integration.cpython-39.pyc": {
+                "type": "file",
+                "size": 4897,
+                "modified": "2025-03-24T10:42:00.923516"
+              }
+            }
+          }
+        }
+      },
+      "README.md": {
+        "type": "file",
+        "size": 7228,
+        "modified": "2025-03-22T08:14:46.835820"
+      },
+      "scripts": {
+        "type": "directory",
+        "contents": {
+          "context_manager.py": {
+            "type": "file",
+            "size": 11797,
+            "modified": "2025-03-24T11:44:51.313001"
+          },
+          "cursor_integration.py": {
+            "type": "file",
+            "size": 3703,
+            "modified": "2025-03-24T11:32:05.712783"
+          },
+          "init_context.py": {
+            "type": "file",
+            "size": 589,
+            "modified": "2025-03-24T11:32:39.550809"
+          },
+          "install_context.py": {
+            "type": "file",
+            "size": 4072,
+            "modified": "2025-03-24T11:32:32.928286"
+          },
+          "setup_and_run_bot.bat": {
+            "type": "file",
+            "size": 1745,
+            "modified": "2025-03-22T08:37:43.847181"
+          },
+          "setup_bios_q.py": {
+            "type": "file",
+            "size": 3386,
+            "modified": "2025-03-22T18:42:28.149398"
+          },
+          "__pycache__": {
+            "type": "directory",
+            "contents": {
+              "context_manager.cpython-313.pyc": {
+                "type": "file",
+                "size": 15825,
+                "modified": "2025-03-24T13:06:37.646244"
+              },
+              "cursor_integration.cpython-313.pyc": {
+                "type": "file",
+                "size": 5322,
+                "modified": "2025-03-24T11:32:39.380101"
+              }
+            }
+          }
+        }
+      },
+      "setup_references.ps1": {
+        "type": "file",
+        "size": 4520,
+        "modified": "2025-03-20T16:46:48.809189"
+      },
+      "utilities": {
+        "type": "directory",
+        "contents": {
+          "$PROFILE": {
+            "type": "file",
+            "size": 495,
+            "modified": "2025-03-02T15:54:23.410673"
+          },
+          ".dockerignore": {
+            "type": "file",
+            "size": 15,
+            "modified": "2025-03-03T09:25:32.388458"
+          },
+          ".env": {
+            "type": "file",
+            "size": 168,
+            "modified": "2025-03-03T11:05:13.667955"
+          },
+          ".env.example": {
+            "type": "file",
+            "size": 2709,
+            "modified": "2025-03-03T09:25:32.388458"
+          },
+          ".gitignore": {
+            "type": "file",
+            "size": 144,
+            "modified": "2025-03-03T23:37:07.613743"
+          },
+          ".gitignore_1": {
+            "type": "file",
+            "size": 85,
+            "modified": "2025-03-03T09:25:32.390466"
+          },
+          ".gitignore_2": {
+            "type": "file",
+            "size": 14,
+            "modified": "2025-03-19T15:51:08.196920"
+          },
+          "analyze_memory_system.py": {
+            "type": "file",
+            "size": 17044,
+            "modified": "2025-03-21T12:46:41.988472"
+          },
+          "character.d.ts": {
+            "type": "file",
+            "size": 86,
+            "modified": "2025-03-03T11:05:17.359544"
+          },
+          "character.ts": {
+            "type": "file",
+            "size": 18739,
+            "modified": "2025-03-03T09:25:32.405339"
+          },
+          "check_dependencies.py": {
+            "type": "file",
+            "size": 7307,
+            "modified": "2025-03-21T12:46:54.544310"
+          },
+          "check_perplexity_key.py": {
+            "type": "file",
+            "size": 8805,
+            "modified": "2025-03-21T12:47:07.882076"
+          },
+          "check_updates.py": {
+            "type": "file",
+            "size": 7753,
+            "modified": "2025-03-21T12:47:20.473580"
+          },
+          "clean.sh": {
+            "type": "file",
+            "size": 265,
+            "modified": "2025-03-03T09:25:32.403968"
+          },
+          "cleanup_obsolete.py": {
+            "type": "file",
+            "size": 9626,
+            "modified": "2025-03-21T12:47:34.081102"
+          },
+          "compat.py": {
+            "type": "file",
+            "size": 904,
+            "modified": "2025-03-21T12:47:37.609488"
+          },
+          "config.js": {
+            "type": "file",
+            "size": 20627,
+            "modified": "2025-03-21T12:48:07.293108"
+          },
+          "config.py": {
+            "type": "file",
+            "size": 4984,
+            "modified": "2025-03-21T11:34:36.610326"
+          },
+          "dalle_integration.py": {
+            "type": "file",
+            "size": 12677,
+            "modified": "2025-03-21T12:48:25.955495"
+          },
+          "demo_perplexity.py": {
+            "type": "file",
+            "size": 8869,
+            "modified": "2025-03-21T12:48:40.407321"
+          },
+          "Dockerfile": {
+            "type": "file",
+            "size": 1649,
+            "modified": "2025-03-03T09:25:32.390466"
+          },
+          "eliza_install.log": {
+            "type": "file",
+            "size": 2458,
+            "modified": "2025-03-03T09:43:33.769991"
+          },
+          "eliza_integration.py": {
+            "type": "file",
+            "size": 17044,
+            "modified": "2025-03-21T12:49:05.301046"
+          },
+          "english_migration.py": {
+            "type": "file",
+            "size": 13794,
+            "modified": "2025-03-21T12:49:37.321335"
+          },
+          "eva_guarani.log": {
+            "type": "file",
+            "size": 905,
+            "modified": "2025-03-02T18:47:48.794686"
+          },
+          "eva_guarani_bot.log": {
+            "type": "file",
+            "size": 29602,
+            "modified": "2025-03-03T15:44:53.118132"
+          },
+          "eva_guarani_main.py": {
+            "type": "file",
+            "size": 7384,
+            "modified": "2025-03-21T12:49:48.510912"
+          },
+          "eva_guarani_main_1.py": {
+            "type": "file",
+            "size": 6914,
+            "modified": "2025-03-21T12:49:58.976694"
+          },
+          "eva_guarani_utils.py": {
+            "type": "file",
+            "size": 19830,
+            "modified": "2025-03-21T12:50:36.690800"
+          },
+          "eva_guarani_vscode.js": {
+            "type": "file",
+            "size": 21587,
+            "modified": "2025-03-21T12:51:08.185784"
+          },
+          "find_duplicates.py": {
+            "type": "file",
+            "size": 20086,
+            "modified": "2025-03-21T12:51:44.162421"
+          },
+          "fix_encoding.py": {
+            "type": "file",
+            "size": 5268,
+            "modified": "2025-03-20T10:04:35.545222"
+          },
+          "fix_problematic_files.py": {
+            "type": "file",
+            "size": 3935,
+            "modified": "2025-03-20T10:06:24.886783"
+          },
+          "index.d.ts": {
+            "type": "file",
+            "size": 269,
+            "modified": "2025-03-03T09:43:33.141086"
+          },
+          "index.d_1.ts": {
+            "type": "file",
+            "size": 256,
+            "modified": "2025-03-03T11:05:17.388228"
+          },
+          "index.d_2.ts": {
+            "type": "file",
+            "size": 218,
+            "modified": "2025-03-03T11:05:17.373152"
+          },
+          "index.d_3.ts": {
+            "type": "file",
+            "size": 64,
+            "modified": "2025-03-03T11:05:17.375329"
+          },
+          "index.d_4.ts": {
+            "type": "file",
+            "size": 163,
+            "modified": "2025-03-03T11:05:17.377812"
+          },
+          "index.d_5.ts": {
+            "type": "file",
+            "size": 347,
+            "modified": "2025-03-03T11:05:17.380827"
+          },
+          "index.d_6.ts": {
+            "type": "file",
+            "size": 244,
+            "modified": "2025-03-03T11:05:17.383417"
+          },
+          "index.js": {
+            "type": "file",
+            "size": 28143,
+            "modified": "2025-03-03T09:43:32.615100"
+          },
+          "index.ts": {
+            "type": "file",
+            "size": 4768,
+            "modified": "2025-03-03T09:25:32.413809"
+          },
+          "index_1.js": {
+            "type": "file",
+            "size": 9891,
+            "modified": "2025-03-21T12:51:56.420843"
+          },
+          "index_1.ts": {
+            "type": "file",
+            "size": 278,
+            "modified": "2025-03-03T09:25:32.405339"
+          },
+          "index_2.ts": {
+            "type": "file",
+            "size": 1285,
+            "modified": "2025-03-03T09:25:32.405339"
+          },
+          "index_3.ts": {
+            "type": "file",
+            "size": 1367,
+            "modified": "2025-03-03T09:25:32.410009"
+          },
+          "index_4.ts": {
+            "type": "file",
+            "size": 3093,
+            "modified": "2025-03-03T09:25:32.410009"
+          },
+          "index_5.ts": {
+            "type": "file",
+            "size": 612,
+            "modified": "2025-03-03T09:25:32.410009"
+          },
+          "install_as_service.py": {
+            "type": "file",
+            "size": 9821,
+            "modified": "2025-03-21T12:52:10.458874"
+          },
+          "install_dependencies.bat": {
+            "type": "file",
+            "size": 2104,
+            "modified": "2025-03-22T08:37:43.844313"
+          },
+          "install_eliza_integration.ps1": {
+            "type": "file",
+            "size": 11046,
+            "modified": "2025-03-21T13:14:01.395492"
+          },
+          "integration.log": {
+            "type": "file",
+            "size": 9609,
+            "modified": "2025-03-02T17:32:08.408174"
+          },
+          "interactive_ui.py": {
+            "type": "file",
+            "size": 8636,
+            "modified": "2025-03-21T12:52:24.610250"
+          },
+          "interactive_ui_1.py": {
+            "type": "file",
+            "size": 19040,
+            "modified": "2025-03-21T12:52:56.603860"
+          },
+          "LICENSE": {
+            "type": "file",
+            "size": 1062,
+            "modified": "2025-03-03T09:25:32.391807"
+          },
+          "migration_timestamp.log": {
+            "type": "file",
+            "size": 46,
+            "modified": "2025-03-03T11:14:21.173025"
+          },
+          "modular_analyzer.js": {
+            "type": "file",
+            "size": 20268,
+            "modified": "2025-03-21T12:53:35.723975"
+          },
+          "monitor_bot.py": {
+            "type": "file",
+            "size": 11792,
+            "modified": "2025-03-21T12:53:55.253898"
+          },
+          "move_duplicates_to_quarantine.py": {
+            "type": "file",
+            "size": 13344,
+            "modified": "2025-03-21T12:54:25.516870"
+          },
+          "notify_status.py": {
+            "type": "file",
+            "size": 7330,
+            "modified": "2025-03-21T12:55:02.663680"
+          },
+          "optimize_modules.py": {
+            "type": "file",
+            "size": 6298,
+            "modified": "2025-03-21T12:55:13.934351"
+          },
+          "organize_egos.py": {
+            "type": "file",
+            "size": 4983,
+            "modified": "2025-03-21T12:55:29.765472"
+          },
+          "organize_logs.py": {
+            "type": "file",
+            "size": 4479,
+            "modified": "2025-03-21T12:55:39.057196"
+          },
+          "organize_project.py": {
+            "type": "file",
+            "size": 6093,
+            "modified": "2025-03-21T12:55:52.295691"
+          },
+          "organize_system.py": {
+            "type": "file",
+            "size": 19648,
+            "modified": "2025-03-21T12:56:27.833870"
+          },
+          "path_fix.log": {
+            "type": "file",
+            "size": 774,
+            "modified": "2025-03-03T00:36:46.952004"
+          },
+          "payment_gateway.log": {
+            "type": "file",
+            "size": 90509,
+            "modified": "2025-03-03T23:28:09.949921"
+          },
+          "payment_gateway.py": {
+            "type": "file",
+            "size": 20589,
+            "modified": "2025-03-21T12:57:04.487911"
+          },
+          "perplexity_config.py": {
+            "type": "file",
+            "size": 6452,
+            "modified": "2025-03-21T11:34:51.358849"
+          },
+          "perplexity_service.py": {
+            "type": "file",
+            "size": 20676,
+            "modified": "2025-03-21T12:57:58.336528"
+          },
+          "prepare_unified_migration.bat": {
+            "type": "file",
+            "size": 3714,
+            "modified": "2025-03-22T08:37:43.830958"
+          },
+          "prometheus_grafana_art_example.py": {
+            "type": "file",
+            "size": 11483,
+            "modified": "2025-03-21T12:58:16.663623"
+          },
+          "quarantine_by_date.py": {
+            "type": "file",
+            "size": 17781,
+            "modified": "2025-03-21T12:58:52.113807"
+          },
+          "quarantine_folders_by_date.py": {
+            "type": "file",
+            "size": 15809,
+            "modified": "2025-03-21T12:59:24.817750"
+          },
+          "rename_directories.py": {
+            "type": "file",
+            "size": 13958,
+            "modified": "2025-03-20T09:32:59.213520"
+          },
+          "rename_directory.bat": {
+            "type": "file",
+            "size": 1038,
+            "modified": "2025-03-22T08:37:43.862090"
+          },
+          "rename_project.log": {
+            "type": "file",
+            "size": 15568,
+            "modified": "2025-03-03T00:06:16.218729"
+          },
+          "rename_project.ps1": {
+            "type": "file",
+            "size": 4231,
+            "modified": "2025-03-21T13:14:24.457227"
+          },
+          "reorganize_egos.py": {
+            "type": "file",
+            "size": 4332,
+            "modified": "2025-03-21T12:59:31.388458"
+          },
+          "reorganize_final.py": {
+            "type": "file",
+            "size": 11107,
+            "modified": "2025-03-21T12:59:48.329736"
+          },
+          "reorganize_folders.py": {
+            "type": "file",
+            "size": 7180,
+            "modified": "2025-03-21T13:00:00.585452"
+          },
+          "reorganize_simple.py": {
+            "type": "file",
+            "size": 5410,
+            "modified": "2025-03-21T13:00:09.625561"
+          },
+          "reorganize_system.py": {
+            "type": "file",
+            "size": 18910,
+            "modified": "2025-03-21T13:00:57.326466"
+          },
+          "reorganize_workspace.py": {
+            "type": "file",
+            "size": 17780,
+            "modified": "2025-03-21T13:01:40.122077"
+          },
+          "run_tests.py": {
+            "type": "file",
+            "size": 7009,
+            "modified": "2025-03-21T13:02:09.300969"
+          },
+          "schedule_checks.bat": {
+            "type": "file",
+            "size": 4488,
+            "modified": "2025-03-22T08:37:43.825960"
+          },
+          "schedule_checks.sh": {
+            "type": "file",
+            "size": 4487,
+            "modified": "2025-03-02T23:04:48.898425"
+          },
+          "send_notification.py": {
+            "type": "file",
+            "size": 3123,
+            "modified": "2025-03-21T13:02:17.652318"
+          },
+          "setup.log": {
+            "type": "file",
+            "size": 49911,
+            "modified": "2025-03-03T00:50:50.550478"
+          },
+          "setup_and_start.ps1": {
+            "type": "file",
+            "size": 17621,
+            "modified": "2025-03-21T13:15:08.541680"
+          },
+          "setup_payment_system.py": {
+            "type": "file",
+            "size": 11637,
+            "modified": "2025-03-21T13:02:37.201043"
+          },
+          "setup_perplexity.py": {
+            "type": "file",
+            "size": 4008,
+            "modified": "2025-03-21T13:02:47.276297"
+          },
+          "setup_timezone.py": {
+            "type": "file",
+            "size": 2162,
+            "modified": "2025-03-21T13:02:54.194140"
+          },
+          "setup_timezone_1.py": {
+            "type": "file",
+            "size": 9670,
+            "modified": "2025-03-21T13:03:18.258772"
+          },
+          "setup_timezone_2.py": {
+            "type": "file",
+            "size": 9676,
+            "modified": "2025-03-21T13:03:34.823443"
+          },
+          "startup.log": {
+            "type": "file",
+            "size": 15167,
+            "modified": "2025-03-03T16:47:39.718105"
+          },
+          "start_bot.bat": {
+            "type": "file",
+            "size": 1196,
+            "modified": "2025-03-22T08:37:43.857729"
+          },
+          "start_bot.ps1": {
+            "type": "file",
+            "size": 3016,
+            "modified": "2025-03-21T13:15:22.337889"
+          },
+          "start_bot.py": {
+            "type": "file",
+            "size": 4400,
+            "modified": "2025-03-21T13:03:42.806635"
+          },
+          "start_bot.sh": {
+            "type": "file",
+            "size": 2098,
+            "modified": "2025-03-02T22:56:01.084378"
+          },
+          "start_egos.bat": {
+            "type": "file",
+            "size": 1562,
+            "modified": "2025-03-22T08:37:43.853024"
+          },
+          "start_egos.sh": {
+            "type": "file",
+            "size": 1553,
+            "modified": "2025-03-02T15:18:23.467091"
+          },
+          "start_eliza_telegram.bat": {
+            "type": "file",
+            "size": 693,
+            "modified": "2025-03-22T08:37:43.869547"
+          },
+          "start_eliza_telegram.ps1": {
+            "type": "file",
+            "size": 978,
+            "modified": "2025-03-21T13:15:41.476597"
+          },
+          "start_eva_guarani.py": {
+            "type": "file",
+            "size": 9109,
+            "modified": "2025-03-21T13:03:55.794565"
+          },
+          "start_eva_guarani_unified.bat": {
+            "type": "file",
+            "size": 1343,
+            "modified": "2025-03-22T08:37:43.853024"
+          },
+          "start_eva_guarani_unified.sh": {
+            "type": "file",
+            "size": 901,
+            "modified": "2025-03-03T11:09:02.563699"
+          },
+          "start_unified_bot.bat": {
+            "type": "file",
+            "size": 1740,
+            "modified": "2025-03-22T08:37:43.850380"
+          },
+          "system_organization": {
+            "type": "directory",
+            "contents": {
+              "core.py": {
+                "type": "file",
+                "size": 8576,
+                "modified": "2025-03-20T10:20:02.903462"
+              }
+            }
+          },
+          "template_manager.js": {
+            "type": "file",
+            "size": 19827,
+            "modified": "2025-03-21T13:05:02.060148"
+          },
+          "terminology_guard.js": {
+            "type": "file",
+            "size": 21077,
+            "modified": "2025-03-21T13:05:50.605069"
+          },
+          "timestamp111.js": {
+            "type": "file",
+            "size": 16722,
+            "modified": "2025-03-21T13:06:23.126374"
+          },
+          "timezone_patch_1.py": {
+            "type": "file",
+            "size": 2355,
+            "modified": "2025-03-21T13:06:33.171609"
+          },
+          "timezone_patch_2.py": {
+            "type": "file",
+            "size": 842,
+            "modified": "2025-03-22T08:45:54.031036"
+          },
+          "translate_readme.py": {
+            "type": "file",
+            "size": 4569,
+            "modified": "2025-03-20T10:00:57.501686"
+          },
+          "unified_bot.log": {
+            "type": "file",
+            "size": 238,
+            "modified": "2025-03-02T16:04:18.766519"
+          },
+          "unified_bot_1.log": {
+            "type": "file",
+            "size": 25820,
+            "modified": "2025-03-02T23:06:48.733570"
+          },
+          "unified_eva_guarani_bot.py": {
+            "type": "file",
+            "size": 21320,
+            "modified": "2025-03-21T13:07:27.624973"
+          },
+          "update_bot.bat": {
+            "type": "file",
+            "size": 9541,
+            "modified": "2025-03-22T08:37:43.817400"
+          },
+          "update_bot.ps1": {
+            "type": "file",
+            "size": 11674,
+            "modified": "2025-03-21T13:16:57.500746"
+          },
+          "update_bot.py": {
+            "type": "file",
+            "size": 11907,
+            "modified": "2025-03-21T13:07:43.301935"
+          },
+          "update_bot.sh": {
+            "type": "file",
+            "size": 3062,
+            "modified": "2025-03-02T23:01:08.666881"
+          },
+          "update_docs.py": {
+            "type": "file",
+            "size": 11118,
+            "modified": "2025-03-21T13:08:01.397870"
+          },
+          "update_documentation.py": {
+            "type": "file",
+            "size": 8731,
+            "modified": "2025-03-21T13:08:18.361316"
+          },
+          "update_module_docs.py": {
+            "type": "file",
+            "size": 7354,
+            "modified": "2025-03-21T13:08:28.522321"
+          },
+          "update_paths.py": {
+            "type": "file",
+            "size": 5882,
+            "modified": "2025-03-21T13:08:40.536662"
+          },
+          "verify_integrations.py": {
+            "type": "file",
+            "size": 7645,
+            "modified": "2025-03-21T13:08:52.855836"
+          },
+          "verify_system_integrity.py": {
+            "type": "file",
+            "size": 18786,
+            "modified": "2025-03-21T13:09:40.982384"
+          },
+          "__init__.py": {
+            "type": "file",
+            "size": 293,
+            "modified": "2025-03-21T12:45:43.731645"
+          },
+          "__init___1.py": {
+            "type": "file",
+            "size": 3267,
+            "modified": "2025-03-21T12:45:50.302911"
+          },
+          "__init___3.py": {
+            "type": "file",
+            "size": 1481,
+            "modified": "2025-03-22T08:37:43.872018"
+          },
+          "__init___4.py": {
+            "type": "file",
+            "size": 395,
+            "modified": "2025-03-21T12:45:59.932292"
+          },
+          "__init___5.py": {
+            "type": "file",
+            "size": 772,
+            "modified": "2025-03-21T12:46:05.366489"
+          },
+          "__init___6.py": {
+            "type": "file",
+            "size": 1015,
+            "modified": "2025-03-21T12:46:11.839090"
+          },
+          "__pycache__": {
+            "type": "directory",
+            "contents": {}
+          }
+        }
+      },
+      "__pycache__": {
+        "type": "directory",
+        "contents": {
+          "conversation_exporter.cpython-313.pyc": {
+            "type": "file",
+            "size": 12944,
+            "modified": "2025-03-22T08:22:31.216581"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "core",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": true,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "core",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": true,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+  "version": "1.0.0",
+  "name": "EVA & GUARANI - NEXUS",
+  "description": "Sistema de Análise Modular e Cartografia Sistêmica",
+  "environment": {
+    "python_version": ">=3.10",
+    "node_version": ">=18.0.0",
+    "typescript_version": "latest"
+  },
+  "paths": {
+    "core": {
+      "python": "core/python",
+      "analyzers": "core/analyzers",
+      "optimizers": "core/optimizers"
+    },
+    "web": {
+      "frontend": "web/frontend",
+      "backend": "web/backend"
+    },
+    "integrations": "integrations",
+    "config": "config",
+    "docs": "docs",
+    "tests": "tests",
+    "scripts": "scripts"
+  },
+  "analysis": {
+    "max_file_size": 10485760,
+    "max_memory_usage": "4GB",
+    "timeout": 300,
+    "batch_size": 100,
+    "parallel_processes": 4
+  },
+  "visualization": {
+    "default_theme": "quantum",
+    "color_scheme": {
+      "primary": "#6B46C1",
+      "secondary": "#38B2AC",
+      "accent": "#D53F8C",
+      "background": "#1A202C",
+      "text": "#E2E8F0"
+    },
+    "graph": {
+      "node_size": 8,
+      "edge_width": 2,
+      "font_size": 12,
+      "animation_duration": 500
+    }
+  },
+  "ml": {
+    "models_path": "models",
+    "cache_path": "cache",
+    "default_device": "cpu",
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "epochs": 100
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file": "logs/nexus.log",
+    "max_size": "100MB",
+    "backup_count": 5
+  },
+  "security": {
+    "encryption_key_path": "config/keys",
+    "token_expiration": 3600,
+    "max_requests_per_minute": 100,
+    "allowed_origins": [
+      "http://localhost:3000"
+    ]
+  },
+  "dependencies": {
+    "python": {
+      "core": {
+        "numpy": ">=1.24.0",
+        "pandas": ">=2.0.0",
+        "scikit-learn": ">=1.2.0",
+        "tensorflow": ">=2.13.0",
+        "torch": ">=2.0.0"
+      },
+      "visualization": {
+        "matplotlib": ">=3.7.0",
+        "seaborn": ">=0.12.0",
+        "plotly": ">=5.14.0",
+        "bokeh": ">=3.2.0"
+      },
+      "web": {
+        "streamlit": ">=1.24.0",
+        "dash": ">=2.11.0"
+      },
+      "dev": {
+        "pytest": ">=7.0.0",
+        "black": ">=23.0.0",
+        "mypy": ">=1.0.0"
+      }
+    },
+    "node": {
+      "react": "latest",
+      "d3": "latest",
+      "typescript": "latest",
+      "webpack": "latest",
+      "ts-loader": "latest"
+    }
+  }
+}

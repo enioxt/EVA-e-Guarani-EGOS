@@ -1,0 +1,745 @@
+{
+  "files": {
+    "connections_map.json": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\connections_map.json",
+      "destination": "subsystems\\ATLAS\\core\\connections_map.json",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 0,
+        "modified": "2025-03-29T22:08:46.678953",
+        "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "lines": 0,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "mycelium_monitor.js": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\mycelium_monitor.js",
+      "destination": "subsystems\\ATLAS\\core\\mycelium_monitor.js",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 9961,
+        "modified": "2025-03-29T22:08:46.964090",
+        "hash": "6cdba3ee97eebfd4463ebfdb6fe4da4cd72617cf78bed117142da175ca93d77e",
+        "lines": 341,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "quantum_prompt.md": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\quantum_prompt.md",
+      "destination": "subsystems\\ATLAS\\core\\quantum_prompt.md",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 3452,
+        "modified": "2025-03-29T18:36:35.409177",
+        "hash": "37614b794d8d4b189b7465e41803e94d926d6831a71e9c6b1c949288e0b32b79",
+        "lines": 161,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "quantum_visualization.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\quantum_visualization.py",
+      "destination": "subsystems\\ATLAS\\core\\quantum_visualization.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 6058,
+        "modified": "2025-03-31T19:17:27.762398",
+        "hash": "f939f2e20a412973d7d2da7baee6c9221900191c770611ac24b27df98e39f65c",
+        "lines": 171,
+        "imports": [
+          "import json",
+          "from typing import Dict, List, Optional",
+          "import networkx as nx",
+          "from pathlib import Path",
+          "import plotly.graph_objects as go",
+          "from dataclasses import dataclass",
+          "import logging"
+        ],
+        "functions": [
+          "def __init__(self):",
+          "def add_connection(self, source: str, target: str, strength: float = 0.5,",
+          "def generate_mermaid_diagram(self) -> str:",
+          "def generate_interactive_visualization(self) -> go.Figure:",
+          "def export_visualization(self, output_path: str, format: str = \"html\"):",
+          "def analyze_connections(self) -> Dict:"
+        ],
+        "classes": [
+          "class QuantumConnection:",
+          "class QuantumVisualizer:"
+        ]
+      }
+    },
+    "README.implementation.md": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\README.implementation.md",
+      "destination": "subsystems\\ATLAS\\core\\README.implementation.md",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 1344,
+        "modified": "2025-03-31T09:55:30.380121",
+        "hash": "ff5988962d6e0700354cf69e8e8b5cbc1dee5ded32c1dbd1b692c31aa51acbb2",
+        "lines": 36,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "README.md": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\README.md",
+      "destination": "subsystems\\ATLAS\\core\\README.md",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 4015,
+        "modified": "2025-03-29T18:36:35.415231",
+        "hash": "ca7874f16504130db8de88e45a681893e7c9395442df80702b34f8358d1390cb",
+        "lines": 156,
+        "imports": [
+          "from quantum_visualization import QuantumVisualizer"
+        ],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "roadmap.md": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\roadmap.md",
+      "destination": "subsystems\\ATLAS\\core\\roadmap.md",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 2442,
+        "modified": "2025-03-31T09:55:54.743764",
+        "hash": "4dc8fe87073f0f77d7d06763bba149cb9f022626606889a58a6e2597700f1cea",
+        "lines": 58,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "system_cartography.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\system_cartography.py",
+      "destination": "subsystems\\ATLAS\\core\\system_cartography.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 0,
+        "modified": "2025-03-29T22:08:47.379633",
+        "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "lines": 0,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "update_roadmap.js": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\update_roadmap.js",
+      "destination": "subsystems\\ATLAS\\core\\update_roadmap.js",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 8142,
+        "modified": "2025-03-29T22:08:48.021861",
+        "hash": "a94223d4ca99600db436624e48c02a6723a601e34ec2790e4b5abded7ead9784",
+        "lines": 264,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "visualizer.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\visualizer.py",
+      "destination": "subsystems\\ATLAS\\core\\visualizer.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 15727,
+        "modified": "2025-03-30T10:40:52.604816",
+        "hash": "a0ebc583b24c9a0b8c2a6eee0c9f1aaa38a19c8f512f6cc632d46896c6968e34",
+        "lines": 418,
+        "imports": [
+          "import os",
+          "import json",
+          "import logging",
+          "import networkx as nx",
+          "import plotly.graph_objects as go",
+          "from pyvis.network import Network",
+          "from typing import Dict, List, Any, Optional",
+          "from datetime import datetime",
+          "from pathlib import Path"
+        ],
+        "functions": [
+          "def __init__(self):",
+          "def _generate_html_dashboard(self, visualizations: dict) -> str:"
+        ],
+        "classes": [
+          "class Visualizer:"
+        ]
+      }
+    },
+    "__init__.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\__init__.py",
+      "destination": "subsystems\\ATLAS\\core\\__init__.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 275,
+        "modified": "2025-03-31T19:17:27.764508",
+        "hash": "65ded83f57d4c846b729e5a721fed83bfb2fa0afecc31cd4dd483124365fbb15",
+        "lines": 10,
+        "imports": [
+          "from .quantum_visualization import QuantumVisualizer, QuantumConnection"
+        ],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "config\\atlas_config.json": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\config\\atlas_config.json",
+      "destination": "subsystems\\ATLAS\\core\\config\\atlas_config.json",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 2354,
+        "modified": "2025-03-29T18:34:50.539253",
+        "hash": "4c6a78cd55994f76eb369fbd253d5b7b5834c676fe8e759b13476273dbd580c4",
+        "lines": 89,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "docs\\atlas_analysis.md": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\docs\\atlas_analysis.md",
+      "destination": "subsystems\\ATLAS\\core\\docs\\atlas_analysis.md",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 5123,
+        "modified": "2025-03-30T00:19:56.061277",
+        "hash": "9f090c027e6722a55875c3147d9110ab730234613621d4b1503c6b188d6fc7cc",
+        "lines": 199,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "docs\\unification_report.json": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\docs\\unification_report.json",
+      "destination": "subsystems\\ATLAS\\core\\docs\\unification_report.json",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 3782,
+        "modified": "2025-03-30T00:26:57.203475",
+        "hash": "c322708d7c75448dfc174fa0cb21eb9d20dee537731484caca7a191571b6110b",
+        "lines": 126,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "docs\\validation_report.json": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\docs\\validation_report.json",
+      "destination": "subsystems\\ATLAS\\core\\docs\\validation_report.json",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 467,
+        "modified": "2025-03-30T00:26:57.199185",
+        "hash": "0fbc97b537cfb32110a9b5796414020bdc9b8f90363dc49b7179cf91717b6acd",
+        "lines": 19,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "scripts\\atlas_requirements.txt": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\scripts\\atlas_requirements.txt",
+      "destination": "subsystems\\ATLAS\\core\\scripts\\atlas_requirements.txt",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 975,
+        "modified": "2025-03-30T00:22:25.014977",
+        "hash": "4f546ce11bef1d5f003bb34bcb1cd493a4fc68200b5575ea8a3b4ffac79fae4b",
+        "lines": 57,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "scripts\\atlas_unification.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\scripts\\atlas_unification.py",
+      "destination": "subsystems\\ATLAS\\core\\scripts\\atlas_unification.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 26150,
+        "modified": "2025-03-30T00:22:07.690050",
+        "hash": "c54ba3d55e775d3e063b121544afb337969f1732ed7171c6dbfd744fdfd7d3e8",
+        "lines": 645,
+        "imports": [
+          "import json",
+          "import logging",
+          "import os",
+          "import shutil",
+          "import sys",
+          "from datetime import datetime",
+          "from pathlib import Path",
+          "from typing import Dict, List, Optional, Tuple",
+          "import subprocess",
+          "import hashlib",
+          "import re"
+        ],
+        "functions": [
+          "def __init__(self):",
+          "def _setup_logger(self) -> logging.Logger:",
+          "def check_environment(self) -> bool:",
+          "def create_visualization_backup(self) -> bool:",
+          "def create_backup(self) -> bool:",
+          "def _verify_backup_integrity(self) -> bool:",
+          "def _calculate_file_hash(self, file_path: Path) -> str:",
+          "def _verify_visualization_backup(self) -> bool:",
+          "def create_target_structure(self) -> bool:",
+          "def move_files(self) -> bool:",
+          "def update_references(self) -> bool:",
+          "def _update_file_content(self, content: str) -> str:",
+          "def validate_migration(self) -> bool:",
+          "def generate_report(self) -> bool:",
+          "def execute(self) -> bool:",
+          "def main():"
+        ],
+        "classes": [
+          "class AtlasUnification:"
+        ]
+      }
+    },
+    "scripts\\setup_atlas_env.ps1": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\scripts\\setup_atlas_env.ps1",
+      "destination": "subsystems\\ATLAS\\core\\scripts\\setup_atlas_env.ps1",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 4225,
+        "modified": "2025-03-30T00:20:39.799904",
+        "hash": "ae171a5ec44a14b78432b702532a9c72bbfc116303d16b3a223d7176aaf229d2",
+        "lines": 157,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "tests\\test_quantum_visualization.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\tests\\test_quantum_visualization.py",
+      "destination": "subsystems\\ATLAS\\core\\tests\\test_quantum_visualization.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 5187,
+        "modified": "2025-03-31T19:17:27.808473",
+        "hash": "eea571f81d7749709e3d3a36fa9b317809eed598eb1e5acb8c01705dfbbc759d",
+        "lines": 144,
+        "imports": [
+          "import pytest",
+          "import json",
+          "import os",
+          "from pathlib import Path",
+          "import networkx as nx",
+          "import plotly.graph_objects as go",
+          "from ..quantum_visualization import QuantumVisualizer, QuantumConnection"
+        ],
+        "functions": [
+          "def visualizer():",
+          "def sample_connections(visualizer):",
+          "def test_add_connection(visualizer):",
+          "def test_add_connection_with_metadata(visualizer):",
+          "def test_generate_mermaid_diagram(sample_connections):",
+          "def test_generate_interactive_visualization(sample_connections):",
+          "def test_export_visualization(sample_connections, tmp_path):",
+          "def test_analyze_connections(sample_connections):",
+          "def test_empty_visualizer(visualizer):",
+          "def test_duplicate_connections(visualizer):",
+          "def test_bidirectional_connections(visualizer):"
+        ],
+        "classes": []
+      }
+    },
+    "tests\\__init__.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\tests\\__init__.py",
+      "destination": "subsystems\\ATLAS\\core\\tests\\__init__.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 63,
+        "modified": "2025-03-31T19:17:27.809477",
+        "hash": "b93af58936d4b787123a748ec1761f18cf8fdcabdcf5bd8953d53f220a0defae",
+        "lines": 4,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "__pycache__\\quantum_visualization.cpython-313.pyc": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\__pycache__\\quantum_visualization.cpython-313.pyc",
+      "destination": "subsystems\\ATLAS\\core\\__pycache__\\quantum_visualization.cpython-313.pyc",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 8214,
+        "modified": "2025-03-26T16:53:31.516465",
+        "hash": "e0f6aff9b49c75b88151195e7f82ba4683617979f477cf336a04c9d8240735e5",
+        "lines": 211,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "__pycache__\\__init__.cpython-313.pyc": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\__pycache__\\__init__.cpython-313.pyc",
+      "destination": "subsystems\\ATLAS\\core\\__pycache__\\__init__.cpython-313.pyc",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 430,
+        "modified": "2025-03-26T16:53:31.511470",
+        "hash": "512fb81c7c60c6d8034bd41b81cf7e3a39c10c19fb428e216277695a0b010347",
+        "lines": 14,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "web\\frontend\\atlas.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\web\\frontend\\atlas.py",
+      "destination": "subsystems\\ATLAS\\core\\web\\frontend\\atlas.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 17180,
+        "modified": "2025-03-31T19:17:27.829233",
+        "hash": "09fe857aaeacbad61975e0a4fe951f0d0e74765c840e638e9e1d24a695e974b2",
+        "lines": 481,
+        "imports": [
+          "import streamlit as st",
+          "import plotly.graph_objects as go",
+          "import networkx as nx",
+          "import pandas as pd",
+          "import numpy as np",
+          "from datetime import datetime",
+          "import sys",
+          "import os",
+          "from pathlib import Path",
+          "from utils import set_page_style, display_footer",
+          "from integrations import EVASystem"
+        ],
+        "functions": [
+          "def initialize_session():",
+          "def initialize_system():",
+          "def create_node_form():",
+          "def create_connection_form():",
+          "def update_system_data():",
+          "def create_network_graph():",
+          "def display_system_analysis():",
+          "def display_node_table():",
+          "def display_connection_table():",
+          "def main():"
+        ],
+        "classes": []
+      }
+    },
+    "web\\backend\\personas\\atlas.json": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\web\\backend\\personas\\atlas.json",
+      "destination": "subsystems\\ATLAS\\core\\web\\backend\\personas\\atlas.json",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 3828,
+        "modified": "2025-03-29T18:34:53.288221",
+        "hash": "900c00338026f86c5b2f42b267804d0c5ece97ecf5c0b6dab083d4ec270f95bd",
+        "lines": 61,
+        "imports": [],
+        "functions": [],
+        "classes": []
+      }
+    },
+    "integrations\\cursor_bridge\\cursor_atlas_bridge.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\integrations\\cursor_bridge\\cursor_atlas_bridge.py",
+      "destination": "subsystems\\ATLAS\\core\\integrations\\cursor_bridge\\cursor_atlas_bridge.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 2629,
+        "modified": "2025-03-31T19:17:27.802266",
+        "hash": "f4723516e229374a540e8d9c1594db780d153e4881ca8b41b45a58915b9143f0",
+        "lines": 77,
+        "imports": [
+          "import sys",
+          "import os",
+          "from pathlib import Path",
+          "from tools.integration.cursor_cache_explorer import CursorCacheExplorer",
+          "from core.atlas import map_project, visualize_mapping"
+        ],
+        "functions": [
+          "def __init__(self):",
+          "def extract_file_structure(self):",
+          "def generate_atlas_mapping(self, output_path=\"atlas_from_cursor.json\"):",
+          "def main():"
+        ],
+        "classes": [
+          "class CursorAtlasBridge:"
+        ]
+      }
+    },
+    "core\\python\\atlas_core.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\core\\python\\atlas_core.py",
+      "destination": "subsystems\\ATLAS\\core\\core\\python\\atlas_core.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 20067,
+        "modified": "2025-03-31T19:17:27.785436",
+        "hash": "111605e0c494c0c2eae21b05623050a0eeb5b2d9d7bd6759740224c83a9b674c",
+        "lines": 522,
+        "imports": [
+          "import os",
+          "import sys",
+          "import json",
+          "import logging",
+          "import networkx as nx",
+          "import matplotlib.pyplot as plt",
+          "from pathlib import Path",
+          "from datetime import datetime",
+          "from typing import Dict, List, Any, Optional, Union, Tuple"
+        ],
+        "functions": [
+          "def __init__(self, config_path: Optional[str] = None):",
+          "def _create_default_config(self) -> Dict[str, Any]:",
+          "def _log_operation(self, operation: str, status: str, details: str,",
+          "def map_system(self, system_data: Dict[str, Any], name: str) -> bool:",
+          "def visualize(self, output_path: Optional[str] = None,",
+          "def export_to_obsidian(self, vault_path: str,",
+          "def _generate_markdown(self, image_filename: str) -> str:",
+          "def _save_mapping(self, name: str) -> None:",
+          "def analyze_system(self) -> Dict[str, Any]:"
+        ],
+        "classes": [
+          "class ATLASCore:"
+        ]
+      }
+    },
+    "core\\python\\atlas_core_src.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\core\\python\\atlas_core_src.py",
+      "destination": "subsystems\\ATLAS\\core\\core\\python\\atlas_core_src.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 6242,
+        "modified": "2025-03-31T19:17:27.794158",
+        "hash": "8522820a9bd59da29e45f159d9b682c997c92bfe2829b3f2c4c6e08c23759a77",
+        "lines": 189,
+        "imports": [
+          "import logging",
+          "from typing import Dict, List, Optional, Any",
+          "from dataclasses import dataclass",
+          "from datetime import datetime"
+        ],
+        "functions": [
+          "def __init__(self):",
+          "def add_node(self, node: SystemNode) -> bool:",
+          "def add_connection(self, connection: SystemConnection) -> bool:",
+          "def analyze_topology(self) -> Dict[str, Any]:",
+          "def _calculate_average_love_quotient(self) -> float:",
+          "def _calculate_average_consciousness_level(self) -> float:",
+          "def _calculate_system_health(self) -> float:",
+          "def optimize_topology(self) -> bool:"
+        ],
+        "classes": [
+          "class SystemNode:",
+          "class SystemConnection:",
+          "class ATLASCore:"
+        ]
+      }
+    },
+    "core\\python\\atlas_demo.py": {
+      "source": "QUANTUM_PROMPTS\\ATLAS\\core\\python\\atlas_demo.py",
+      "destination": "subsystems\\ATLAS\\core\\core\\python\\atlas_demo.py",
+      "source_exists": true,
+      "dest_exists": false,
+      "analysis": {
+        "size": 5844,
+        "modified": "2025-03-31T19:17:27.798152",
+        "hash": "f076a18bb2a1a850af92547b02e18d189fbdbf5b511f5ade7a1989871f356a47",
+        "lines": 151,
+        "imports": [
+          "import os",
+          "import sys",
+          "import json",
+          "import argparse",
+          "import logging",
+          "from pathlib import Path"
+        ],
+        "functions": [
+          "def print_colored(message, color=Colors.CYAN, bold=False):",
+          "def print_banner():",
+          "def parse_arguments():",
+          "def main():"
+        ],
+        "classes": [
+          "class Colors:"
+        ]
+      }
+    }
+  },
+  "conflicts": [],
+  "recommendations": [
+    {
+      "file": "connections_map.json",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "mycelium_monitor.js",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "quantum_prompt.md",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "quantum_visualization.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "README.implementation.md",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "README.md",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "roadmap.md",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "system_cartography.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "update_roadmap.js",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "visualizer.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "__init__.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "config\\atlas_config.json",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "docs\\atlas_analysis.md",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "docs\\unification_report.json",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "docs\\validation_report.json",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "scripts\\atlas_requirements.txt",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "scripts\\atlas_unification.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "scripts\\setup_atlas_env.ps1",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "tests\\test_quantum_visualization.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "tests\\__init__.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "__pycache__\\quantum_visualization.cpython-313.pyc",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "__pycache__\\__init__.cpython-313.pyc",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "web\\frontend\\atlas.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "web\\backend\\personas\\atlas.json",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "integrations\\cursor_bridge\\cursor_atlas_bridge.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "core\\python\\atlas_core.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "core\\python\\atlas_core_src.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    },
+    {
+      "file": "core\\python\\atlas_demo.py",
+      "action": "copy",
+      "reason": "File does not exist in destination"
+    }
+  ]
+}

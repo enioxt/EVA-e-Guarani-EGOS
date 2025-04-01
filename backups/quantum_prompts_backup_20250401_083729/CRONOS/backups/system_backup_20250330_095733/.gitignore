@@ -1,0 +1,374 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.env
+.venv
+env.bak/
+venv.bak/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.cursor/
+
+# Backups and Temporary Files
+Backups/
+backup*/
+*_backup*/
+temp/
+tmp/
+*.tmp
+*.bak
+*.swp
+*.old
+*_old
+quarantine/
+system_backup_*/
+*_POMBO_*/
+bios_q_backup_*/
+
+# Logs
+*.log
+logs/
+log/
+
+# System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Project Specific
+__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Site packages in venv
+venv/Lib/site-packages/
+
+# Keep only specific test files
+test_*.py
+!test_bios.py
+!test_bios_q_mcp.py
+!test_roadmap.py
+!test_module.py
+!test_auto_save.py
+!test_quantum_knowledge.py
+!test_mcp.py
+!test_mcp_client.py
+!test_perplexity.py
+
+# Keep only specific bat files
+*.bat
+!start_bios_q.bat
+!start_cursor_bios.bat
+!start_cursor_integration.bat
+!start_quantum_ecosystem.bat
+!start_quantum_prompts.bat
+!start_quantum_roadmap.bat
+!sync_quantum_prompt.bat
+!start_monitor.bat
+
+# IDE and Editor files
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+.history/
+.cursor/
+
+# OS specific files
+*.DS_Store
+Thumbs.db
+desktop.ini
+
+# Project specific
+**/cache/
+!**/cache/.gitkeep
+**/models/
+!**/models/.gitkeep
+**/*.model
+**/api_keys.json
+**/openai_usage.json
+**/credentials.json
+**/secrets.json
+**/logs/
+!**/logs/.gitkeep
+translation_report.md
+translation_scan.log
+translation_log.txt
+ai_translation_log.txt
+*.log
+*.log.*
+sandbox/
+.ipynb_checkpoints/
+
+# API Keys and Credentials
+*.pem
+*.key
+*credentials.json
+*apikey*
+*secret*
+
+# Large files and data
+*.zip
+*.tar.gz
+*.tar
+*.rar
+*.7z
+*.bin
+*.h5
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.npy
+
+# Temporary and test files
+.coverage
+htmlcov/
+.tox/
+.nox/
+*.tmp
+tmp/
+.pytest_cache/
+
+# Keep essential structure but ignore large content
+data/**
+!data/README.md
+!data/**/.gitkeep
+
+modules/translator_dev/engines/huggingface/models/**
+!modules/translator_dev/engines/huggingface/models/.gitkeep
+
+# Large documentation files or generated content
+**/examples/generated/**
+!**/examples/generated/.gitkeep
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python installer script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+#   For a library or package, you might want to ignore these files since the code is
+#   intended to run in multiple environments; otherwise, check them in:
+# .python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# poetry
+#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
+#   This is especially recommended for binary packages to ensure reproducibility, and is more
+#   commonly ignored for libraries.
+#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
+#poetry.lock
+
+# pdm
+#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
+#pdm.lock
+#   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
+#   in version control.
+#   https://pdm.fming.dev/#use-with-ide
+.pdm.toml
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
+#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+#  and can be added to the global gitignore or merged into this file.  For a more nuclear
+#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+#.idea/
+
+# EVA & GUARANI specific
+config/api_keys.json
+data/cache/
+data/knowledge/
+logs/conversations/
+logs/context/
+staging/temp/
+*.bak
+*.backup
+*.swap
+*~
+
+# API Keys and Sensitive Data
+api_keys.json
+*.pem
+*.key
+*.env
+credentials/
+secrets/
+
+# Temporary and cache files
+*.tmp
+*.temp
+.cursor/
+temp_conversation.txt
+.temp_*
+.cursor_cache
+
+# Cursor
+.cursor/
+__cursorignore
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini 
+node_modules

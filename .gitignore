@@ -4,7 +4,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -16,92 +15,106 @@ lib64/
 parts/
 sdist/
 var/
+wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 
 # Virtual Environment
 venv/
-ENV/
 env/
+ENV/
 
-# IDE and Editor files
+# IDE
 .idea/
 .vscode/
 *.swp
 *.swo
-*~
 .project
 .pydevproject
 .settings/
-.history/
-.cursor/
 
-# OS specific files
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+logs/
+*.log.*
+
+# Environment variables and secrets
+.env
+.env.*
+*.key
+api_keys.json
+config.json
+eva_guarani_config.json
+secrets.yaml
+credentials.json
+
+# System specific
 .DS_Store
 Thumbs.db
-desktop.ini
 
 # Project specific
-**/cache/
-!**/cache/.gitkeep
-**/models/
-!**/models/.gitkeep
-**/*.model
-**/api_keys.json
-**/openai_usage.json
-**/credentials.json
-**/secrets.json
-**/logs/
-!**/logs/.gitkeep
-translation_report.md
-translation_scan.log
-translation_log.txt
-ai_translation_log.txt
-*.log
-*.log.*
-temp/
-sandbox/
-.ipynb_checkpoints/
+quantum_state.json
+metadata_db.json
+.metadata/
+external/logs/
+external/temp/
+external/archive/
 
-# API Keys and Credentials
-*.pem
-*.key
-*credentials.json
-*apikey*
-*secret*
+# Testing
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.tox/
 
-# Large files and data
+# Documentation
+docs/_build/
+docs/api/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*~
+
+# Large binary files
 *.zip
 *.tar.gz
-*.tar
 *.rar
 *.7z
-*.bin
-*.h5
-*.ckpt
-*.pt
-*.pth
-*.safetensors
-*.npy
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
 
-# Temporary and test files
-.coverage
-htmlcov/
-.tox/
-.nox/
-*.tmp
-tmp/
-.pytest_cache/
+# Node modules (if using any JavaScript/TypeScript)
+node_modules/
+package-lock.json
+yarn.lock
 
-# Keep essential structure but ignore large content
-data/**
-!data/README.md
-!data/**/.gitkeep
+# Ignore old QUANTUM_PROMPTS versions and specific files
+QUANTUM_PROMPTS/MASTER/EVA_GUARANI_v7.*.md
+QUANTUM_PROMPTS/MASTER/MASTER_PROMPT_V7.0.md
+QUANTUM_PROMPTS/MASTER/EVA_GUARANI_7.0.md
+QUANTUM_PROMPTS/MASTER/GUIA_INSTALACAO_CURSOR.md
 
-modules/translator_dev/engines/huggingface/models/**
-!modules/translator_dev/engines/huggingface/models/.gitkeep
+# Ensure example files are NOT ignored
+!*.example.json
+!*.example.yaml
+!*.example.env
 
-# Large documentation files or generated content
-**/examples/generated/**
-!**/examples/generated/.gitkeep 
+# Temporarily ignore specific Cursor/dev files in QUANTUM_PROMPTS/MASTER
+QUANTUM_PROMPTS/MASTER/cursor_settings.json
+QUANTUM_PROMPTS/MASTER/CURSOR_SYSTEM_PROMPT.txt
+QUANTUM_PROMPTS/MASTER/CURSOR_QUANTUM_PROMPT.md
+QUANTUM_PROMPTS/MASTER/unification/
+QUANTUM_PROMPTS/MASTER/docs/
+QUANTUM_PROMPTS/MASTER/logs/
+QUANTUM_PROMPTS/MASTER/mcp/
+QUANTUM_PROMPTS/MASTER/slop/ 

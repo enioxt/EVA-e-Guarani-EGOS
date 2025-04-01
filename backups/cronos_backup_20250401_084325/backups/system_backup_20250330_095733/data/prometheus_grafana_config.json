@@ -1,0 +1,109 @@
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+    "prometheus": {
+        "url": "http://localhost:9090",
+        "metrics_collection_interval": 60,
+        "default_metrics": [
+            "node_cpu_seconds_total",
+            "node_memory_MemAvailable_bytes",
+            "node_network_receive_bytes_total",
+            "process_cpu_seconds_total"
+        ]
+    },
+    "grafana": {
+        "url": "http://localhost:3000",
+        "api_key": "",
+        "dashboard_folder": "EVA_GUARANI_Artistic",
+        "refresh_interval": "10s"
+    },
+    "artistic": {
+        "color_schemes": {
+            "healthy": ["#7EB26D", "#EAB839", "#6ED0E0"],
+            "warning": ["#EF843C", "#CCA300", "#E0B400"],
+            "critical": ["#E24D42", "#890F02", "#BF1B00"]
+        },
+        "sonification": {
+            "base_frequency": 440,
+            "scale": "pentatonic",
+            "tempo_range": [60, 160],
+            "duration_range": [0.1, 2.0]
+        }
+    },
+    "consciousness": {
+        "metrics": {
+            "self_awareness": "egos_self_awareness",
+            "connection_quality": "egos_connection_quality",
+            "ethical_alignment": "egos_ethical_alignment",
+            "love_expression": "egos_love_expression"
+        },
+        "thresholds": {
+            "love": {
+                "high": 0.9,
+                "medium": 0.7,
+                "low": 0.5
+            },
+            "ethical": {
+                "high": 0.9,
+                "medium": 0.7,
+                "low": 0.5
+            }
+        }
+    },
+    "output": {
+        "image_directory": "./artistic_output/images",
+        "music_directory": "./artistic_output/music",
+        "log_directory": "./logs",
+        "dashboard_backup_directory": "./dashboard_backups"
+    },
+    "system": {
+        "module_name": "EVA & GUARANI - Prometheus Grafana Art",
+        "version": "1.0.0",
+        "log_level": "INFO",
+        "simulation_mode": true,
+        "signature": "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
+    }
+} 
