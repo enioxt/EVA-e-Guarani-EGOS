@@ -1,0 +1,103 @@
+{
+  "__metadata__": {
+    "type": "test",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "test",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+json
+{
+  "timestamp": "2025-03-03T14:52:19.537015",
+  "api_key_masked": "pplx...LSDK",
+  "results": [
+    {
+      "model": "sonar",
+      "success": true,
+      "response": "The capital of Brazil is Brasília, located in the Central-West Region of the country and the seat of the government of the Federal District[1][3].",
+      "response_time": 2.173802,
+      "timestamp": "2025-03-03T14:51:23.807088"
+    },
+    {
+      "model": "sonar-pro",
+      "success": true,
+      "response": "The capital of Brazil is Brasília, located in the Federal District in the Central-West Region of the country[1][7].",
+      "response_time": 3.640625,
+      "timestamp": "2025-03-03T14:51:26.008146"
+    },
+    {
+      "model": "sonar-reasoning",
+      "success": true,
+      "response": "<think>\nOkay, the user is asking \"What is the capital of Brazil?\" They want a concise answer in one sentence. Let me check the search results provided.\n\nLooking at the first search result",
+      "response_time": 2.311555,
+      "timestamp": "2025-03-03T14:51:29.670284"
+    },
+    {
+      "model": "sonar-reasoning-pro",
+      "success": true,
+      "response": "<think>\nOkay, I need to answer what the capital of Brazil is in one sentence, as the user requested. I will check the search results to confirm.\n\nIn the results, several sites like Brasil Escola [1], Mundo Educação [",
+      "response_time": 2.730502,
+      "timestamp": "2025-03-03T14:51:32.003492"
+    },
+    {
+      "model": "sonar-deep-research",
+      "success": true,
+      "response": "<think>\nOk, I need to answer the user's question: \"What is the capital of Brazil? Please respond in one sentence.\" I will analyze the provided search results.\n\nFirst, looking at the",
+      "response_time": 41.048392,
+      "timestamp": "2025-03-03T14:51:34.763796"
+    },
+    {
+      "model": "r1-1776",
+      "success": true,
+      "response": "<think>\nOkay, the user is asking what the capital of Brazil is. First, I need to confirm if I remember correctly. Brazil has had other capitals in the past, such as Salvador and Rio de Janeiro, but currently",
+      "response_time": 3.671523,
+      "timestamp": "2025-03-03T14:52:15.860365"
+    }
+  ],
+  "available_models": [
+    "sonar",
+    "sonar-pro",
+    "sonar-reasoning",
+    "sonar-reasoning-pro",
+    "sonar-deep-research",
+    "r1-1776"
+  ],
+  "unavailable_models": []
+}

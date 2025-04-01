@@ -1,0 +1,141 @@
+# EVA & GUARANI - Quantum Subsystems Configuration
+# Version: 1.0.0
+# Date: 2025-03-30
+
+master:
+  source_dirs: 
+    - "MASTER"
+  target_dir: "QUANTUM_PROMPTS/MASTER"
+  backup_dir: "quarantine/MASTER_backup"
+  special_dir: "config_backup"
+  required_tools:
+    - "python"
+    - "node"
+  special_files:
+    - "quantum_prompt.md"
+    - "quantum_context.md"
+    - "quantum_roadmap.md"
+  dependencies: []
+  ethical_rules:
+    - "master_ethics.json"
+
+ethik:
+  source_dirs:
+    - "ETHIK"
+    - "core/ethik"
+  target_dir: "QUANTUM_PROMPTS/ETHIK"
+  backup_dir: "quarantine/ETHIK_backup"
+  special_dir: "blockchain_backup"
+  required_tools:
+    - "node"
+    - "npm"
+    - "truffle"
+    - "hardhat"
+  special_files:
+    - "contracts/*"
+    - "migrations/*"
+    - "test/*"
+  dependencies:
+    - "MASTER"
+  ethical_rules:
+    - "ethik_rules.json"
+    - "validation_rules.json"
+
+atlas:
+  source_dirs:
+    - "ATLAS"
+    - "core/atlas"
+    - "web/atendimento/frontend_streamlit/pages"
+  target_dir: "QUANTUM_PROMPTS/ATLAS"
+  backup_dir: "quarantine/ATLAS_backup"
+  special_dir: "visualization_backup"
+  required_tools:
+    - "python"
+    - "node"
+    - "npm"
+  special_files:
+    - "visualizations/*"
+    - "components/*"
+  dependencies:
+    - "MASTER"
+    - "ETHIK"
+  ethical_rules:
+    - "atlas_ethics.json"
+
+nexus:
+  source_dirs:
+    - "NEXUS"
+    - "core/nexus"
+    - "web/frontend"
+  target_dir: "QUANTUM_PROMPTS/NEXUS"
+  backup_dir: "quarantine/NEXUS_backup"
+  special_dir: "analysis_backup"
+  required_tools:
+    - "python"
+    - "node"
+    - "npm"
+    - "typescript"
+  special_files:
+    - "analysis/*"
+    - "components/*"
+  dependencies:
+    - "MASTER"
+    - "ETHIK"
+    - "ATLAS"
+  ethical_rules:
+    - "nexus_ethics.json"
+
+cronos:
+  source_dirs:
+    - "CRONOS"
+    - "core/cronos"
+  target_dir: "QUANTUM_PROMPTS/CRONOS"
+  backup_dir: "quarantine/CRONOS_backup"
+  special_dir: "backup_backup"
+  required_tools:
+    - "python"
+    - "node"
+  special_files:
+    - "backups/*"
+    - "snapshots/*"
+  dependencies:
+    - "MASTER"
+  ethical_rules:
+    - "cronos_ethics.json"
+
+metadata:
+  source_dirs:
+    - "METADATA"
+    - "core/metadata"
+  target_dir: "QUANTUM_PROMPTS/METADATA"
+  backup_dir: "quarantine/METADATA_backup"
+  special_dir: "meta_backup"
+  required_tools:
+    - "python"
+    - "node"
+  special_files:
+    - "schemas/*"
+    - "templates/*"
+  dependencies:
+    - "MASTER"
+    - "CRONOS"
+  ethical_rules:
+    - "metadata_ethics.json"
+
+bios_q:
+  source_dirs:
+    - "BIOS-Q"
+    - "core/bios_q"
+  target_dir: "QUANTUM_PROMPTS/BIOS-Q"
+  backup_dir: "quarantine/BIOS_Q_backup"
+  special_dir: "boot_backup"
+  required_tools:
+    - "python"
+    - "node"
+  special_files:
+    - "bootloader.cfg"
+    - "system_flags.toml"
+  dependencies:
+    - "MASTER"
+  ethical_rules:
+    - "bios_q_ethics.json" 

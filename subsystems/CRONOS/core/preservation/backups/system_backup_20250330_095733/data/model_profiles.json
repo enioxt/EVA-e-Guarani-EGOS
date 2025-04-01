@@ -1,0 +1,99 @@
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+  "gpt-4o": {
+    "name": "gpt-4o",
+    "capabilities": {
+      "reasoning": 0.95,
+      "creativity": 0.92,
+      "knowledge": 0.96,
+      "coding": 0.94,
+      "ethics": 0.97,
+      "multimodal": 0.9
+    },
+    "cost_per_1k_tokens": 0.01,
+    "context_length": 128000,
+    "latency": 1.5,
+    "specialties": [
+      "reasoning",
+      "ethics",
+      "latest knowledge"
+    ]
+  },
+  "gpt-3.5-turbo": {
+    "name": "gpt-3.5-turbo",
+    "capabilities": {
+      "reasoning": 0.75,
+      "creativity": 0.8,
+      "knowledge": 0.7,
+      "coding": 0.8,
+      "ethics": 0.75,
+      "multimodal": 0.0
+    },
+    "cost_per_1k_tokens": 0.001,
+    "context_length": 16000,
+    "latency": 1.0,
+    "specialties": [
+      "speed",
+      "basic coding"
+    ]
+  },
+  "text-embedding-3-large": {
+    "name": "text-embedding-3-large",
+    "capabilities": {
+      "embedding": 0.97,
+      "semantic_search": 0.98,
+      "clustering": 0.95
+    },
+    "cost_per_1k_tokens": 0.00013,
+    "context_length": 8000,
+    "latency": 0.5,
+    "specialties": [
+      "embeddings",
+      "semantic search"
+    ]
+  }
+}

@@ -1,0 +1,162 @@
+---
+metadata:
+  api_endpoints: []
+  author: EVA & GUARANI
+  backup_required: true
+  category: Eva e Guarani changelogs
+  changelog: []
+  dependencies:
+  - QUANTUM_PROMPTS
+  - BIOS-Q
+  description: Component of the EVA & GUARANI Quantum Unified System
+  documentation_quality: 0.95
+  encoding: utf-8
+  ethical_validation: true
+  last_updated: '2025-03-29'
+  related_files: []
+  required: true
+  review_status: approved
+  security_level: 0.95
+  simulation_capable: false
+  status: active
+  subsystem: MASTER
+  test_coverage: 0.9
+  translation_status: completed
+  type: text
+  version: '8.0'
+  windows_compatibility: true
+---
+I'll help you set up the MCP (Model Context Protocol) integration for EVA & GUARANI in Cursor. Based on the files and context provided, I see we need to properly configure and initialize the MCP server for Perplexity integration.
+
+First, let's check the current MCP server configuration in `.cursor/mcp-servers/perplexity.json`:
+
+Read file: .cursor/mcp-servers/perplexity.json
+I see that the MCP server is already configured with the Perplexity API key. Now, let's ensure the server is properly initialized. I'll check the initialization script:
+
+Read file: .cursor/init-mcp.bat
+Let's verify the launcher script:
+
+Read file: tools/launchers/start_perplexity_mcp.bat
+Now, let's check if we have all the required dependencies in requirements.txt:
+
+Read file: requirements.txt
+Based on the files and configuration I've reviewed, here's what we need to do to ensure the MCP integration works properly:
+
+1. First, let's make sure the MCP server dependencies are installed. Run this command in your terminal:
+
+```bash
+pip install websockets>=11.0.3 python-dotenv>=0.21.0
+```
+2. Now, let's start the MCP server:
+
+```bash
+tools/launchers/start_perplexity_mcp.bat
+```
+3. Let's verify that the server is running by checking the port:
+
+```bash
+netstat -an | findstr 38001
+```
+I notice that the server might not be running yet. Let's check the MCP server logs:
+
+Read file: tools/integration/mcp_server.log
+I see that we need to ensure the MCP server is properly configured in Cursor. Let's update the Cursor settings:
+
+```json with comments:.cursor/settings.json
+{
+    "onStartup": {
+        "runScript": "python core/bios_quantum.py",
+        "showBiosQ": true
+    },
+    "biosQ": {
+        "autoUpdate": true,
+        "updateInterval": "daily",
+        "showOnStartup": true
+    },
+    "ui": {
+        "showStatusInSidebar": true,
+        "roadmapVisualization": "timeline"
+    },
+    "project": {
+        "name": "EVA & GUARANI - EGOS",
+        "description": "Sistema Quântico com Ética Integrada"
+    },
+    "quantumPrompt": {
+        "location": "QUANTUM_PROMPTS/core_principles.md",
+        "integrationLevel": "maximum",
+        "updateFrequency": "realtime"
+    },
+    "ai": {
+        "customCommands": [
+            {
+                "name": "Search with Perplexity",
+                "prompt": "Using the Perplexity API, search for: {selection}",
+                "description": "Search the web using Perplexity API",
+                "key": "ctrl+alt+p"
+            },
+            {
+                "name": "Search as Philosopher",
+                "prompt": "Using the Perplexity API with philosopher persona, search for: {selection}",
+                "description": "Search the web from a philosophical perspective",
+                "key": "ctrl+alt+shift+p"
+            },
+            {
+                "name": "Search as Scientist",
+                "prompt": "Using the Perplexity API with scientist persona, search for: {selection}",
+                "description": "Search the web from a scientific perspective",
+                "key": "ctrl+alt+shift+s"
+            }
+        ]
+    },
+    "mcp": {
+        "servers": [
+            {
+                "name": "EVA & GUARANI Perplexity",
+                "command": "python -m tools.integration.mcp_server",
+                "env": {
+                    "PERPLEXITY_API_KEY": "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"
+                },
+                "autoStart": true,
+                "priority": 100,
+                "port": 38001,
+                "host": "localhost",
+                "logFile": "tools/integration/mcp_server.log"
+            }
+        ],
+        "enabledServers": ["EVA & GUARANI Perplexity"]
+    }
+}
+```
+Now that we've configured everything, here are the steps to use the MCP integration in Cursor:
+
+1. **Restart Cursor** to ensure it picks up the new MCP configuration.
+
+2. **Use the Custom Commands**:
+   - `Ctrl+Alt+P` - Search with Perplexity
+   - `Ctrl+Alt+Shift+P` - Search as Philosopher
+   - `Ctrl+Alt+Shift+S` - Search as Scientist
+
+3. **Verify Integration**:
+   - Select any text in your editor
+   - Press `Ctrl+Alt+P` to perform a search
+   - The results should appear in Cursor's chat panel
+
+If you encounter any issues:
+
+1. Check if the MCP server is running:
+   ```bash
+   netstat -an | findstr 38001
+   ```
+
+2. Restart the MCP server manually:
+   ```bash
+   tools/launchers/start_perplexity_mcp.bat
+   ```
+
+3. Check the logs in `tools/integration/mcp_server.log` for any errors.
+
+The MCP integration should now be working with your Perplexity API key. You can use it to perform web searches directly from Cursor using the configured keyboard shortcuts.
+
+Would you like me to help you test the integration or make any adjustments to the configuration?
+
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
