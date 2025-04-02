@@ -17,6 +17,8 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Quality Assurance",
@@ -27,12 +29,12 @@ dependencies = [
     "tqdm>=4.66.1",
     "colorama>=0.4.6",
     "rich>=13.7.0",
-    "langdetect>=1.0.9",
     "argparse>=1.4.0",
     "requests>=2.31.0",
     "python-dotenv>=1.0.0",
+    "scikit-learn>=1.0",
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 
 [project.optional-dependencies]
 test = [
@@ -46,20 +48,22 @@ Documentation = "https://github.com/yourusername/eva-guarani/wiki"
 Repository = "https://github.com/yourusername/eva-guarani.git"
 Issues = "https://github.com/yourusername/eva-guarani/issues"
 
-[tool.setuptools]
-packages = ["BIOS_Q", "src"]
+[tool.setuptools.packages.find]
+where = ["."]  # Look for packages in the current directory
+include = ["subsystems*", "src*"] # Include subsystems and src directories
+exclude = ["tests*", ".venv*"]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra -q --cov=BIOS_Q --cov=src"
+addopts = "-ra -q"  # Removed default coverage flags
 testpaths = [
-    "BIOS_Q/tests",
-    "tests",
+    "subsystems", # Let pytest discover tests within subsystems
+    "tests",      # Keep top-level tests if they exist
 ]
 
 [tool.coverage.run]
-source = ["BIOS_Q", "src"]
-omit = ["*/tests/*", "setup.py"]
+source = ["subsystems", "src"] # Source for coverage analysis
+omit = ["*/tests/*", "setup.py", "pyproject.toml"]
 
 [tool.coverage.report]
 exclude_lines = [
@@ -72,7 +76,7 @@ exclude_lines = [
 
 [tool.black]
 line-length = 88
-target-version = ["py311"]
+target-version = ["py39", "py310", "py311"]
 include = '\.pyi?$'
 
 [tool.isort]

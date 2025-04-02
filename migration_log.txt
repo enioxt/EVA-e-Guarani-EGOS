@@ -1,2 +1,0 @@
-2025-04-01 08:37:29,791 - INFO - Starting QUANTUM_PROMPTS migration
-2025-04-01 08:37:29,792 - INFO - Creating backup at backups/quantum_prompts_backup_20250401_083729
