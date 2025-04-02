@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-=======
 # Sensitive files
 **/eva_guarani_config.json
 **/api_keys.json
 **/*.env
 **/*.key
 
->>>>>>> 9a8e7d069e842833b666f995a657fc02eaa17b89
 # Python
 __pycache__/
 *.py[cod]
@@ -107,21 +104,17 @@ node_modules/
 package-lock.json
 yarn.lock
 
-<<<<<<< HEAD
-=======
 # Ignore old QUANTUM_PROMPTS versions and specific files
 QUANTUM_PROMPTS/MASTER/EVA_GUARANI_v7.*.md
 QUANTUM_PROMPTS/MASTER/MASTER_PROMPT_V7.0.md
 QUANTUM_PROMPTS/MASTER/EVA_GUARANI_7.0.md
 QUANTUM_PROMPTS/MASTER/GUIA_INSTALACAO_CURSOR.md
 
->>>>>>> 9a8e7d069e842833b666f995a657fc02eaa17b89
 # Ensure example files are NOT ignored
 !*.example.json
 !*.example.yaml
 !*.example.env
 
-<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -277,15 +270,4 @@ temp_files/
 subsystem_unification.log
 *.egg-info/
 
-# Keep research/manual logs, but ignore generated backups/logs 
-=======
-# Temporarily ignore specific Cursor/dev files in QUANTUM_PROMPTS/MASTER
-QUANTUM_PROMPTS/MASTER/cursor_settings.json
-QUANTUM_PROMPTS/MASTER/CURSOR_SYSTEM_PROMPT.txt
-QUANTUM_PROMPTS/MASTER/CURSOR_QUANTUM_PROMPT.md
-QUANTUM_PROMPTS/MASTER/unification/
-QUANTUM_PROMPTS/MASTER/docs/
-QUANTUM_PROMPTS/MASTER/logs/
-QUANTUM_PROMPTS/MASTER/mcp/
-QUANTUM_PROMPTS/MASTER/slop/ 
->>>>>>> 9a8e7d069e842833b666f995a657fc02eaa17b89
+# Keep research/manual logs, but ignore generated backups/logs

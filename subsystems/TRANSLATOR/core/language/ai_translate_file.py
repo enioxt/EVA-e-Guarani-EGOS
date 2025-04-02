@@ -22,6 +22,7 @@ import argparse
 import logging
 from pathlib import Path
 from typing import Optional, Dict, List, Any
+from dotenv import load_dotenv
 
 try:
     import openai
@@ -29,6 +30,28 @@ try:
     OPENAI_AVAILABLE = True
 except ImportError:
     OPENAI_AVAILABLE = False
+
+# Load environment variables from .env file
+load_dotenv()
+
+# --- Constants --- #
+# Get API key from environment variable
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+# Check if the key was loaded
+if not OPENAI_API_KEY:
+    print("\033[91mError: OPENAI_API_KEY not found in environment variables.\033[0m")
+    print("Please create a .env file in the project root and add OPENAI_API_KEY=your_key")
+    # Optionally raise an error or exit
+    # raise ValueError("Missing OpenAI API Key")
+    # exit(1)
+    # For now, let it proceed but functions requiring the key will fail.
+
+# Removed Hardcoded Key:
+# default_api_key = "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"
+
+# Other constants...
+MAX_TOKENS_PER_CHUNK = 1500  # Maximum tokens per chunk for GPT processing
 
 # Configure logging
 logging.basicConfig(
@@ -49,19 +72,19 @@ class AITranslator:
         Initialize the AI translator
         
         Args:
-            api_key: OpenAI API key (defaults to OPENAI_API_KEY environment variable)
+            api_key: OpenAI API key (optional, defaults to OPENAI_API_KEY environment variable)
             model: OpenAI model to use for translation
         """
-        # Default API key from project configuration
-        default_api_key = "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"
+        # Removed hardcoded default_api_key
+        # default_api_key = "sk-proj-izZ..."
         
-        # Priority: 1. Explicit API key parameter, 2. Environment variable, 3. Default project key
-        self.api_key = api_key or os.environ.get("OPENAI_API_KEY") or default_api_key
+        # Priority: 1. Explicit API key parameter, 2. Environment variable OPENAI_API_KEY
+        self.api_key = api_key or OPENAI_API_KEY # Uses loaded env var if api_key is None
         self.model = model
         self.client = None
         
         if not self.api_key:
-            logger.warning("No OpenAI API key provided. Set OPENAI_API_KEY environment variable or pass with --api-key")
+            logger.warning("No OpenAI API key provided or found in environment. Set OPENAI_API_KEY environment variable or pass with --api-key")
         
         self._init_client()
     
