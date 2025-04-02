@@ -1,0 +1,108 @@
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+json
+{
+  "pix": {
+    "key": "10689169663",
+    "name": "Enio Batista Fernandes Rocha",
+    "enabled": true
+  },
+  "crypto": {
+    "btc": {
+      "address": "bc1qy9vr32f2hsjyapt3jz7fen6g0lxrehrqahwj3m",
+      "network": "Bitcoin (Segwit)",
+      "enabled": true
+    },
+    "sol": {
+      "address": "2iWboZwTkJ5ofCB2wXApa5ReeyJwUFRXrBgHyFRSy6a1",
+      "network": "Solana",
+      "enabled": true
+    },
+    "eth": {
+      "address": "0xa858F22c8C1f3D5059D101C0c7666Ed0C2BF53ac",
+      "network": "Ethereum (BASE chain)",
+      "enabled": true
+    }
+  },
+  "usage_limits": {
+    "free_tier": {
+      "messages_per_day": 50,
+      "special_calls_per_day": 5,
+      "internet_calls_per_day": 3,
+      "recharge_amount": 2.0,
+      "initial_credits_value": 10.0
+    },
+    "supporter_tier": {
+      "messages_per_day": 200,
+      "special_calls_per_day": 50,
+      "internet_calls_per_day": 50,
+      "min_payment": 2.0,
+      "recharge_amount": 2.0
+    },
+    "premium_tier": {
+      "messages_per_day": 1000,
+      "special_calls_per_day": 200,
+      "internet_calls_per_day": 200,
+      "min_payment": 10.0,
+      "recharge_amount": 2.0
+    }
+  },
+  "pricing": {
+    "special_call_cost": 1,
+    "internet_call_cost": 1,
+    "image_generation_cost": {
+      "basic": 1,
+      "standard": 2,
+      "high_quality": 3
+    },
+    "credits_per_recharge": 10,
+    "credit_value_brl": 0.20
+  },
+  "initial_credits_value": 10,
+  "freemium_enabled": true,
+  "welcome_message": "Welcome to EVA & GUARANI! This bot is available to all users, with:\n\n• 50 basic messages per day\n• 5 free special calls\n• 3 free internet calls\n\nYour initial free credits are 10. After using your free credits, you can recharge for just R$ 2.00 and get 10 additional credits. Use /credits to check your balance and /upgrade for recharge information.",
+  "payment_message": "Thank you for considering contributing! Your contributions help maintain the service and improve features. Every R$ 2.00 paid adds 10 credits to your account."
+}
