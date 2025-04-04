@@ -198,7 +198,7 @@ This project is licensed under the MIT License - see the [**LICENSE**](LICENSE) 
 ### Creator Contact
 *   **Enio Rocha**
 *   **Email:** eniodind@protonmail.com
-*   **Telegram:** @ebfrocha
+*   **Telegram:** https://t.me/ebfrocha
 *   **LinkedIn:** https://www.linkedin.com/in/enio-rocha-138a01225
 
 ---
