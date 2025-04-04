@@ -1,0 +1,117 @@
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+  "timestamp": "2025-03-22T18:36:30.746235",
+  "environment": "Cursor + Claude 3.7 Sonnet",
+  "project": "EVA & GUARANI - EGOS",
+  "modules_discussed": [
+    {
+      "name": "ETHIK",
+      "description": "Sistema de Ética para EVA & GUARANI",
+      "timestamp": "2025-03-22T18:36:30.746252"
+    },
+    {
+      "name": "CRONOS",
+      "description": "Sistema de Preservação Evolutiva",
+      "timestamp": "2025-03-22T18:36:30.746260"
+    },
+    {
+      "name": "NEXUS",
+      "description": "Sistema de Análise Modular",
+      "timestamp": "2025-03-22T18:36:30.746265"
+    },
+    {
+      "name": "ATLAS",
+      "description": "Sistema de Cartografia Sistêmica",
+      "timestamp": "2025-03-22T18:36:30.746267"
+    },
+    {
+      "name": "BIOS-Q",
+      "description": "Sistema de Inicialização Quântica",
+      "timestamp": "2025-03-22T18:36:30.746269"
+    },
+    {
+      "name": "mycelium",
+      "description": "Sistema de análise de conexões",
+      "timestamp": "2025-03-22T18:36:30.746271"
+    },
+    {
+      "name": "MCP",
+      "description": "Memory Context Preservation",
+      "timestamp": "2025-03-22T18:36:30.746274"
+    }
+  ],
+  "conversation_full": "",
+  "conversation_summary": "\n\n\n## ⚠️ INFORMAÇÕES DE LIMITE DE CONTEXTO ⚠️\n\nO contexto atual está em aproximadamente 111.1% do limite máximo seguro.\nSe o Cursor solicitar um novo chat, isso indica que o limite real foi atingido.\n\n### 🔄 PARA CONTINUAR NO NOVO CHAT:\n\n1. Copie e execute o comando abaixo para carregar o contexto salvo:\n```\ncd /c/Eva\\ \\&\\ Guarani\\ -\\ EGOS/tools/mcp && python cursor_commands.py load_mcp\n```\n\n2. Se o Cursor solicitou um novo chat, informe o sistema para ajustar o limite:\n```\ncd /c/Eva\\ \\&\\ Guarani\\ -\\ EGOS/tools/mcp && python cursor_commands.py update_limit\n```\n\n### 📊 Status do Monitor:\n- Mensagens registradas: 2\n- Caracteres: 2040\n- Fonte do limite: empirical\n",
+  "key_concepts": {},
+  "action_items": [],
+  "relationships": [
+    {
+      "source": "BIOS-Q",
+      "target": "MCP",
+      "type": "contém",
+      "timestamp": "2025-03-22T18:36:30.746374"
+    },
+    {
+      "source": "MCP",
+      "target": "CURSOR",
+      "type": "integra com",
+      "timestamp": "2025-03-22T18:36:30.746378"
+    },
+    {
+      "source": "mycelium",
+      "target": "NEXUS",
+      "type": "analisa",
+      "timestamp": "2025-03-22T18:36:30.746380"
+    },
+    {
+      "source": "ATLAS",
+      "target": "mycelium",
+      "type": "visualiza",
+      "timestamp": "2025-03-22T18:36:30.746382"
+    }
+  ]
+}

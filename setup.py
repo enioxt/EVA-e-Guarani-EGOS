@@ -3,7 +3,7 @@
 EVA & GUARANI setup configuration
 """
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -16,7 +16,9 @@ setup(
     version="8.1.0",
     author="EVA & GUARANI Development Team",
     author_email="dev@evaguarani.org",
-    description="A quantum-conscious system for advanced code analysis and evolutionary preservation",
+    description=(
+        "A quantum-conscious system for advanced code analysis and evolutionary preservation"
+    ),
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/yourusername/eva-guarani",
@@ -42,4 +44,4 @@ setup(
     package_data={
         "": ["*.json", "*.yaml", "*.md"],
     },
-) 
+)

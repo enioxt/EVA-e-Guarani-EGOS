@@ -1,0 +1,59 @@
+---
+metadata:
+  api_endpoints: []
+  author: EVA & GUARANI
+  backup_required: true
+  category: deployment
+  changelog: []
+  dependencies:
+  - QUANTUM_PROMPTS
+  - BIOS-Q
+  description: Component of the EVA & GUARANI Quantum Unified System
+  documentation_quality: 0.95
+  encoding: utf-8
+  ethical_validation: true
+  last_updated: '2025-03-29'
+  related_files: []
+  required: true
+  review_status: approved
+  security_level: 0.95
+  simulation_capable: false
+  status: active
+  subsystem: MASTER
+  test_coverage: 0.9
+  translation_status: completed
+  type: text
+  version: '8.0'
+  windows_compatibility: true
+---
+
+# ==================================================================
+# COMBINED FILE FROM MULTIPLE SIMILAR FILES
+# Date: 2025-03-22 08:37:43
+# Combined files:
+# - deployment\requirements.txt (kept)
+# - sandbox\requirements.txt (moved to quarantine)
+# ==================================================================
+
+# EVA & GUARANI Sandbox - Requirements
+
+# Frameworks API
+flask>=2.0.1
+django>=4.0.0
+djangorestframework>=3.13.0
+flask-cors>=3.0.10
+
+# Utilities
+requests>=2.27.1
+python-dotenv>=0.19.2
+
+# Data Visualization
+matplotlib>=3.5.1
+plotly>=5.6.0
+
+# Web Development
+whitenoise>=6.0.0  # For serving static files
+
+# Development
+pytest>=7.0.0
+black>=22.1.0

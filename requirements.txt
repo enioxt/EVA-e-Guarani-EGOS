@@ -3,14 +3,42 @@ pyyaml>=6.0.1
 tqdm>=4.66.1
 colorama>=0.4.6
 rich>=13.7.0
-langdetect>=1.0.9
-argparse>=1.4.0
 requests>=2.31.0
-python-dotenv>=1.0.0
+python-dotenv>=1.0.0 # For loading .env files
 
 # Testing and Development
-pytest>=7.4.0
+pytest>=8.0
 pytest-cov>=4.1.0
+pytest-asyncio
+black
+ruff
+pre-commit
 
-# Note: Module-specific dependencies are listed in their respective requirements.txt files
-# For example: modules/translator_dev/requirements.txt 
+# Subsystem Specific / Optional
+networkx>=3.2.1 # Used by some subsystems
+matplotlib>=3.8.0 # Used by some subsystems
+openai>=1.0 # Optional: For AI translation if using OpenAI API
+watchdog # Optional: For filesystem monitoring (KOIOS)
+argostranslate # Optional: For free translation alternative
+
+# --- Local Packages (Fix Paths Before Uncommenting) ---
+# koios @ file:///C:/Users/Enidi/Documents/Projetos/koios
+# mycelium @ file:///path/to/mycelium # Example: Add correct path
+# subsystems.ETHIK @ file:///C:/Eva%20Guarani%20EGOS/subsystems/ETHIK # Example: Use relative path if possible
+# ... Add other subsystems if they become installable packages ...
+
+# Additional dependencies
+asyncio>=3.4.3
+# Add other core dependencies here
+
+# --- Core & Subsystems ---
+# ... Add other subsystems if they become installable packages ...
+
+# --- Dependencies ---
+# ... Add other dependencies if they become installable packages ...
+
+# --- External Libraries ---
+# ... Add other external libraries if they become installable packages ...
+
+# --- Other Potential Dependencies (Review if needed) ---
+# ... Add other potential dependencies if they become installable packages ...

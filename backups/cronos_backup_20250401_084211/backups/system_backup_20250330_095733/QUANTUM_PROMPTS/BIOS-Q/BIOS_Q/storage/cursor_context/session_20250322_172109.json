@@ -1,0 +1,122 @@
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+  "timestamp": "2025-03-22T17:21:09.190869",
+  "environment": "Cursor + Claude 3.7 Sonnet",
+  "project": "EVA & GUARANI - EGOS",
+  "modules_discussed": [
+    {
+      "name": "ETHIK",
+      "description": "Sistema de Ética para EVA & GUARANI",
+      "timestamp": "2025-03-22T17:21:09.190901"
+    },
+    {
+      "name": "CRONOS",
+      "description": "Sistema de Preservação Evolutiva",
+      "timestamp": "2025-03-22T17:21:09.190906"
+    },
+    {
+      "name": "NEXUS",
+      "description": "Sistema de Análise Modular",
+      "timestamp": "2025-03-22T17:21:09.190910"
+    },
+    {
+      "name": "ATLAS",
+      "description": "Sistema de Cartografia Sistêmica",
+      "timestamp": "2025-03-22T17:21:09.190912"
+    },
+    {
+      "name": "BIOS-Q",
+      "description": "Sistema de Inicialização Quântica",
+      "timestamp": "2025-03-22T17:21:09.190914"
+    },
+    {
+      "name": "mycelium",
+      "description": "Sistema de análise de conexões",
+      "timestamp": "2025-03-22T17:21:09.190917"
+    },
+    {
+      "name": "MCP",
+      "description": "Memory Context Preservation",
+      "timestamp": "2025-03-22T17:21:09.190919"
+    },
+    {
+      "name": "avatechartbot",
+      "description": "Bot de Telegram integrado",
+      "timestamp": "2025-03-22T17:21:09.191021"
+    }
+  ],
+  "conversation_full": "",
+  "conversation_summary": "\nConversa sobre o sistema MCP (Memory Context Preservation) no EVA & GUARANI EGOS:\n\n- Discussão sobre limitações do ambiente Cursor e seleção de texto via Ctrl+A\n- Desenvolvimento e otimização do sistema MCP para funcionar sem Ctrl+A\n- Criação/atualização de arquivos:\n  - tools/mcp/mcp_capture.py - captura de contexto sem depender de Ctrl+A\n  - tools/mcp/mcp_restore.py - restauração do contexto em formato otimizado\n  - tools/mcp/cursor_commands.py - comandos para executar MCP diretamente no Cursor\n  - tools/mcp/save_mcp.bat e load_mcp.bat - scripts para execução no Windows\n\n- Discussão sobre requisitos para preservação de contexto no ambiente Cursor\n- Integração com o sistema BIOS-Q\n- Fluxo de trabalho para salvar contexto:\n  1. Receber o comando !save_mcp\n  2. Capturar informações da conversa atual\n  3. Extrair módulos e conceitos-chave\n  4. Salvar em JSON para uso posterior\n\n- Módulos relacionados: ETHIK, ATLAS, NEXUS, CRONOS, BIOS-Q, mycelium\n- Integração com projetos: avatechartbot (bot Telegram)\n    ",
+  "key_concepts": {},
+  "action_items": [],
+  "relationships": [
+    {
+      "source": "BIOS-Q",
+      "target": "MCP",
+      "type": "contém",
+      "timestamp": "2025-03-22T17:21:09.191032"
+    },
+    {
+      "source": "MCP",
+      "target": "CURSOR",
+      "type": "integra com",
+      "timestamp": "2025-03-22T17:21:09.191035"
+    },
+    {
+      "source": "mycelium",
+      "target": "NEXUS",
+      "type": "analisa",
+      "timestamp": "2025-03-22T17:21:09.191037"
+    },
+    {
+      "source": "ATLAS",
+      "target": "mycelium",
+      "type": "visualiza",
+      "timestamp": "2025-03-22T17:21:09.191039"
+    }
+  ]
+}

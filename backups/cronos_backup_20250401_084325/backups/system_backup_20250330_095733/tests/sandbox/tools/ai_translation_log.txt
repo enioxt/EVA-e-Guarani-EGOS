@@ -1,0 +1,45 @@
+---
+metadata:
+  api_endpoints: []
+  author: EVA & GUARANI
+  backup_required: true
+  category: sandbox
+  changelog: []
+  dependencies:
+  - QUANTUM_PROMPTS
+  - BIOS-Q
+  description: Component of the EVA & GUARANI Quantum Unified System
+  documentation_quality: 0.95
+  encoding: utf-8
+  ethical_validation: true
+  last_updated: '2025-03-29'
+  related_files: []
+  required: true
+  review_status: approved
+  security_level: 0.95
+  simulation_capable: false
+  status: active
+  subsystem: MASTER
+  test_coverage: 0.9
+  translation_status: completed
+  type: text
+  version: '8.0'
+  windows_compatibility: true
+---
+2025-03-21 10:49:31,557 - ai_translate_file - WARNING - No OpenAI API key provided. Set OPENAI_API_KEY environment variable or pass with --api-key
+2025-03-21 10:49:31,558 - ai_translate_file - ERROR - OpenAI API key not provided
+2025-03-21 10:49:58,888 - ai_translate_file - WARNING - No OpenAI API key provided. Set OPENAI_API_KEY environment variable or pass with --api-key
+2025-03-21 10:49:58,888 - ai_translate_file - ERROR - OpenAI API key not provided
+2025-03-21 10:49:58,889 - ai_translate_file - INFO - Dry run - not making any changes
+2025-03-21 10:49:58,890 - ai_translate_file - INFO - Would translate file C:\Eva & Guarani - EGOS\sandbox\tools\sample_test.py to C:\Eva & Guarani - EGOS\sandbox\tools\sample_test.py
+2025-03-21 10:54:46,816 - ai_translate_file - WARNING - No OpenAI API key provided. Set OPENAI_API_KEY environment variable or pass with --api-key
+2025-03-21 10:54:46,817 - ai_translate_file - ERROR - OpenAI API key not provided
+2025-03-21 10:54:46,818 - ai_translate_file - INFO - Dry run - not making any changes
+2025-03-21 10:54:46,818 - ai_translate_file - INFO - Would translate file C:\Eva & Guarani - EGOS\sandbox\docs\api\README.md to C:\Eva & Guarani - EGOS\sandbox\docs\api\README.md
+2025-03-21 10:56:52,087 - ai_translate_file - INFO - OpenAI client initialized with model: gpt-4o
+2025-03-21 10:56:52,088 - ai_translate_file - INFO - Backup created: C:\Eva & Guarani - EGOS\sandbox\docs\api\README.md.backup
+2025-03-21 10:56:52,089 - ai_translate_file - INFO - Translating file: C:\Eva & Guarani - EGOS\sandbox\docs\api\README.md
+2025-03-21 10:56:54,239 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-21 10:56:54,257 - ai_translate_file - INFO - Translation complete: C:\Eva & Guarani - EGOS\sandbox\docs\api\README.md
+2025-03-21 11:03:13,632 - ai_translate_file - INFO - OpenAI client initialized with model: gpt-4o
+2025-03-21 11:03:13,632 - ai_translate_file - ERROR - Input file not found: C:\Users\SeuUsuario\Documents\documento.md

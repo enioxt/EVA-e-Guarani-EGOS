@@ -1,0 +1,140 @@
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+    "server": {
+        "host": "localhost",
+        "port": 3000,
+        "debug": true
+    },
+    "endpoints": {
+        "chat": {
+            "enabled": true,
+            "stream": true,
+            "models": [
+                "gpt-4",
+                "claude-3"
+            ]
+        },
+        "tools": {
+            "enabled": true,
+            "categories": [
+                "analysis",
+                "visualization",
+                "preservation",
+                "ethics"
+            ]
+        },
+        "memory": {
+            "enabled": true,
+            "storage": "C:\\Eva Guarani EGOS\\data",
+            "backup": true
+        },
+        "resources": {
+            "enabled": true,
+            "root": "C:\\Eva Guarani EGOS",
+            "allowedTypes": [
+                "*"
+            ]
+        },
+        "pay": {
+            "enabled": false
+        },
+        "info": {
+            "enabled": true,
+            "version": "8.0",
+            "name": "EVA & GUARANI",
+            "description": "Quantum Unified System"
+        }
+    },
+    "security": {
+        "cors": {
+            "enabled": true,
+            "origins": [
+                "*"
+            ]
+        },
+        "rateLimit": {
+            "enabled": true,
+            "windowMs": 900000,
+            "max": 100
+        }
+    },
+    "logging": {
+        "level": "debug",
+        "format": "json",
+        "dir": "C:\\Eva Guarani EGOS\\logs"
+    },
+    "subsystems": {
+        "ATLAS": {
+            "enabled": true,
+            "visualization": {
+                "engine": "mermaid",
+                "output": "svg"
+            }
+        },
+        "NEXUS": {
+            "enabled": true,
+            "analysis": {
+                "depth": "full",
+                "coverage": true
+            }
+        },
+        "CRONOS": {
+            "enabled": true,
+            "backup": {
+                "interval": 3600,
+                "retention": 7
+            }
+        },
+        "ETHIK": {
+            "enabled": true,
+            "validation": {
+                "required": true,
+                "level": "strict"
+            }
+        }
+    }
+}

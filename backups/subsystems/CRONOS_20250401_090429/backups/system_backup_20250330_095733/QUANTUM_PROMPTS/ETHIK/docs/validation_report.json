@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-03-30T00:17:24.317498",
+  "status": "success",
+  "metrics": {
+    "files_processed": 11,
+    "directories_created": 14,
+    "contracts_migrated": 0,
+    "rules_validated": 0,
+    "bytes_transferred": 135546,
+    "errors_encountered": 0
+  },
+  "warnings": [],
+  "validation": {
+    "directory_structure": true,
+    "core_files": true,
+    "blockchain_files": true,
+    "contracts_found": true,
+    "tests_found": true,
+    "sanitizers_found": true,
+    "validators_found": true
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "core",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": true,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "core",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": true,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+  "version": "1.0.0",
+  "consciousness_level": 0.999,
+  "love_level": 0.999,
+  "ethical_level": 0.999,
+  "log_level": "INFO",
+  "modules": {
+    "atlas": {
+      "enabled": true,
+      "config_path": "config/modules/atlas_config.json"
+    },
+    "nexus": {
+      "enabled": false,
+      "config_path": "config/modules/nexus_config.json"
+    },
+    "cronos": {
+      "enabled": false,
+      "config_path": "config/modules/cronos_config.json"
+    },
+    "eros": {
+      "enabled": false,
+      "config_path": "config/modules/eros_config.json"
+    },
+    "logos": {
+      "enabled": false,
+      "config_path": "config/modules/logos_config.json"
+    }
+  },
+  "interfaces": {
+    "telegram": {
+      "enabled": false,
+      "config_path": "config/interfaces/telegram_config.json"
+    },
+    "web": {
+      "enabled": false,
+      "config_path": "config/interfaces/web_config.json"
+    },
+    "obsidian": {
+      "enabled": true,
+      "config_path": "config/interfaces/obsidian_config.json"
+    },
+    "api": {
+      "enabled": false,
+      "config_path": "config/interfaces/api_config.json"
+    },
+    "cli": {
+      "enabled": true,
+      "config_path": "config/interfaces/cli_config.json"
+    }
+  },
+  "ethical_parameters": {
+    "respect_privacy": 0.99,
+    "promote_inclusivity": 0.98,
+    "ensure_transparency": 0.97,
+    "maintain_integrity": 0.99
+  },
+  "system_paths": {
+    "data_dir": "data",
+    "logs_dir": "logs",
+    "config_dir": "config",
+    "templates_dir": "templates"
+  }
+}

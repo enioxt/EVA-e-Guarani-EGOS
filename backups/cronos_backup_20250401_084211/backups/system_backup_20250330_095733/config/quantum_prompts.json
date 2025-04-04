@@ -1,0 +1,88 @@
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "module",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+    "master_prompt": {
+        "path": "../QUANTUM_PROMPTS/MASTER/quantum_context.md",
+        "type": "master",
+        "priority": 1
+    },
+    "subsystems": [
+        {
+            "name": "CRONOS",
+            "path": "../QUANTUM_PROMPTS/CRONOS/quantum_prompt.md",
+            "type": "subsystem",
+            "priority": 2,
+            "dependencies": []
+        },
+        {
+            "name": "ATLAS",
+            "path": "../QUANTUM_PROMPTS/ATLAS/quantum_prompt.md",
+            "type": "subsystem",
+            "priority": 3,
+            "dependencies": [
+                "CRONOS"
+            ]
+        },
+        {
+            "name": "NEXUS",
+            "path": "../QUANTUM_PROMPTS/NEXUS/quantum_prompt.md",
+            "type": "subsystem",
+            "priority": 4,
+            "dependencies": [
+                "ATLAS"
+            ]
+        },
+        {
+            "name": "ETHIK",
+            "path": "../QUANTUM_PROMPTS/ETHIK/quantum_prompt.md",
+            "type": "subsystem",
+            "priority": 5,
+            "dependencies": [
+                "NEXUS"
+            ]
+        }
+    ]
+}

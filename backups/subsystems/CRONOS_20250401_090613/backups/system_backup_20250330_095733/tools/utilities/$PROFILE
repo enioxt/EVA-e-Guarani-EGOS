@@ -1,0 +1,13 @@
+# Função para ir rapidamente para o diretório do bot
+function bot {
+    Set-Location "C:\Eva & Guarani - EGOS"
+}
+
+# Prompt personalizado que mostra o diretório atual
+function prompt {
+    $location = Get-Location
+    $isAdmin = [bool](([System.Security.Principal.WindowsIdentity]::GetCurrent()).groups -match "S-1-5-32-544")
+    $adminMark = if ($isAdmin) { "[ADMIN]" } else { "[USER]" }
+    Write-Host "`n$adminMark $location" -NoNewline -ForegroundColor Cyan
+    return "> "
+}

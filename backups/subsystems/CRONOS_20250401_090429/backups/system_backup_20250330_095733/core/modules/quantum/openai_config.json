@@ -1,0 +1,105 @@
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29",
+    "principles": [],
+    "security_level": "standard",
+    "test_coverage": 0.0,
+    "documentation_quality": 0.0,
+    "ethical_validation": true,
+    "windows_compatibility": true,
+    "encoding": "utf-8",
+    "backup_required": false,
+    "translation_status": "pending",
+    "api_endpoints": [],
+    "related_files": [],
+    "changelog": "",
+    "review_status": "pending"
+  }
+}
+
+{
+  "__metadata__": {
+    "type": "configuration",
+    "category": "module",
+    "subsystem": "MASTER",
+    "status": "active",
+    "required": false,
+    "simulation_capable": true,
+    "dependencies": [],
+    "description": "Component of the  subsystem",
+    "author": "EVA & GUARANI",
+    "version": "1.0.0",
+    "last_updated": "2025-03-29"
+  }
+}
+
+{
+  "api_key": "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",
+  "models": {
+    "default": "gpt-3.5-turbo",
+    "chat": "gpt-3.5-turbo",
+    "creation": "gpt-3.5-turbo",
+    "embedding": "text-embedding-3-small",
+    "legacy": "gpt-3.5-turbo-0125",
+    "premium": "gpt-4o"
+  },
+  "free_api_alternatives": {
+    "enabled": true,
+    "providers": [
+      {
+        "name": "HuggingFace Inference API",
+        "api_key": "",
+        "url": "https://api-inference.huggingface.co/models/",
+        "models": {
+          "default": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "chat": "mistralai/Mistral-7B-Instruct-v0.2",
+          "embedding": "sentence-transformers/all-MiniLM-L6-v2"
+        }
+      },
+      {
+        "name": "Ollama",
+        "url": "http://localhost:11434/api/",
+        "models": {
+          "default": "llama3",
+          "chat": "mistral"
+        }
+      }
+    ]
+  },
+  "model_selection": {
+    "auto_select": true,
+    "use_premium_for": ["complex_reasoning", "code_generation"],
+    "use_free_for": ["simple_chat", "greetings", "factual_queries"]
+  },
+  "parameters": {
+    "temperature": 0.7,
+    "max_tokens": 800,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0
+  },
+  "usage": {
+    "track": true,
+    "log_path": "logs/openai_usage.log",
+    "budget_limit_daily": 5.0,
+    "notify_at_percent": 70
+  },
+  "proxy": {
+    "enabled": false,
+    "url": "",
+    "auth": {
+      "user": "",
+      "password": ""
+    }
+  }
+}

@@ -1,0 +1,165 @@
+📌 [PATTERN-001] - Padrão de Nomenclatura e Estruturação do Sistema
+
+├── 📝 METADATA
+│   ├── Categoria: Padrões de Sistema
+│   ├── Subsistema: KOIOS
+│   ├── Complexidade: MÉDIA
+│   ├── Versão: 1.0.0
+│   ├── Autor: EVA & GUARANI
+│   ├── Data Criação: 2025-04-01
+│   ├── Última Atualização: 2025-04-01
+│   └── Tags: padrões, nomenclatura, estrutura, organização
+
+├── 🔍 PROBLEMA
+│   ├── Contexto: Necessidade de padronização na nomenclatura e estruturação de
+│   │            arquivos, diretórios e código em todo o sistema EVA & GUARANI
+│   ├── Sintomas:
+│   │   - Inconsistência nos nomes de arquivos
+│   │   - Dificuldade em localizar recursos
+│   │   - Confusão na organização de diretórios
+│   │   - Falta de clareza nas relações entre componentes
+│   └── Impacto:
+│       - Redução na produtividade
+│       - Aumento na complexidade de manutenção
+│       - Dificuldade na automação
+│       - Problemas de comunicação entre equipes
+
+├── 🧰 PADRÕES DE NOMENCLATURA
+│   ├── 1. Arquivos de Processo
+│   │   Formato: [SUBSISTEMA]-[TIPO]-[NÚMERO]_[Descrição]_[Subdescrição].md
+│   │   Exemplo: MIGRATION-001_Sistema_Migracao_Subsistemas.md
+│   │
+│   ├── 2. Scripts e Códigos
+│   │   Formato: [SUBSISTEMA]-[FUNÇÃO]-[NÚMERO]_[descrição].[extensão]
+│   │   Exemplo: ETHIK-BACKUP-001_sistema_backup.py
+│   │
+│   ├── 3. Testes
+│   │   Formato: test_[SUBSISTEMA]-[FUNÇÃO]-[NÚMERO]_[descrição].[extensão]
+│   │   Exemplo: test_ETHIK-BACKUP-001_sistema_backup.py
+│   │
+│   ├── 4. Documentação
+│   │   Formato: [SUBSISTEMA]-DOC-[NÚMERO]_[descrição].md
+│   │   Exemplo: ETHIK-DOC-001_guia_implementacao.md
+│   │
+│   └── 5. Configurações
+│       Formato: [SUBSISTEMA]-CONFIG-[NÚMERO]_[descrição].[extensão]
+│       Exemplo: ETHIK-CONFIG-001_validacao.json
+
+├── 📂 ESTRUTURA DE DIRETÓRIOS
+│   ├── 1. Diretório Raiz
+│   │   /[Subsistema]/
+│   │   Exemplo: /ETHIK/
+│   │
+│   ├── 2. Subdiretórios Padrão
+│   │   ├── /core/          # Implementações principais
+│   │   ├── /tests/         # Testes automatizados
+│   │   ├── /docs/          # Documentação
+│   │   ├── /config/        # Arquivos de configuração
+│   │   └── /resources/     # Recursos adicionais
+│   │
+│   └── 3. Diretórios Especiais
+│       ├── /interfaces/    # APIs e interfaces
+│       ├── /migrations/    # Scripts de migração
+│       └── /templates/     # Templates do sistema
+
+├── 🔤 CONVENÇÕES DE CÓDIGO
+│   ├── 1. Classes
+│   │   Formato: [Subsistema][Funcionalidade][Tipo]
+│   │   Exemplo: EthikBackupManager
+│   │
+│   ├── 2. Funções
+│   │   Formato: [verbo]_[substantivo]_[descrição]
+│   │   Exemplo: create_backup_manifest
+│   │
+│   ├── 3. Variáveis
+│   │   Formato: [substantivo]_[descrição]_[tipo]
+│   │   Exemplo: backup_timestamp_str
+│   │
+│   └── 4. Constantes
+│       Formato: [SUBSISTEMA]_[DESCRIÇÃO]_[TIPO]
+│       Exemplo: ETHIK_BACKUP_PATH
+
+├── 📋 REGRAS DE APLICAÇÃO
+│   ├── 1. Geral
+│   │   - Usar sempre inglês para código
+│   │   - Manter documentação em português
+│   │   - Seguir PEP 8 para Python
+│   │   - Usar camelCase para JavaScript
+│   │
+│   ├── 2. Documentação
+│   │   - Incluir cabeçalho em todos os arquivos
+│   │   - Documentar parâmetros e retornos
+│   │   - Manter exemplos atualizados
+│   │   - Usar Markdown para formatação
+│   │
+│   ├── 3. Versionamento
+│   │   - Seguir SemVer para versões
+│   │   - Usar commits semânticos
+│   │   - Documentar breaking changes
+│   │   - Manter CHANGELOG atualizado
+│   │
+│   └── 4. Testes
+│       - Nomear testes descritivamente
+│       - Organizar por funcionalidade
+│       - Incluir casos de borda
+│       - Documentar fixtures
+
+├── 📚 EXEMPLOS PRÁTICOS
+│   ├── 1. Estrutura de Projeto
+│   │   ```
+│   │   /ETHIK/
+│   │   ├── core/
+│   │   │   └── ETHIK-CORE-001_validator.py
+│   │   ├── tests/
+│   │   │   └── test_ETHIK-CORE-001_validator.py
+│   │   └── docs/
+│   │       └── ETHIK-DOC-001_validator.md
+│   │   ```
+│   │
+│   ├── 2. Código Python
+│   │   ```python
+│   │   class EthikValidatorManager:
+│   │       def validate_component_integrity(self):
+│   │           pass
+│   │   ```
+│   │
+│   └── 3. Documentação
+│       ```markdown
+│       # [ETHIK-DOC-001] Validator Implementation
+│       ## Overview
+│       ...
+│       ```
+
+├── 🔄 PROCESSO DE ATUALIZAÇÃO
+│   1. Revisão Trimestral
+│      - Avaliar eficácia dos padrões
+│      - Coletar feedback da equipe
+│      - Propor melhorias
+│      - Atualizar documentação
+│
+│   2. Implementação de Mudanças
+│      - Documentar alterações
+│      - Comunicar equipe
+│      - Atualizar ferramentas
+│      - Verificar conformidade
+
+└── 💡 BENEFÍCIOS
+    ├── 1. Para Humanos
+    │   - Facilidade de localização
+    │   - Clareza na organização
+    │   - Redução de erros
+    │   - Melhor manutenibilidade
+    │
+    ├── 2. Para IAs
+    │   - Padrões consistentes
+    │   - Estrutura previsível
+    │   - Contexto claro
+    │   - Automação facilitada
+    │
+    └── 3. Para o Sistema
+        - Escalabilidade
+        - Manutenibilidade
+        - Documentação clara
+        - Integração facilitada
+
+# ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
