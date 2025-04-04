@@ -75,8 +75,8 @@ Developing EGOS relies heavily on the **Cursor IDE** integrated with the **EVA &
     # Install dependencies
     pip install -r requirements.txt
     ```
-3.  **Configure Cursor IDE:** Crucially, follow the setup guide in **`cursor_initialization.md`**. This ensures your terminal and environment context work correctly with EVA & GUARANI.
-4.  **Understand Cursor Rules:** Familiarize yourself with the files in `.cursor-rules/*.mdc`. These rules contain essential guidelines (like KOIOS standards, subsystem boundaries, etc.) that **EVA & GUARANI** uses to assist with development, maintain consistency, and understand the project context. Interacting effectively often involves awareness of these rules.
+3.  **Configure Cursor IDE:** Crucially, follow the setup guide in **[cursor_initialization.md](cursor_initialization.md)**. This ensures your terminal and environment context work correctly with EVA & GUARANI.
+4.  **Understand Cursor Rules:** Familiarize yourself with the files in **[.cursor-rules/](.cursor-rules/)**. These rules contain essential guidelines (like KOIOS standards, subsystem boundaries, etc.) that **EVA & GUARANI** uses to assist with development, maintain consistency, and understand the project context. Interacting effectively often involves awareness of these rules.
 
 ### Configuration
 
@@ -116,9 +116,9 @@ To fully understand the project's philosophy, architecture, and contribution pro
 *   **[ROADMAP.md](ROADMAP.md):** High-level development plan and phases.
 *   **[CONTRIBUTING.md](CONTRIBUTING.md):** Guidelines for contributing code, reporting issues, and suggesting features.
 *   **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md):** Community standards and expectations.
-*   **[`cursor_initialization.md`](cursor_initialization.md):** Essential setup guide for the Cursor IDE environment.
-*   **[`.cursor-rules/`](.cursor-rules/):** Directory containing rules that guide EVA & GUARANI's interactions and enforce project standards.
-*   **[`subsystems/`](subsystems/):** Explore individual subsystem directories for their specific READMEs and code.
+*   **[cursor_initialization.md](cursor_initialization.md):** Essential setup guide for the Cursor IDE environment.
+*   **[.cursor-rules/](.cursor-rules/):** Directory containing rules that guide EVA & GUARANI's interactions and enforce project standards.
+*   **[subsystems/](subsystems/):** Explore individual subsystem directories for their specific READMEs and code.
 
 ---
 
