@@ -13,6 +13,7 @@ Version: 8.0.0
 
 import json
 from pathlib import Path
+from typing import Dict
 from unittest.mock import patch
 
 import pytest

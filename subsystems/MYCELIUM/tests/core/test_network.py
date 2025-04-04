@@ -321,6 +321,7 @@ class TestMyceliumNetworkAsync(unittest.IsolatedAsyncioTestCase):
             self.assertNotIn(topic, self.network.subscriptions)
 
 
-# Basic test execution (can be run with `python -m unittest subsystems/MYCELIUM/tests/core/test_network.py`)
+# Basic test execution (can be run with:
+# python -m unittest subsystems/MYCELIUM/tests/core/test_network.py)
 if __name__ == "__main__":
     unittest.main()

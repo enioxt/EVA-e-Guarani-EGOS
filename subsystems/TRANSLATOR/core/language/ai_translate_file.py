@@ -24,8 +24,9 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
+# Conditional import for OpenAI
 try:
-    import openai
+    # import openai # Removed unused import
     from openai import OpenAI
 
     OPENAI_AVAILABLE = True
@@ -87,7 +88,8 @@ class AITranslator:
 
         if not self.api_key:
             logger.warning(
-                "No OpenAI API key provided or found in environment. Set OPENAI_API_KEY environment variable or pass with --api-key"
+                "No OpenAI API key provided or found in environment. Set OPENAI_API_KEY "
+                "environment variable or pass with --api-key"
             )
 
         self._init_client()
@@ -189,16 +191,18 @@ class AITranslator:
 
         prompt = f"""Translate the following {file_type_desc} from Portuguese to English.
 Maintain the exact same structure, formatting, indentation and code functionality.
-Translate only the text, comments, documentation strings, and variable/function/class names if they're in Portuguese.
+Translate only the text, comments, documentation strings, and variable/function/class names
+if they're in Portuguese.
 DO NOT change any code logic, imports, or functionality.
 Keep all symbols, punctuation, and code structure intact.
-For variable/function/class names, use English equivalents that maintain the same meaning.
 
-Here is the content to translate:
-
+Original Content:
 ```
 {content}
-```"""
+```
+
+Translated Content:
+"""
 
         logger.info(f"Translating file: {input_path}")
 
@@ -209,7 +213,9 @@ Here is the content to translate:
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are a professional translator specializing in Portuguese to English technical translation, maintaining code integrity and functionality.",
+                        "content": "You are a helpful assistant specializing in "
+                                    "Portuguese to English technical translation, "
+                                    "maintaining code integrity and functionality.",
                     },
                     {"role": "user", "content": prompt},
                 ],

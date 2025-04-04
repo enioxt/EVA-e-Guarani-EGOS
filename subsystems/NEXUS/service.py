@@ -61,7 +61,7 @@ class NexusService:
         # ---------------------------------
 
         # --- Setup Logger for NEXUSCore ---
-        # self.nexus_core_logger = logging.getLogger("NEXUS") # Match name used in core - Now using Koios
+        # self.nexus_core_logger = logging.getLogger("NEXUS") # Match name used in core
         # log_level_str = self.config.get("log_level", "INFO").upper()
         # self.nexus_core_logger.setLevel(getattr(logging, log_level_str, logging.INFO))
         # if not self.nexus_core_logger.handlers:
@@ -158,8 +158,9 @@ class NexusService:
                 response_topic, {"type": "analyze_file_response", "payload": response_payload}
             )
             self.logger.info(
-                f"Processed analyze_file request {request_id} for '{file_path_str}'. Success: {response_payload['success']}"
-            )  # Use self.logger
+                f"Processed analyze_file request {request_id} "
+                f"for '{file_path_str}'. Success: {response_payload['success']}"
+            )
 
         except Exception as e:
             self.logger.error(
@@ -188,8 +189,9 @@ class NexusService:
                 response_topic, {"type": "analyze_workspace_response", "payload": response_payload}
             )
             self.logger.info(
-                f"Processed analyze_workspace request {request_id}. Success: {response_payload['success']}"
-            )  # Use self.logger
+                f"Processed analyze_workspace request {request_id}. "
+                f"Success: {response_payload['success']}"
+            )
 
         except Exception as e:
             self.logger.error(
@@ -222,8 +224,9 @@ class NexusService:
                 {"type": "suggest_improvements_response", "payload": response_payload},
             )
             self.logger.info(
-                f"Processed suggest_improvements request {request_id}. Found {len(suggestions)} suggestions."
-            )  # Use self.logger
+                f"Processed suggest_improvements request {request_id}. "
+                f"Found {len(suggestions)} suggestions."
+            )
 
         except Exception as e:
             self.logger.error(

@@ -116,7 +116,7 @@ def test_ignored_patterns(monitor, temp_dir, callback):
         dir_path.mkdir(exist_ok=True)
 
         # Create file in ignored directory
-        test_file = create_test_file(str(dir_path), "test.py")
+        create_test_file(str(dir_path), "test.py")
         time.sleep(0.1)  # Allow event to be processed
 
         # Verify callback was not called

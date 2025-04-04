@@ -301,7 +301,7 @@ async def test_validation_request_handler(validator, mock_mycelium):
     result = mock_mycelium.published_messages[0]
     assert result["topic"] == "test.ethik.validate.result"
     assert result["data"]["action"] == action
-    assert result["data"]["valid"] == True
+    assert result["data"]["valid"]
     assert result["data"]["score"] == 0.95
 
 
@@ -324,7 +324,7 @@ async def test_validation_request_failure_alert(validator, mock_mycelium):
     # Check result message
     result = mock_mycelium.published_messages[0]
     assert result["topic"] == "test.ethik.validate.result"
-    assert result["data"]["valid"] == False
+    assert not result["data"]["valid"]
     assert result["data"]["score"] == 0.3
 
     # Check alert message

@@ -13,6 +13,13 @@ from unittest.mock import AsyncMock, MagicMock, mock_open, patch  # Added mock_o
 from subsystems.CRONOS.core.service import CronosService, SystemBackupInfo, SystemState
 from subsystems.MYCELIUM.core.interface import MyceliumInterface
 
+# JSON data for successful history load test
+TEST_HISTORY_JSON_SUCCESS = (
+    '{"last_updated": "2023-01-01T10:00:00", "backups": [{"id": "b1", "name": "N1", '
+    '"timestamp": "2023-01-01T09:00:00", "size_bytes": 100, "location":"b1"}], '
+    '"states": [{"id": "s1", "name": "S1", "timestamp": "2023-01-01T08:00:00"}]}'
+)
+
 
 class TestCronosService(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
@@ -82,7 +89,7 @@ class TestCronosService(unittest.IsolatedAsyncioTestCase):
     @patch(
         "builtins.open",
         new_callable=mock_open,
-        read_data='{"last_updated": "2023-01-01T10:00:00", "backups": [{"id": "b1", "name": "N1", "timestamp": "2023-01-01T09:00:00", "size_bytes": 100, "location":"b1"}], "states": [{"id": "s1", "name": "S1", "timestamp": "2023-01-01T08:00:00"}]}',
+        read_data=TEST_HISTORY_JSON_SUCCESS,
     )
     @patch("pathlib.Path.is_dir", return_value=True)  # Assume backup dir exists
     def test_load_version_history_success(self, mock_is_dir, mock_file):
@@ -103,7 +110,7 @@ class TestCronosService(unittest.IsolatedAsyncioTestCase):
         """Test loading when history file doesn't exist."""
         # Use nested with statements and patch.object for Path.exists
         with patch.object(Path, "exists", return_value=False) as mock_exists:
-            with patch("builtins.open", mock_open()) as mock_file:
+            with patch("builtins.open", mock_open()):
                 with patch.object(self.service, "_save_version_history") as mock_save:
                     self.service._load_version_history()
 

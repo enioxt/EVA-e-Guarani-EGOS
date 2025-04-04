@@ -9,6 +9,8 @@ from unittest.mock import Mock, patch
 import pytest
 from verify_migration import MigrationVerifier
 
+import subsystems.ETHIK.tools.verify_migration as verify_migration
+
 
 @pytest.fixture
 def temp_test_env(tmp_path):

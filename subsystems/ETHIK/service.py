@@ -158,11 +158,11 @@ async def main():
         try:
             with open(config_path, "r") as f:
                 config = json.load(f)
-            logger.info(f"Loaded ETHIK config from {config_path}")
+            logging.info(f"Loaded ETHIK config from {config_path}")
         except Exception as e:
-            logger.error(f"Failed to load ETHIK config from {config_path}: {e}. Using defaults.")
+            logging.error(f"Failed to load ETHIK config from {config_path}: {e}. Using defaults.")
     else:
-        logger.warning(f"ETHIK config not found at {config_path}. Using defaults.")
+        logging.warning(f"ETHIK config not found at {config_path}. Using defaults.")
 
     # Apply defaults if needed (example)
     config.setdefault("validation_rules_file", "config/validation_rules.json")

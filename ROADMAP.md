@@ -91,27 +91,32 @@ EVA & GUARANI is a unified quantum system based on interconnected subsystems thr
 
 ## 🎯 Immediate Priorities (Q2 2025)
 
-+ ## 🎯 Next 10 Actionable Steps (Focus for Today - 2025-04-02)
++ ## 🎯 Next 10+ Actionable Steps (Focus for Today - 2025-04-04)
 +
-+ This section outlines the immediate, concrete tasks derived from the Q2 priorities, intended to guide development focus. *Status updated 2025-04-03.*
++ This section outlines the immediate, concrete tasks derived from the Q2 priorities, intended to guide development focus. *Status updated 2025-04-04.*
 +
-+ 1.  **CRONOS:** Finalize documentation for `backup_manager.py`, including creating standard operating procedures (SOPs) in `subsystems/CRONOS/docs/procedures.md`, and review existing tests for completeness. *[IN PROGRESS - Placeholder added to procedures.md for final review]*
-+ 2.  **Standardization/KOIOS:** Implement the Naming Convention Validator script/tool. Create the initial file structure and define basic validation logic. *[COMPLETED - 2025-04-04: Initial script `validation/naming_validator.py` and tests `tests/test_naming_validator.py` created and passing (90% script coverage).]*
-+ 3.  **Standardization/KOIOS:** Begin implementing the Metadata Validation script/tool. Create the initial file structure and define how it will load schemas and validate file metadata.
-+ 4.  **KOIOS:** Define the Standard for Script Feedback. Create the initial `docs/STANDARDS_SCRIPT_FEEDBACK.md` outlining guidelines for logging levels and progress indicators (e.g., using `tqdm` or `rich`). *[DONE - Initial draft created]*
-+ 5.  **KOIOS:** Begin Semantic Search implementation research. Identify potential Python libraries (e.g., sentence-transformers, FAISS) and outline the core search mechanism.
-+ 6.  **Standardization:** Plan the Directory Structure Migration in detail. Document the specific mapping of files/folders from `QUANTUM_PROMPTS` to their target subsystems in a temporary planning file or section within the roadmap/KOIOS docs.
-+ 7.  **Mycelium:** Plan BIOS-Q integration for the Mycelium Network instance. Define the requirements, interaction points, and configuration needed within BIOS-Q to manage the network connection.
-+ 8.  **ETHIK:** Refine `EthikSanitizer` Core Logic. Review `subsystems/ETHIK/core/sanitizer.py` for potential optimizations, enhanced rule condition handling, or better integration with newly defined KOIOS standards (logging, error handling).
-+ 9.  **NEXUS:** Refine `NEXUSCore` Dependency Analysis. *[IN PROGRESS]* Review/enhance dependency logic (`analyze_dependencies`, `_path_to_module_str`) in `subsystems/NEXUS/core/nexus_core.py`. *[NOTE ADDED - Clarification needed for Service/Analyzer roles, see NEXUS/README.md]*
-+ 10. **Market Fit/MQP:** Integrate Philosophical Notes into `docs/MQP.md`. Weave core concepts (reconnecting, direction, quantum ethics) more explicitly into the MQP's introduction or a dedicated philosophy section.
-+ 11. **Documentation Enhancement (MQP Alignment):** Systematically review key subsystem READMEs (`CRONOS`, `ETHIK`, `KOIOS`, `NEXUS`, `MYCELIUM`) to add practical code examples where lacking. *[IN PROGRESS - CRONOS, ETHIK, KOIOS, MYCELIUM updated/created]*
++ 1.  **Code Quality:** Fix persistent pre-commit hook failures (E501/F841 loop with formatters). Investigate configuration conflict between `ruff`, `black`, `ruff-format`. *[PAUSED - Blocked by formatter conflicts. Proceeding with root dir cleanup.]*
++ 2.  **Project Structure:** Organize root directory files. Move logs, scripts, temporary files, and planning documents to appropriate locations (`logs/`, `scripts/`, `docs/temp/`, `docs/planning/`, `.cursor/`, `docs/archive/roadmaps/`). Rename `Researchs` to `research`. *[COMPLETED - 2025-04-04]*
++ 3.  **CRONOS:** Finalize documentation for `backup_manager.py`, including creating standard operating procedures (SOPs) in `subsystems/CRONOS/docs/procedures.md`, and review existing tests for completeness. *[IN PROGRESS - Placeholder added to procedures.md for final review]*
++ 4.  **Standardization/KOIOS:** Implement the Naming Convention Validator script/tool. Create the initial file structure and define basic validation logic. *[COMPLETED - 2025-04-04: Initial script `validation/naming_validator.py` and tests `tests/test_naming_validator.py` created and passing (90% script coverage).]*
++ 5.  **Standardization/KOIOS:** Begin implementing the Metadata Validation script/tool. Create the initial file structure and define how it will load schemas and validate file metadata.
++ 6.  **KOIOS:** Define the Standard for Script Feedback. Create the initial `docs/STANDARDS_SCRIPT_FEEDBACK.md` outlining guidelines for logging levels and progress indicators (e.g., using `tqdm` or `rich`). *[DONE - Initial draft created]*
++ 7.  **KOIOS:** Begin Semantic Search implementation research. Identify potential Python libraries (e.g., sentence-transformers, FAISS) and outline the core search mechanism.
++ 8.  **Standardization:** Plan the Directory Structure Migration in detail. Document the specific mapping of files/folders from `QUANTUM_PROMPTS` to their target subsystems in a temporary planning file or section within the roadmap/KOIOS docs.
++ 9.  **Mycelium:** Plan BIOS-Q integration for the Mycelium Network instance. Define the requirements, interaction points, and configuration needed within BIOS-Q to manage the network connection.
++ 10. **ETHIK:** Refine `EthikSanitizer` Core Logic. Review `subsystems/ETHIK/core/sanitizer.py` for potential optimizations, enhanced rule condition handling, or better integration with newly defined KOIOS standards (logging, error handling).
++ 11. **NEXUS:** Refine `NEXUSCore` Dependency Analysis. *[IN PROGRESS]* Review/enhance dependency logic (`analyze_dependencies`, `_path_to_module_str`) in `subsystems/NEXUS/core/nexus_core.py`. *[NOTE ADDED - Clarification needed for Service/Analyzer roles, see NEXUS/README.md]*
++ 12. **Market Fit/MQP:** Integrate Philosophical Notes into `docs/MQP.md`. Weave core concepts (reconnecting, direction, quantum ethics) more explicitly into the MQP's introduction or a dedicated philosophy section.
++ 13. **Documentation Enhancement (MQP Alignment):** Systematically review key subsystem READMEs (`CRONOS`, `ETHIK`, `KOIOS`, `NEXUS`, `MYCELIUM`) to add practical code examples where lacking. *[IN PROGRESS - CRONOS, ETHIK, KOIOS, MYCELIUM updated/created]*
 +
-+ ---
 +
++
+---
+
 ### 1. System Standardization [CRITICAL]
 
 - [ ] **Directory Structure Migration** (by 2025-04-05)
+  - [X] Reorganize root directory (Completed: 2025-04-04)
   - [ ] Move QUANTUM_PROMPTS content to appropriate subsystems
   - [ ] Update all path references
   - [ ] Verify system integrity
@@ -619,207 +624,4 @@ Status: Active
 *   [ ] **Frontend Prototyping (ATLAS/CORUJA Task - Q3/Q4 2025):** Create initial visualizations/mockups based on Journey Map and Platform Definition.
 *   [ ] **Refine Development Priorities (Ongoing):** Continuously evaluate technical development against market strategy and MVP definition. *Links to: Near-Term Priorities, Development Timeline*
 *   [ ] **Develop Initial GTM Outline (Q4 2025):** Draft the initial plan for reaching early adopters based on MVP. *Links to: Phase 4 Maturation & Ecosystem*
-*   [ ] **Integrate Philosophical Notes (KOIOS Task - Q2 2025):** Weave core concepts (reconnecting, direction) into `docs/MQP.md` or a new `docs/PHILOSOPHY.md`.
-
-**Rationale:** Integrating market analysis, user experience design, and monetization planning early ensures resource allocation is focused on building features with real-world demand, increasing the likelihood of adoption and establishing a foundation for future growth and potential revenue streams to finance ongoing development.
-
-## 📅 Development Timeline (Revised)
-
-### Phase 1: Foundation (Completed - Q1/2025)
-- ✅ System architecture definition
-- ✅ BIOS-Q implementation
-- ✅ MASTER core development
-- ✅ Quantum Prompt structuring
-- ✅ SLOP Server implementation
-- ✅ REST API endpoints creation
-- ✅ Basic ETHIK Core functionality
-- ✅ File organization and migration
-
-### Phase 2: Recovery & Standardization (Current - Q2/2025)
--   **Resolve Terminal Environment Issues (BLOCKER)** [DONE]
--   **Complete Subsystem Diagnostics (HIGH)** [DONE]
--   **Execute Subsystem Recovery & Migration (CRITICAL)** [IN PROGRESS - CRONOS done, ETHIK done, ATLAS next]
--   System Standardization (Ongoing - CRITICAL)
--   KOIOS Evolution (Initial Steps - CRITICAL)
--   Mycelium Network (Core Dev Complete - Integration Paused)
--   CORUJA Subsystem (Phase 1 - HIGH - Concurrent where possible)
-    - [ ] Define Core Prompt Templates
-    - [ ] Implement Basic Prompt Optimization Logic
-    - [ ] Research Multi-Model Interaction Patterns & Cost Optimization Strategies
--   Define Initial Target Offering/Use Case (HIGH)
-
-### Phase 3: Mycelium Integration & Value Focus (Planned - Q3/2025)
--   Mycelium Network Pilot Integration (CRITICAL) - *Connect BIOS-Q & first non-core subsystem.*
--   Prioritize ETHIK Core Logic Implementation
--   Prioritize CORUJA Standards & Interface Development (Informed by paelladoc Analysis)
-    - [ ] Develop Standard CORUJA Interface (via Mycelium)
-    - [ ] Explore "Next Model Suggestion" Pattern: Investigate feasibility of having capable models provide hints for appropriate follow-up model complexity to aid manual/future selection. (Related to Phase 2 Research)
--   **Begin Visual Identity Implementation** (Based on Plan)
--   Mycelium Network - Phase 2 Features (Health Monitoring, Sync Protocols, Routing Enhancements - e.g., basic dynamic prioritization)
--   Mycelium Network Subsystem Integration (Wave 1 - e.g., KOIOS, CORUJA)
--   **Begin HARMONY Development** (Review/Complete PRD from `ChangeLogs Manual/Unification system PRD.txt` or `docs/prd/harmony_compatibility.md`)
--   **Explore AI Agent Integration with MYCELIUM** (Research framework for safe, autonomous web interaction) [NEW]
--   Other tasks moved from original Phase 2/3 as priorities allow.
-
-### Phase 4: Maturation & Ecosystem (Planned - Q4/2025 / Q1 2026)
--   **Implement EGOS Website (Core Functionality)** # Added Website Implementation
--   Mycelium Network Subsystem Integration (Wave 2 - Remaining subsystems)
--   **Explore & Refine Target Offering & Commercial Models** (Open Core, Services, SaaS, Licensing - *Ref. Market Positioning Strategy, Researchs/Analysis...EGOS.txt*)
--   **Develop Developer SDK / Plugin System**
-    - [ ] Define SDK architecture and core interfaces.
-    - [ ] Implement initial SDK for key subsystems (e.g., Mycelium, KOIOS).
--   **Explore Gamification/RPG Integration** (Linked to ETHIK/KOIOS community contributions - *Ref. Researchs/Estudo KOIOS.txt*) # Added Gamification/RPG
--   **Explore Blockchain for Ethics/Contribution Tracking** (Concept Only - Not 'Ethichain' project - *Ref. Researchs/Estudo KOIOS.txt*) # Added Blockchain Concept
--   **Investigate Stellar Integration:** Evaluate replacing/augmenting blockchain concepts by leveraging Stellar for ETHIK points, community contributions, or managing digital assets. (Priority: Medium - *Ref. Researchs/Analysis...Ecosystem.txt*)
--   **Integrate KOIOS Contributions with ETHIK:** Define mechanisms for awarding ETHIK points/RPG progression based on validated contributions (e.g., documentation, Q&A) within KOIOS. (Priority: Medium - *Ref. Researchs/Analysis...Ecosystem.txt*)
--   **Explore External Integrations & Partnerships:**
-    - [ ] **Investigate & Pilot APINow.fun Integration:** Research technical feasibility of integrating EGOS agents with the APINow decentralized API access protocol. Develop proof-of-concept using `apinow-sdk` (via bridge or future Python SDK) if possible. Explore schema alignment with KOIOS. (Priority: Medium)
-    - [ ] Identify other potential strategic partners or external services (e.g., specialized AI models, data sources).
--   **Mycelium Network - Phase 3 Features** (Advanced Routing - Decentralization, Redundancy; Faster Channels; inspired by bio-networks)
--   **Refine Marketing & Visual Identity** (Implement Brand Guidelines, Content Strategy - *Ref. Boring Marketer Post, Market Positioning Strategy*)
--   **Integrate Advanced Data Analysis Features** (Leverage AI for insights, potentially integrating external tool concepts - *Ref. Researchs/Analysis...EGOS.txt*)
--   **Enhance Product/Knowledge Management Capabilities** (Explore integration with concepts from Producta.ai/Expertise.ai, potentially within KOIOS/ATLAS - *Ref. Researchs/Analysis...EGOS.txt*)
--   **Evaluate Opik for Production AI Monitoring:** Assess Opik's suitability for monitoring AI interactions in deployed EGOS applications/subsystems. [NEW - Opik Insight]
--   **Ethical extensions marketplace (Future)**
--   **Enterprise version (Future)**
--   **Cross-chain integration (Future)**
-
-## 📊 Overall Metrics
-
-- **Systems Standardized**: 2/9
-- **English Migration**: 70%
-- **Documentation Coverage**: 75%
-- **Test Coverage**: 70% (Increased due to ETHIK & ATLAS tests)
-- **Code Quality**: 95%
-- **Windows Compatibility**: 100%
-- **Sync Coverage**: 15%
-- **Search Effectiveness**: 65%
-
-## 🔄 KOIOS Dynamic Roadmap
-
-### Current Focus: Standardization & Search Enhancement
-
-#### 1. Pattern Standardization
-- [ ] File naming conventions
-- [ ] Directory structure
-- [ ] Code style guidelines (incl. Conventional Commits format)
-- [ ] Documentation templates
-- [ ] Metadata schemas
-- [ ] Implement naming convention validator
-- [ ] Create metadata validation system
-- [ ] Develop search optimization framework
-- [ ] Implement cross-reference system
-- [ ] Create documentation templates
-- [✓] Define EGOS-specific `.cursorrules` (`.mdc` files) for domain knowledge & AI context [COMPLETED - Key rules created/corrected (`commit`, `docs`, `logging`, `boundaries`, `coding`, `security`, `error`, `testing`, `ai_logging`, `core`), standards defined (`MDC_RULES_STANDARD.md`), content aggregator context added (`CONTENT_AGGREGATOR_DEEP_DIVE.md`)]
-- [ ] Define Standard for Script Feedback (Logging Levels, Progress Indicators - e.g., tqdm/rich) [NEW]
-
-#### 2. Search System
-- [ ] Semantic search engine
-- [ ] Pattern-based search
-- [ ] Cross-reference system
-- [ ] AI-powered suggestions
-- [ ] Search optimization
-
-#### 3. Metadata Management
-- [ ] Schema definition
-- [ ] Validation system
-- [ ] Auto-generation tools
-- [ ] Cross-linking
-- [ ] Version tracking
-
-#### 4. Documentation System
-- [ ] Template system (Research paelladoc/MECE templates - *Ref. Researchs/Analysis...EGOS.txt*)
-- [ ] Define and create template for Prompt Design Documents (PDDs)
-- [ ] Define and create template for Product/Feature Requirements (PRD-like - *Consider Producta.ai concepts, Researchs/Analysis...EGOS.txt*)
-- [ ] Evaluate need for & define `specs.md` template/standard
-- [ ] Define and document standard Subsystem Integration Interfaces (Internal APIs)
-- [ ] Create/Update central Integration Architecture document
-- [ ] Investigate & Implement MDC-like "Doc-to-Context Orchestration" (*Ref. Researchs/Analysis...EGOS.txt*)
-- [ ] Automated validation
-- [ ] Cross-linking
-- [ ] Version tracking
-- [ ] Change management
-- [ ] Design Q&A and discussion features for KOIOS knowledge base. (Priority: Medium - Phase 4 - *Ref. Researchs/Estudo KOIOS.txt*)
-
-#### 5. Integration Points
-- [ ] ETHIK validation
-- [ ] ATLAS visualization (incl. Integration Interfaces - *Consider Expertise.ai concepts for knowledge mapping - Ref. Researchs/Analysis...EGOS.txt*)
-- [ ] NEXUS analysis
-- [ ] CRONOS preservation
-- [ ] Mycelial network
-- [ ] CORUJA integration for AI-assisted Q&A based on KOIOS data. (Priority: Medium - Phase 4 - *Ref. Researchs/Estudo KOIOS.txt*)
-- [ ] Investigate MCP Server implementation for AI interaction with Docs/APIs (*Ref. Researchs/Analysis...EGOS.txt*)
-- [ ] Explore Zapier integration for workflow automation (*Ref. Researchs/Analysis...EGOS.txt*)
-- [ ] **Investigate Comet Opik for Enhanced AI Interaction Logging:** Explore integrating Opik for detailed tracing of AI/MCP interactions, potentially augmenting KoiosLogger. [NEW - Opik Insight]
-- [ ] **Evaluate Opik's LLM-as-Judge:** Assess potential for automated ETHIK/KOIOS validation of AI outputs (code, docs). [NEW - Opik Insight]
-- [ ] **Explore Opik for Structured Prompt Management:** Investigate Opik's features for versioning, testing, and managing Quantum Prompts. [NEW - Opik Insight]
-- [ ] **Explore Browser-based AI Agent Integration:** Investigate integrating browser-automation capabilities similar to Amazon Nova Act, OpenAI Operator, or Anthropic Computer Use to enable EGOS components to perform web-based tasks autonomously. [NEW - Market Research Q2 2025]
-
-#### 6. Development Workflow Optimization (NEW SECTION based on Grok Insight)
-- [ ] Formalize Multi-Model AI Strategy within Cursor IDE
-- [ ] Define process for generating Detailed Implementation Plans (e.g., using CodeGuide or similar)
-- [ ] Establish guidelines for using Cursor Agent for task automation
-- [ ] Implement Daily Synchronization Check-ins (e.g., via Cursor Chat)
-- [ ] Evaluate and integrate tools like CodeGuide and `paelladoc`
-- [X] Refine MQP with updated workflow practices
-- [ ] Refine MQP Strategy (v8.1): Utilize condensed core directives in IDE Rules, maintain full MQP in dedicated file (`docs/MQP.md`), referenced by Roadmap.
-- [ ] **Update MQP Document:** Review `docs/MQP_v7.4_base.md` and update it fully to v8.1 principles and current system state. [DONE - Renamed to MQP.md]
-
-#### 7. AI Agent Capabilities (NEW SECTION based on 2025 Market Research)
-- [ ] **Evaluate AI Agent Technologies:** Research state-of-the-art agent capabilities (Nova Act, Operator, Claude Computer Use) for potential integration with MYCELIUM/CORUJA. [NEW - Priority: Medium - Q3 2025]
-- [ ] **Define Task Decomposition Framework:** Develop a framework similar to Nova Act's approach of breaking complex tasks into reliable "Acts" with clear conditions for human intervention. [NEW - Priority: Medium - Q3 2025]
-- [ ] **Prototype Browser Automation Layer:** Create proof-of-concept for ETHIK-validated web interaction (form filling, data extraction, scheduling) with appropriate human oversight. [NEW - Priority: Low - Q4 2025]
-- [ ] **Design Agent Reliability Metrics:** Develop evaluation metrics similar to ScreenSpot Web Text to measure EGOS agent capabilities. [NEW - Priority: Low - Q4 2025]
-- [ ] **Integrate with ETHIK for Safe Autonomy:** Ensure all agent actions go through ETHIK validation to enforce ethical boundaries on autonomous behavior. [NEW - Priority: High - Q3 2025]
-
-### KOIOS Problem-Solving Process
-
-To address challenges consistently and maintain system integrity, the following KOIOS-aligned process should be followed:
-
-1.  **Identification & Logging:** Clearly describe the issue, errors, context, and steps to reproduce. Log the issue.
-2.  **Root Cause Analysis (NEXUS):** Use diagnostic tools (`list_dir`, `read_file`, `grep_search`, logs, `git status`) to find the origin.
-3.  **Information Gathering (KOIOS/ATLAS):** Consult relevant documentation (READMEs, Roadmaps, specific docs), configs, metadata, and potentially CRONOS backups. Map related dependencies.
-4.  **Solution Design & Ethical Validation (ETHIK):** Propose solutions and evaluate them against EGOS ethical principles (integrity, security, data respect).
-5.  **Implementation & Standardization (KOIOS):** Apply the solution using appropriate tools (`edit_file`, `run_terminal_cmd`), adhering to KOIOS standards (naming, structure, style).
-6.  **Verification & Testing (NEXUS/ETHIK):** Confirm the fix resolves the original issue. Run relevant tests.
-7.  **Documentation Update (KOIOS):** Update all affected documentation (READMEs, roadmaps, guides, code docs). Ensure metadata is correct.
-8.  **Preservation (CRONOS):** Commit changes to version control. Consider a CRONOS backup for significant structural changes.
-
-### KOIOS Process Refinements
-
--   **File/Directory Access Strategy:** When accessing file contents or directory listings, prioritize dedicated tools (`read_file`, `list_dir`). If these tools timeout or fail unexpectedly for a likely valid path, fall back to using the terminal (`run_terminal_cmd` with `cat <path>` or `ls -R <path>`) to retrieve the information before proceeding.
--   **Terminal Command Execution Strategy:** Due to observed inconsistencies in the shell's Current Working Directory (CWD) between tool calls, **always prefix terminal commands** run via `run_terminal_cmd` with `cd /c/Eva\ Guarani\ EGOS/ && ` (adjust path if workspace root changes) to ensure commands execute from the expected project root, unless a different CWD is specifically needed for the command's operation.
--   **Terminal Python Execution Strategy:** To reliably execute Python within the virtual environment, use the explicit path after changing directory: `cd /c/Eva\ Guarani\ EGOS/ && .venv/Scripts/python.exe <script_or_module_args>`.
--   **Chat Session Strategy:** Consider starting new chats for distinct major tasks/phases to manage context size, balancing with the need for history continuity in ongoing efforts like recovery.
--   **Workflow Integration:** Incorporate dedicated Security Review and Code Review steps into standard development and problem-solving workflows.
-
-## ⚠️ Important Notes
-
-1. All new development must follow KOIOS standardization guidelines
-2. English-only policy is mandatory for all content
-3. Metadata must be complete and validated
-4. Cross-system integration through Mycelial Network
-5. Regular metrics updates required
-6. Windows compatibility must be maintained
-
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
-
-*   **Strategy:** Integrate the creation and management of `.mdc` rules into **KOIOS Evolution**. Develop rules derived from MQP/KOIOS to enforce:
-    *   `KoiosLogger` usage.
-    *   Mycelium message formats.
-    *   Use concise, machine-actionable instructions ([Forum Advice](https://forum.cursor.com/t/optimal-structure-for-mdc-rules-files/52260)).
-*   **Activation Note:** Effective automatic application of `.mdc` rules primarily relies on using **Cursor's Agent mode**. Adherence in other modes may vary.
-
-This approach complements the comprehensive guidance in `MQP.md` and `KOIOS/docs/STANDARDS.md` with targeted, automated reinforcement within the development environment.
-
-+ ### 6. Content Aggregator MVP Path [NEW - Derived from Deep Dive]
-+
-+ Focusing on foundational steps towards a demonstrable content aggregator capability.
-+
-+ -   **[ ] [Aggregator/NEXUS] Refine Dependency Analysis:** Review and enhance relative import handling in `NEXUSCore`. (Relates to Step 9 in "Next 10")
-+ -   **[ ] [Aggregator/ETHIK] Refine Sanitizer Logic:** Review `EthikSanitizer` for optimizations relevant to handling diverse content. (Relates to Step 8 in "Next 10")
-+ -   **[ ] [Aggregator/KOIOS] Prototype PDF Text Extraction:** Implement basic text extraction (e.g., using PyMuPDF) for sample PDFs.
-+ -   **[ ] [Aggregator/KOIOS] Research Vector Embeddings:** Select initial library/model (e.g., `sentence-transformers`) for semantic search proof-of-concept.
-+ -   **[ ] [Aggregator/Mycelium] Design Summarization MCP Interface:** Define Mycelium topic(s) and message structure for requesting/receiving summaries.
-+ -   **[ ] [Aggregator/Documentation] Document Mycelium Core Interface:** Ensure clear documentation for `MyceliumClient` usage.
-+
+*   [ ] **Integrate Philosophical Notes (KOIOS Task - Q2 2025):** Weave core concepts (reconnecting, direction) into `

@@ -674,9 +674,15 @@ identifying emerging patterns and potential areas for optimization or expansion.
                 # if is_strongly_connected: # Or check weak components and calculate per component?
                 #     try:
                 #         analysis["centrality"]["closeness"] = nx.closeness_centrality(self.graph)
-                #     except Exception as e: self.logger.error(f"Error calculating closeness centrality: {e}")
+                #     except Exception as e:
+                #         self.logger.error(
+                #             f"Error calculating closeness centrality: {e}"
+                #         )
                 # else:
-                #     self.logger.warning("Closeness centrality skipped (graph not strongly connected).")
+                #     self.logger.warning(
+                #         "Closeness centrality skipped "
+                #         "(graph not strongly connected)."
+                #     )
 
             # --- Community Detection (Optional, requires python-louvain) ---
             detect_communities_enabled = self.config.get("analysis", {}).get(

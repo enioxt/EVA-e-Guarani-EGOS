@@ -13,10 +13,14 @@ Version: 1.0.0
 
 import json
 import logging
+import logging.config
 import sys
 from logging.handlers import TimedRotatingFileHandler
 from pathlib import Path
 from typing import Any, Dict, Optional
+
+# Module-level set to track configured loggers
+_configured_loggers = set()
 
 # --- Configuration --- #
 # TODO: Load configuration from a KOIOS config file

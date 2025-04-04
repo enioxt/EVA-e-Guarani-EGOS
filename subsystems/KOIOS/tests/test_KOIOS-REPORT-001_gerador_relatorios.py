@@ -41,7 +41,10 @@ def config():
                         "to_addresses": ["team@evaguarani.ai"],
                         "subject_prefix": "[KOIOS]",
                         "templates": {
-                            "subject": "{prefix} Validation {status}: {error_count} errors, {warning_count} warnings"
+                            "subject": (
+                                "Validation {status}: {error_count} errors, "
+                                "{warning_count} warnings"
+                            )
                         },
                     },
                 },
