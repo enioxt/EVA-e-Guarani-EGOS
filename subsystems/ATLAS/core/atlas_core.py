@@ -67,7 +67,7 @@ from typing import Any, Dict, Optional, Tuple
 
 
 class ATLASCore:
-    """Core of the ATLAS subsystem for systemic mapping."""
+    """Core graph engine for ATLAS: handles graph creation, analysis, persistence, visualization."""
 
     def __init__(self, config: Dict[str, Any], logger: logging.Logger, data_dir: Path):
         """
@@ -136,14 +136,20 @@ class ATLASCore:
 
     def map_system(self, system_data: Dict[str, Any], name: str) -> bool:
         """
-        Maps a system from structured data.
+        Maps a system from structured data, replacing the current graph.
 
         Args:
-            system_data: Data of the system to be mapped (expects 'nodes', 'edges' keys)
-            name: Name of the mapping (used for saving)
+            system_data: Dictionary containing system structure.
+                         Expected keys:
+                         - 'nodes': Dict[str, Dict[str, Any]] where keys are node IDs
+                           and values are attribute dictionaries.
+                         - 'edges': List[Dict[str, Any]] where each dict represents an edge
+                           and must contain 'source' and 'target' keys.
+                           Other keys are added as edge attributes.
+            name: Name of the mapping (used for saving the resulting graph to JSON).
 
         Returns:
-            bool: True if the mapping was successful
+            bool: True if the mapping and saving were successful.
         """
         self._log_operation(
             "MAP_SYSTEM", "Started", f"Starting system mapping: {name}", "Preparing graph structure"
@@ -603,10 +609,19 @@ identifying emerging patterns and potential areas for optimization or expansion.
 
     def analyze_system(self) -> Dict[str, Any]:
         """
-        Analyzes the mapped system and returns metrics.
+        Analyzes the currently loaded graph and returns metrics.
+
+        Calculates basic metrics (nodes, edges, density, connectivity, avg degree),
+        centrality measures (degree, betweenness), and optionally performs
+        community detection using the Louvain method (requires 'python-louvain')
+        if enabled in config ('analysis.detect_communities': true).
+        Also lists unique node and edge attributes found.
 
         Returns:
-            Dict[str, Any]: System metrics and analysis, or {"error": ...} on failure.
+            Dict[str, Any]: Dictionary containing analysis results under keys
+                            like 'basic_metrics', 'centrality', 'communities',
+                            'node_attributes', 'edge_attributes'.
+                            Returns {"error": message} on failure (e.g., empty graph).
         """
         operation = "ANALYZE_SYSTEM"
         self._log_operation(operation, "Started", "Analyzing mapped system")

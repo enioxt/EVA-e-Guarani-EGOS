@@ -180,6 +180,49 @@ def test_load_mapping_file_not_found(atlas, tmp_path):
     # assert "Mapping file not found" in caplog.text
 
 
+@pytest.mark.parametrize(
+    "layout_name", ["spring", "circular", "kamada_kawai", "spectral", "unknown"]
+)
+def test_visualize_layouts(atlas, sample_system_data, layout_name):
+    """Test generating visualizations with different layouts."""
+    atlas.map_system(sample_system_data, f"vis_layout_{layout_name}")
+    output_path = atlas.visualize(output_filename=f"test_vis_{layout_name}.png", layout=layout_name)
+    assert output_path is not None
+    assert output_path.exists()
+
+
+def test_visualize_custom_title(atlas, sample_system_data):
+    """Test generating visualization with a custom title."""
+    custom_title = "My Custom Map Title"
+    atlas.map_system(sample_system_data, "vis_title_test")
+    # We can't easily check the title in the image, but we ensure it runs without error
+    output_path = atlas.visualize(output_filename="test_vis_title.png", title=custom_title)
+    assert output_path is not None
+    assert output_path.exists()
+
+
+def test_visualize_no_graph(atlas):
+    """Test visualize fails gracefully when no graph is mapped."""
+    output_path = atlas.visualize()
+    assert output_path is None
+
+
+def test_load_mapping_invalid_json(atlas, data_dir):
+    """Test loading a file with invalid JSON."""
+    invalid_json_path = data_dir / "invalid.json"
+    invalid_json_path.write_text('{"graph": not_valid_json', encoding="utf-8")
+    success = atlas.load_mapping(invalid_json_path)
+    assert success is False
+
+
+def test_load_mapping_missing_keys(atlas, data_dir):
+    """Test loading a file with missing metadata or graph keys."""
+    missing_keys_path = data_dir / "missing_keys.json"
+    missing_keys_path.write_text('{"metadata": {}}', encoding="utf-8")  # Missing 'graph'
+    success = atlas.load_mapping(missing_keys_path)
+    assert success is False
+
+
 def test_visualize(atlas, sample_system_data):
     """Test generating a visualization."""
     atlas.map_system(sample_system_data, "vis_test")

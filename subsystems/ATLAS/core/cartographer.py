@@ -1,7 +1,5 @@
-import json
 import logging
 from datetime import datetime
-from pathlib import Path
 from typing import Any, Dict, Optional, Set
 
 # Replace the koios logger with standard logging for testing
@@ -40,23 +38,42 @@ except ImportError:
 
 
 class AtlasCartographer:
-    """System cartography and relationship mapping."""
+    """System cartography: Manages the in-memory map state and Mycelium updates.
+
+    This class holds the current representation of the system map (nodes,
+    relationships, metadata) as potentially updated by messages received
+    via Mycelium. It handles requests to generate maps based on this internal
+    state and implements caching for map generation results.
+
+    It does NOT typically perform the initial discovery or analysis itself,
+    relying on external updates or potentially delegating complex generation/
+    analysis tasks to ATLASCore.
+    """
 
     def __init__(
-        self, config_path: Optional[Path] = None, mycelium_client: Optional[MyceliumClient] = None
+        self,
+        # config_path: Optional[Path] = None, # Config should be passed by service
+        config: Dict[str, Any],  # Expect config dict directly
+        logger: logging.Logger,  # Expect logger instance
+        mycelium_client: Optional[MyceliumClient] = None,
     ):
-        """Initialize the cartographer with configuration and Mycelium client.
+        """Initialize the cartographer.
 
         Args:
-            config_path (Optional[Path]): Path to configuration file
-            mycelium_client (Optional[MyceliumClient]): Mycelium client for messaging
+            config (Dict[str, Any]): Configuration dictionary, expects keys like
+                                     'max_depth', 'cache_duration', and 'mycelium.topics'.
+            logger (logging.Logger): Pre-configured logger instance.
+            mycelium_client (Optional[MyceliumClient]): Mycelium client for messaging.
+                                                     If provided, message handlers are set up.
         """
         # Use standard logging for testing
-        self.logger = logging.getLogger("ATLAS.Cartographer")
+        # self.logger = logging.getLogger("ATLAS.Cartographer") # Replaced by passed logger
+        self.logger = logger
         self.mycelium = mycelium_client
 
         # Load configuration
-        self.config = self._load_config(config_path)
+        # self.config = self._load_config(config_path) # Replaced by passed config
+        self.config = config
 
         # Initialize system map
         self.system_map = {}
@@ -72,13 +89,15 @@ class AtlasCartographer:
         self.logger.info("AtlasCartographer initialized")
 
     def _setup_mycelium_handlers(self):
-        """Setup handlers for Mycelium messages."""
+        """Setup handlers for Mycelium messages to update internal state."""
 
         @self.mycelium.subscribe(self.topics["map_request"])
         async def handle_map_request(message: Message):
-            """Handle incoming mapping requests."""
+            """Handle incoming mapping requests based on current internal state."""
             try:
-                self.logger.info(f"Received mapping request: {message.id}")
+                self.logger.info(
+                    f"Received Cartographer map request: {message.id}"
+                )  # Clarify this is Cartographer level
 
                 # Extract mapping parameters
                 target = message.data["target"]
@@ -108,9 +127,9 @@ class AtlasCartographer:
 
         @self.mycelium.subscribe(self.topics["metadata_update"])
         async def handle_metadata_update(message: Message):
-            """Handle metadata update requests."""
+            """Handle requests to update component metadata in the internal state."""
             try:
-                self.logger.info(f"Received metadata update: {message.id}")
+                self.logger.info(f"Received metadata update request: {message.id}")
 
                 # Check for required fields
                 if "component" not in message.data:
@@ -138,9 +157,9 @@ class AtlasCartographer:
 
         @self.mycelium.subscribe(self.topics["relationship_update"])
         async def handle_relationship_update(message: Message):
-            """Handle relationship update requests."""
+            """Handle requests to update relationships in the internal state."""
             try:
-                self.logger.info(f"Received relationship update: {message.id}")
+                self.logger.info(f"Received relationship update request: {message.id}")
 
                 # Check for required fields
                 if "source" not in message.data:
@@ -194,47 +213,24 @@ class AtlasCartographer:
         except Exception as e:
             self.logger.error(f"Failed to publish alert: {e}")
 
-    def _load_config(self, config_path: Optional[Path]) -> Dict[str, Any]:
-        """Load configuration from file or use defaults."""
-        default_config = {
-            "max_depth": 5,
-            "cache_duration": 300,
-            "mycelium": {
-                "topics": {
-                    "map_request": "atlas.map.request",
-                    "map_result": "atlas.map.result",
-                    "metadata_update": "atlas.metadata.update",
-                    "metadata_status": "atlas.metadata.status",
-                    "relationship_update": "atlas.relationship.update",
-                    "relationship_status": "atlas.relationship.status",
-                    "alert": "atlas.alert",
-                }
-            },
-        }
-
-        if config_path and config_path.exists():
-            try:
-                with open(config_path) as f:
-                    loaded_config = json.load(f)
-                    # Merge with defaults
-                    self._deep_merge(default_config, loaded_config)
-            except Exception as e:
-                self.logger.error(f"Error loading config from {config_path}: {e}. Using defaults.")
-
-        return default_config
-
-    def _deep_merge(self, base: Dict, update: Dict) -> None:
-        """Recursively merge update dict into base dict."""
-        for key, value in update.items():
-            if key in base and isinstance(base[key], dict) and isinstance(value, dict):
-                self._deep_merge(base[key], value)
-            else:
-                base[key] = value
-
     async def generate_map(
         self, target: str, depth: int = 1, include_metadata: bool = True
     ) -> Dict[str, Any]:
-        """Generate a map of the system starting from the target component."""
+        """Generate a map subsection from the internal state.
+
+        Traverses the internally stored relationships (`self.relationships`)
+        starting from the target component up to the specified depth.
+        Uses cached results if available and valid.
+
+        Args:
+            target: The starting component ID for the map.
+            depth: Maximum relationship depth to traverse.
+            include_metadata: Whether to include component metadata (`self.metadata`).
+
+        Returns:
+            A dictionary representing the map subsection with 'nodes',
+            'relationships', and potentially 'metadata' keys.
+        """
         try:
             # Check cache first
             cache_key = f"{target}:{depth}:{include_metadata}"
@@ -271,7 +267,7 @@ class AtlasCartographer:
     async def _build_map_recursive(
         self, target: str, depth: int, visited: Set[str], include_metadata: bool
     ) -> Dict[str, Any]:
-        """Build a map recursively (internal implementation for testing)."""
+        """Build a map recursively (internal implementation, wraps _map_component)."""
         # This is a stub method that just wraps _map_component for testing mocking purposes
         result = {"nodes": {}, "relationships": [], "metadata": {} if include_metadata else None}
         await self._map_component(target, depth, visited, result, include_metadata)
@@ -285,7 +281,7 @@ class AtlasCartographer:
         result: Dict[str, Any],
         include_metadata: bool,
     ):
-        """Recursively map a component and its relationships."""
+        """Recursively traverse and map components based on internal state."""
         if depth < 0 or component in visited:
             return
 
@@ -307,7 +303,10 @@ class AtlasCartographer:
                     await self._map_component(target, depth - 1, visited, result, include_metadata)
 
     async def update_metadata(self, component: str, metadata: Dict[str, Any]):
-        """Update metadata for a component."""
+        """Update metadata for a component in the internal state (`self.metadata`).
+
+        Also invalidates relevant cache entries.
+        """
         try:
             # Invalidate cache entries for this component
             self._invalidate_cache_for_component(component)
@@ -322,7 +321,11 @@ class AtlasCartographer:
     async def update_relationship(
         self, source: str, target: str, relationship_type: str, metadata: Dict[str, Any] = None
     ):
-        """Update or create a relationship between components."""
+        """Update or create a relationship in the internal state (`self.relationships`).
+
+        Removes any existing relationship of the same type between source and target
+        before adding the new one. Invalidates relevant cache entries.
+        """
         try:
             # Invalidate cache entries for source and target
             self._invalidate_cache_for_component(source)

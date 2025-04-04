@@ -214,8 +214,8 @@ Translated Content:
                     {
                         "role": "system",
                         "content": "You are a helpful assistant specializing in "
-                                    "Portuguese to English technical translation, "
-                                    "maintaining code integrity and functionality.",
+                        "Portuguese to English technical translation, "
+                        "maintaining code integrity and functionality.",
                     },
                     {"role": "user", "content": prompt},
                 ],

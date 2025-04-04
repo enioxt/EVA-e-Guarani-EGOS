@@ -6,7 +6,9 @@ EVA & GUARANI - ATLAS Service
 =============================
 
 Orchestrates the ATLAS subsystem for systemic cartography and visualization.
-Handles configuration, manages ATLASCore, and integrates with Mycelium.
+Acts as the primary Mycelium interface for ATLAS, receiving requests and
+publishing responses. Initializes and manages the lifecycle of AtlasCartographer
+and ATLASCore components.
 
 Version: 1.0.0
 """
@@ -25,6 +27,11 @@ from subsystems.MYCELIUM.core.interface import MyceliumInterface
 # Import core component
 from .core.atlas_core import ATLASCore
 
+# --- Import Cartographer --- #
+from .core.cartographer import AtlasCartographer
+
+# -------------------------
+
 # Configure logging for the service - Use Koios Logger
 # logger = logging.getLogger("atlas_service")
 # handler = logging.StreamHandler()
@@ -35,15 +42,21 @@ from .core.atlas_core import ATLASCore
 
 
 class AtlasService:
-    """Manages the ATLAS subsystem's operations."""
+    """Manages the ATLAS subsystem's operations, acting as the Mycelium gateway."""
 
     def __init__(
         self, config: Dict[str, Any], mycelium_interface: MyceliumInterface, project_root: Path
     ):
         """Initialize the ATLAS Service.
 
+        Initializes Koios loggers, determines the data directory, and instantiates
+        both AtlasCartographer and ATLASCore, passing necessary configurations
+        and dependencies.
+
         Args:
             config: Configuration dictionary for the ATLAS subsystem.
+                    Should contain sections like 'logging', 'core_config',
+                    'cartographer_config'.
             mycelium_interface: An instance of the MyceliumInterface.
             project_root: The absolute path to the project's root directory.
         """
@@ -57,6 +70,21 @@ class AtlasService:
         log_config = self.config.get("logging", {})
         self.logger = get_koios_logger(f"EGOS.{self.node_id}", config=log_config)
         atlas_core_logger = get_koios_logger("EGOS.ATLAS.Core", config=log_config)
+        # Pass a logger instance down to the core
+        # self.atlas_core_logger = logging.getLogger("EGOS.ATLAS")
+        # # Match name used in core - Now using Koios
+        atlas_cartographer_logger = get_koios_logger("EGOS.ATLAS.Cartographer", config=log_config)
+        # Ensure logger level is appropriate (can be configured)
+        # log_level_str = self.config.get("log_level", "INFO").upper()
+        # self.atlas_core_logger.setLevel(getattr(logging, log_level_str, logging.INFO))
+        # Add handlers if not configured globally (basic console handler for now)
+        # if not self.atlas_core_logger.handlers:
+        #      core_handler = logging.StreamHandler()
+        #      core_formatter = logging.Formatter('🗺️ %(asctime)s - [ATLAS Core] %(message)s')
+        #      core_handler.setFormatter(core_formatter)
+        #      self.atlas_core_logger.addHandler(core_handler)
+        #      self.atlas_core_logger.propagate = False
+        #      # Avoid double logging if root logger has handlers
         # ---------------------------------
 
         # --- Determine Data Directory ---
@@ -93,10 +121,21 @@ class AtlasService:
         )
         # -----------------------------
 
+        # --- Instantiate AtlasCartographer --- #
+        cartographer_config = self.config.get(
+            "cartographer_config", self.config
+        )  # Use main config if specific not found
+        self.atlas_cartographer = AtlasCartographer(
+            config=cartographer_config,  # Pass specific or main config
+            logger=atlas_cartographer_logger,  # Pass the Koios logger
+            mycelium_client=self.interface,  # Pass the Mycelium interface
+        )
+        # ---------------------------------- #
+
         self.logger.info("ATLAS Service initialized with KoiosLogger.")
 
     async def start(self):
-        """Start the ATLAS service and any necessary listeners."""
+        """Start the ATLAS service and subscribe to Mycelium request topics."""
         if self.running:
             self.logger.warning("ATLAS Service is already running.")  # Use self.logger
             return
@@ -129,7 +168,10 @@ class AtlasService:
         self.logger.info("ATLAS Service started successfully.")  # Use self.logger
 
     async def stop(self):
-        """Stop the ATLAS service."""
+        """Stop the ATLAS service.
+
+        (Currently does not explicitly unsubscribe from Mycelium topics).
+        """
         if not self.running:
             self.logger.warning("ATLAS Service is not running.")  # Use self.logger
             return
@@ -144,7 +186,17 @@ class AtlasService:
     # --- Mycelium Request Handlers --- #
 
     async def handle_map_system_request(self, message: Dict[str, Any]):
-        """Handles requests to map a system."""
+        """Handles 'request.ATLAS_SERVICE.map_system' Mycelium requests.
+
+        Delegates to ATLASCore.map_system to generate and save a map from
+        provided system data.
+
+        Expected payload keys:
+            - system_data (Dict): Dictionary with 'nodes' and 'edges' keys.
+            - map_name (str): Name to use when saving the map.
+
+        Publishes response to: f'response.{self.node_id}.{request_id}'
+        """
         request_id = message.get("id", "unknown")
         self.logger.info(f"Received map_system request: {request_id}")  # Use self.logger
         response_topic = f"response.{self.node_id}.{request_id}"
@@ -185,7 +237,15 @@ class AtlasService:
             )
 
     async def handle_generate_obsidian_request(self, message: Dict[str, Any]):
-        """Handles requests to generate Obsidian content from the current map."""
+        """Handles 'request.ATLAS_SERVICE.generate_obsidian' Mycelium requests.
+
+        Delegates to ATLASCore.export_to_obsidian (alias generate_obsidian_content)
+        to generate Markdown content and a visualization image for the current map.
+
+        Expected payload: {}
+
+        Publishes response to: f'response.{self.node_id}.{request_id}'
+        """
         request_id = message.get("id", "unknown")
         self.logger.info(f"Received generate_obsidian request: {request_id}")  # Use self.logger
         response_topic = f"response.{self.node_id}.{request_id}"
@@ -226,7 +286,14 @@ class AtlasService:
             )
 
     async def handle_analyze_system_request(self, message: Dict[str, Any]):
-        """Handles requests to analyze the current map."""
+        """Handles 'request.ATLAS_SERVICE.analyze_system' Mycelium requests.
+
+        Delegates to ATLASCore.analyze_system to perform analysis on the current map.
+
+        Expected payload: {}
+
+        Publishes response to: f'response.{self.node_id}.{request_id}'
+        """
         request_id = message.get("id", "unknown")
         self.logger.info(f"Received analyze_system request: {request_id}")  # Use self.logger
         response_topic = f"response.{self.node_id}.{request_id}"

@@ -1,0 +1,81 @@
+# Contributing to EVA & GUARANI - EGOS
+
+First off, thank you for considering contributing to EGOS! Your involvement helps us build a more robust, ethical, and unified system.
+
+This document provides guidelines for contributing to the project. Please read it carefully to ensure a smooth collaboration process.
+
+## Code of Conduct
+
+By participating in this project, you agree to abide by our [**Code of Conduct**](CODE_OF_CONDUCT.md). Please read it to understand the standards of behavior we expect within our community.
+
+## How Can I Contribute?
+
+There are many ways to contribute:
+
+*   **Reporting Bugs:** If you find a bug, please create a detailed issue in our GitHub repository.
+*   **Suggesting Enhancements:** Have an idea for a new feature or an improvement? Open an issue to discuss it.
+*   **Writing Code:** Help implement new features, fix bugs, or improve existing code.
+*   **Improving Documentation:** Enhance READMEs, add docstrings, write tutorials, or correct typos.
+*   **Submitting Feedback:** Share your experience using EGOS and suggest improvements.
+
+## Reporting Bugs
+
+Before creating a bug report, please check existing issues to see if someone has already reported it. If not, create a new issue and include:
+
+*   A clear and descriptive title.
+*   A detailed description of the steps to reproduce the bug.
+*   What you expected to happen.
+*   What actually happened (include error messages and stack traces if applicable).
+*   Your environment details (OS, Python version, etc.).
+
+## Suggesting Enhancements
+
+Use GitHub Issues to suggest enhancements. Provide:
+
+*   A clear title summarizing the suggestion.
+*   A detailed description of the proposed feature or improvement.
+*   The motivation behind the suggestion (what problem does it solve?).
+*   Any potential implementation ideas (optional).
+
+## Development Workflow
+
+1.  **Fork the Repository:** Create your own copy of the EGOS repository on GitHub.
+2.  **Clone Your Fork:**
+    ```bash
+    git clone <your-fork-url>
+    cd Eva-Guarani-EGOS
+    ```
+3.  **Set Up Environment:** Follow the [Installation steps in the README](README.md#installation).
+4.  **Create a Branch:** Create a new branch for your feature or bugfix:
+    ```bash
+    git checkout -b <branch-name>
+    # Examples: feature/add-atlas-mermaid-export, fix/koios-logger-bug
+    ```
+5.  **Make Changes:** Implement your code or documentation changes.
+6.  **Follow Standards:** Adhere to the KOIOS standards for code style, naming, logging, and error handling. Refer to relevant `.mdc` rules or documentation in `docs/STANDARDS_*.md`.
+7.  **Write/Update Tests:** Ensure your changes are covered by unit tests. Aim to maintain or increase test coverage. Run tests using the provided PowerShell scripts (e.g., `.\test_<subsystem>.ps1 -Coverage`).
+8.  **Commit Changes:** Use clear and descriptive commit messages following the Conventional Commits format (see `commit_messages.mdc` rule). Reference related issues (e.g., `feat: Add Mermaid export to ATLASCore (closes #42)`).
+    ```bash
+    git add .
+    git commit -m "type(scope): description"
+    ```
+9.  **Push to Your Fork:**
+    ```bash
+    git push origin <branch-name>
+    ```
+10. **Submit a Pull Request (PR):** Open a PR from your branch to the `main` branch of the upstream EGOS repository.
+    *   Provide a clear title and description for your PR.
+    *   Link any related issues.
+    *   Explain the changes and the reasoning behind them.
+    *   Ensure all automated checks (CI/CD, linters - if configured) pass.
+11. **Code Review:** Project maintainers will review your PR. Be responsive to feedback and make necessary adjustments.
+
+## Documentation Contributions
+
+Improvements to documentation are always welcome! Follow the development workflow above, making changes to `.md` files or adding docstrings within the code. Ensure your writing is clear, concise, and follows existing style where applicable.
+
+Thank you again for your interest in contributing!
+
+---
+
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

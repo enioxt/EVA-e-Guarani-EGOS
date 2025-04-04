@@ -295,3 +295,88 @@ async def test_handle_analyze_system_request(
     assert response["message"]["type"] == "analyze_system_response"
     assert response["message"]["payload"]["success"] is True
     assert response["message"]["payload"]["analysis"] == mock_analysis
+
+
+@pytest.mark.asyncio
+@patch("subsystems.ATLAS.service.ATLASCore")
+async def test_start_already_running(mock_core_cls, test_config, mock_mycelium, project_root):
+    """Test calling start when already running."""
+    mock_core_cls.return_value = MagicMock()
+    service = AtlasService(test_config, mock_mycelium, project_root)
+    await service.start()
+    subscribe_call_count = len(mock_mycelium.subscribed_topics)
+    await service.start()  # Call start again
+    # Check it didn't try to subscribe again
+    assert len(mock_mycelium.subscribed_topics) == subscribe_call_count
+
+
+@pytest.mark.asyncio
+@patch("subsystems.ATLAS.service.ATLASCore")
+async def test_stop_not_running(mock_core_cls, test_config, mock_mycelium, project_root):
+    """Test calling stop when not running."""
+    mock_core_cls.return_value = MagicMock()
+    service = AtlasService(test_config, mock_mycelium, project_root)
+    # Ensure stop doesn't raise error or change state
+    await service.stop()
+    assert not service.running
+
+
+@pytest.mark.asyncio
+@patch("subsystems.ATLAS.service.ATLASCore")
+async def test_handle_map_system_invalid_payload(
+    mock_core_cls, test_config, mock_mycelium, project_root
+):
+    """Test map_system handler with missing system_data."""
+    mock_core_cls.return_value = MagicMock()
+    service = AtlasService(test_config, mock_mycelium, project_root)
+    request_message = {
+        "id": "map-req-invalid",
+        "payload": {"map_name": "InvalidMap"},  # Missing system_data
+    }
+    await service.handle_map_system_request(request_message)
+    # Verify error response
+    assert len(mock_mycelium.published_messages) == 1
+    response = mock_mycelium.published_messages[0]
+    assert response["topic"] == f"response.{service.node_id}.map-req-invalid"
+    assert response["message"]["type"] == "error"
+    assert "Missing or invalid 'system_data'" in response["message"]["payload"]["message"]
+
+
+@pytest.mark.asyncio
+@patch("subsystems.ATLAS.service.ATLASCore")
+async def test_handle_generate_obsidian_error(
+    mock_core_cls, test_config, mock_mycelium, project_root, mock_atlas_core
+):
+    """Test error handling in generate_obsidian handler."""
+    mock_core_cls.return_value = mock_atlas_core
+    service = AtlasService(test_config, mock_mycelium, project_root)
+    # Simulate core method returning None (failure)
+    mock_atlas_core.generate_obsidian_content.return_value = None
+    request_message = {"id": "obs-req-err", "payload": {}}
+    await service.handle_generate_obsidian_request(request_message)
+    # Verify failure response
+    assert len(mock_mycelium.published_messages) == 1
+    response = mock_mycelium.published_messages[0]
+    assert response["topic"] == f"response.{service.node_id}.obs-req-err"
+    assert response["message"]["payload"]["success"] is False
+    assert "Failed to generate" in response["message"]["payload"]["message"]
+
+
+@pytest.mark.asyncio
+@patch("subsystems.ATLAS.service.ATLASCore")
+async def test_handle_analyze_system_error(
+    mock_core_cls, test_config, mock_mycelium, project_root, mock_atlas_core
+):
+    """Test error handling in analyze_system handler."""
+    mock_core_cls.return_value = mock_atlas_core
+    service = AtlasService(test_config, mock_mycelium, project_root)
+    # Simulate core method returning error dict
+    mock_atlas_core.analyze_system.return_value = {"error": "Analysis exploded"}
+    request_message = {"id": "analyze-req-err", "payload": {}}
+    await service.handle_analyze_system_request(request_message)
+    # Verify failure response
+    assert len(mock_mycelium.published_messages) == 1
+    response = mock_mycelium.published_messages[0]
+    assert response["topic"] == f"response.{service.node_id}.analyze-req-err"
+    assert response["message"]["payload"]["success"] is False
+    assert response["message"]["payload"]["analysis"] == {"error": "Analysis exploded"}
