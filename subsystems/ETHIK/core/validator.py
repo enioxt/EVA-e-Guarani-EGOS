@@ -238,15 +238,18 @@ class EthikValidator:
                 for rule_dict in rules_data.get("rules", []):
                     try:
                         # Convert timestamp strings back if needed, or adjust dataclass
-                        # rule_dict['created'] = datetime.datetime.fromisoformat(rule_dict['created'])
-                        # rule_dict['last_updated'] = datetime.datetime.fromisoformat(rule_dict['last_updated'])
+                        # rule_dict['created'] = datetime.datetime.fromisoformat(
+                        #     rule_dict['created'])
+                        # rule_dict['last_updated'] = datetime.datetime.fromisoformat(
+                        #     rule_dict['last_updated'])
                         rule = ValidationRule(**rule_dict)
                         self.rules[rule.id] = rule
                     except TypeError as te:
                         self.logger.error(
-                            f"Error creating ValidationRule instance for rule ID '{rule_dict.get('id')}': Missing or invalid arguments - {te}",
+                            f"Error creating ValidationRule instance for rule ID "
+                            f"'{rule_dict.get('id')}': Missing or invalid arguments - {te}",
                             exc_info=True,
-                        )  # Use self.logger
+                        )
                     except Exception as item_e:
                         self.logger.error(
                             f"Error parsing validation rule item {rule_dict.get('id')}: {item_e}",
@@ -607,12 +610,16 @@ class EthikValidator:
                     break  # If one condition fails, the rule's premise might not apply
 
             # If all conditions evaluated to True, it means the rule's criteria are met.
-            # For this type of rule (checking for forbidden actions), meeting conditions means a violation.
+            # For this type of rule (checking for forbidden actions),
+            # meeting conditions means a violation.
             if all_conditions_met:
                 is_valid = False  # Conditions met means violation for this rule type
                 score = 0.0  # Score indicates violation
                 action_taken = rule.action
-                details = f"Rule '{rule.name}' violated. Conditions met: {rule.conditions}. Context: {action_context}"
+                details = (
+                    f"Rule '{rule.name}' violated. Conditions met: {rule.conditions}. "
+                    f"Context: {action_context}"
+                )
 
                 # Log based on configured action
                 if action_taken == "block":
@@ -637,6 +644,12 @@ class EthikValidator:
             score = 0.1  # Low score indicates error/uncertainty
             action_taken = "warn"  # Default to warning on error
             details = f"Error evaluating rule {rule.id}: {e}"
+
+        # Log the outcome
+        self.logger.debug(
+            f"Validation result for rule '{rule.id}': IsValid={is_valid}, "
+            f"Score={score:.2f}, Action={action_taken}, Details: {details}",
+        )
 
         return ValidationResult(
             rule_id=rule.id,
@@ -706,7 +719,9 @@ class EthikValidator:
         log_level = logging.INFO if result.is_valid else logging.WARNING
         self.logger.log(
             log_level,
-            f"Validation Result for Rule '{result.rule_id}': Valid={result.is_valid}, Score={result.score:.2f}, Action={result.action_taken}, Details: {result.details}",
+            f"Validation Result for Rule '{result.rule_id}': "
+            f"Valid={result.is_valid}, Score={result.score:.2f}, "
+            f"Action={result.action_taken}, Details: {result.details}",
         )
 
         # --- Placeholder for triggering actions based on result.action_taken ---
@@ -714,9 +729,13 @@ class EthikValidator:
         #     self.logger.critical(f"BLOCK action triggered by rule {result.rule_id}")
         #     # Raise an exception or signal to block the operation?
         #     # This needs careful design based on how ETHIK integrates
-        #     # raise EthicalViolationError(f"Action blocked by rule {result.rule_id}: {result.details}")
+        #     # raise EthicalViolationError(
+        #     #     f"Action blocked by rule {result.rule_id}: "
+        #     #     f"{result.details}")
         # elif result.action_taken == 'warn':
-        #     self.logger.warning(f"WARN action triggered by rule {result.rule_id}: {result.details}")
+        #     self.logger.warning(
+        #         f"WARN action triggered by rule {result.rule_id}: "
+        #         f"{result.details}")
         #     # Potentially send a specific warning message via Mycelium?
         # ---------------------------------------------------------------------
 
@@ -726,6 +745,8 @@ class EthikValidator:
         # or use asyncio.create_task if appropriate and safe.
         # For now, alerting is handled after validate_action call.
         # ----------------------------------------------------
+
+        return result
 
     def add_rule(self, rule_dict: Dict[str, Any]):
         """Add or update a validation rule dynamically."""

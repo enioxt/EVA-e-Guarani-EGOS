@@ -336,8 +336,9 @@ class EthikSanitizer:
             # Removed direct WebSocket update call
 
             self.logger.debug(
-                f"Sanitization finished for content_id: {content_id}. Score: {result.ethical_score:.2f}"
-            )  # Use self.logger
+                f"Sanitization finished for content_id: {content_id}. "
+                f"Score: {result.ethical_score:.2f}"
+            )
             return result
 
         except Exception as e:
@@ -494,9 +495,10 @@ class EthikSanitizer:
                         self.rules[rule.id] = rule
                     except TypeError as te:
                         self.logger.error(
-                            f"Error creating SanitizationRule instance for rule ID '{rule_dict.get('id')}': Missing or invalid arguments - {te}",
+                            f"Error creating SanitizationRule instance for rule ID "
+                            f"'{rule_dict.get('id')}': Missing or invalid arguments - {te}",
                             exc_info=True,
-                        )  # Use self.logger
+                        )
                     except Exception as item_e:
                         self.logger.error(
                             f"Error parsing sanitization rule item {rule_dict.get('id')}: {item_e}",
@@ -647,7 +649,9 @@ if __name__ == "__main__":
         print(f"Changes: {result.changes_made}")
 
         print("\n--- Testing Cache ---")
-        result_cached = sanitizer.sanitize_content(test_content, context)
+        # result_cached = sanitizer.sanitize_content(
+        #     test_content, context
+        # ) # Removed unused variable
         # Check performance metrics for cache hit (would require adding 'cache_hit' logic)
 
         print("\n--- Testing History ---")

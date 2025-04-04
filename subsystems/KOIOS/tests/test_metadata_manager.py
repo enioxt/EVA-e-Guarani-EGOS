@@ -171,7 +171,8 @@ def test_metadata_structure_validation(metadata_manager, sample_file):
                 validate_structure(data[key], expected_type, current_path)
             else:
                 assert isinstance(data[key], expected_type), (
-                    f"Invalid type for {current_path}. Expected {expected_type}, got {type(data[key])}"
+                    f"Invalid type for {current_path}. Expected {expected_type}, "
+                    f"got {type(data[key])}"
                 )
 
     validate_structure(metadata, expected_keys)

@@ -88,12 +88,7 @@ line-length = 100
 target-version = ["py39"]
 
 [tool.ruff]
-# Enable Pyflakes (F), pycodestyle (E, W), isort (I) errors/warnings.
-select = ["E", "F", "W", "I"]
-ignore = []
-# Allow unused variables in __init__.py
-# ignore-init-module-imports = true # Often needed, but let's see if ruff handles it
-# Set line length
+# Settings applicable to all of Ruff (formatter, linter)
 line-length = 100
 # Exclude paths
 exclude = [
@@ -122,7 +117,14 @@ exclude = [
     "ai_translation_log.txt"
 ]
 
-[tool.ruff.isort]
+[tool.ruff.lint]
+# Enable Pyflakes (F), pycodestyle (E, W), isort (I) errors/warnings.
+select = ["E", "F", "W", "I"]
+ignore = []
+# Allow unused variables in __init__.py
+# ignore-init-module-imports = true # Often needed, but let's see if ruff handles it
+
+[tool.ruff.lint.isort]
 known-first-party = ["subsystems", "scripts", "examples"]
 
 [tool.mypy]

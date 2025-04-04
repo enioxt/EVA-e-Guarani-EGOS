@@ -380,7 +380,8 @@ def backup_manager_config(test_project_root):
 @patch(
     "subsystems.CRONOS.core.backup_manager.KoiosLogger"
 )  # Patch KoiosLogger globally for this fixture
-def backup_manager(MockKoiosLogger, test_project_root, backup_manager_config, mock_logger):
+@pytest.fixture(scope="function")
+def backup_manager_fixture(MockKoiosLogger, test_project_root, backup_manager_config, mock_logger):
     """Fixture for creating a BackupManager instance with mocks."""
     # Configure the class mock returned by patch
     MockKoiosLogger.get_logger.return_value = mock_logger
@@ -738,7 +739,6 @@ async def test_restore_with_multiple_matching_backups(
 ):
     """Test restoring when multiple backups match the identifier (should use latest)."""
     # 1. Create multiple backups with similar names
-    backup1 = await backup_manager.create_backup(name="similar_test")
     await asyncio.sleep(1)  # Ensure different timestamps
     backup2 = await backup_manager.create_backup(name="similar_test")
 

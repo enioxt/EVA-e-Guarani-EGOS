@@ -1,0 +1,61 @@
+---
+description: Enforce subsystem boundaries and interface-based communication (Mycelium)
+globs: "subsystems/**/*.py"
+# Potentially add excludes later if needed, e.g., !subsystems/SHARED_UTILS/**/*.py
+---
+
+# Subsystem Interaction Boundaries (KOIOS Standard)
+
+## Rule
+
+Subsystems **MUST NOT** directly import Python code (`.py` files) from another subsystem's `core/`, `services/`, or other internal implementation directories.
+
+Interaction between subsystems **MUST** primarily occur through well-defined interfaces, principally via **Mycelium Network messages and topics**.
+
+Imports from a dedicated `subsystems/SHARED_UTILS/` directory (if created for genuinely common, stable utilities) are permissible.
+
+## Rationale
+
+This rule is critical for maintaining modularity, reducing tight coupling, and enabling independent development and testing of subsystems. Direct imports create hidden dependencies that break easily and violate the EGOS architectural principles. Mycelium provides a stable, decoupled communication layer.
+
+## Examples
+
+### Correct Usage (Mycelium Interaction or Shared Utils)
+
+```python
+# In subsystems/NEXUS/service.py
+
+# Correct: Importing Mycelium interface
+from subsystems.MYCELIUM.core.interface import MyceliumInterface
+
+# Correct: Importing a shared utility (if SHARED_UTILS exists)
+# from subsystems.SHARED_UTILS.common_data_structures import SpecificStructure
+
+class NexusService:
+    def __init__(self, mycelium_interface: MyceliumInterface):
+        self.interface = mycelium_interface
+
+    async def request_ethik_validation(self, data):
+        # Correct: Publishing a message to ETHIK via Mycelium
+        await self.interface.publish("request.ethik.validate", {"data": data})
+
+```
+
+### Incorrect Usage (Direct Cross-Subsystem Import)
+
+```python
+# In subsystems/NEXUS/core/analyzer.py (Example - DO NOT DO THIS)
+
+# ❌ Incorrect: Direct import from ETHIK's core
+# from subsystems.ETHIK.core.validator import EthikValidator
+
+class Analyzer:
+    def analyze(self, code):
+        # ❌ Incorrect: Directly instantiating/calling another subsystem's core component
+        # validator = EthikValidator()
+        # is_valid = validator.validate(code)
+        # ...
+        pass
+```
+
+**Use Mycelium messages to request actions or data from other subsystems.**

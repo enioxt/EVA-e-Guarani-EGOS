@@ -1,0 +1,175 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description: Error handling guidelines and best practices for EGOS development
+globs: ["**/*.py"]
+alwaysApply: false
+---
+# Error Handling Guidelines (KOIOS Standard)
+
+## Rule
+
+All EGOS code must implement error handling following these principles:
+
+1. **Exception Hierarchy**
+   - Create subsystem-specific exception classes that inherit from appropriate base exceptions
+   - Use specific exception types rather than generic exceptions
+   - Document all custom exceptions in module docstrings
+
+2. **Catching Exceptions**
+   - Catch specific exceptions rather than using bare `except:` clauses
+   - Only catch exceptions you can handle properly
+   - Re-raise or wrap exceptions when appropriate to maintain the error chain
+   - Do not silently swallow exceptions
+
+3. **Error Logging**
+   - Log all exceptions with appropriate context using `KoiosLogger`
+   - Use appropriate log levels:
+     - `ERROR`: For recoverable application errors
+     - `CRITICAL`: For unrecoverable system errors
+   - Include relevant context data with logged errors
+
+4. **User-Facing Errors**
+   - Provide clear, actionable error messages
+   - Never expose stack traces or system details to end users
+   - Implement consistent error responses across subsystems
+
+5. **Cleanup and Resources**
+   - Use `try`/`finally` or context managers (`with` statements) to ensure resource cleanup
+   - Always close files, connections, and other resources
+
+## Rationale
+
+Proper error handling is essential for system reliability, security, and maintainability. Consistent error handling patterns make debugging easier and improve the user experience by providing clear information about what went wrong and how to fix it.
+
+## Examples
+
+### Correct Usage
+
+```python
+from typing import Dict, List, Optional
+import os
+
+from koios.logger import KoiosLogger
+from mycelium.exceptions import MyceliumConnectionError, MyceliumTimeoutError
+from subsystems.ethik.exceptions import ValidationError
+
+logger = KoiosLogger.get_logger("SUBSYSTEM.Module")
+
+class ConfigError(Exception):
+    """Raised when there is an issue with the configuration."""
+    pass
+
+class ProcessingError(Exception):
+    """Raised when data processing fails."""
+    pass
+
+def load_configuration(config_path: str) -> Dict:
+    """Load configuration from the specified path.
+
+    Args:
+        config_path: Path to the configuration file
+
+    Returns:
+        Configuration dictionary
+
+    Raises:
+        ConfigError: If configuration cannot be loaded or is invalid
+    """
+    try:
+        if not os.path.exists(config_path):
+            raise FileNotFoundError(f"Configuration file not found: {config_path}")
+
+        with open(config_path, 'r') as f:
+            config_data = f.read()
+
+        # Parse and validate config
+        config = parse_config(config_data)
+        return config
+
+    except FileNotFoundError as e:
+        logger.error(f"Configuration file not found: {config_path}")
+        raise ConfigError(f"Configuration file not found: {config_path}") from e
+
+    except json.JSONDecodeError as e:
+        logger.error(f"Invalid JSON in configuration file: {e}")
+        raise ConfigError("Configuration file contains invalid JSON") from e
+
+def process_data(items: List[str]) -> List[Dict]:
+    """Process a list of data items.
+
+    Args:
+        items: List of items to process
+
+    Returns:
+        List of processed items
+
+    Raises:
+        ProcessingError: If processing fails
+        ValidationError: If validation through ETHIK fails
+    """
+    results = []
+
+    for i, item in enumerate(items):
+        try:
+            # Validate through ETHIK
+            validated_item = validate_with_ethik(item)
+
+            # Process through Mycelium
+            processed_item = send_to_mycelium(validated_item)
+            results.append(processed_item)
+
+        except ValidationError as e:
+            # Log specific item that failed validation
+            logger.warning(f"Item {i} failed validation: {str(e)}")
+            # Re-raise to caller
+            raise
+
+        except (MyceliumConnectionError, MyceliumTimeoutError) as e:
+            # This is a recoverable error so we log it
+            logger.error(f"Mycelium communication error: {str(e)}")
+            # Wrap in our application-specific exception
+            raise ProcessingError(f"Failed to process item {i}: {str(e)}") from e
+
+        except Exception as e:
+            # Unexpected error
+            logger.critical(f"Unexpected error processing item {i}: {str(e)}", exc_info=True)
+            raise ProcessingError(f"Unexpected error processing item {i}") from e
+
+    return results
+```
+
+### Incorrect Usage
+
+```python
+def load_configuration(config_path):  # WRONG: Missing type hints
+    # WRONG: No try/except to handle file errors
+    f = open(config_path, 'r')  # WRONG: No resource management
+    config_data = f.read()
+    f.close()
+
+    # WRONG: No error handling for parsing
+    config = parse_config(config_data)
+    return config
+
+def process_data(items):  # WRONG: Missing type hints
+    results = []
+
+    for item in items:
+        try:
+            validated_item = validate_with_ethik(item)
+            processed_item = send_to_mycelium(validated_item)
+            results.append(processed_item)
+        except:  # WRONG: Bare except clause
+            # WRONG: Generic error message without context
+            print("An error occurred")
+            # WRONG: Exception silently swallowed
+            pass
+
+    return results
+```
+
+**All EGOS code must implement consistent, thorough error handling to ensure system reliability, security, and maintainability. Proper error handling enables effective debugging, improves user experience, and maintains system integrity.**

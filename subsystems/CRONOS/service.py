@@ -174,11 +174,11 @@ class CronosService:
 
         # Register message handlers
         # await self.interface.subscribe(
-        #     "request.cronos.create_backup", 
+        #     "request.cronos.create_backup",
         #     self.handle_create_backup_request
         # )
         # await self.interface.subscribe(
-        #     "request.cronos.get_status", 
+        #     "request.cronos.get_status",
         #     self.handle_get_status_request
         # )
 

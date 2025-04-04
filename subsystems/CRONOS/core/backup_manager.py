@@ -26,7 +26,8 @@ class BackupManager:
         Args:
             project_root (Path): Root directory of the project
             config_path (Optional[Path]): Path to configuration file. If None, uses default config.
-            mycelium_client (Optional[MyceliumClient]): Mycelium client for pub/sub. If None, messaging is disabled.
+            mycelium_client (Optional[MyceliumClient]): Mycelium client for pub/sub.
+                                                       If None, messaging is disabled.
         """
         self.project_root = Path(project_root)
         self.logger = KoiosLogger.get_logger("CRONOS.BackupManager")
@@ -369,16 +370,16 @@ class BackupManager:
         """Restores a project state from a specified backup archive.
 
         Args:
-            backup_identifier (str): The filename or a unique part 
+            backup_identifier (str): The filename or a unique part
                                      (like timestamp YYYYMMDD_HHMMSS)
                                      of the backup zip file.
-            restore_target_path (Optional[str]): The directory where the backup 
-                                                 should be restored. Required for 
-                                                 'overwrite' strategy. If None for 
-                                                 'new_location', a new timestamped 
-                                                 directory is created relative to 
+            restore_target_path (Optional[str]): The directory where the backup
+                                                 should be restored. Required for
+                                                 'overwrite' strategy. If None for
+                                                 'new_location', a new timestamped
+                                                 directory is created relative to
                                                  the project root.
-            strategy (str): The restore strategy ('new_location', 'overwrite'). 
+            strategy (str): The restore strategy ('new_location', 'overwrite').
                             Defaults to config or 'new_location'.
 
         Returns:
@@ -628,8 +629,8 @@ class BackupManager:
         Returns:
             List[Dict[str, Any]]: A list of dictionaries, each representing a backup.
                                    Example: [
-                                       {'filename': 'backup_..ts.zip', 
-                                        'size': 1024, 
+                                       {'filename': 'backup_..ts.zip',
+                                        'size': 1024,
                                         'created_at': 'iso_timestamp'}
                                    ]
         """

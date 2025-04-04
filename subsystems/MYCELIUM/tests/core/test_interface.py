@@ -73,7 +73,8 @@ class TestMyceliumInterface(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(self.interface._node_id)  # Node ID should be cleared
         # Verify the future was cancelled, checking the message is unreliable
         self.assertTrue(test_future.cancelled())
-        # self.assertIn("Node disconnecting", str(test_future.exception())) # Removed unreliable check
+        # Removed unreliable check:
+        # self.assertIn("Node disconnecting", str(test_future.exception()))
 
     async def test_publish_event(self):
         """Test publishing an event formats message and calls route_message."""

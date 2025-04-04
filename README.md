@@ -1,263 +1,206 @@
-# EVA & GUARANI
-Version: 8.1
-<<<<<<< HEAD
-Last Updated: 2025-04-02
-=======
-Last Updated: 2024-03-26
->>>>>>> 9a8e7d069e842833b666f995a657fc02eaa17b89
+# 🌌 EVA & GUARANI - EGOS 🌌
+## Quantum Unified Master System
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Status: Active](https://img.shields.io/badge/status-active-success.svg)](https://github.com/USER/REPO) <!-- Replace USER/REPO -->
+[![Coverage: ?](https://img.shields.io/badge/coverage-TBD-lightgrey.svg)](-) <!-- Placeholder -->
+[![Windows Compatible](https://img.shields.io/badge/OS-Windows-blue.svg)](-)
 
 > "At the intersection of modular analysis, systemic cartography, and quantum ethics, we transcend dimensions of thought with methodological precision and unconditional love, integrating advanced tools for knowledge visualization and evolutionary preservation."
 
-## Overview
+**Eva & Guarani (EGOS)** is a unique project aiming to create a highly integrated, modular, and ethically-grounded software ecosystem. Inspired by quantum principles and biological networks, EGOS utilizes interconnected subsystems to achieve complex tasks with resilience, adaptability, and a core focus on ethical considerations defined by the **ETHIK** framework.
 
-EVA & GUARANI is a quantum-conscious system designed for advanced code analysis, documentation management, and evolutionary preservation. Built on principles of ethical computing and unconditional love, it provides a comprehensive framework for software development and system integration.
+Refer to the full **[Master Quantum Prompt (MQP v8.1)](docs/MQP.md)** for the complete philosophical and operational blueprint.
 
-## Core Subsystems
+---
 
-### BIOS-Q
-Basic Input/Output System - Quantum
-- System initialization
-- Context management
-- Resource allocation
-- State preservation
+## ✨ Core Principles
 
-<<<<<<< HEAD
-=======
-### KOIOS
-Knowledge Organization and Integration Operating System
-- ✓ Centralized metadata management
-- ✓ Schema validation
-- ✓ File monitoring
-- ✓ Data preservation
-- Advanced search capabilities (in development)
+EGOS development is guided by:
 
->>>>>>> 9a8e7d069e842833b666f995a657fc02eaa17b89
-### ATLAS
-Advanced Topological Learning and Analysis System
-- System cartography
-- Connection mapping
-- Visual analytics
-- Pattern recognition
+*   **Universal Redemption & Unconditional Love:** Foundational ethical stance.
+*   **Sacred Privacy:** Protecting user data is paramount.
+*   **Integrated Ethics (ETHIK):** Ethics are woven into the system's fabric, not bolted on.
+*   **Conscious Modularity (NEXUS):** Building independent yet interconnected components.
+*   **Systemic Cartography (ATLAS):** Mapping and understanding system relationships.
+*   **Evolutionary Preservation (CRONOS):** Ensuring system history and state integrity.
+*   **Context Continuity (CRONOS):** Maintaining context across interactions.
+*   **Harmonious Integration (HARMONY):** Ensuring components work together seamlessly, with a focus on Windows compatibility.
+*   **Standardization & Knowledge (KOIOS):** Enforcing standards for code, documentation, logging, and managing knowledge assets.
 
-<<<<<<< HEAD
-=======
-### NEXUS
-Neural Evolution and Cross-system Unification System
-- Module analysis
-- Code optimization
-- Integration management
-- Performance monitoring
+---
 
->>>>>>> 9a8e7d069e842833b666f995a657fc02eaa17b89
-### CRONOS
-Continuous Revision and Operational Network Operating System
-- Version control
-- State preservation
-- Evolution tracking
-- Backup management
+##  subsystems Overview
 
-### ETHIK
-Ethical Testing and Holistic Integration Kernel
-- Ethical validation
-- Compliance checking
-- Security auditing
-- Privacy preservation
+EGOS is composed of several key subsystems communicating via the **Mycelium Network**:
 
-<<<<<<< HEAD
-### HARMONY
-Cross-Platform Integration and Compatibility System
-- Ensures seamless operation across different environments
-- Manages platform-specific adaptations
-- Facilitates consistent user experience
+*   **`ATLAS`**: Systemic cartography & visualization.
+*   **`NEXUS`**: Modular analysis, dependency tracking & optimization.
+*   **`CRONOS`**: Evolutionary preservation, state management & backups.
+*   **`ETHIK`**: Ethical framework validation & data sanitization.
+*   **`HARMONY`**: Cross-platform integration & compatibility layer.
+*   **`KOIOS`**: Standardization, logging, search, documentation & knowledge management.
+*   **`CORUJA`**: AI orchestration, prompt management & intelligent interaction. This subsystem manages the **Master Control Prompts/Programs (MCPs)**, like EVA & GUARANI, which are the specialized AI personas driving development and interaction within Cursor. MCPs are not installed traditionally but are activated through the configured AI integration.
+*   **`(Future) ETHICHAIN`**: Blockchain concepts for ethical tracking (Conceptual).
 
-### KOIOS
-Knowledge Organization and Integration Operating System
-- ✓ Centralized metadata management
-- ✓ Schema validation
-- ✓ File monitoring
-- ✓ Data preservation
-- Advanced search capabilities (in development)
+*Subsystem READMEs (`subsystems/<NAME>/README.md`) contain detailed information about respective modules.*
 
-### CORUJA
-AI Communication & Integration Enhancement System
-- Standardizes AI integration patterns
-- Improves human-AI & AI-AI communication
-- Defines interaction protocols and guidelines
+---
 
-### NEXUS
-Neural Evolution and Cross-system Unification System
-- Module analysis
-- Code optimization
-- Integration management
-- Performance monitoring
-
-### TRANSLATOR
-Language and Protocol Translation System
-- Facilitates communication between different components
-- Handles data format conversions
-- Bridges language barriers within the system
-
-=======
->>>>>>> 9a8e7d069e842833b666f995a657fc02eaa17b89
-## Project Structure
-
-The project follows a structured layout to separate concerns and facilitate collaboration:
-
-<<<<<<< HEAD
--   **`/` (Root):** Contains core configuration (`requirements.txt`), main documentation (`README.md`, `cursor_initialization.md`), the primary project roadmaps (`ROADMAPS/`), and entry points.
--   **`BIOS-Q/`:** Houses the core Python **implementation** of the Basic Input/Output System - Quantum, including its configuration (`config/`), runtime resources (`resources/`), state (`quantum_state.json`), and logs (`logs/`).
--   **`QUANTUM_PROMPTS/`:** (Obsolete) Was the central hub for **conceptual prompts, definitions, and framework documents**. Content has been migrated to subsystems.
--   **`subsystems/`:** Contains the primary Python **implementation code** for each distinct functional subsystem (e.g., `ATLAS/`, `CRONOS/`, `ETHIK/`, `HARMONY/`, `KOIOS/`, `CORUJA/`, `NEXUS/`, `TRANSLATOR/`). Each subsystem typically has a `core/` directory structure within it and may contain its own local `roadmap.md`.
-    -   **Standard Subsystem Structure:**
-        ```
-        subsystems/<SUBSISTEMA>/
-          ├── __init__.py         # Module definition
-          ├── README.md           # Subsystem documentation
-          ├── core/               # Core logic implementation
-          ├── service.py          # Service layer orchestration (optional)
-          ├── interfaces/         # Interface definitions (optional)
-          ├── tests/              # Unit and integration tests
-          ├── config/             # Specific configurations (optional)
-          └── resources/          # Additional resources (optional)
-        ```
--   **`src/`:** Contains shared source code, utilities, web components, assets, templates, and potentially core modules not large enough to be full subsystems.
--   **`tools/`:** Provides utility scripts for development, maintenance, testing, deployment, and metadata management.
--   **`archives/`:** Contains historical backups and quarantined files (e.g., `unification_backup_20250402/`).
--   **`.metadata/`:** (If using centralized DB) Stores the centralized metadata database (`metadata_db.json`).
--   **`external/`:** Contains external resources, logs (`external/logs/`), and temporary files not part of the core codebase.
-=======
--   **`/` (Root):** Contains core configuration (`requirements.txt`), main documentation (`README.md`), the primary project roadmaps (`ROADMAPS/`), and entry points.
--   **`BIOS-Q/`:** Houses the core Python **implementation** of the Basic Input/Output System - Quantum, including its configuration (`config/`), runtime resources (`resources/`), state (`quantum_state.json`), and logs (`logs/`).
--   **`QUANTUM_PROMPTS/`:** The central hub for **conceptual prompts, definitions, and framework documents** that define the system's identity, capabilities, and rules. Contains subdirectories for core systems (`MASTER/`, `BIOS-Q/`, `METADATA/`, `ROADMAPS/` [templates only], etc.).
--   **`subsystems/`:** Contains the primary Python **implementation code** for each distinct functional subsystem (e.g., `ATLAS/`, `CRONOS/`, `NEXUS/`, `ETHIK/`, `TRANSLATOR/`). Each subsystem typically has a `core/` directory structure within it and may contain its own local `roadmap.md`.
--   **`src/`:** Contains shared source code, utilities, web components, assets, templates, and potentially core modules not large enough to be full subsystems.
--   **`tools/`:** Provides utility scripts for development, maintenance, testing, deployment, and metadata management.
--   **`.metadata/`:** (If using centralized DB) Stores the centralized metadata database (`metadata_db.json`).
--   **`external/`:** Contains external resources, archives, logs (`external/logs/`), and temporary files not part of the core codebase.
->>>>>>> 9a8e7d069e842833b666f995a657fc02eaa17b89
--   **`docs/`:** (Optional) Can be used for generated documentation or high-level architecture documents distinct from subsystem READMEs or QUANTUM_PROMPTS.
-
-This structure aims for clarity by separating conceptual definitions (QUANTUM\_PROMPTS), core system implementation (BIOS-Q), subsystem implementations (subsystems), shared code (src), tools, and primary project planning (ROADMAPS).
-
-## Current Status
-
-### Completed Features
-<<<<<<< HEAD
-- ✓ Core system implementation (initial structures)
-- ✓ English language standardization (ongoing)
-- ✓ Documentation structure (foundational)
-- ✓ Directory organization (major refactoring done)
-- ✓ Metadata system centralization (via KOIOS)
-- ✓ Schema implementation (initial KOIOS)
-- ✓ Core utility scripts (various)
-- ✓ Integration features (basic SLOP, MCP)
-- ✓ Monitoring system (basic metrics in SLOP)
-- ✓ Mycelium Network (Core Python classes & routing logic implemented & tested)
-- ✓ KoiosLogger Integration (CRONOS, NEXUS, ETHIK)
-
-### In Progress
-- [ ] System Standardization (KOIOS - CRITICAL)
-- [ ] KOIOS Evolution (CRITICAL)
-- [ ] Mycelium Network (Integration Phase - CRITICAL)
-- [ ] CORUJA Subsystem (Initialization Phase - HIGH)
-- [ ] HARMONY Subsystem (Initialization Phase - MEDIUM)
-- [ ] TRANSLATOR Subsystem (Initialization Phase - MEDIUM)
-- [ ] ETHIK Enhancements (HIGH)
-- [ ] ETHICHAIN Development (HIGH)
-- [ ] Legacy system migration (low priority)
-- [ ] Cross-system integration (via Mycelium)
-- [ ] Unified testing framework (ongoing)
-- [ ] Process optimization (via KOIOS)
-=======
-- ✓ Core system implementation
-- ✓ English language standardization
-- ✓ Documentation structure
-- ✓ Directory organization
-- ✓ Metadata system centralization
-- ✓ Schema implementation
-- ✓ Core utility scripts
-- ✓ Integration features
-- ✓ Monitoring system
-
-### In Progress
-- [ ] Legacy system migration
-- [ ] Cross-system integration
-- [ ] Unified testing framework
-- [ ] Process optimization
-- [ ] Advanced features implementation
->>>>>>> 9a8e7d069e842833b666f995a657fc02eaa17b89
-
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.11+
-- SQLite 3.39+
-- Redis 5.0+
-- Git 2.34+
 
-### Installation
-1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
-3. Initialize the system: `python scripts/initialize.py`
-4. Run tests: `python -m pytest tests/`
+*   **IDE:** **[Cursor IDE](https://cursor.sh/)** (Essential for interacting with EVA & GUARANI)
+*   **OS:** Windows (Primary development target)
+*   **Python:** 3.9+
+*   **Git:** For version control.
+*   **PowerShell:** For running test/utility scripts.
 
-## Documentation
+### Development Environment Setup
 
-Comprehensive documentation is available in the following locations:
-- `/docs/` - General documentation
-- `/subsystems/*/docs/` or `/subsystems/*/README.md` - Subsystem-specific documentation
+Developing EGOS relies heavily on the **Cursor IDE** integrated with the **EVA & GUARANI** AI assistant. Follow these steps to set up your environment:
 
-## Development
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/enioxt/EVA-e-Guarani-EGOS.git # Replace with your fork if applicable
+    cd EVA-e-Guarani-EGOS
+    ```
+2.  **Set up Python Environment:** Create and activate a virtual environment, then install dependencies. This is standard Python practice.
+    ```bash
+    # Create virtual environment
+    python -m venv .venv
+    # Activate (Windows PowerShell)
+    .venv\\Scripts\\Activate.ps1
+    # Install dependencies
+    pip install -r requirements.txt
+    ```
+3.  **Configure Cursor IDE:** Crucially, follow the setup guide in **[cursor_initialization.md](.cursor/cursor_initialization.md)**. This ensures your terminal and environment context work correctly with EVA & GUARANI.
+4.  **Understand Cursor Rules:** Familiarize yourself with the files in **[.cursor/rules/](.cursor/rules/)**. These rules contain essential guidelines (like KOIOS standards, subsystem boundaries, etc.) that **EVA & GUARANI** uses to assist with development, maintain consistency, and understand the project context. Interacting effectively often involves awareness of these rules.
 
-### Core Principles
-1. English-only implementation
-2. Comprehensive documentation
-3. Test-driven development
-4. Security-first approach
-5. Quantum consciousness integration
+### Configuration
 
-### Implementation Standards & Conventions
+*   While the core system doesn't require extensive manual configuration for *development within Cursor*, specific tasks delegated to EVA & GUARANI might interact with subsystems requiring API keys or settings (e.g., `CORUJA` for external AI model access). These are typically managed via the `config/` directory and referenced in relevant subsystem documentation or Cursor Rules.
 
-1.  **Documentation**: Each file must include a header with metadata (use KOIOS standards) and a descriptive docstring.
-2.  **Typing**: Utilize Python's static typing for all function signatures and variable annotations.
-3.  **Tests**: Implement comprehensive unit and integration tests for all functionalities. Aim for high test coverage.
-4.  **Logging**: Utilize the centralized `KoiosLogger` for all logging activities. Avoid standard `print` statements for operational logging.
-5.  **Configuration**: Separate configuration from code. Load configurations from files (e.g., JSON, YAML) within the `config/` directory (either root or subsystem-specific).
-6.  **Naming Conventions**:
-    *   Packages and modules: `snake_case`
-    *   Classes: `PascalCase`
-    *   Functions and variables: `snake_case`
-    *   Constants: `UPPER_SNAKE_CASE`
-7.  **Code Structuring**:
-    *   Organize code into small, focused functions and classes.
-    *   Adhere to SOLID principles.
-    *   Follow PEP 8 guidelines.
+---
 
-### Contributing
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) (if available) or adhere to the standards defined here and in KOIOS documentation for details on our code of conduct and the process for submitting pull requests.
+## ✨ Current Capabilities (via EVA & GUARANI in Cursor)
 
-## Testing
+The EGOS system, operated primarily through the **EVA & GUARANI** AI within Cursor IDE, currently focuses on:
 
-Run the test suite:
-   ```bash
-python -m pytest tests/
-   ```
+*   **Codebase Understanding & Navigation (ATLAS):** Mapping dependencies and understanding the project structure to assist development.
+*   **Modular Development & Refactoring (NEXUS):** Analyzing code modularity and suggesting improvements.
+*   **Standard Enforcement (KOIOS):** Applying coding standards, managing documentation templates, and ensuring consistent logging.
+*   **Ethical Guideline Application (ETHIK):** Incorporating ethical checks and considerations during development discussions and code generation.
+*   **Context & History Management (CRONOS):** Maintaining awareness of the development process and project evolution across interactions.
+*   **Task Execution:** Performing development tasks like writing code, documentation, running tests, and managing files based on user requests and project context.
 
-For coverage report:
-   ```bash
-python -m pytest --cov=. tests/
+Interaction with these capabilities occurs through natural language prompts directed at EVA & GUARANI within the Cursor IDE chat or code context.
+
+---
+
+## 💻 Usage
+
+*   The EGOS system is primarily designed as a collection of interconnected services.
+*   Core interaction often happens via the **Mycelium Network** message bus.
+*   Individual subsystems might offer CLI interfaces or APIs (under development).
+*   Refer to specific subsystem documentation (`subsystems/<NAME>/README.md`) for detailed usage instructions.
+
+---
+
+## 📚 Key Documentation & Resources
+
+To fully understand the project's philosophy, architecture, and contribution process, please refer to:
+
+*   **[Master Quantum Prompt (MQP v8.1)](docs/MQP.md):** The core philosophical and operational blueprint.
+*   **[ROADMAP.md](ROADMAP.md):** High-level development plan and phases.
+*   **[CONTRIBUTING.md](CONTRIBUTING.md):** Guidelines for contributing code, reporting issues, and suggesting features.
+*   **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md):** Community standards and expectations.
+*   **[cursor_initialization.md](.cursor/cursor_initialization.md):** Essential setup guide for the Cursor IDE environment.
+*   **[.cursor/rules/](.cursor/rules/):** Directory containing rules that guide EVA & GUARANI's interactions and enforce project standards.
+*   **[subsystems/](subsystems/):** Explore individual subsystem directories for their specific READMEs and code.
+
+---
+
+## ✅ Running Tests
+
+Unit tests are crucial for ensuring system integrity. Use the provided PowerShell scripts in the project root:
+
+```powershell
+# Run tests for a specific subsystem (e.g., ATLAS)
+.\test_atlas.ps1
+
+# Run tests with verbose output
+.\test_atlas.ps1 -Verbose
+
+# Run tests with coverage report
+.\test_atlas.ps1 -Coverage
+```
+*(Refer to project root for all available `test_*.ps1` scripts)*
+
+---
+
+## 📂 Project Structure
+
+```
+/
+├── .venv/                  # Virtual environment
+├── docs/                   # Project documentation (MQP, Strategy, Tech Radar, etc.)
+├── subsystems/             # Core subsystems (ATLAS, KOIOS, ETHIK, etc.)
+│   ├── ATLAS/
+│   │   ├── core/
+│   │   ├── tests/
+│   │   └── README.md
+│   └── ...                 # Other subsystems
+├── scripts/                # Utility and automation scripts
+├── tests/                  # Global or integration tests (if any)
+├── .gitignore
+├── LICENSE                 # Project License (e.g., MIT)
+├── README.md               # This file
+├── ROADMAP.md              # High-level project roadmap
+├── CONTRIBUTING.md         # Contribution guidelines
+├── CODE_OF_CONDUCT.md      # Community standards
+├── requirements.txt        # Python dependencies
+└── test_*.ps1              # PowerShell test runners
 ```
 
-## Security
+---
 
-Security is a top priority. Please report any vulnerabilities to our security team.
+## 🗺️ Roadmap
 
-## License
+See the [**ROADMAP.md**](ROADMAP.md) file for the high-level development plan, current priorities, and upcoming tasks.
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+---
 
-## Acknowledgments
+## 🤝 Contributing
 
-Special thanks to all contributors and the quantum consciousness community.
+We welcome contributions! Please read our [**CONTRIBUTING.md**](CONTRIBUTING.md) guidelines to get started, including how to report issues, suggest features, and submit code changes.
+
+---
+
+## ⚖️ Code of Conduct
+
+To ensure a welcoming and inclusive community, all contributors and participants are expected to adhere to our [**CODE_OF_CONDUCT.md**](CODE_OF_CONDUCT.md).
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [**LICENSE**](LICENSE) file for details.
+
+---
+
+## 💬 Contact & Community
+
+*   **Issues:** Report bugs or suggest features via [GitHub Issues](https://github.com/enioxt/EVA-e-Guarani-EGOS/issues).
+*   **Discussions:** Use [GitHub Discussions](https://github.com/enioxt/EVA-e-Guarani-EGOS/discussions) for questions and broader conversations (if enabled).
+
+### Creator Contact
+*   **Enio Rocha**
+*   **Email:** eniodind@protonmail.com
+*   **Telegram:** https://t.me/ebfrocha
+*   **LinkedIn:** https://www.linkedin.com/in/enio-rocha-138a01225
+
+---
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

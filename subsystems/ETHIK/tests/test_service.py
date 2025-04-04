@@ -55,25 +55,15 @@ def mock_mycelium():
     return MockMyceliumInterface()
 
 
-@pytest.fixture
-def test_config(tmp_path: Path) -> Dict:
-    """Provides a basic config dictionary and creates dummy rule files."""
-    # Create dummy rule files in a temporary directory
-    config_dir = tmp_path / "config"
-    config_dir.mkdir()
-    validation_rules_file = config_dir / "validation_rules.json"
-    sanitization_rules_file = config_dir / "sanitization_rules.json"
-
-    validation_rules_file.write_text('{"rules": []}')
-    sanitization_rules_file.write_text('{"rules": []}')
-
+def get_test_config():
+    """Get test configuration."""
     return {
         "validation_rules_file": "config/validation_rules.json",  # Relative path for service init
-        "sanitization_rules_file": "config/sanitization_rules.json",  # Relative path for service init
+        "sanitization_rules_file": (
+            "config/sanitization_rules.json"  # Relative path for service init
+        ),
         "history_retention_days": 7,
         "validator_config": {},
-        "sanitizer_config": {},
-        "performance": {},
     }
 
 

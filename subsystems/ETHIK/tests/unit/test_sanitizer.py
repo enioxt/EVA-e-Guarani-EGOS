@@ -126,7 +126,7 @@ def test_rule_conditions(sanitizer):
     # Technical context should skip some rules
     content = "This code is ugly"
     context = {"file_type": "code"}
-    result = sanitizer.sanitize_content(content, context)
+    sanitizer.sanitize_content(content, context)
     assert any(rule.id == "sanitize-004" for rule in sanitizer.rules.values())
 
 

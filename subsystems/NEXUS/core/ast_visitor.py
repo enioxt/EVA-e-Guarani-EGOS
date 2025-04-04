@@ -23,6 +23,10 @@ class ImportInfo:
     alias: Optional[str] = None
     is_from_import: bool = False
     level: int = 0  # For relative imports
+    lineno: int = 0
+    col_offset: int = 0
+    end_lineno: Optional[int] = None
+    end_col_offset: Optional[int] = None
 
 
 @dataclass
@@ -93,18 +97,20 @@ class CodeVisitor(ast.NodeVisitor):
 
     def visit_ImportFrom(self, node: ast.ImportFrom):
         """Process ImportFrom nodes."""
-        module = node.module or ""
+        # module = node.module or "" # Removed unused variable
         # Aggregate all names from a single 'from ... import ...'
         imported_names = [name.name for name in node.names]
-        aliases = {name.name: name.asname for name in node.names if name.asname}
+        # Note: aliases are not currently used but might be needed in the future
+        # aliases = {name.name: name.asname for name in node.names if name.asname}
         self.imports.append(
             ImportInfo(
-                module=module,
+                module=node.module,
                 names=imported_names,
-                # Consider storing aliases dict if needed later
-                alias=None,  # Top-level alias doesn't apply here
-                is_from_import=True,
                 level=node.level,
+                lineno=node.lineno,
+                col_offset=node.col_offset,
+                end_lineno=node.end_lineno,
+                end_col_offset=node.end_col_offset,
             )
         )
         # Do not call generic_visit here
@@ -273,6 +279,10 @@ def analyze_code(content: str, logger: logging.Logger) -> Dict:
                     "alias": imp.alias,
                     "is_from_import": imp.is_from_import,
                     "level": imp.level,
+                    "lineno": imp.lineno,
+                    "col_offset": imp.col_offset,
+                    "end_lineno": imp.end_lineno,
+                    "end_col_offset": imp.end_col_offset,
                 }
                 for imp in visitor.imports
             ],

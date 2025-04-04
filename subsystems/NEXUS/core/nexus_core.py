@@ -56,8 +56,9 @@ class NEXUSCore:
                                      thresholds for suggestions.
             logger (Optional[logging.Logger]): Logger instance for logging messages.
                                          If None, will use KoiosLogger.get_logger("NEXUS.Core").
-            project_root (Optional[Path]): The absolute path to the root of the project being analyzed.
-                                           If None, will try to determine from current directory.
+            project_root (Optional[Path]): The absolute path to the root of the project
+                                             being analyzed. If None, will try to
+                                             determine from current dir.
         """
         self.config = config
 
@@ -221,7 +222,8 @@ class NEXUSCore:
             "uvicorn",
             "pydantic",
             "koios",
-            "mycelium",  # Consider EGOS subsystems external for now if imported directly? Maybe not.
+            "mycelium",  # Consider EGOS subsystems external for now
+            # if imported directly? Maybe not.
             # Add other common libraries used in the project here
         }
         # Also consider EGOS subsystems if imported absolutely
@@ -231,7 +233,8 @@ class NEXUSCore:
             if os.path.isdir(self.project_root / "subsystems" / d) and not d.startswith("_")
         }
 
-        # First pass: Initialize dictionary, map module names to paths, and parse AST for import details
+        # First pass: Initialize dictionary, map module names to paths,
+        # and parse AST for import details
         for file_path_str in python_files:
             file_path = Path(file_path_str).resolve()  # Ensure absolute paths
             relative_path_str = str(file_path.relative_to(self.project_root))  # For display/keys
@@ -270,12 +273,14 @@ class NEXUSCore:
                         module = node.module if node.module else ""  # Handle 'from . import ...'
                         level = node.level  # Relative import level
 
-                        # Handle cases like 'from .submodule import *' - less precise but capture intent
+                        # Handle cases like 'from .submodule import *' -
+                        # less precise but capture intent
                         imported_names = [alias.name for alias in node.names if alias.name != "*"]
                         has_wildcard = any(alias.name == "*" for alias in node.names)
                         if has_wildcard:
                             imported_names.append("*")  # Represent wildcard if present
 
+                        # If names are specified, record them. If not
                         # If names are specified, record them. If not (e.g. from . import submodule),
                         # module itself is the key part.
                         import_info = {
@@ -429,7 +434,8 @@ class NEXUSCore:
 
                 except Exception as e:
                     self.logger.warning(
-                        f"Error resolving/categorizing import '{import_display_str}' in {importing_file_rel}: {e}"
+                        f"Error resolving/categorizing import '{import_display_str}' "
+                        f"in {importing_file_rel}: {e}"
                     )
                     # Add to unresolved if resolution fails unexpectedly
                     dependencies[importing_file_rel]["unresolved_imports"].append(
@@ -726,7 +732,7 @@ class NEXUSCore:
 
         if "dependencies" in data and data["dependencies"]:
             md.append("\n## Dependencies\n")
-            # self.logger.debug(f"Processing dependencies section. Keys: {list(data['dependencies'].keys())}\") # REMOVED DEBUG
+            # self.logger.debug(f"Processing dependencies section. Keys: {list(data['dependencies'].keys())}") # REMOVED DEBUG
             for file_path, deps in data["dependencies"].items():
                 # Use basename for Dependencies headers
                 filename = os.path.basename(file_path)

@@ -192,7 +192,8 @@ class MyceliumNetwork:
 
             if not all([msg_type, target, topic, sender]):
                 logger.error(
-                    f"Message header missing required fields (type, target, topic, sender): {header}"
+                    f"Message header missing required fields "
+                    f"(type, target, topic, sender): {header}"
                 )
                 return
 
@@ -211,12 +212,14 @@ class MyceliumNetwork:
                         await self._response_handlers[response_target_node](message)
                     except Exception as e:
                         logger.error(
-                            f"Error invoking response handler for node {response_target_node}, corr_id {correlation_id}: {e}",
+                            f"Error invoking response handler for node {response_target_node}, "
+                            f"corr_id {correlation_id}: {e}",
                             exc_info=True,
                         )
                 else:
                     logger.warning(
-                        f"No response handler registered for node {response_target_node} to handle corr_id {correlation_id}"
+                        f"No response handler registered for node {response_target_node} "
+                        f"to handle corr_id {correlation_id}"
                     )
 
             # --- REQUEST Handling --- #
@@ -282,7 +285,8 @@ class MyceliumNetwork:
                 for node_id, node_instance in subscribers_to_notify:
                     if node_id != sender:
                         try:
-                            # Prioritize specific registered callback, fallback to node's process_message
+                            # Prioritize specific registered callback,
+                            # fallback to node's process_message
                             handler_coro = callback_map.get(node_id, node_instance.process_message)
                             # Ensure we only schedule if the handler is valid
                             if asyncio.iscoroutinefunction(handler_coro) or isinstance(
@@ -293,11 +297,13 @@ class MyceliumNetwork:
                                 )
                             else:
                                 logger.error(
-                                    f"Invalid handler for event callback node {node_id} on topic {topic}: {type(handler_coro)}"
+                                    f"Invalid handler for event callback node {node_id} "
+                                    f"on topic {topic}: {type(handler_coro)}"
                                 )
                         except Exception as e:
                             logger.error(
-                                f"Error scheduling/executing EVENT callback for node {node_id} on topic {topic}: {e}",
+                                f"Error scheduling/executing EVENT callback for node {node_id} "
+                                f"on topic {topic}: {e}",
                                 exc_info=True,
                             )
             else:
