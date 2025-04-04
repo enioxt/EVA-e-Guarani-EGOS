@@ -34,7 +34,7 @@ ENV/
 # IDE
 .idea/
 .vscode/
-.cursor/
+# .cursor/  <- Commenting out to track essential setup files
 .obsidian/
 *.swp
 *.swo
@@ -72,7 +72,7 @@ external/logs/
 external/temp/
 external/archive/
 external/dependencies/
-Researchs/
+# Researchs/  <- Obsolete directory name
 .roo/
 .benchmarks/
 
@@ -108,8 +108,8 @@ docs/api/
 
 # Node modules (if using any JavaScript/TypeScript)
 node_modules/
-package-lock.json
-yarn.lock
+# package-lock.json  <- Track this for npm dependency consistency
+# yarn.lock          <- Track this for yarn dependency consistency
 
 # Ignore old QUANTUM_PROMPTS versions and specific files
 QUANTUM_PROMPTS/MASTER/EVA_GUARANI_v7.*.md
@@ -271,7 +271,7 @@ cython_debug/
 
 # Temporary files
 temp_files/
-*.ps1
+# *.ps1
 
 # EGOS Specific
 subsystem_unification.log

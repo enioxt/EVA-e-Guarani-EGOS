@@ -1,0 +1,115 @@
+---
+description: General Python coding standards and best practices for EGOS development
+globs: ["**/*.py"]
+alwaysApply: false
+---
+# Python Coding Standards (KOIOS Standard)
+
+## Rule
+
+All Python code must follow these core standards:
+- Use 4 spaces for indentation (no tabs)
+- Maximum line length of 100 characters
+- Follow PEP 8 naming conventions:
+  - `snake_case` for functions, methods, variables
+  - `PascalCase` for classes
+  - `UPPER_CASE` for constants
+- Use meaningful, descriptive names
+- Group imports in order: standard library, third-party, local application
+- Include type hints for function arguments and return values
+- Limit function/method length to 50 lines where feasible
+- Avoid global variables and mutable default arguments
+- Document all public interfaces with docstrings
+- **Prefer `pathlib`:** Use the `pathlib` module for object-oriented filesystem paths instead of `os.path`.
+- **Prefer F-strings:** Use f-strings for string formatting where possible for readability and performance.
+
+## Rationale
+
+Consistent coding standards ensure readability, maintainability, and collaboration across the EGOS codebase. Following established Python conventions (PEP 8) while adding project-specific requirements helps ensure high-quality, maintainable code. Using modern features like `pathlib` and f-strings further improves clarity and efficiency.
+
+## Examples
+
+### Correct Usage
+
+```python
+import os
+from typing import List, Optional
+from pathlib import Path
+
+import numpy as np
+
+from koios.logger import KoiosLogger
+
+
+class DataProcessor:
+    """Processes data according to EGOS standards."""
+
+    def __init__(self, config_path: Optional[Path] = None):
+        """Initialize with optional configuration path.
+
+        Args:
+            config_path: Path object pointing to the configuration file
+        """
+        self.logger = KoiosLogger.get_logger("SUBSYSTEM.DataProcessor")
+        self.config_path = config_path
+
+    def process_items(self, items: List[str]) -> np.ndarray:
+        """Process a list of items into a numpy array.
+
+        Args:
+            items: List of string items to process
+
+        Returns:
+            Processed data as numpy array
+        """
+        result = []
+        for item in items:
+            processed = self._transform(item)
+            result.append(processed)
+
+        self.logger.info(f"Processed {len(items)} items from {self.config_path.name if self.config_path else 'input list'} successfully")
+        return np.array(result)
+
+    def _transform(self, item: str) -> float:
+        """Transform a single item to a float value.
+
+        Args:
+            item: String item to transform
+
+        Returns:
+            Transformed float value
+        """
+        # Implementation details
+        return float(item) if item.strip() else 0.0
+```
+
+### Incorrect Usage
+
+```python
+import numpy as np
+import os
+from typing import List, Optional
+from koios.logger import KoiosLogger
+
+class data_processor:  # Wrong: should use PascalCase for classes
+    def __init__(self,configPath=None):  # Wrong: no type hints, wrong naming convention
+        self.Logger = KoiosLogger.get_logger("SUBSYSTEM.DataProcessor")  # Wrong: inconsistent naming
+        self.config_path = configPath
+
+    def ProcessItems(self, items):  # Wrong: inconsistent method naming, missing type hints
+        # No docstring
+        # WRONG: uses non-descriptive variable name 'i'
+        result = []
+        for i in items:  # Wrong: non-descriptive variable name
+            processed = self._Transform(i)  # Wrong: inconsistent method naming
+            result.append(processed)
+        # WRONG: uses older string formatting, missing f-string
+        self.Logger.info("Processed %d items successfully" % len(items))  # Missing item count in log
+        return np.array(result)
+
+    def _Transform(self, item):  # Wrong: inconsistent method naming, missing type hints
+        # WRONG: Missing docstring
+        return 0.0 if item.strip() == "" else float(item)
+```
+
+**All Python code must follow KOIOS coding standards for readability, maintainability, and collaboration. Use appropriate naming conventions, formatting, and documentation patterns.**

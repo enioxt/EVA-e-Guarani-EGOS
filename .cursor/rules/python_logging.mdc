@@ -1,0 +1,52 @@
+---
+description: Guidelines for Python logging within the EGOS project.
+globs: ["**/*.py"]
+alwaysApply: false
+---
+# EGOS Python Logging Standards (KOIOS)
+
+These guidelines align with `subsystems/KOIOS/docs/STANDARDS.md`, Section 10.
+
+## Core Principles:
+
+1.  **Framework:** Use Python's built-in `logging` module.
+2.  **`KoiosLogger` (Future):** A standardized logger will be implemented in `subsystems/KOIOS/core/logging.py`. Prefer using this once available for consistent formatting and potential Mycelium integration.
+3.  **Logger Naming:**
+    *   Obtain loggers hierarchically: `logging.getLogger("SUBSYSTEM_NAME.ModuleName")` (e.g., `logging.getLogger("NEXUS.Core")`).
+    *   The `KoiosLogger`, once implemented, may provide a simpler way to get correctly named loggers.
+4.  **Log Format (Target):** Aim for structured logging (JSON). The `KoiosLogger` will define the final format, likely including timestamp, level, logger name (module path), and message.
+5.  **Log Levels:** Use standard levels appropriately:
+    *   `DEBUG`: Detailed information, typically of interest only when diagnosing problems.
+    *   `INFO`: Confirmation that things are working as expected.
+    *   `WARNING`: An indication that something unexpected happened, or indicative of some problem in the near future (e.g. 'disk space low'). The software is still working as expected.
+    *   `ERROR`: Due to a more serious problem, the software has not been able to perform some function.
+    *   `CRITICAL`: A serious error, indicating that the program itself may be unable to continue running.
+6.  **Clarity:** Log messages should be clear and informative.
+7.  **Mycelium Integration (Future):** Important logs (WARNING, ERROR, CRITICAL) may be configured (via `KoiosLogger`) to be emitted as `log.<source_node>.<level>` events on the Mycelium network for system-wide visibility.
+
+## Examples:
+
+```python
+import logging
+
+# Get logger (current standard)
+logger = logging.getLogger("CRONOS.BackupManager")
+
+# --- Future standard (once KoiosLogger exists) ---
+# from subsystems.KOIOS.core.logging import KoiosLogger
+# logger = KoiosLogger.get_logger("CRONOS.BackupManager")
+# ------------------------------------------------
+
+def perform_backup(name):
+    logger.info(f"Starting backup: {name}")
+    try:
+        # ... backup logic ...
+        logger.info(f"Backup completed successfully: {name}")
+    except FileNotFoundError as e:
+        logger.error(f"Backup source not found for {name}: {e}", exc_info=True)
+    except Exception as e:
+        logger.critical(f"Unexpected critical error during backup {name}: {e}", exc_info=True)
+        # Consider raising or handling
+```
+
+**Note:** When modifying or adding logging, ensure it follows these principles and prepares for the future `KoiosLogger` integration.

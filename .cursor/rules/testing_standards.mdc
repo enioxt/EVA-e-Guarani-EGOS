@@ -1,0 +1,177 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description: Testing standards and best practices for EGOS development
+globs: ["**/test_*.py", "**/tests/*.py", "**/*_test.py"]
+alwaysApply: false
+---
+# Testing Standards (KOIOS Standard)
+
+## Rule
+
+All EGOS code must have comprehensive testing that follows these principles:
+
+1. **Test Coverage**
+   - Minimum 80% code coverage for all subsystems
+   - All public interfaces must have tests
+   - Critical paths must have 100% coverage
+   - Edge cases and error paths must be explicitly tested
+
+2. **Test Organization**
+   - Tests should be organized in a `tests` directory parallel to the code
+   - Test files should follow the naming pattern `test_*.py`
+   - Use test classes for grouping related tests
+   - Use descriptive test method names that explain what is being tested
+
+3. **Test Quality**
+   - Tests should be independent and idempotent
+   - Avoid test interdependencies
+   - Use appropriate fixtures and setup/teardown methods
+   - Don't test implementation details, test behavior
+   - Follow the Arrange-Act-Assert pattern
+
+4. **Test Tools**
+   - Use pytest as the primary test framework
+   - Use pytest fixtures for test setup and dependency injection
+   - Use parametrized tests for testing multiple scenarios
+   - Use mocks/stubs appropriately to isolate units
+
+5. **Test Documentation**
+   - Document the purpose of each test class and complex test
+   - Include docstrings for test fixtures explaining their purpose
+   - Document any non-obvious test setup or assertions
+
+## Rationale
+
+Comprehensive, well-organized testing is essential for maintaining system quality, enabling refactoring with confidence, and preventing regressions. Consistent testing patterns across the codebase improve maintainability and clarity.
+
+## Examples
+
+### Correct Usage
+
+```python
+import os
+import pytest
+from typing import Dict, List
+from unittest.mock import MagicMock, patch
+
+from mycelium.exceptions import MyceliumConnectionError
+from subsystems.koios.data_processor import DataProcessor
+from subsystems.koios.exceptions import ConfigError
+
+# Test fixture
+@pytest.fixture
+def sample_config() -> Dict:
+    """Return a sample configuration for testing.
+
+    This configuration contains all required fields with valid values.
+    """
+    return {
+        "api_key": "test_key",
+        "endpoint": "https://example.com/api",
+        "timeout": 30,
+        "retry_attempts": 3
+    }
+
+@pytest.fixture
+def processor(sample_config) -> DataProcessor:
+    """Return a configured DataProcessor instance for testing."""
+    return DataProcessor(config=sample_config)
+
+class TestDataProcessor:
+    """Tests for the DataProcessor class."""
+
+    def test_initialization(self, sample_config):
+        """Test that DataProcessor initializes correctly with valid config."""
+        # Arrange - Using fixture
+
+        # Act
+        processor = DataProcessor(config=sample_config)
+
+        # Assert
+        assert processor.endpoint == sample_config["endpoint"]
+        assert processor.timeout == sample_config["timeout"]
+
+    def test_initialization_with_invalid_config(self):
+        """Test that DataProcessor raises ConfigError with invalid config."""
+        # Arrange
+        invalid_config = {"api_key": "test_key"}  # Missing required fields
+
+        # Act & Assert
+        with pytest.raises(ConfigError) as exc_info:
+            DataProcessor(config=invalid_config)
+
+        assert "missing required fields" in str(exc_info.value).lower()
+
+    @pytest.mark.parametrize("input_data,expected_result", [
+        (["1", "2", "3"], [1.0, 2.0, 3.0]),
+        ([], []),
+        (["0", "-1.5", "2.25"], [0.0, -1.5, 2.25])
+    ])
+    def test_process_items_valid_inputs(self, processor, input_data, expected_result):
+        """Test process_items with various valid inputs."""
+        # Arrange - Using processor fixture
+
+        # Act
+        result = processor.process_items(input_data)
+
+        # Assert
+        assert result == expected_result
+
+    def test_process_items_handles_connection_error(self, processor):
+        """Test that process_items properly handles connection errors."""
+        # Arrange
+        items = ["1", "2", "3"]
+
+        # Mock the mycelium connection to raise an error
+        with patch("subsystems.koios.data_processor.MyceliumClient.send") as mock_send:
+            mock_send.side_effect = MyceliumConnectionError("Connection failed")
+
+            # Act & Assert
+            with pytest.raises(ConfigError) as exc_info:
+                processor.process_items(items)
+
+            assert "connection failed" in str(exc_info.value).lower()
+            # Verify the mock was called with the expected arguments
+            mock_send.assert_called_once()
+```
+
+### Incorrect Usage
+
+```python
+# WRONG: No imports or type hints
+
+# WRONG: No docstrings or fixtures
+
+# WRONG: Test function not in a class, non-descriptive name
+def test_processor():
+    # WRONG: Hard-coded test data, no separation of arrange/act/assert
+    processor = DataProcessor({"key": "value"})
+    result = processor.process_items(["1", "2"])
+    assert result  # WRONG: Vague assertion
+
+    # WRONG: Multiple test scenarios in a single test
+    result2 = processor.process_items([])
+    assert len(result2) == 0
+
+    # WRONG: No error case testing
+
+# WRONG: Using unittest in a non-standard way
+class ProcessorTest:  # WRONG: Not following naming convention
+    # WRONG: No setup/fixtures
+
+    # WRONG: Testing multiple things in one test, non-descriptive name
+    def test_all(self):
+        p = DataProcessor({})  # WRONG: Minimal setup
+
+        # WRONG: No assertions or error handling
+        p.process_items(["1"])
+
+        # WRONG: Hardcoded dependencies, no mocking
+        p.send_to_mycelium(["data"])
+```
+
+**All EGOS code must have comprehensive, well-structured tests that validate behavior, handle edge cases, and maintain high code coverage. Tests should be clear, maintainable, and follow the established patterns to ensure system quality and reliability.**
