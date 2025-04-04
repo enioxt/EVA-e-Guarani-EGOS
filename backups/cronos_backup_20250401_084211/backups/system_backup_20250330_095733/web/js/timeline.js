@@ -1,3 +1,12 @@
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 class QuantumTimeline {
     constructor() {
         this.timeline = document.getElementById('eventTimeline');
@@ -95,14 +104,14 @@ class QuantumTimeline {
                     <span class="event-timestamp">${event.timestamp.toLocaleTimeString()}</span>
                     <span class="event-type">${event.type}</span>
                 </div>
-                <div class="event-message">${event.message}</div>
+                <div class="event-message">${escapeHtml(event.message)}</div>
                 ${event.details ? `
                     <div class="event-details">
                         <button class="btn btn-sm btn-link" onclick="quantumTimeline.toggleDetails('${event.id}')">
                             Details
                         </button>
                         <div class="details-content" id="details-${event.id}" style="display: none">
-                            <pre>${JSON.stringify(event.details, null, 2)}</pre>
+                            <pre>${escapeHtml(JSON.stringify(event.details, null, 2))}</pre>
                         </div>
                     </div>
                 ` : ''}
