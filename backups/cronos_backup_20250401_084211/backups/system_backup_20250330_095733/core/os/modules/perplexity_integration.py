@@ -216,11 +216,13 @@ class PerplexityIntegration:
         # Academic and governmental domains have higher reliability
         url = source.get("url", "").lower()
         if url:
-            if url.endswith((".edu", ".gov", ".org")):
+            parsed_url = urlparse(url)
+            hostname = parsed_url.hostname
+            if hostname and hostname.endswith((".edu", ".gov", ".org")):
                 reliability += 0.1
-            elif "wikipedia.org" in url:
+            elif hostname == "wikipedia.org":
                 reliability += 0.05
-            elif any(domain in url for domain in ["news", "blog", "forum"]):
+            elif any(domain in hostname for domain in ["news", "blog", "forum"]):
                 reliability -= 0.1
 
         # Very sensationalist titles may indicate lower reliability
