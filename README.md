@@ -40,10 +40,10 @@ EGOS is composed of several key subsystems communicating via the **Mycelium Netw
 *   **`ETHIK`**: Ethical framework validation & data sanitization.
 *   **`HARMONY`**: Cross-platform integration & compatibility layer.
 *   **`KOIOS`**: Standardization, logging, search, documentation & knowledge management.
-*   **`CORUJA`**: AI orchestration, prompt management & intelligent interaction.
+*   **`CORUJA`**: AI orchestration, prompt management & intelligent interaction. This subsystem manages the **Master Control Prompts/Programs (MCPs)**, like EVA & GUARANI, which are the specialized AI personas driving development and interaction within Cursor. MCPs are not installed traditionally but are activated through the configured AI integration.
 *   **`(Future) ETHICHAIN`**: Blockchain concepts for ethical tracking (Conceptual).
 
-*Subsystem READMEs contain detailed information respective modules.*
+*Subsystem READMEs (`subsystems/<NAME>/README.md`) contain detailed information about respective modules.*
 
 ---
 
@@ -51,35 +51,51 @@ EGOS is composed of several key subsystems communicating via the **Mycelium Netw
 
 ### Prerequisites
 
+*   **IDE:** **[Cursor IDE](https://cursor.sh/)** (Essential for interacting with EVA & GUARANI)
 *   **OS:** Windows (Primary development target)
 *   **Python:** 3.9+
 *   **Git:** For version control.
 *   **PowerShell:** For running test/utility scripts.
 
-### Installation
+### Development Environment Setup
+
+Developing EGOS relies heavily on the **Cursor IDE** integrated with the **EVA & GUARANI** AI assistant. Follow these steps to set up your environment:
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository-url>
-    cd Eva-Guarani-EGOS # Or your repository directory name
+    git clone https://github.com/enioxt/EVA-e-Guarani-EGOS.git # Replace with your fork if applicable
+    cd EVA-e-Guarani-EGOS
     ```
-2.  **Create and activate a virtual environment:**
+2.  **Set up Python Environment:** Create and activate a virtual environment, then install dependencies. This is standard Python practice.
     ```bash
+    # Create virtual environment
     python -m venv .venv
-    # On Windows PowerShell:
-    .venv\Scripts\Activate.ps1
-    # On Git Bash / WSL:
-    # source .venv/Scripts/activate
-    ```
-3.  **Install dependencies:**
-    ```bash
+    # Activate (Windows PowerShell)
+    .venv\\Scripts\\Activate.ps1
+    # Install dependencies
     pip install -r requirements.txt
     ```
+3.  **Configure Cursor IDE:** Crucially, follow the setup guide in **`cursor_initialization.md`**. This ensures your terminal and environment context work correctly with EVA & GUARANI.
+4.  **Understand Cursor Rules:** Familiarize yourself with the files in `.cursor-rules/*.mdc`. These rules contain essential guidelines (like KOIOS standards, subsystem boundaries, etc.) that **EVA & GUARANI** uses to assist with development, maintain consistency, and understand the project context. Interacting effectively often involves awareness of these rules.
 
 ### Configuration
 
-*   Initial setup requires minimal configuration.
-*   Specific subsystems (like `Mycelium`, `CORUJA` for external AI APIs) may require configuration files (e.g., `config/<subsystem>_config.json`) or environment variables. Refer to subsystem READMEs for details.
+*   While the core system doesn't require extensive manual configuration for *development within Cursor*, specific tasks delegated to EVA & GUARANI might interact with subsystems requiring API keys or settings (e.g., `CORUJA` for external AI model access). These are typically managed via the `config/` directory and referenced in relevant subsystem documentation or Cursor Rules.
+
+---
+
+## ✨ Current Capabilities (via EVA & GUARANI in Cursor)
+
+The EGOS system, operated primarily through the **EVA & GUARANI** AI within Cursor IDE, currently focuses on:
+
+*   **Codebase Understanding & Navigation (ATLAS):** Mapping dependencies and understanding the project structure to assist development.
+*   **Modular Development & Refactoring (NEXUS):** Analyzing code modularity and suggesting improvements.
+*   **Standard Enforcement (KOIOS):** Applying coding standards, managing documentation templates, and ensuring consistent logging.
+*   **Ethical Guideline Application (ETHIK):** Incorporating ethical checks and considerations during development discussions and code generation.
+*   **Context & History Management (CRONOS):** Maintaining awareness of the development process and project evolution across interactions.
+*   **Task Execution:** Performing development tasks like writing code, documentation, running tests, and managing files based on user requests and project context.
+
+Interaction with these capabilities occurs through natural language prompts directed at EVA & GUARANI within the Cursor IDE chat or code context.
 
 ---
 
@@ -89,6 +105,20 @@ EGOS is composed of several key subsystems communicating via the **Mycelium Netw
 *   Core interaction often happens via the **Mycelium Network** message bus.
 *   Individual subsystems might offer CLI interfaces or APIs (under development).
 *   Refer to specific subsystem documentation (`subsystems/<NAME>/README.md`) for detailed usage instructions.
+
+---
+
+## 📚 Key Documentation & Resources
+
+To fully understand the project's philosophy, architecture, and contribution process, please refer to:
+
+*   **[Master Quantum Prompt (MQP v8.1)](docs/MQP.md):** The core philosophical and operational blueprint.
+*   **[ROADMAP.md](ROADMAP.md):** High-level development plan and phases.
+*   **[CONTRIBUTING.md](CONTRIBUTING.md):** Guidelines for contributing code, reporting issues, and suggesting features.
+*   **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md):** Community standards and expectations.
+*   **`cursor_initialization.md`:** Essential setup guide for the Cursor IDE environment.
+*   **`.cursor-rules/`:** Directory containing rules that guide EVA & GUARANI's interactions and enforce project standards.
+*   **`subsystems/`:** Explore individual subsystem directories for their specific READMEs and code.
 
 ---
 
@@ -162,9 +192,14 @@ This project is licensed under the MIT License - see the [**LICENSE**](LICENSE) 
 
 ## 💬 Contact & Community
 
-*   **Issues:** Report bugs or suggest features via GitHub Issues.
-*   **Discussions:** Use GitHub Discussions for questions and broader conversations (if enabled).
-*   *(Add other relevant links: Discord, Forum, etc. if applicable)*
+*   **Issues:** Report bugs or suggest features via [GitHub Issues](https://github.com/enioxt/EVA-e-Guarani-EGOS/issues).
+*   **Discussions:** Use [GitHub Discussions](https://github.com/enioxt/EVA-e-Guarani-EGOS/discussions) for questions and broader conversations (if enabled).
+
+### Creator Contact
+*   **Enio Rocha**
+*   **Email:** eniodind@protonmail.com
+*   **Telegram:** @ebfrocha
+*   **LinkedIn:** https://www.linkedin.com/in/enio-rocha-138a01225
 
 ---
 
