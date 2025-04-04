@@ -100,4 +100,4 @@ echo.
 echo Cursor Integration stopped.
 echo.
 
-pause 
+pause

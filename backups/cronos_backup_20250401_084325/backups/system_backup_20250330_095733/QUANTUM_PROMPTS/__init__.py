@@ -17,7 +17,7 @@ Version: 8.0
 Last Updated: 2025-03-29
 """
 
-__version__ = '8.0'
-__author__ = 'EVA & GUARANI'
-__status__ = 'active'
-__subsystem__ = 'MASTER' 
+__version__ = "8.0"
+__author__ = "EVA & GUARANI"
+__status__ = "active"
+__subsystem__ = "MASTER"

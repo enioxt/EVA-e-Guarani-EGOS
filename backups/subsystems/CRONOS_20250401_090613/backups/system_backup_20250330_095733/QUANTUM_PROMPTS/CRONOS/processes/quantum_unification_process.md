@@ -279,4 +279,4 @@ Aspectos:
 
 ---
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

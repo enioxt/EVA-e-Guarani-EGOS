@@ -13,4 +13,4 @@ if errorlevel 1 (
     echo.
     echo Error starting MCP service. Press any key to exit...
     pause > nul
-) 
+)

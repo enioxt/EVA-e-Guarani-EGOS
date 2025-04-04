@@ -57,4 +57,4 @@ This task roadmap will be integrated with:
 - {FILE_CATEGORY_1}: `{FILE_PATH_1}`
 - {FILE_CATEGORY_2}: `{FILE_PATH_2}`
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

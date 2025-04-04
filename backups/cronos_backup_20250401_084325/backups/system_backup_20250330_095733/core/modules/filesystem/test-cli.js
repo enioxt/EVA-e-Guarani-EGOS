@@ -47,7 +47,7 @@ METADATA:
  * EVA & GUARANI - SLOP Filesystem Module CLI Tester
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This utility allows testing filesystem operations from the command line.
  */
 
@@ -306,4 +306,4 @@ process.on('SIGINT', () => {
 rl.on('close', () => {
     console.log(colors.fg.magenta, '\n✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧', colors.reset);
     process.exit(0);
-}); 
+});

@@ -30,7 +30,18 @@ NEXUS (Neural Evolution and Xenial Unified System) is the modular analysis engin
 ## Integration
 
 *   **KOIOS:** Uses `KoiosLogger` (via `get_koios_logger`) for standardized logging. Relies on KOIOS standards for structure and documentation.
+
+### NEXUS Value Proposition vs. Other Tools
+
+While standard linters (`pylint`, `flake8`) detect import errors and IDEs provide immediate feedback, NEXUS's dependency analysis offers unique value within EGOS:
+
+*   **Integrated Analysis Engine:** NEXUS serves as the central analysis engine for EGOS. Its primary goal is to generate a structured *dataset* describing the workspace's dependency landscape.
+*   **Structured Data for Subsystems:** This dataset (including explicit categorization of internal, external, and unresolved imports) is designed for programmatic consumption by other EGOS subsystems like ATLAS (visualization) and KOIOS (reporting/suggestions).
+*   **Customization & Context:** The analysis is tailored to the specific `subsystems` structure and conventions of the EGOS project.
+*   **Beyond Error Checking:** Unlike linters focused on errors, NEXUS provides a comprehensive inventory and categorization for systemic understanding and further automated processing.
+
 *   **MYCELIUM:** Intended to interact via `MyceliumInterface`. Currently, `NexusAnalyzer` handles subscriptions and event publishing. `NexusService` defines request handlers but doesn't actively bind them yet. Requires clarification/refactoring.
+    *   **[TODO: Action Item - 2025-04-03]** Clearly define the responsibility boundary between `NexusService` and `NexusAnalyzer` for Mycelium communication. Options include consolidating into `NexusService`, creating a dedicated `NexusCommunicationHandler`, or clarifying existing roles. Update relevant class docstrings and this README once decided.
 *   **ATLAS:** Analysis results from NEXUS (especially dependency information) are intended to be visualized by the ATLAS subsystem.
 
 ## Current Status & Next Steps (Post-Recovery)
@@ -41,8 +52,8 @@ NEXUS (Neural Evolution and Xenial Unified System) is the modular analysis engin
 *   Complexity calculation logic fixed.
 *   Basic README and docstring improvements added.
 *   Next steps involve:
-    *   Refining/Clarifying the roles of `NexusService` and `NexusAnalyzer` regarding Mycelium interaction.
-    *   Implementing Mycelium request handling within `NexusService`.
+    *   Refining/Clarifying the roles of `NexusService` and `NexusAnalyzer` regarding Mycelium interaction. **(See TODO above in Mycelium Integration section)**
+    *   Implementing Mycelium request handling within `NexusService` (dependent on role clarification).
     *   Adding more detailed documentation and usage examples.
     *   Further review of AST/dependency logic for edge cases if required.
 
@@ -362,4 +373,4 @@ Common issues and solutions:
 Copyright (c) 2024 EGOS Project
 Licensed under the MIT License
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

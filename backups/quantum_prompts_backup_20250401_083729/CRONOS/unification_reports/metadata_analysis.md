@@ -200,7 +200,7 @@ metadata:
 
 ### 4.2 Estimativas Atualizadas
 - Tempo estimado: 2 horas
-- Arquivos a processar: 
+- Arquivos a processar:
   - 2 módulos core (19KB)
   - 2 arquivos de teste (15.6KB)
   - 4 arquivos de backup (~3KB)
@@ -240,4 +240,4 @@ metadata:
 
 ---
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

@@ -49,7 +49,7 @@ try {
         -User "System"
 
     Write-Output "Successfully registered Mycelium health check task"
-    
+
     # Log the registration
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $logMessage = "[$timestamp] Successfully registered task: $taskName"
@@ -61,4 +61,4 @@ catch {
     $logMessage = "[$timestamp] ERROR: Failed to register task: $_"
     Add-Content -Path $logPath -Value $logMessage
     exit 1
-} 
+}

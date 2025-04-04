@@ -215,7 +215,7 @@ Loads a subsystem of EGOS.
 Args:
     name: Name of the subsystem (atlas, nexus, cronos, eros, logos)
     config_path: Path to custom configuration
-    
+
 Returns:
     bool: True if the subsystem was successfully loaded
 
@@ -228,7 +228,7 @@ Loads an interface of EGOS.
 Args:
     name: Name of the interface (telegram, web, obsidian, api, cli)
     config_path: Path to custom configuration
-    
+
 Returns:
     bool: True if the interface was successfully loaded
 
@@ -300,7 +300,7 @@ Args:
     ethical_filter: Whether to apply ethical filters (default: True)
     validation_level: Validation level ("basic", "standard", "strict")
     context: Additional context of the query for ethical analysis
-    
+
 Returns:
     Processed results with validation metadata
 
@@ -330,7 +330,7 @@ Args:
     ethical_filter: Whether to apply ethical filters
     validation_level: Validation level ("basic", "standard", "strict")
     context: Additional context of the query
-    
+
 Returns:
     Search results with quantum metadata
 
@@ -396,7 +396,7 @@ Translates a narrative state into musical parameters
 
 Args:
     narrative_state: Current narrative state
-    
+
 Returns:
     Musical parameters derived from the narrative state
 
@@ -409,7 +409,7 @@ Registers a musical theme for a character
 Args:
     character_name: Name of the character
     theme_data: Musical theme data
-    
+
 Returns:
     True if registration was successful, False otherwise
 
@@ -422,7 +422,7 @@ Registers a musical theme for a location type
 Args:
     location_type: Type of location
     theme_data: Musical theme data
-    
+
 Returns:
     True if registration was successful, False otherwise
 
@@ -434,7 +434,7 @@ Updates the narrative state and generates new musical parameters
 
 Args:
     narrative_state: New narrative state
-    
+
 Returns:
     Dictionary with the narrative state and generated musical parameters
 
@@ -448,7 +448,7 @@ Args:
     from_state: Initial narrative state
     to_state: Final narrative state
     transition_duration: Duration of the transition in seconds
-    
+
 Returns:
     List of intermediate states for the transition
 
@@ -461,7 +461,7 @@ Creates a musical motif associated with an ethical principle
 Args:
     ethical_principle: Name of the ethical principle
     motif_data: Musical motif data
-    
+
 Returns:
     True if creation was successful, False otherwise
 
@@ -474,7 +474,7 @@ Generates a soundtrack based on ethical principles
 Args:
     ethical_principles: List of ethical principles to be represented
     intensity: Intensity of the soundtrack
-    
+
 Returns:
     Parameters for the ethical soundtrack
 
@@ -487,7 +487,7 @@ Exports the current composition to a file
 Args:
     format_type: Export format ('midi', 'mp3', 'json')
     output_path: Path to the output file
-    
+
 Returns:
     Information about the export
 
@@ -518,7 +518,7 @@ Creates an instance of the specified integration bridge.
 Args:
     integration_name: Name of the integration
     config: Optional configuration for the integration
-    
+
 Returns:
     Instance of the integration bridge or None if not available
 

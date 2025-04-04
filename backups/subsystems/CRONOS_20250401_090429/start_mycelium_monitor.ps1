@@ -60,9 +60,9 @@ Write-Host "`nPressione Ctrl+C para interromper o monitor.`n" -ForegroundColor R
 try {
     # Definir variáveis de ambiente
     $env:NODE_ENV = "production"
-    
+
     # Iniciar o script
     node $scriptPath
 } catch {
     Write-Host "Erro ao iniciar o monitor: $_" -ForegroundColor Red
-} 
+}

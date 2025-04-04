@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 from . import mcp_capture
 
+
 def load_context(save_path=None):
     """Load context from a save file"""
     try:
@@ -18,24 +19,25 @@ def load_context(save_path=None):
             if save_path is None:
                 print("No save files found")
                 return None
-        
+
         # Convert to Path object
         save_path = Path(save_path)
-        
+
         # Verify file exists
         if not save_path.exists():
             print(f"Save file not found: {save_path}")
             return None
-        
+
         # Load context
-        with open(save_path, 'r', encoding='utf-8') as f:
+        with open(save_path, "r", encoding="utf-8") as f:
             context = json.load(f)
-            
+
         print(f"Context loaded from: {save_path}")
         return context
     except Exception as e:
         print(f"Error loading context: {e}")
         return None
+
 
 def verify_context(context):
     """Verify that a context has the required structure"""
@@ -45,6 +47,7 @@ def verify_context(context):
     except Exception:
         return False
 
+
 if __name__ == "__main__":
     # Try to load latest context
     context = load_context()
@@ -52,4 +55,4 @@ if __name__ == "__main__":
         print("\nContext structure:")
         print(f"- Timestamp: {context['timestamp']}")
         print(f"- Messages: {len(context['messages'])}")
-        print(f"- Metadata: {context['metadata']}") 
+        print(f"- Metadata: {context['metadata']}")

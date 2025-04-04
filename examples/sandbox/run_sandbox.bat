@@ -71,4 +71,4 @@ REM REM
 
 @echo off
 echo Starting EVA & GUARANI Sandbox Environment...
-python run_sandbox.py %* 
+python run_sandbox.py %*

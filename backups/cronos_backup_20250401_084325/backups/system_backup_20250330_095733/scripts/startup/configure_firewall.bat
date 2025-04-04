@@ -101,4 +101,4 @@ netsh advfirewall firewall add rule name="MCP Sequential Thinking" dir=in action
 
 echo [INFO] Configuração do firewall concluída
 echo [INFO] Por favor, reinicie o Cursor e o servidor MCP
-pause 
+pause

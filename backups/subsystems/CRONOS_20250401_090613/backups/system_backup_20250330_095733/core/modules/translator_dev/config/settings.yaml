@@ -33,16 +33,16 @@ metadata:
 engine:
   # Default translation engine (huggingface or openai)
   name: huggingface
-  
+
   # Engine-specific settings
   # HuggingFace configuration (offline, free)
   model: Helsinki-NLP/opus-mt-pt-en
   max_tokens: 4096
   temperature: 0.3
-  
+
   # OpenAI settings (only used when engine is set to openai)
   # api_key: null  # Set your API key here or use OPENAI_API_KEY environment variable
-  
+
   # Cost control settings
   cost_control:
     enabled: true
@@ -103,4 +103,4 @@ openai:
 
 # Output report file
 report_output: translation_report.md
-backup_originals: true 
+backup_originals: true

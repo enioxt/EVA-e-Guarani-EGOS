@@ -30,4 +30,4 @@ python -m pytest tests/ -v --cov=. --cov-report=html
 Write-Host "`n=== Relatório de Cobertura ==="
 python -m pytest tests/ --cov=. --cov-report=term-missing
 
-Write-Host "`n=== Testes concluídos ===" 
+Write-Host "`n=== Testes concluídos ==="

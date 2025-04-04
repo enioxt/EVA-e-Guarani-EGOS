@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "ws": "^8.18.1"
+  },
+  "devDependencies": {
+    "axios": "^1.8.4",
+    "uuid": "^11.1.0"
+  }
+}

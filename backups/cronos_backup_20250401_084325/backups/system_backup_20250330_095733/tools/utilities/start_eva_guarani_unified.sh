@@ -31,4 +31,4 @@ if [ -n "$VIRTUAL_ENV" ]; then
 fi
 
 echo ""
-echo "Bot encerrado." 
+echo "Bot encerrado."

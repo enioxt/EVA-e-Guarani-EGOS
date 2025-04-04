@@ -26,7 +26,7 @@ export interface ThoughtData {
 	branch_id?: string;
 	needs_more_thoughts?: boolean;
 	next_thought_needed: boolean;
-	
+
 	// Recommendation-related fields
 	current_step?: StepRecommendation;  // Current step being considered
 	previous_steps?: StepRecommendation[];  // Steps already recommended

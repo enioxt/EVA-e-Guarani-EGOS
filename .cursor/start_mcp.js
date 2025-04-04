@@ -94,4 +94,4 @@ async function main() {
 }
 
 // Executa o script
-main(); 
+main();

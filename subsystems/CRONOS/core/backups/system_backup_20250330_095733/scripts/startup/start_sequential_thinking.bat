@@ -122,4 +122,4 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 :: Manter o console aberto (não deve chegar aqui normalmente, pois o processo node mantém o console aberto)
-pause 
+pause

@@ -20,17 +20,19 @@ import importlib
 # Setup basic logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler()]
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.StreamHandler()],
 )
 
 logger = logging.getLogger("direct_bot_runner")
+
 
 def install_package(package):
     """Install a package using pip"""
     print(f"Installing {package}...")
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
     print(f"Successfully installed {package}")
+
 
 # First, install required packages
 try:
@@ -80,21 +82,22 @@ try:
     # Force reimport of telegram module
     if "telegram" in sys.modules:
         del sys.modules["telegram"]
-    
+
     # Validate python-telegram-bot is properly installed
     import telegram
+
     print(f"Using python-telegram-bot version: {telegram.__version__}")
-    
+
     # Execute the simple_telegram_bot.py directly
     bot_script_path = os.path.join(current_dir, "simple_telegram_bot.py")
-    
+
     with open(bot_script_path, "r", encoding="utf-8") as f:
         bot_code = f.read()
-    
+
     # Execute the script
     print("Executing bot script...")
     exec(bot_code)
-    
+
 except ImportError as e:
     print(f"Error importing modules: {e}")
     print("Make sure all dependencies are properly installed.")
@@ -102,7 +105,8 @@ except ImportError as e:
 except Exception as e:
     print(f"Error running the bot: {e}")
     import traceback
+
     traceback.print_exc()
     sys.exit(1)
 
-print("\n✧༺❀༻∞ Bot execution ended ∞༺❀༻✧\n") 
+print("\n✧༺❀༻∞ Bot execution ended ∞༺❀༻✧\n")

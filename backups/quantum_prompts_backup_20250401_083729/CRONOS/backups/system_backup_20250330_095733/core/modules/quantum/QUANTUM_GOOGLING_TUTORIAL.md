@@ -119,19 +119,19 @@ graph TD
     QG[Quantum Googling] --> WR[Web Research]
     QG --> SV[Source Validation]
     QG --> KE[Knowledge Extraction]
-    
+
     WR --> SE1[Search Engine 1]
     WR --> SE2[Search Engine 2]
     WR --> SE3[Search Engine 3]
-    
+
     SV --> CS[Credibility Score]
     SV --> RS[Relevance Score]
     SV --> ES[Ethical Score]
-    
+
     KE --> PS[Parsing System]
     KE --> SS[Summarization]
     KE --> CM[Connection Mapping]
-    
+
     CM --> ATLAS
     SS --> OBSIDIAN
     PS --> NEXUS

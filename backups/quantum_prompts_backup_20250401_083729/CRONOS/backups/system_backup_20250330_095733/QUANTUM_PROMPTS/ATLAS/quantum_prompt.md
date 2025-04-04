@@ -84,13 +84,13 @@ System:
   Type: "Subsystem"
   Priority: 3
   Parent: "EVA & GUARANI"
-  
+
 Integration:
   MasterPrompt: "../MASTER/quantum_context.md"
-  Dependencies: 
+  Dependencies:
     - Name: "CRONOS"
       Path: "../CRONOS/quantum_prompt.md"
-  
+
 Capabilities:
   - System Mapping
   - Relationship Analysis

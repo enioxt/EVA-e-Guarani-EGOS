@@ -45,17 +45,17 @@ javascript
 /**
  * EVA & GUARANI - Configuration Module
  * ======================================
- * 
+ *
  * This module manages all the settings for the EVA & GUARANI extension
  * for VSCode, allowing customization and adaptation to the user's needs
  * with respect to their autonomy and privacy.
- * 
+ *
  * Incorporated principles:
  * - Ethics: Respect for user choices and transparency in settings
  * - Love: Default settings designed for the developer's well-being
  * - Economy: Efficient storage of settings and conscious use of resources
  * - Art: Harmonious and intuitive configuration interface
- * 
+ *
  * @context EVA_GUARANI_QUANTUM_CONFIG
  * @version 1.0.0
  * @author EVA & GUARANI Team
@@ -76,36 +76,36 @@ const DEFAULT_CONFIG = {
     syncEnabled: false,
     syncOnSave: false,
     cloudSyncUrl: '',
-    
+
     // Analysis settings
     analyzeJavaScript: true,
     analyzeTypeScript: true,
     analyzePython: true,
     analyzeMarkdown: true,
     analysisDepth: 2, // 1-Superficial, 2-Normal, 3-Deep
-    
+
     // Terminology settings
     enforceTerminology: true,
     terminologyViolationSeverity: 'Warning', // 'Hint', 'Information', 'Warning', 'Error'
-    
+
     // Interface settings
     showWelcomeOnStartup: true,
     themeDarkMode: true,
     alwaysShowWelcome: false,
     statusBarPosition: 'right',
-    
+
     // Template settings
     addHeaderToNewFiles: true,
     defaultTemplateLanguage: 'auto', // 'auto', 'js', 'ts', 'py', 'md'
-    
+
     // Mapping settings
     systemMapAutoBuild: true,
     systemMapUpdateOnSave: true,
-    
+
     // AI settings
     aiRecommendationsEnabled: true,
     aiPrivacySetting: 'local', // 'local', 'anonymous', 'full'
-    
+
     // Ethical settings
     ethicalAnalysisEnabled: true,
     privacyPreservation: 'maximum', // 'balanced', 'maximum'
@@ -121,25 +121,25 @@ const FILE_TYPES = {
     '.jsx': 'javascript',
     '.mjs': 'javascript',
     '.cjs': 'javascript',
-    
+
     // TypeScript
     '.ts': 'typescript',
     '.tsx': 'typescript',
-    
+
     // Python
     '.py': 'python',
     '.pyw': 'python',
     '.pyi': 'python',
-    
+
     // Documentation
     '.md': 'markdown',
     '.markdown': 'markdown',
-    
+
     // Data
     '.json': 'json',
     '.yaml': 'yaml',
     '.yml': 'yaml',
-    
+
     // Web
     '.html': 'html',
     '.css': 'css',
@@ -160,31 +160,31 @@ class EVAGuaraniConfig {
         this.projectRoot = '';
         this.configWatcher = null;
         this.localConfigPath = '';
-        
+
         // Load VSCode settings
         this._loadVSCodeConfig();
-        
+
         // Set up change watcher (with economic awareness)
         this._setupConfigWatcher();
     }
-    
+
     /**
      * Loads VSCode settings ethically and transparently
      * @private
      */
     _loadVSCodeConfig() {
         const vsConfig = vscode.workspace.getConfiguration('evaguarani');
-        
+
         // Load each setting respecting user choices
         for (const key in this.config) {
             if (vsConfig.has(key)) {
                 this.config[key] = vsConfig.get(key);
             }
         }
-        
+
         console.log('EVA & GUARANI: VSCode settings loaded with love and respect');
     }
-    
+
     /**
      * Sets up watcher for configuration changes
      * with economic resource implementation
@@ -195,7 +195,7 @@ class EVAGuaraniConfig {
         if (this.configWatcher) {
             this.configWatcher.dispose();
         }
-        
+
         // Watch for configuration changes for real-time updates
         this.configWatcher = vscode.workspace.onDidChangeConfiguration(event => {
             if (event.affectsConfiguration('evaguarani')) {
@@ -204,7 +204,7 @@ class EVAGuaraniConfig {
             }
         });
     }
-    
+
     /**
      * Checks if the extension is enabled
      * @returns {boolean} Extension activation status
@@ -212,21 +212,21 @@ class EVAGuaraniConfig {
     isEnabled() {
         return this.config.enabled;
     }
-    
+
     /**
      * Sets the root directory of the EVA & GUARANI project
      * @param {string} rootPath - Root directory path
      */
     setProjectRoot(rootPath) {
         this.projectRoot = rootPath;
-        
+
         // Check and load local project configuration ethically
         this.localConfigPath = path.join(rootPath, '.evaguarani', 'config.json');
         this._loadLocalConfig();
-        
+
         console.log(`EVA & GUARANI: Root directory set: ${rootPath}`);
     }
-    
+
     /**
      * Returns the root directory of the EVA & GUARANI project
      * @returns {string} Root directory path
@@ -234,7 +234,7 @@ class EVAGuaraniConfig {
     getProjectRoot() {
         return this.projectRoot;
     }
-    
+
     /**
      * Loads local project settings, respecting
      * the project's sovereignty and specific needs.
@@ -244,17 +244,17 @@ class EVAGuaraniConfig {
         if (fs.existsSync(this.localConfigPath)) {
             try {
                 const localConfig = JSON.parse(fs.readFileSync(this.localConfigPath, 'utf8'));
-                
+
                 // Merge with current settings, respecting local configuration
                 this.config = {...this.config, ...localConfig};
-                
+
                 console.log('EVA & GUARANI: Local project settings loaded');
             } catch (error) {
                 console.log(`EVA & GUARANI: Error loading local settings: ${error.message}`);
             }
         }
     }
-    
+
     /**
      * Saves local project settings, preserving
      * the project's autonomy and particularities.
@@ -264,19 +264,19 @@ class EVAGuaraniConfig {
         if (this.projectRoot) {
             try {
                 const evaguaraniDir = path.join(this.projectRoot, '.evaguarani');
-                
+
                 // Create directory if it doesn't exist
                 if (!fs.existsSync(evaguaraniDir)) {
                     fs.mkdirSync(evaguaraniDir, {recursive: true});
                 }
-                
+
                 // Save local configuration
                 fs.writeFileSync(
-                    this.localConfigPath, 
-                    JSON.stringify(this.config, null, 2), 
+                    this.localConfigPath,
+                    JSON.stringify(this.config, null, 2),
                     'utf8'
                 );
-                
+
                 console.log('EVA & GUARANI: Local settings saved successfully');
                 return true;
             } catch (error) {
@@ -286,7 +286,7 @@ class EVAGuaraniConfig {
         }
         return false;
     }
-    
+
     /**
      * Determines if a file should be analyzed based on
      * its characteristics and analysis settings.
@@ -297,15 +297,15 @@ class EVAGuaraniConfig {
         if (!this.isEnabled()) {
             return false;
         }
-        
+
         // Check file extension
         const ext = path.extname(filePath).toLowerCase();
         const fileType = FILE_TYPES[ext];
-        
+
         if (!fileType) {
             return false; // Unsupported file type
         }
-        
+
         // Check specific setting for file type
         switch (fileType) {
             case 'javascript':
@@ -320,7 +320,7 @@ class EVAGuaraniConfig {
                 return false;
         }
     }
-    
+
     /**
      * Determines if it should sync on save
      * @returns {boolean} If it should sync automatically
@@ -328,7 +328,7 @@ class EVAGuaraniConfig {
     shouldSyncOnSave() {
         return this.isEnabled() && this.config.syncEnabled && this.config.syncOnSave;
     }
-    
+
     /**
      * Determines if it should always show the welcome message
      * @returns {boolean} Configuration status
@@ -336,7 +336,7 @@ class EVAGuaraniConfig {
     shouldAlwaysShowWelcome() {
         return this.config.alwaysShowWelcome;
     }
-    
+
     /**
      * Gets the value of a specific setting
      * @param {string} key - Setting name
@@ -346,7 +346,7 @@ class EVAGuaraniConfig {
     get(key, defaultValue) {
         return key in this.config ? this.config[key] : defaultValue;
     }
-    
+
     /**
      * Sets the value of a specific setting,
      * updating both locally and in VSCode
@@ -359,21 +359,21 @@ class EVAGuaraniConfig {
         if (key in this.config) {
             // Update local setting
             this.config[key] = value;
-            
+
             // Update VSCode setting
             if (global) {
                 const vsConfig = vscode.workspace.getConfiguration('evaguarani');
                 vsConfig.update(key, value, true);
             }
-            
+
             // Save local setting
             this._saveLocalConfig();
-            
+
             return true;
         }
         return false;
     }
-    
+
     /**
      * Returns configured analysis depth
      * @returns {number} Depth (1-3)
@@ -381,7 +381,7 @@ class EVAGuaraniConfig {
     getAnalysisDepth() {
         return this.config.analysisDepth;
     }
-    
+
     /**
      * Checks if AI recommendations are enabled
      * @returns {boolean} Configuration status
@@ -389,7 +389,7 @@ class EVAGuaraniConfig {
     isAIRecommendationsEnabled() {
         return this.isEnabled() && this.config.aiRecommendationsEnabled;
     }
-    
+
     /**
      * Shows interface for extension configuration,
      * with artistic and intuitive design for the user.
@@ -404,10 +404,10 @@ class EVAGuaraniConfig {
                 enableScripts: true
             }
         );
-        
+
         // Generate HTML for configuration interface with art and love
         panel.webview.html = this._generateConfigHTML();
-        
+
         // Process messages from the interface ethically and compassionately
         panel.webview.onDidReceiveMessage(
             message => {
@@ -417,24 +417,24 @@ class EVAGuaraniConfig {
                         for (const key in message.config) {
                             this.set(key, message.config[key], message.global);
                         }
-                        
+
                         // Confirm save with love and gratitude
                         vscode.window.showInformationMessage(
                             '✧ EVA & GUARANI settings updated with love and awareness ✧'
                         );
                         break;
-                        
+
                     case 'resetConfig':
                         // Restore default settings with universal redemption
                         this.config = {...DEFAULT_CONFIG};
                         this._saveLocalConfig();
-                        
+
                         // Update interface
-                        panel.webview.postMessage({ 
-                            command: 'updateInterface', 
-                            config: this.config 
+                        panel.webview.postMessage({
+                            command: 'updateInterface',
+                            config: this.config
                         });
-                        
+
                         // Confirm reset with love and possibility of evolution
                         vscode.window.showInformationMessage(
                             '✧ EVA & GUARANI settings restored to original values ✧'
@@ -445,7 +445,7 @@ class EVAGuaraniConfig {
             undefined
         );
     }
-    
+
     /**
      * Generates artistic HTML for the configuration interface
      * @private
@@ -454,7 +454,7 @@ class EVAGuaraniConfig {
     _generateConfigHTML() {
         // Serialize settings safely
         const configJSON = JSON.stringify(this.config);
-        
+
         return `<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -469,12 +469,12 @@ class EVAGuaraniConfig {
                     padding: 2rem;
                     line-height: 1.6;
                 }
-                
+
                 .header {
                     text-align: center;
                     margin-bottom: 2rem;
                 }
-                
+
                 h1 {
                     font-size: 2.5rem;
                     margin-bottom: 1rem;
@@ -482,23 +482,23 @@ class EVAGuaraniConfig {
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                 }
-                
+
                 .subtitle {
                     font-style: italic;
                     color: #aaa;
                     margin-bottom: 2rem;
                 }
-                
+
                 .tab-container {
                     margin: 2rem 0;
                 }
-                
+
                 .tab-buttons {
                     display: flex;
                     overflow: auto;
                     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
                 }
-                
+
                 .tab-button {
                     background: none;
                     color: #aaa;
@@ -508,37 +508,37 @@ class EVAGuaraniConfig {
                     cursor: pointer;
                     transition: all 0.3s ease;
                 }
-                
+
                 .tab-button:hover {
                     color: #fff;
                 }
-                
+
                 .tab-button.active {
                     color: #e74c3c;
                     border-bottom: 2px solid #e74c3c;
                 }
-                
+
                 .tab-content {
                     display: none;
                     padding: 1.5rem;
                     background-color: rgba(255, 255, 255, 0.05);
                     border-radius: 0 0 8px 8px;
                 }
-                
+
                 .tab-content.active {
                     display: block;
                 }
-                
+
                 .form-group {
                     margin-bottom: 1.5rem;
                 }
-                
+
                 label {
                     display: block;
                     margin-bottom: 0.5rem;
                     color: #9b59b6;
                 }
-                
+
                 input[type="text"],
                 input[type="number"],
                 select {
@@ -550,23 +550,23 @@ class EVAGuaraniConfig {
                     color: #e0e0e0;
                     font-size: 1rem;
                 }
-                
+
                 input[type="checkbox"] {
                     margin-right: 0.5rem;
                 }
-                
+
                 .checkbox-label {
                     display: flex;
                     align-items: center;
                     cursor: pointer;
                 }
-                
+
                 .actions {
                     display: flex;
                     justify-content: space-between;
                     margin-top: 2rem;
                 }
-                
+
                 button {
                     background-color: #8e44ad;
                     color: white;
@@ -577,20 +577,20 @@ class EVAGuaraniConfig {
                     font-weight: 500;
                     transition: all 0.3s ease;
                 }
-                
+
                 button:hover {
                     background-color: #9b59b6;
                     transform: translateY(-2px);
                 }
-                
+
                 button.reset {
                     background-color: #e74c3c;
                 }
-                
+
                 button.reset:hover {
                     background-color: #c0392b;
                 }
-                
+
                 .scope-toggle {
                     display: flex;
                     justify-content: center;
@@ -599,7 +599,7 @@ class EVAGuaraniConfig {
                     padding: 0.5rem;
                     border-radius: 4px;
                 }
-                
+
                 .scope-button {
                     background: none;
                     border: none;
@@ -608,12 +608,12 @@ class EVAGuaraniConfig {
                     border-radius: 4px;
                     cursor: pointer;
                 }
-                
+
                 .scope-button.active {
                     background-color: #3498db;
                     color: white;
                 }
-                
+
                 .signature {
                     font-family: 'Brush Script MT', cursive;
                     font-size: 1.5rem;
@@ -628,12 +628,12 @@ class EVAGuaraniConfig {
                 <h1>✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧</h1>
                 <div class="subtitle">Quantum System Configuration</div>
             </div>
-            
+
             <div class="scope-toggle">
                 <button id="localScope" class="scope-button active">Project Configuration</button>
                 <button id="globalScope" class="scope-button">Global Configuration</button>
             </div>
-            
+
             <div class="tab-container">
                 <div class="tab-buttons">
                     <button class="tab-button active" data-tab="general">General</button>
@@ -643,7 +643,7 @@ class EVAGuaraniConfig {
                     <button class="tab-button" data-tab="ethics">Ethics</button>
                     <button class="tab-button" data-tab="sync">Synchronization</button>
                 </div>
-                
+
                 <div id="general" class="tab-content active">
                     <div class="form-group">
                         <div class="checkbox-label">
@@ -651,7 +651,7 @@ class EVAGuaraniConfig {
                             <label for="enabled">Enable EVA & GUARANI</label>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <div class="checkbox-label">
                             <input type="checkbox" id="showWelcomeOnStartup">

@@ -6,4 +6,4 @@ node .cursor/check_mcp_connection.js
 
 echo.
 echo Pressione qualquer tecla para continuar...
-pause > nul 
+pause > nul

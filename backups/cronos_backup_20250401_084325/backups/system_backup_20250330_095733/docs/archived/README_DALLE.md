@@ -148,34 +148,34 @@ Make sure you have enough credits before requesting image generation. Use the `/
 
 1. **Be specific and detailed**: The more details you provide, the better the result will be.
 
-   
+
    ❌ "A cat"
    ✅ "An orange Persian cat sitting on a window looking out, sunset light, photographic style"
-   
+
 
 2. **Specify the artistic style**: Mention the desired style for better results.
 
-   
+
    "Mountain landscape in Van Gogh style"
    "Portrait of a woman in cyberpunk style"
    "Urban scene in watercolor"
-   
+
 
 3. **Describe the lighting**: Lighting drastically affects the result.
 
-   
+
    "Dense forest with light filtering through the trees"
    "Portrait with studio lighting"
    "Night scene illuminated by neon"
-   
+
 
 4. **Mention perspective/angle**: Defines how the image will be composed.
 
-   
+
    "Futuristic city seen from above"
    "Close-up of a flower with dew drops"
    "Panoramic view of a beach at sunset"
-   
+
 
 ### Popular Styles to Experiment With
 
@@ -205,13 +205,13 @@ Administrators need to configure a valid OpenAI API key for the functionality to
 
 ## ❓ Frequently Asked Questions
 
-**Q: Can I edit the generated images?**  
+**Q: Can I edit the generated images?**
 A: Yes, the generated images are your property and can be freely edited.
 
-**Q: Can I generate images of adult or violent content?**  
+**Q: Can I generate images of adult or violent content?**
 A: No. The DALL-E API has content filters that reject violent, adult, or politically sensitive prompts.
 
-**Q: Why wasn't my image generated?**  
+**Q: Why wasn't my image generated?**
 A: It could be due to:
 
 1. Lack of sufficient credits
@@ -219,10 +219,10 @@ A: It could be due to:
 3. Your prompt contains prohibited content
 4. Request limit exceeded
 
-**Q: Are the images saved in the bot?**  
+**Q: Are the images saved in the bot?**
 A: Yes, the images are saved both locally on the server and provided as URLs.
 
-**Q: What is the difference between 'vivid' and 'natural' styles?**  
+**Q: What is the difference between 'vivid' and 'natural' styles?**
 A: 'Vivid' produces more colorful and dramatic images, while 'natural' creates more subtle and realistic images.
 
 ---

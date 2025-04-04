@@ -246,14 +246,14 @@ No arquivo BIOS-Q encontramos a estrutura do bootloader. Podemos integrar os MCP
 def initialize_mcp_controllers():
     """Inicializa os controladores MCP durante o processo de boot"""
     from core.mcp.controller import MCPController
-    
+
     # Carregar configurações dos MCPs
     mcp_config_path = os.path.join(CONFIG_DIR, "mcp_config.json")
     controller = MCPController(mcp_config_path)
-    
+
     # Registrar no sistema de boot
     register_boot_component("mcp_controller", controller)
-    
+
     return controller
 ```
 
@@ -265,15 +265,15 @@ O Quantum Mycelium pode servir como sistema de comunicação entre os MCPs:
 # Adicionar ao quantum_mycelium.py
 class MCPConnector:
     """Conector para estabelecer comunicação entre diferentes MCPs"""
-    
+
     def __init__(self, mcp_registry):
         self.registry = mcp_registry
         self.connections = {}
-        
+
     def establish_connection(self, source_mcp, target_mcp, connection_type):
         """Estabelece conexão quântica entre dois MCPs"""
         connection_id = f"{source_mcp}_{target_mcp}_{int(time.time())}"
-        
+
         self.connections[connection_id] = {
             "source": source_mcp,
             "target": target_mcp,
@@ -281,7 +281,7 @@ class MCPConnector:
             "established": datetime.datetime.now().isoformat(),
             "status": "active"
         }
-        
+
         return connection_id
 ```
 
@@ -295,17 +295,17 @@ def export_to_obsidian(map_data, export_path=None):
     """Exporta mapa de conhecimento para o Obsidian"""
     if export_path is None:
         export_path = os.path.join("C:\\Eva Guarani EGOS\\.obsidian", "mcp_maps")
-    
+
     os.makedirs(export_path, exist_ok=True)
-    
+
     # Gerar arquivos markdown para cada nó
     for node in map_data["nodes"]:
         node_file = os.path.join(export_path, f"{node['id']}.md")
-        
+
         with open(node_file, "w", encoding="utf-8") as f:
             f.write(f"# {node['label']}\n\n")
             f.write(f"{node['description']}\n\n")
-            
+
             # Adicionar links para nós conectados
             f.write("## Conexões\n\n")
             for conn in map_data["connections"]:
@@ -345,19 +345,19 @@ graph TD
     B --> E[MCP ETHIK]
     B --> F[MCP ATLAS]
     B --> G[MCP Translator]
-    
+
     C --> H[Context Storage]
     D --> I[Code Analysis]
     E --> J[Ethical Framework]
     F --> K[Systemic Maps]
     G --> L[Language Processing]
-    
+
     M[Quantum Mycelium] <--> C
     M <--> D
     M <--> E
     M <--> F
     M <--> G
-    
+
     N[BIOS-Q] --> B
     O[Obsidian] <-- K
     P[VSCode/Cursor] <-- I

@@ -97,7 +97,7 @@ This guide provides detailed instructions to install, configure, and run the EVA
    bash
    git clone https://github.com/enioxt/ava-tech-art-bot.git
    cd ava-tech-art-bot
-   
+
 
 2. Create and activate a virtual environment (recommended):
 
@@ -109,13 +109,13 @@ This guide provides detailed instructions to install, configure, and run the EVA
    # Linux/macOS
    python3 -m venv venv
    source venv/bin/activate
-   
+
 
 3. Install the dependencies:
 
    bash
    pip install -r requirements.txt
-   
+
 
 ### 2. FFmpeg Installation (for video functionalities)
 

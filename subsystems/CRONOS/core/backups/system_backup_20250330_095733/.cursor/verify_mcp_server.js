@@ -156,4 +156,4 @@ async function main() {
 }
 
 // Executa a verificação
-main(); 
+main();

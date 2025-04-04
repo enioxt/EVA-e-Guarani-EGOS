@@ -57,12 +57,12 @@ O servidor está rodando! Você pode acessar a interface CORE em: http://localho
      - Basic: $29/mês
      - Pro: $99/mês
      - Enterprise: $499/mês
-   
+
    - **Serviços:**
      - Consultoria personalizada: $150/hora
      - Implementação customizada: $5000+
      - Treinamento corporativo: $2500/dia
-   
+
    - **Produtos:**
      - APIs comerciais: $199/mês
      - Plugins especializados: $49-299
@@ -73,12 +73,12 @@ O servidor está rodando! Você pode acessar a interface CORE em: http://localho
       - Implementar sistema de autenticação
       - Criar portal de pagamentos
       - Desenvolver dashboard de métricas financeiras
-   
+
    b. **Marketing (Próxima semana):**
       - Criar landing page comercial
       - Desenvolver material promocional
       - Estabelecer presença em redes sociais
-   
+
    c. **Infraestrutura (2-3 semanas):**
       - Configurar servidores de produção
       - Implementar sistema de backup

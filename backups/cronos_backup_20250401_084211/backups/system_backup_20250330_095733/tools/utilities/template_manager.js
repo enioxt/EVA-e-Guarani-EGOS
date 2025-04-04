@@ -45,17 +45,17 @@ javascript
 /**
  * EVA & GUARANI - Template Manager
  * ========================================
- * 
+ *
  * This module manages the templates used for creating new files
  * and inserting quantum context, following the EVA & GUARANI principles
  * and facilitating code creation with integrated ethical awareness.
- * 
+ *
  * Incorporated principles:
  * - Ethics: Templates that promote good practices and adequate documentation
  * - Love: Supportive and encouraging messages in comments
  * - Economy: Optimized templates without redundant code
  * - Art: Elegant and visually harmonious structure
- * 
+ *
  * @context EVA_GUARANI_QUANTUM_TEMPLATES
  * @version 1.0.0
  * @author EVA & GUARANI Team
@@ -76,15 +76,15 @@ const DEFAULT_TEMPLATES = {
         header: (filename, author = 'EVA & GUARANI Team') => `/**
  * ${path.basename(filename)}
  * ${Array(path.basename(filename).length + 1).join('=')}
- * 
+ *
  * @context EVA_GUARANI
  * @created ${new Date().toISOString().split('T')[0]}
  * @author ${author}
- * 
+ *
  * This file was created with ethical awareness and love for code.
  * EVA & GUARANI: Development with purpose and responsibility.
  */\n\n`,
-        
+
         class: (className) => `/**
  * Class ${className}
  * Implementation with ethical and modular awareness.
@@ -98,7 +98,7 @@ class ${className} {
         this.config = config;
         this._initialize();
     }
-    
+
     /**
      * Initializes the class with economic awareness
      * @private
@@ -107,16 +107,16 @@ class ${className} {
         // Implement initialization here
         console.log('${className} initialized with love and awareness');
     }
-    
+
     // Public methods with clear documentation
 }
 
 module.exports = ${className};\n`,
-        
+
         function: (funcName) => `/**
  * ${funcName}
  * Function implemented with ethical and economic awareness.
- * 
+ *
  * @param {Object} params - Function parameters
  * @returns {Promise<Object>} Operation result
  */
@@ -129,7 +129,7 @@ async function ${funcName}(params = {}) {
 }
 
 module.exports = ${funcName};\n`,
-        
+
         module: (moduleName) => `/**
  * Module ${moduleName}
  * Implementation with ethical awareness and modular functionalities.
@@ -140,27 +140,27 @@ module.exports = ${funcName};\n`,
 /**
  * Module functions and methods
  */
- 
+
 // Export functions with clear documentation
 module.exports = {
     // Exported functions
 };\n`
     },
-    
+
     // Template for TypeScript
     typescript: {
         header: (filename, author = 'EVA & GUARANI Team') => `/**
  * ${path.basename(filename)}
  * ${Array(path.basename(filename).length + 1).join('=')}
- * 
+ *
  * @context EVA_GUARANI
  * @created ${new Date().toISOString().split('T')[0]}
  * @author ${author}
- * 
+ *
  * This file was created with ethical awareness and love for code.
  * EVA & GUARANI: Development with purpose and responsibility.
  */\n\n`,
-        
+
         interface: (interfaceName) => `/**
  * Interface ${interfaceName}
  * Contract definition with ethical awareness and responsibility.
@@ -169,11 +169,11 @@ export interface ${interfaceName} {
     // Properties with clear documentation
     name: string;
     description?: string;
-    
+
     // Methods with clear documentation
     initialize(): Promise<void>;
 };\n`,
-        
+
         class: (className, interfaceName = null) => {
             const implementsInterface = interfaceName ? ` implements ${interfaceName}` : '';
             return `/**
@@ -183,7 +183,7 @@ export interface ${interfaceName} {
 export class ${className}${implementsInterface} {
     // Private properties with well-defined purpose
     private config: Record<string, any>;
-    
+
     /**
      * Class constructor
      * @param config - Initial configuration
@@ -192,7 +192,7 @@ export class ${className}${implementsInterface} {
         this.config = config;
         this._initialize();
     }
-    
+
     /**
      * Initializes the class with economic awareness
      * @private
@@ -201,18 +201,18 @@ export class ${className}${implementsInterface} {
         // Implement initialization here
         console.log('${className} initialized with love and awareness');
     }
-    
+
     /**
      * Initializes the component
      */
     public async initialize(): Promise<void> {
         // Ethical and economic implementation
     }
-    
+
     // Public methods with clear documentation
 };\n`;
         },
-        
+
         type: (typeName) => `/**
  * Type ${typeName}
  * Definition with ethical awareness and intentional clarity.
@@ -222,11 +222,11 @@ export type ${typeName} = {
     id: string;
     name: string;
     description?: string;
-    
+
     // Additional properties with clear purpose
 };\n`
     },
-    
+
     // Template for Python
     python: {
         header: (filename, author = 'EVA & GUARANI Team') => `"""
@@ -250,23 +250,23 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)\n\n`,
-        
+
         class: (className) => `class ${className}:
     """
     Class ${className}
     Implementation with ethical and modular awareness.
     """
-    
+
     def __init__(self, config: Dict[str, Any] = None):
         """
         Initializes the class with love and awareness.
-        
+
         Args:
             config: Initial configuration
         """
         self.config = config or {}
         self._initialize()
-    
+
     def _initialize(self) -> None:
         """
         Initializes the class with economic awareness.
@@ -274,29 +274,29 @@ logger = logging.getLogger(__name__)\n\n`,
         """
         # Implement initialization here
         logger.info("${className} initialized with love and awareness")
-    
+
     # Public methods with clear documentation\n`,
-        
+
         function: (funcName) => `def ${funcName}(params: Dict[str, Any] = None) -> Dict[str, Any]:
     """
     ${funcName}
     Function implemented with ethical and economic awareness.
-    
+
     Args:
         params: Function parameters
-        
+
     Returns:
         Dict with operation result
     """
     params = params or {}
-    
+
     // Conscious and economic implementation
     return {
         "success": True,
         "message": "Operation performed with love and ethics"
     }\n`
     },
-    
+
     // Template for Markdown
     markdown: {
         header: (filename, author = 'EVA & GUARANI Team') => `# ${path.basename(filename, '.md')}
@@ -324,7 +324,7 @@ Introduce the topic with clarity and purpose.
 List the relevant principles:
 
 - **Integrated Ethics**: Principle description
-- **Love for Code**: Principle description 
+- **Love for Code**: Principle description
 - **Resource Economy**: Principle description
 - **Art in Structure**: Principle description
 
@@ -340,7 +340,7 @@ Reflections on relevant ethical aspects.
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧\n\n`
     },
-    
+
     // Template for HTML
     html: {
         header: (filename, author = 'EVA & GUARANI Team') => `<!DOCTYPE html>
@@ -349,7 +349,7 @@ Reflections on relevant ethical aspects.
     @context EVA_GUARANI
     @created ${new Date().toISOString().split('T')[0]}
     @author ${author}
-    
+
     This file was created with ethical awareness and love for code.
     EVA & GUARANI: Development with purpose and responsibility.
 -->
@@ -369,22 +369,22 @@ Reflections on relevant ethical aspects.
             color: #333;
             background-color: #f9f9f9;
         }
-        
+
         header {
             text-align: center;
             margin-bottom: 2rem;
         }
-        
+
         h1 {
             color: #8e44ad;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 1rem;
         }
-        
+
         footer {
             text-align: center;
             margin-top: 2rem;
@@ -399,12 +399,12 @@ Reflections on relevant ethical aspects.
         <h1>${path.basename(filename, '.html')}</h1>
         <p>Created with ethical awareness and love</p>
     </header>
-    
+
     <div class="container">
         <!-- Main content here -->
         <p>Content developed with ethics and purpose.</p>
     </div>
-    
+
     <footer>
         <p>✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧</p>
     </footer>
@@ -428,11 +428,11 @@ class TemplateManager {
         this.context = context;
         this.config = config;
         this.templates = {...DEFAULT_TEMPLATES};
-        
+
         // Load customized templates from the project
         this._loadCustomTemplates();
     }
-    
+
     /**
      * Loads customized templates from the current project
      * respecting autonomy and specific needs.
@@ -441,14 +441,14 @@ class TemplateManager {
     _loadCustomTemplates() {
         const projectRoot = this.config.getProjectRoot();
         if (!projectRoot) return;
-        
+
         const customTemplatesPath = path.join(projectRoot, '.evaguarani', 'templates');
-        
+
         if (fs.existsSync(customTemplatesPath)) {
             try {
                 // Look for customized templates by language
                 const languages = fs.readdirSync(customTemplatesPath);
-                
+
                 for (const language of languages) {
                     const languagePath = path.join(customTemplatesPath, language);
                     if (fs.statSync(languagePath).isDirectory()) {
@@ -456,15 +456,15 @@ class TemplateManager {
                         if (!this.templates[language]) {
                             this.templates[language] = {};
                         }
-                        
+
                         // Load templates for this language
                         const templateFiles = fs.readdirSync(languagePath)
                             .filter(file => file.endsWith('.js') || file.endsWith('.mjs'));
-                        
+
                         for (const templateFile of templateFiles) {
                             const templateName = path.basename(templateFile, path.extname(templateFile));
                             const templatePath = path.join(languagePath, templateFile);
-                            
+
                             try {
                                 // Dynamically load the template
                                 const template = require(templatePath);
@@ -478,14 +478,14 @@ class TemplateManager {
                         }
                     }
                 }
-                
+
                 console.log('EVA & GUARANI: Customized templates loaded with love and respect');
             } catch (error) {
                 console.log(`EVA & GUARANI: Error loading customized templates: ${error.message}`);
             }
         }
     }
-    
+
     /**
      * Checks if a template should be inserted and does so if necessary
      * @param {vscode.TextEditor} editor - Active editor
@@ -495,24 +495,24 @@ class TemplateManager {
         if (!editor || !this.config.get('addHeaderToNewFiles', true)) {
             return false;
         }
-        
+
         // Check if the file is empty
         if (editor.document.getText().trim() !== '') {
             return false;
         }
-        
+
         // Determine file type
         const filename = editor.document.fileName;
         const fileType = this._getFileType(filename);
-        
+
         if (!fileType) {
             return false; // Unsupported file type
         }
-        
+
         // Insert appropriate template with awareness and love
         return this._insertHeader(editor, fileType, filename);
     }
-    
+
     /**
      * Adds EVA & GUARANI quantum context to the file
      * @param {vscode.TextEditor} editor - Active editor
@@ -522,27 +522,27 @@ class TemplateManager {
         if (!editor) {
             return false;
         }
-        
+
         // Determine file type
         const filename = editor.document.fileName;
         const fileType = this._getFileType(filename);
-        
+
         if (!fileType) {
             vscode.window.showInformationMessage('Unsupported file type for quantum context addition.');
             return false;
         }
-        
+
         // Check if quantum context already exists
         const documentText = editor.document.getText();
         if (documentText.includes('@context EVA_GUARANI')) {
             vscode.window.showInformationMessage('File already has EVA & GUARANI quantum context.');
             return false;
         }
-        
+
         // Add header at the beginning of the file
         return this._insertHeader(editor, fileType, filename);
     }
-    
+
     /**
      * Detects the file type based on the extension
      * @param {string} filename - File name
@@ -551,7 +551,7 @@ class TemplateManager {
      */
     _getFileType(filename) {
         const ext = path.extname(filename).toLowerCase();
-        
+
         // Map extension to template type
         switch (ext) {
             case '.js':
@@ -559,23 +559,23 @@ class TemplateManager {
             case '.mjs':
             case '.cjs':
                 return 'javascript';
-                
+
             case '.ts':
             case '.tsx':
                 return 'typescript';
-                
+
             case '.py':
             case '.pyw':
                 return 'python';
-                
+
             case '.md':
             case '.markdown':
                 return 'markdown';
-                
+
             case '.html':
             case '.htm':
                 return 'html';
-                
+
             default:
                 // Check if we have a custom template for this extension
                 for (const language in this.templates) {
@@ -584,11 +584,11 @@ class TemplateManager {
                         return language;
                     }
                 }
-                
+
                 return null; // Unsupported
         }
     }
-    
+
     /**
      * Inserts a header at the beginning of the file
      * @param {vscode.TextEditor} editor - Active editor
@@ -602,7 +602,7 @@ class TemplateManager {
         if (!this.templates[fileType] || !this.templates[fileType].header) {
             return false;
         }
-        
+
         // Determine author name (use Git user name if available)
         let author = 'EVA & GUARANI Team';
         try {
@@ -618,10 +618,10 @@ class TemplateManager {
         } catch (err) {
             // Silently fail and use default author
         }
-        
+
         // Generate header content
         const headerContent = this.templates[fileType].header(filename, author);
-        
+
         // Insert at the beginning of the file
         editor.edit(editBuilder => {
             editBuilder.insert(new vscode.Position(0, 0), headerContent);
@@ -632,10 +632,10 @@ class TemplateManager {
                 );
             }
         });
-        
+
         return true;
     }
-    
+
     /**
      * Inserts a class template
      * @param {vscode.TextEditor} editor - Active editor
@@ -646,7 +646,7 @@ class TemplateManager {
         if (!editor || !className) {
             return false;
         }
-        
+
         const fileType = this._getFileType(editor.document.fileName);
         if (!fileType || !this.templates[fileType] || !this.templates[fileType].class) {
             vscode.window.showInformationMessage(
@@ -654,15 +654,15 @@ class TemplateManager {
             );
             return false;
         }
-        
+
         // Generate class template
         let templateContent;
-        
+
         // For TypeScript, check if you want to implement an interface
         if (fileType === 'typescript' && await this._askImplementInterface()) {
             const interfaceName = await vscode.window.showInputBox({
                 prompt: 'Name of the interface to implement',
                 placeHolder: 'IClassName'
             });
-            
+
             if

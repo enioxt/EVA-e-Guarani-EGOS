@@ -3,6 +3,7 @@ import asyncio
 import json
 import sys
 
+
 class BiosQMinimalMCP:
     def __init__(self, reader, writer):
         self.reader = reader
@@ -39,12 +40,14 @@ class BiosQMinimalMCP:
                 "id": msg_id,
                 "status": "success",
                 "data": {
-                    "tools": [{
-                        "name": "bios_q_status",
-                        "description": "Get BIOS-Q status",
-                        "schema": {"type": "object", "properties": {}}
-                    }]
-                }
+                    "tools": [
+                        {
+                            "name": "bios_q_status",
+                            "description": "Get BIOS-Q status",
+                            "schema": {"type": "object", "properties": {}},
+                        }
+                    ]
+                },
             }
         else:
             response = {"type": "response", "id": msg_id, "status": "success"}
@@ -56,6 +59,7 @@ class BiosQMinimalMCP:
             message = await self.read_message()
             if message:
                 await self.process_message(message)
+
 
 async def main():
     loop = asyncio.get_event_loop()
@@ -72,5 +76,6 @@ async def main():
         writer.close()
         await writer.wait_closed()
 
+
 if __name__ == "__main__":
-    asyncio.run(main()) 
+    asyncio.run(main())

@@ -189,4 +189,4 @@ setInterval(() => {
     });
 }, 5000);
 
-logger.info('BIOS-Q MCP initialized and ready'); 
+logger.info('BIOS-Q MCP initialized and ready');

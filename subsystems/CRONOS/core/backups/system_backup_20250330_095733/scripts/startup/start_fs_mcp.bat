@@ -103,14 +103,14 @@ if errorlevel 1 (
     echo Filesystem MCP server started successfully on port 38005
     echo Server output is being logged to logs\fs_mcp.log
     echo The server is running in background
-    
+
     :: Display the process information
     echo.
     echo Current MCP server process:
     netstat -ano | find ":38005"
     echo.
-    
+
     :: Keep the window open to maintain the process
     echo Press Ctrl+C to stop the server...
     cmd /k "echo Server is running... && echo To stop the server, close this window."
-) 
+)

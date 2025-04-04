@@ -120,7 +120,7 @@ Add examples here of how to use the resources of this directory.
 # ==================================================================
 
 Asse
-Sandbox 
+Sandbox
 asse
 in
 
@@ -130,7 +130,7 @@ in
 # ==================================================================
 
 Src
-Sandbox 
+Sandbox
 in
 
 
@@ -139,7 +139,7 @@ in
 # ==================================================================
 
 Public
-Sandbox 
+Sandbox
 public
 in
 
@@ -149,7 +149,7 @@ in
 # ==================================================================
 
 Vue_app
-Sandbox 
+Sandbox
 in
 
 
@@ -158,7 +158,7 @@ in
 # ==================================================================
 
 Style
-Sandbox 
+Sandbox
 react
 style
 in
@@ -168,7 +168,7 @@ in
 # UNIQUE CONTENT FROM sandbox\frontend\react_app\src\components\README.md
 # ==================================================================
 
-Sandbox 
+Sandbox
 react
 
 
@@ -177,7 +177,7 @@ react
 # ==================================================================
 
 Src
-Sandbox 
+Sandbox
 react
 
 
@@ -186,7 +186,7 @@ react
 # ==================================================================
 
 Public
-Sandbox 
+Sandbox
 react
 public
 in
@@ -197,7 +197,7 @@ in
 # ==================================================================
 
 React_app
-Sandbox 
+Sandbox
 react
 in
 
@@ -207,7 +207,7 @@ in
 # ==================================================================
 
 Integration
-Sandbox 
+Sandbox
 examples
 integration
 
@@ -217,7 +217,7 @@ integration
 # ==================================================================
 
 Frontend_example
-Sandbox 
+Sandbox
 examples
 frontend
 example
@@ -228,7 +228,7 @@ example
 # ==================================================================
 
 Api_usage
-Sandbox 
+Sandbox
 examples
 api
 usage
@@ -241,7 +241,7 @@ usage
 utorials
 
 T
-Sandbox 
+Sandbox
 docs
 tutorial
 
@@ -251,7 +251,7 @@ tutorial
 # ==================================================================
 
 Diagram
-Sandbox 
+Sandbox
 docs
 diagram
 in
@@ -262,7 +262,7 @@ in
 # ==================================================================
 
 Doc
-Sandbox 
+Sandbox
 doc
 in
 
@@ -274,7 +274,7 @@ in
 emp
 
 T
-Sandbox 
+Sandbox
 data
 temp
 in
@@ -285,7 +285,7 @@ in
 # ==================================================================
 
 Sample
-Sandbox 
+Sandbox
 data
 sample
 in
@@ -296,7 +296,7 @@ in
 # ==================================================================
 
 Data
-Sandbox 
+Sandbox
 data
 n
 
@@ -306,7 +306,7 @@ n
 # ==================================================================
 
 Sandbox_app
-Sandbox 
+Sandbox
 api
 django
 i
@@ -319,7 +319,7 @@ sandbox_app
 # ==================================================================
 
 Sandbox_project
-Sandbox 
+Sandbox
 api
 django
 i
@@ -332,7 +332,7 @@ in
 # ==================================================================
 
 Django_api
-Sandbox 
+Sandbox
 api
 django
 i
@@ -344,7 +344,7 @@ in
 # ==================================================================
 
 Api
-Sandbox 
+Sandbox
 api
 in
 
@@ -354,7 +354,7 @@ in
 # ==================================================================
 
 Api
-Sandbox 
+Sandbox
 docs
 api
 n

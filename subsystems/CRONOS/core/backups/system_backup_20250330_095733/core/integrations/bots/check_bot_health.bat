@@ -182,7 +182,7 @@ echo [35m✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧%RESET%
 echo.
 
 :: Ask if the user wants to open the report
-set /p open_report=Do you want to open the detailed report? (Y/N): 
+set /p open_report=Do you want to open the detailed report? (Y/N):
 if /i "%open_report%"=="Y" (
     start notepad.exe "%report_path%"
 )
@@ -263,7 +263,7 @@ goto :eof
 set /a total_checks+=1
 if exist "%~1" (
     for %%A in ("%~1") do set log_date=%%~tA
-    
+
     :: Show the last 5 lines of the log
     call :log_message "Latest log entries:" "INFO"
     type "%~1" | findstr /N "^" | findstr /R "^[0-9]*[0-9][0-9][0-9][0-9]:" | findstr /R "^[0-9]*[0-9][0-9][0-9][0-9]:" > nul
@@ -283,7 +283,7 @@ if exist "%~1" (
             )
         )
     )
-    
+
     call :log_message "✓ Log file found: %~1" "SUCCESS"
     set /a passed_checks+=1
     set "recent_logs_%~1=1"
@@ -301,11 +301,11 @@ python --version 2>&1 | findstr /R /C:"Python [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-
 if !errorlevel! equ 0 (
     for /f "tokens=2" %%i in ('python --version 2^>^&1') do set python_version=%%i
     call :log_message "Python version: %python_version%" "INFO"
-    
+
     :: Simple version comparison (not perfect, but works for most cases)
     set min_version=%~1
     set current_version=%python_version%
-    
+
     if "%current_version%" geq "%min_version%" (
         call :log_message "✓ Suitable Python version: %python_version%" "SUCCESS"
         set /a passed_checks+=1
@@ -429,7 +429,7 @@ echo. >> "%report_path%"
 if defined corrective_actions (
     echo Recommended Corrective Actions: >> "%report_path%"
     echo !corrective_actions! >> "%report_path%"
-    
+
     call :log_message "Recommended corrective actions:" "INFO"
     for /f "tokens=*" %%a in ("!corrective_actions!") do (
         echo %WARNING%  • %%a%RESET%

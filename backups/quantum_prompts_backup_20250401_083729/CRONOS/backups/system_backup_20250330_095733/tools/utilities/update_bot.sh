@@ -53,7 +53,7 @@ show_menu() {
     echo ""
     read -p "Digite o número da opção desejada: " choice
     echo ""
-    
+
     case $choice in
         1)
             echo "Verificando atualizações disponíveis..."
@@ -104,4 +104,4 @@ show_menu() {
 }
 
 # Iniciar o menu
-show_menu 
+show_menu

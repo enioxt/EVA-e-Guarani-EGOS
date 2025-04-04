@@ -41,42 +41,42 @@ const myceliumNetwork = {
 // Function to synchronize connected files
 function synchronizeFiles() {
     logger.info('Iniciando sincronização micelial de arquivos...');
-    
+
     // Track which files were synced
     const syncedFiles = new Set();
-    
+
     // For each file in the network
     myceliumNetwork.files.forEach((fileData, fileId) => {
         // Get connected files
         const connections = myceliumNetwork.connections.get(fileId) || [];
-        
+
         if (connections.length === 0) {
             logger.info(`Arquivo ${fileId} não possui conexões miceliais.`);
             return;
         }
-        
+
         // Check if file exists
         if (!fs.existsSync(fileData.path)) {
             logger.warn(`Arquivo ${fileId} não encontrado em ${fileData.path}`);
             return;
         }
-        
+
         try {
             // Read the source file
             const content = fs.readFileSync(fileData.path, 'utf-8');
-            
+
             // For each connected file, sync relevant sections
             connections.forEach(connectedFileId => {
                 const connectedFile = myceliumNetwork.files.get(connectedFileId);
-                
+
                 if (!connectedFile || !fs.existsSync(connectedFile.path)) {
                     logger.warn(`Arquivo conectado ${connectedFileId} não encontrado.`);
                     return;
                 }
-                
+
                 // Read the target file
                 const targetContent = fs.readFileSync(connectedFile.path, 'utf-8');
-                
+
                 // Sync based on file type and connection type
                 if (fileData.type === 'roadmap' && connectedFile.type === 'readme') {
                     // Extract roadmap info and update readme
@@ -89,23 +89,23 @@ function synchronizeFiles() {
                     fs.writeFileSync(connectedFile.path, newTargetContent);
                     logger.info(`Sincronizado config para implementation: ${fileId} -> ${connectedFileId}`);
                 }
-                
+
                 syncedFiles.add(connectedFileId);
             });
-            
+
             syncedFiles.add(fileId);
-            
+
         } catch (error) {
             logger.error(`Erro ao sincronizar arquivo ${fileId}: ${error.message}`);
         }
     });
-    
+
     // Update sync history
     const now = Date.now();
     syncedFiles.forEach(fileId => {
         myceliumNetwork.syncHistory.set(fileId, now);
     });
-    
+
     myceliumNetwork.lastSync = now;
     logger.info(`Sincronização micelial concluída: ${syncedFiles.size} arquivos atualizados.`);
 }
@@ -115,13 +115,13 @@ function updateReadmeWithRoadmap(readmeContent, roadmapContent) {
     // Extract version and status from roadmap
     const versionMatch = roadmapContent.match(/\*\*Status atual:\*\* (.*?) -/);
     const progressMatch = roadmapContent.match(/\*\*Status atual:\*\* .*? - .*? \((\d+)%\)/);
-    
+
     if (!versionMatch && !progressMatch) {
         return readmeContent;
     }
-    
+
     let updatedContent = readmeContent;
-    
+
     // Update version in README if found
     if (versionMatch && versionMatch[1]) {
         updatedContent = updatedContent.replace(
@@ -129,7 +129,7 @@ function updateReadmeWithRoadmap(readmeContent, roadmapContent) {
             `$1: ${versionMatch[1]}`
         );
     }
-    
+
     // Update progress in README if found
     if (progressMatch && progressMatch[1]) {
         updatedContent = updatedContent.replace(
@@ -137,7 +137,7 @@ function updateReadmeWithRoadmap(readmeContent, roadmapContent) {
             `$1: ${progressMatch[1]}%`
         );
     }
-    
+
     return updatedContent;
 }
 
@@ -176,7 +176,7 @@ app.post('/mycelium/connect', (req, res) => {
         // Store connections if provided
         if (Array.isArray(connections)) {
             myceliumNetwork.connections.set(nodeId, connections);
-            
+
             // Create reciprocal connections
             connections.forEach(targetNodeId => {
                 const targetConnections = myceliumNetwork.connections.get(targetNodeId) || [];
@@ -248,12 +248,12 @@ app.post('/mycelium/register-file', (req, res) => {
                 try {
                     // Simplified sync for just this file
                     const content = fs.readFileSync(filePath, 'utf-8');
-                    
+
                     connections.forEach(connectedFileId => {
                         const connectedFile = myceliumNetwork.files.get(connectedFileId);
                         if (connectedFile && fs.existsSync(connectedFile.path)) {
                             const targetContent = fs.readFileSync(connectedFile.path, 'utf-8');
-                            
+
                             if (fileType === 'roadmap' && connectedFile.type === 'readme') {
                                 const newContent = updateReadmeWithRoadmap(targetContent, content);
                                 fs.writeFileSync(connectedFile.path, newContent);
@@ -261,7 +261,7 @@ app.post('/mycelium/register-file', (req, res) => {
                             }
                         }
                     });
-                    
+
                     myceliumNetwork.syncHistory.set(fileId, Date.now());
                 } catch (syncError) {
                     logger.error(`Erro na sincronização imediata: ${syncError.message}`);
@@ -380,7 +380,7 @@ Vamos melhorar o web_client para exibir a rede micelial:
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <h5>Registrar Arquivo na Rede Micelial</h5>
@@ -416,31 +416,31 @@ Vamos melhorar o web_client para exibir a rede micelial:
 
 <script>
     // ... existing code ...
-    
+
     // Função para atualizar informações da rede micelial
     async function refreshMyceliumNetwork() {
         const terminal = document.getElementById('terminal');
         terminal.innerHTML += '<br>[MYCELIUM] Verificando status da rede micelial...';
-        
+
         try {
             const response = await fetch(`${baseUrl}/mycelium/status`);
-            
+
             if (response.ok) {
                 const data = await response.json();
-                
+
                 if (data.status === 'success') {
                     const networkStatus = data.data;
-                    
+
                     // Atualizar estatísticas
                     document.getElementById('mycelium-nodes-count').textContent = networkStatus.nodes.count;
                     document.getElementById('mycelium-files-count').textContent = networkStatus.files.count;
                     document.getElementById('mycelium-connections-count').textContent = networkStatus.connections.count;
                     document.getElementById('mycelium-health').textContent = networkStatus.health;
-                    
+
                     // Atualizar tempo da última sincronização
                     const lastSync = new Date(networkStatus.lastSync);
                     document.getElementById('lastSyncTime').textContent = lastSync.toLocaleString();
-                    
+
                     terminal.innerHTML += '<br>[MYCELIUM] Status da rede micelial atualizado com sucesso.';
                 } else {
                     terminal.innerHTML += `<br>[MYCELIUM] Erro ao obter status: ${data.message}`;
@@ -451,31 +451,31 @@ Vamos melhorar o web_client para exibir a rede micelial:
         } catch (error) {
             terminal.innerHTML += `<br>[MYCELIUM] Erro ao conectar: ${error.message}`;
         }
-        
+
         terminal.scrollTop = terminal.scrollHeight;
     }
-    
+
     // Função para registrar um arquivo na rede micelial
     async function registerFile() {
         const terminal = document.getElementById('terminal');
         terminal.innerHTML += '<br>[MYCELIUM] Registrando arquivo na rede micelial...';
-        
+
         const fileId = document.getElementById('fileId').value;
         const filePath = document.getElementById('filePath').value;
         const fileType = document.getElementById('fileType').value;
         const connectionsStr = document.getElementById('connections').value;
-        
+
         if (!fileId || !filePath || !fileType) {
             terminal.innerHTML += '<br>[MYCELIUM] Erro: Todos os campos são obrigatórios.';
             terminal.scrollTop = terminal.scrollHeight;
             return;
         }
-        
+
         // Processar conexões
         const connections = connectionsStr.split(',')
             .map(conn => conn.trim())
             .filter(conn => conn);
-        
+
         try {
             const response = await fetch(`${baseUrl}/mycelium/register-file`, {
                 method: 'POST',
@@ -489,18 +489,18 @@ Vamos melhorar o web_client para exibir a rede micelial:
                     connections
                 })
             });
-            
+
             const data = await response.json();
-            
+
             if (response.ok) {
                 terminal.innerHTML += `<br>[MYCELIUM] Arquivo registrado com sucesso: ${fileId}`;
-                
+
                 // Limpar formulário
                 document.getElementById('fileId').value = '';
                 document.getElementById('filePath').value = '';
                 document.getElementById('fileType').value = '';
                 document.getElementById('connections').value = '';
-                
+
                 // Atualizar status da rede
                 refreshMyceliumNetwork();
             } else {
@@ -509,33 +509,33 @@ Vamos melhorar o web_client para exibir a rede micelial:
         } catch (error) {
             terminal.innerHTML += `<br>[MYCELIUM] Erro ao conectar: ${error.message}`;
         }
-        
+
         terminal.scrollTop = terminal.scrollHeight;
     }
-    
+
     // Função para sincronizar arquivos na rede micelial
     // Esta função será um proxy para demonstrar o conceito, já que o server sincroniza automaticamente
     function synchronizeFiles() {
         const terminal = document.getElementById('terminal');
         terminal.innerHTML += '<br>[MYCELIUM] Solicitando sincronização dos arquivos...';
-        
+
         // Atualizar última sincronização para simular o efeito
         const now = new Date();
         document.getElementById('lastSyncTime').textContent = now.toLocaleString();
-        
+
         setTimeout(() => {
             terminal.innerHTML += '<br>[MYCELIUM] Arquivos da rede micelial sincronizados com sucesso.';
             terminal.scrollTop = terminal.scrollHeight;
         }, 1000);
     }
-    
+
     // Verificar status inicial da rede micelial
     window.addEventListener('load', () => {
         setTimeout(() => {
             refreshMyceliumNetwork();
         }, 2000); // Verificar após o status do servidor
     });
-    
+
     // ... existing code ...
 </script>
 
@@ -551,7 +551,7 @@ Agora, vamos registrar os dois principais arquivos do nosso sistema na rede mice
 # Register key files in the Mycelium Network
 function Register-MyceliumFiles {
     Write-Host "Registrando arquivos na Rede Micelial..." -ForegroundColor Cyan
-    
+
     # Define a função para registrar arquivos
     function Register-File {
         param (
@@ -560,14 +560,14 @@ function Register-MyceliumFiles {
             [string]$fileType,
             [string[]]$connections
         )
-        
+
         $body = @{
             fileId = $fileId
             filePath = $filePath
             fileType = $fileType
             connections = $connections
         } | ConvertTo-Json
-        
+
         try {
             $response = Invoke-RestMethod -Uri "http://localhost:3000/mycelium/register-file" -Method POST -Body $body -ContentType "application/json"
             Write-Host "  ✓ Arquivo registrado: $fileId" -ForegroundColor Green
@@ -576,23 +576,23 @@ function Register-MyceliumFiles {
             Write-Host "  ✗ Erro ao registrar arquivo $fileId: $_" -ForegroundColor Red
         }
     }
-    
+
     # Registrar os principais arquivos
     $baseDir = "C:\Eva Guarani EGOS"
     $quantumPromptsDir = Join-Path -Path $baseDir -ChildPath "QUANTUM_PROMPTS"
-    
+
     # Roadmap principal
     $roadmapPath = Join-Path -Path $quantumPromptsDir -ChildPath "MASTER\quantum_roadmap.md"
-    
+
     # README principal
     $readmePath = Join-Path -Path $quantumPromptsDir -ChildPath "README.md"
-    
+
     # Registrar Roadmap
     Register-File -fileId "roadmap-main" -filePath $roadmapPath -fileType "roadmap" -connections @("readme-main")
-    
+
     # Registrar README
     Register-File -fileId "readme-main" -filePath $readmePath -fileType "readme" -connections @("roadmap-main")
-    
+
     Write-Host "Rede Micelial inicializada com os arquivos principais." -ForegroundColor Cyan
 }
 
@@ -610,7 +610,7 @@ Start-Sleep -Seconds 3
 # Register files in the Mycelium Network if the server started successfully
 if ($serverProcess.HasExited -eq $false) {
     Register-MyceliumFiles
-    
+
     # Keep the script running while the server is alive
     while ($serverProcess.HasExited -eq $false) {
         Start-Sleep -Seconds 1
@@ -671,7 +671,7 @@ Essa abordagem biomimética para design de sistemas permite que o EVA & GUARANI 
 /**
  * EVA & GUARANI - Monitor da Rede Micelial
  * ✧༺❀༻∞ EVA & GUARANI EGOS ∞༺❀༻✧
- * 
+ *
  * Este script monitora a Rede Micelial e registra suas atividades em logs detalhados.
  * Executa verificações periódicas para garantir a integridade das conexões e sincronizações.
  */
@@ -719,7 +719,7 @@ const LOG_FILE = path.join(LOGS_DIR, `mycelium_monitor_${new Date().toISOString(
 function log(message, level = 'info') {
     const timestamp = new Date().toISOString();
     let coloredMessage = '';
-    
+
     switch (level) {
         case 'info':
             coloredMessage = `${colors.fg.green}[INFO]${colors.reset} ${message}`;
@@ -733,9 +733,9 @@ function log(message, level = 'info') {
         default:
             coloredMessage = `[${level.toUpperCase()}] ${message}`;
     }
-    
+
     console.log(coloredMessage);
-    
+
     // Adicionar ao arquivo de log
     const logMessage = `${timestamp} [${level.toUpperCase()}] ${message}\n`;
     fs.appendFileSync(LOG_FILE, logMessage);
@@ -759,14 +759,14 @@ function apiRequest(endpoint, method = 'GET', body = null) {
                 'Content-Type': 'application/json'
             }
         };
-        
+
         const req = http.request(options, (res) => {
             let data = '';
-            
+
             res.on('data', (chunk) => {
                 data += chunk;
             });
-            
+
             res.on('end', () => {
                 try {
                     resolve(JSON.parse(data));
@@ -775,15 +775,15 @@ function apiRequest(endpoint, method = 'GET', body = null) {
                 }
             });
         });
-        
+
         req.on('error', (error) => {
             reject(error);
         });
-        
+
         if (body) {
             req.write(JSON.stringify(body));
         }
-        
+
         req.end();
     });
 }
@@ -794,10 +794,10 @@ function apiRequest(endpoint, method = 'GET', body = null) {
 async function checkServerStatus() {
     try {
         log('Verificando status do servidor SLOP...');
-        
+
         // Solicitar status do servidor
         const response = await apiRequest('/');
-        
+
         if (response && response.status === 'success') {
             log('Servidor SLOP está operacional.');
             return true;
@@ -817,33 +817,33 @@ async function checkServerStatus() {
 async function checkMyceliumStatus() {
     try {
         log('Verificando status da Rede Micelial...');
-        
+
         // Solicitar status da rede
         const response = await apiRequest('/mycelium/status');
-        
+
         if (response && response.status === 'success') {
             const networkStatus = response.data;
-            
+
             log(`Rede Micelial: ${networkStatus.nodes.count} nós, ${networkStatus.files.count} arquivos, ${networkStatus.connections.count} conexões.`);
-            
+
             // Verificar saúde da rede
             if (networkStatus.health === 'Healthy') {
                 log('Status da rede: Saudável', 'info');
             } else {
                 log(`Status da rede: ${networkStatus.health}`, 'warn');
             }
-            
+
             // Verificar última sincronização
             const lastSync = new Date(networkStatus.lastSync);
             const now = new Date();
             const timeSinceLastSync = now - lastSync;
-            
+
             if (timeSinceLastSync > 24 * 60 * 60 * 1000) { // 24 horas
                 log(`Última sincronização foi há mais de 24 horas: ${lastSync.toLocaleString()}`, 'warn');
             } else {
                 log(`Última sincronização: ${lastSync.toLocaleString()}`);
             }
-            
+
             return networkStatus;
         } else {
             log('Falha ao obter status da Rede Micelial.', 'warn');
@@ -862,18 +862,18 @@ async function checkFileIntegrity() {
     try {
         // Obter status da rede primeiro
         const networkStatus = await checkMyceliumStatus();
-        
+
         if (!networkStatus) {
             return;
         }
-        
+
         // Verificar apenas se houver arquivos registrados
         if (networkStatus.files.count > 0) {
             log(`Verificando integridade de ${networkStatus.files.count} arquivos na rede...`);
-            
-            // Esta seria uma implementação real que verificaria a existência 
+
+            // Esta seria uma implementação real que verificaria a existência
             // e integridade de cada arquivo, mas aqui estamos apenas simulando
-            
+
             // Gerar relatório de integridade
             log('Verificação de integridade concluída. Todos os arquivos estão íntegros.');
         }
@@ -888,7 +888,7 @@ async function checkFileIntegrity() {
 function generateSystemReport() {
     try {
         log('Gerando relatório do sistema...');
-        
+
         const report = {
             timestamp: new Date().toISOString(),
             os: {
@@ -909,11 +909,11 @@ function generateSystemReport() {
                 memoryUsage: process.memoryUsage()
             }
         };
-        
+
         // Salvar relatório
         const reportFile = path.join(LOGS_DIR, `system_report_${new Date().toISOString().split('T')[0]}.json`);
         fs.writeFileSync(reportFile, JSON.stringify(report, null, 2));
-        
+
         log(`Relatório do sistema gerado: ${reportFile}`);
     } catch (error) {
         log(`Erro ao gerar relatório do sistema: ${error.message}`, 'error');
@@ -925,18 +925,18 @@ function generateSystemReport() {
  */
 async function runChecks() {
     log('Iniciando verificações da Rede Micelial...');
-    
+
     const serverOk = await checkServerStatus();
-    
+
     if (serverOk) {
         await checkMyceliumStatus();
         await checkFileIntegrity();
     } else {
         log('Servidor SLOP não está respondendo. Verificações interrompidas.', 'warn');
     }
-    
+
     generateSystemReport();
-    
+
     log('Verificações concluídas. Aguardando próximo ciclo...');
     log(`Próxima verificação em ${CHECK_INTERVAL / 60000} minutos.`);
 }
@@ -948,19 +948,19 @@ function main() {
     console.log(`${colors.fg.magenta}✧༺❀༻∞ EVA & GUARANI EGOS ∞༺❀༻✧${colors.reset}`);
     console.log(`${colors.fg.cyan}Monitor da Rede Micelial${colors.reset}`);
     console.log();
-    
+
     log(`Monitor da Rede Micelial iniciado em ${new Date().toLocaleString()}`);
     log(`Diretório base: ${BASE_DIR}`);
     log(`Diretório de logs: ${LOGS_DIR}`);
     log(`URL da API: ${API_URL}`);
     log(`Intervalo de verificação: ${CHECK_INTERVAL / 60000} minutos`);
-    
+
     // Executar verificações imediatamente
     runChecks();
-    
+
     // Agendar verificações periódicas
     setInterval(runChecks, CHECK_INTERVAL);
-    
+
     log('Monitor em execução. Pressione Ctrl+C para interromper.');
 }
 
@@ -1032,7 +1032,7 @@ Write-Host "`nPressione Ctrl+C para interromper o monitor.`n" -ForegroundColor R
 try {
     # Definir variáveis de ambiente
     $env:NODE_ENV = "production"
-    
+
     # Iniciar o script
     node $scriptPath
 } catch {
@@ -1103,7 +1103,7 @@ Write-Host "`nPressione Ctrl+C para interromper o monitor.`n" -ForegroundColor R
 try {
     # Definir variáveis de ambiente
     $env:NODE_ENV = "production"
-    
+
     # Iniciar o script
     node $scriptPath
 } catch {

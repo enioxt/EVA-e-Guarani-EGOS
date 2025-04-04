@@ -1,1 +1,1 @@
-"""Tests for the ATLAS subsystem.""" 
+"""Tests for the ATLAS subsystem."""

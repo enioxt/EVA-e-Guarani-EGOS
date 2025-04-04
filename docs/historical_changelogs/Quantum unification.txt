@@ -57,10 +57,10 @@ class SubsystemConfig:
 
 class QuantumUnification:
     """Unified system for managing EVA & GUARANI ecosystem."""
-    
+
     def __init__(self, subsystem: Optional[SubsystemType] = None):
         """Initialize the unification system.
-        
+
         Args:
             subsystem: Optional specific subsystem to process. If None, processes all.
         """
@@ -69,16 +69,16 @@ class QuantumUnification:
         self.subsystem = subsystem
         self.configs = self._load_configs()
         self.context = self._initialize_context()
-        
+
     def _setup_logger(self) -> logging.Logger:
         """Configure unified logging system."""
         logger = logging.getLogger("QUANTUM_UNIFICATION")
         logger.setLevel(logging.INFO)
-        
+
         # Create logs directory in MASTER
         log_dir = Path("QUANTUM_PROMPTS/MASTER/logs")
         log_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Console handler
         console_handler = logging.StreamHandler(sys.stdout)
         console_handler.setLevel(logging.INFO)
@@ -88,7 +88,7 @@ class QuantumUnification:
         )
         console_handler.setFormatter(console_format)
         logger.addHandler(console_handler)
-        
+
         # File handler
         file_handler = logging.FileHandler(
             log_dir / f"quantum_unification_{self.timestamp}.log",
@@ -101,18 +101,18 @@ class QuantumUnification:
         )
         file_handler.setFormatter(file_format)
         logger.addHandler(file_handler)
-        
+
         return logger
-        
+
     def _load_configs(self) -> Dict[SubsystemType, SubsystemConfig]:
         """Load configurations for all subsystems."""
         config_path = Path("QUANTUM_PROMPTS/MASTER/config/subsystems.yaml")
         if not config_path.exists():
             self._create_default_config(config_path)
-            
+
         with open(config_path) as f:
             raw_config = yaml.safe_load(f)
-            
+
         configs = {}
         for subsystem in SubsystemType:
             if subsystem.name.lower() in raw_config:
@@ -128,9 +128,9 @@ class QuantumUnification:
                     dependencies=cfg.get("dependencies", []),
                     ethical_rules=cfg.get("ethical_rules", [])
                 )
-        
+
         return configs
-        
+
     def _create_default_config(self, config_path: Path) -> None:
         """Create default configuration if none exists."""
         default_config = {
@@ -156,11 +156,11 @@ class QuantumUnification:
             },
             # Add other subsystems...
         }
-        
+
         config_path.parent.mkdir(parents=True, exist_ok=True)
         with open(config_path, 'w') as f:
             yaml.safe_dump(default_config, f)
-            
+
     def _initialize_context(self) -> Dict[str, Any]:
         """Initialize the quantum context for intelligent processing."""
         return {
@@ -179,21 +179,21 @@ class QuantumUnification:
                 "security_checks": 0
             }
         }
-        
+
     def check_environment(self) -> bool:
         """Verify environment for all required tools."""
         self.logger.info("Checking quantum environment...")
-        
+
         # Determine which subsystems to check
         subsystems = [self.subsystem] if self.subsystem else list(SubsystemType)
-        
+
         for subsystem in subsystems:
             if subsystem not in self.configs:
                 continue
-                
+
             config = self.configs[subsystem]
             self.logger.info(f"Checking {subsystem.name} requirements...")
-            
+
             for tool in config.required_tools:
                 try:
                     cmd = "where" if sys.platform == "win32" else "which"
@@ -211,87 +211,87 @@ class QuantumUnification:
                 except Exception as e:
                     self.logger.error(f"[ERROR] Failed to check {tool}: {str(e)}")
                     return False
-                    
+
         return True
-        
+
     def create_backup(self) -> bool:
         """Create intelligent backup of system files."""
         self.logger.info("Creating quantum backup...")
-        
+
         try:
             # Determine which subsystems to backup
             subsystems = [self.subsystem] if self.subsystem else list(SubsystemType)
-            
+
             for subsystem in subsystems:
                 if subsystem not in self.configs:
                     continue
-                    
+
                 config = self.configs[subsystem]
                 backup_path = f"{config.backup_dir}_{self.timestamp}"
                 special_backup = f"{config.special_dir}_{self.timestamp}"
-                
+
                 # Create backup directories
                 os.makedirs(backup_path, exist_ok=True)
                 if config.special_dir:
                     os.makedirs(special_backup, exist_ok=True)
-                
+
                 # Backup source directories
                 for source_dir in config.source_dirs:
                     if os.path.exists(source_dir):
                         target_dir = os.path.join(backup_path, os.path.basename(source_dir))
                         shutil.copytree(source_dir, target_dir, dirs_exist_ok=True)
-                        
+
                 # Handle special files
                 for pattern in config.special_files:
                     for file in Path().glob(pattern):
                         if file.exists():
                             target_file = Path(special_backup) / file.name
                             shutil.copy2(file, target_file)
-                            
+
                 self.logger.info(f"Created backup for {subsystem.name}")
-                
+
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Backup failed: {str(e)}")
             return False
-            
+
     def _verify_backup_integrity(self) -> bool:
         """Verify integrity of all backups."""
         self.logger.info("Verifying quantum backup integrity...")
-        
+
         try:
             subsystems = [self.subsystem] if self.subsystem else list(SubsystemType)
-            
+
             for subsystem in subsystems:
                 if subsystem not in self.configs:
                     continue
-                    
+
                 config = self.configs[subsystem]
                 backup_path = f"{config.backup_dir}_{self.timestamp}"
                 special_backup = f"{config.special_dir}_{self.timestamp}"
-                
+
                 # Verify source directories
                 for source_dir in config.source_dirs:
                     source_path = Path(source_dir)
                     backup_path_full = Path(backup_path) / source_dir
-                    
+
                     if source_path.exists() and backup_path_full.exists():
                         source_files = set(f.relative_to(source_path) for f in source_path.rglob("*") if f.is_file())
                         backup_files = set(f.relative_to(backup_path_full) for f in backup_path_full.rglob("*") if f.is_file())
-                        
+
                         if source_files != backup_files:
                             self.logger.error(f"Backup mismatch in {source_dir}")
                             return False
-                            
+
                         for file in source_files:
                             source_hash = self._calculate_file_hash(source_path / file)
                             backup_hash = self._calculate_file_hash(backup_path_full / file)
-                            
+
                             if source_hash != backup_hash:
                                 self.logger.error(f"Hash mismatch for {file}")
                                 return False
-                                
+
                 # Verify special files
                 for pattern in config.special_files:
                     for file in Path().glob(pattern):
@@ -300,21 +300,21 @@ class QuantumUnification:
                             if not special_file.exists():
                                 self.logger.error(f"Special file {file.name} not found in backup")
                                 return False
-                                
+
                             source_hash = self._calculate_file_hash(file)
                             backup_hash = self._calculate_file_hash(special_file)
-                            
+
                             if source_hash != backup_hash:
                                 self.logger.error(f"Hash mismatch for special file {file.name}")
                                 return False
-                                
+
             self.logger.info("Backup integrity verified successfully")
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Backup verification failed: {str(e)}")
             return False
-            
+
     def _calculate_file_hash(self, file_path: Path) -> str:
         """Calculate SHA-256 hash of a file."""
         sha256_hash = hashlib.sha256()
@@ -322,117 +322,117 @@ class QuantumUnification:
             for byte_block in iter(lambda: f.read(4096), b""):
                 sha256_hash.update(byte_block)
         return sha256_hash.hexdigest()
-        
+
     def create_target_structure(self) -> bool:
         """Create unified target directory structure."""
         self.logger.info("Creating quantum target structure...")
-        
+
         try:
             subsystems = [self.subsystem] if self.subsystem else list(SubsystemType)
-            
+
             for subsystem in subsystems:
                 if subsystem not in self.configs:
                     continue
-                    
+
                 config = self.configs[subsystem]
                 target_path = Path(config.target_dir)
-                
+
                 # Create main directories
                 target_path.mkdir(parents=True, exist_ok=True)
-                
+
                 # Create standard subdirectories
                 standard_dirs = ["core", "docs", "tests", "scripts", "config"]
                 for dir_name in standard_dirs:
                     (target_path / dir_name).mkdir(exist_ok=True)
-                    
+
                 # Create special directories based on subsystem
                 if subsystem == SubsystemType.ETHIK:
                     (target_path / "contracts").mkdir(exist_ok=True)
                     (target_path / "migrations").mkdir(exist_ok=True)
                 elif subsystem == SubsystemType.ATLAS:
                     (target_path / "visualizations").mkdir(exist_ok=True)
-                    
+
                 self.logger.info(f"Created directory structure for {subsystem.name}")
-                
+
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Failed to create target structure: {str(e)}")
             return False
-            
+
     def move_files(self) -> bool:
         """Intelligently move files to their target locations."""
         self.logger.info("Moving files to quantum structure...")
-        
+
         try:
             subsystems = [self.subsystem] if self.subsystem else list(SubsystemType)
-            
+
             for subsystem in subsystems:
                 if subsystem not in self.configs:
                     continue
-                    
+
                 config = self.configs[subsystem]
-                
+
                 # Process each source directory
                 for source_dir in config.source_dirs:
                     if not os.path.exists(source_dir):
                         continue
-                        
+
                     source_path = Path(source_dir)
                     target_base = Path(config.target_dir)
-                    
+
                     # Walk through source directory
                     for root, dirs, files in os.walk(source_dir):
                         rel_path = Path(root).relative_to(source_path)
                         target_path = target_base / rel_path
-                        
+
                         # Create target directory
                         target_path.mkdir(parents=True, exist_ok=True)
-                        
+
                         # Move files
                         for file in files:
                             source_file = Path(root) / file
                             target_file = target_path / file
-                            
+
                             # Skip if file already exists in target
                             if target_file.exists():
                                 continue
-                                
+
                             # Perform ethical validation before moving
                             if not self._validate_file_ethically(source_file):
                                 self.logger.warning(f"Ethical validation failed for {source_file}")
                                 continue
-                                
+
                             # Move file
                             shutil.copy2(source_file, target_file)
                             self.context["files_processed"].add(str(target_file))
                             self.context["metrics"]["files_processed"] += 1
-                            
+
                 self.logger.info(f"Moved files for {subsystem.name}")
-                
+
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Failed to move files: {str(e)}")
             return False
-            
+
     def _validate_file_ethically(self, file_path: Path) -> bool:
         """Perform ethical validation of file content."""
         try:
             # Skip binary files
             if self._is_binary_file(file_path):
                 return True
-                
+
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
-                
+
             # Check for ethical violations
             violations = []
-            
+
             # Check for hardcoded credentials
             if re.search(r'password|secret|key|token', content, re.I):
                 violations.append("Potential hardcoded credentials")
-                
+
             # Check for offensive language
             offensive_patterns = [
                 r'offensive|discriminatory|inappropriate',
@@ -441,22 +441,22 @@ class QuantumUnification:
             for pattern in offensive_patterns:
                 if re.search(pattern, content, re.I):
                     violations.append(f"Potentially inappropriate content: {pattern}")
-                    
+
             # Log violations
             if violations:
                 self.logger.warning(f"Ethical concerns in {file_path}:")
                 for violation in violations:
                     self.logger.warning(f"- {violation}")
                 return False
-                
+
             self.context["ethical_validations"].append(str(file_path))
             self.context["metrics"]["ethical_validations"] += 1
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Failed to validate file ethically: {str(e)}")
             return False
-            
+
     def _is_binary_file(self, file_path: Path) -> bool:
         """Check if a file is binary."""
         try:
@@ -465,39 +465,39 @@ class QuantumUnification:
                 return b'\0' in chunk
         except Exception:
             return True
-            
+
     def update_references(self) -> bool:
         """Update file references across the system."""
         self.logger.info("Updating quantum references...")
-        
+
         try:
             # Process each file that was moved
             for file_path in self.context["files_processed"]:
                 file_path = Path(file_path)
                 if not file_path.exists() or self._is_binary_file(file_path):
                     continue
-                    
+
                 with open(file_path, 'r', encoding='utf-8') as f:
                     content = f.read()
-                    
+
                 # Update different types of references
                 new_content = content
                 new_content = self._update_python_imports(new_content)
                 new_content = self._update_javascript_imports(new_content)
                 new_content = self._update_json_references(new_content)
                 new_content = self._update_markdown_links(new_content)
-                
+
                 if new_content != content:
                     with open(file_path, 'w', encoding='utf-8') as f:
                         f.write(new_content)
                     self.context["reference_updates"][str(file_path)] = True
-                    
+
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Failed to update references: {str(e)}")
             return False
-            
+
     def _update_python_imports(self, content: str) -> str:
         """Update Python import statements."""
         # Update relative imports
@@ -506,16 +506,16 @@ class QuantumUnification:
             lambda m: f'from QUANTUM_PROMPTS.{self.subsystem.name.lower()}.{m.group(1)} import',
             content
         )
-        
+
         # Update absolute imports
         content = re.sub(
             r'from (ethik|atlas|nexus|cronos)(.*?) import',
             lambda m: f'from QUANTUM_PROMPTS.{m.group(1).upper()}{m.group(2)} import',
             content
         )
-        
+
         return content
-        
+
     def _update_javascript_imports(self, content: str) -> str:
         """Update JavaScript import statements."""
         # Update relative imports
@@ -524,9 +524,9 @@ class QuantumUnification:
             lambda m: f'from \'QUANTUM_PROMPTS/{self.subsystem.name.lower()}/{m.group(1)}\'',
             content
         )
-        
+
         return content
-        
+
     def _update_json_references(self, content: str) -> str:
         """Update JSON file references."""
         try:
@@ -535,7 +535,7 @@ class QuantumUnification:
             return json.dumps(updated_data, indent=2)
         except json.JSONDecodeError:
             return content
-            
+
     def _update_json_dict(self, data: Dict) -> Dict:
         """Recursively update JSON dictionary values."""
         if isinstance(data, dict):
@@ -551,7 +551,7 @@ class QuantumUnification:
                     data
                 )
         return data
-        
+
     def _update_markdown_links(self, content: str) -> str:
         """Update Markdown links."""
         return re.sub(
@@ -559,33 +559,33 @@ class QuantumUnification:
             lambda m: f'[{m.group(1)}]({m.group(2)}QUANTUM_PROMPTS/{m.group(3).upper()}/{m.group(4)})',
             content
         )
-        
+
     def validate_migration(self) -> bool:
         """Validate the entire migration process."""
         self.logger.info("Validating quantum migration...")
-        
+
         try:
             subsystems = [self.subsystem] if self.subsystem else list(SubsystemType)
-            
+
             for subsystem in subsystems:
                 if subsystem not in self.configs:
                     continue
-                    
+
                 config = self.configs[subsystem]
                 target_path = Path(config.target_dir)
-                
+
                 # Check directory structure
                 if not target_path.exists():
                     self.logger.error(f"Target directory {target_path} does not exist")
                     return False
-                    
+
                 # Verify required directories
                 required_dirs = ["core", "docs", "tests", "scripts", "config"]
                 for dir_name in required_dirs:
                     if not (target_path / dir_name).exists():
                         self.logger.error(f"Required directory {dir_name} missing in {subsystem.name}")
                         return False
-                        
+
                 # Verify special directories
                 if subsystem == SubsystemType.ETHIK:
                     if not (target_path / "contracts").exists():
@@ -595,7 +595,7 @@ class QuantumUnification:
                     if not (target_path / "visualizations").exists():
                         self.logger.error("Visualizations directory missing in ATLAS")
                         return False
-                        
+
                 # Verify file migrations
                 for source_dir in config.source_dirs:
                     source_path = Path(source_dir)
@@ -606,25 +606,25 @@ class QuantumUnification:
                             if not target_file.exists():
                                 self.logger.error(f"File {file} not migrated to {target_file}")
                                 return False
-                                
+
                 # Verify reference updates
                 for file_path in self.context["reference_updates"]:
                     if not Path(file_path).exists():
                         self.logger.error(f"Updated file {file_path} not found")
                         return False
-                        
+
                 self.logger.info(f"Validated migration for {subsystem.name}")
-                
+
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Migration validation failed: {str(e)}")
             return False
-            
+
     def generate_report(self) -> bool:
         """Generate comprehensive migration report."""
         self.logger.info("Generating quantum migration report...")
-        
+
         try:
             report = {
                 "timestamp": self.timestamp,
@@ -635,13 +635,13 @@ class QuantumUnification:
                 "reference_updates": len(self.context["reference_updates"]),
                 "status": "success"
             }
-            
+
             subsystems = [self.subsystem] if self.subsystem else list(SubsystemType)
-            
+
             for subsystem in subsystems:
                 if subsystem not in self.configs:
                     continue
-                    
+
                 config = self.configs[subsystem]
                 subsystem_report = {
                     "name": subsystem.name,
@@ -661,74 +661,74 @@ class QuantumUnification:
                     )
                 }
                 report["subsystems"].append(subsystem_report)
-                
+
             # Save report
             report_dir = Path("QUANTUM_PROMPTS/MASTER/reports")
             report_dir.mkdir(parents=True, exist_ok=True)
             report_file = report_dir / f"quantum_unification_{self.timestamp}.json"
-            
+
             with open(report_file, 'w', encoding='utf-8') as f:
                 json.dump(report, f, indent=2)
-                
+
             self.logger.info(f"Report generated: {report_file}")
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Report generation failed: {str(e)}")
             return False
-            
+
     def execute(self) -> bool:
         """Execute the complete unification process."""
         self.logger.info("Starting quantum unification process...")
-        
+
         try:
             # Check environment
             if not self.check_environment():
                 self.logger.error("Environment check failed")
                 return False
-                
+
             # Create backups
             if not self.create_backup():
                 self.logger.error("Backup creation failed")
                 return False
-                
+
             # Verify backup integrity
             if not self._verify_backup_integrity():
                 self.logger.error("Backup verification failed")
                 return False
-                
+
             # Create target structure
             if not self.create_target_structure():
                 self.logger.error("Target structure creation failed")
                 return False
-                
+
             # Move files
             if not self.move_files():
                 self.logger.error("File migration failed")
                 return False
-                
+
             # Update references
             if not self.update_references():
                 self.logger.error("Reference update failed")
                 return False
-                
+
             # Validate migration
             if not self.validate_migration():
                 self.logger.error("Migration validation failed")
                 return False
-                
+
             # Generate report
             if not self.generate_report():
                 self.logger.error("Report generation failed")
                 return False
-                
+
             self.logger.info("Quantum unification completed successfully")
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Unification process failed: {str(e)}")
             return False
-            
+
 def main():
     """Main entry point for quantum unification."""
     # Parse command line arguments
@@ -740,13 +740,13 @@ def main():
             return 1
     else:
         subsystem = None
-        
+
     # Execute unification
     unifier = QuantumUnification(subsystem)
     success = unifier.execute()
-    
+
     return 0 if success else 1
-    
+
 if __name__ == "__main__":
     sys.exit(main())
 ```
@@ -758,7 +758,7 @@ Now let me create the configuration file for the unified system:
 # Date: 2025-03-30
 
 master:
-  source_dirs: 
+  source_dirs:
     - "MASTER"
   target_dir: "QUANTUM_PROMPTS/MASTER"
   backup_dir: "quarantine/MASTER_backup"

@@ -33,4 +33,4 @@ Esta estrutura garante que a implementação siga o framework conceitual enquant
 
 ---
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

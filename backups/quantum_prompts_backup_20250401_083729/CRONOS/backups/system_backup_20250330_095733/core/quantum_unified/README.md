@@ -21,7 +21,7 @@ graph TD
     QUS --> NEXUS[NEXUS]
     QUS --> CRONOS[CRONOS]
     QUS --> META[Metadata System]
-    
+
     BIOS --> QS[Quantum State]
     ETHIK --> QS
     ATLAS --> QS
@@ -111,4 +111,4 @@ The server maintains and synchronizes quantum states including:
 Current Version: 1.0.0
 Last Updated: 2025-03-29
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

@@ -50,7 +50,7 @@ CURRENT_RETRY = 0
 def load_config() -> Dict[str, Any]:
     """
     Loads the Telegram bot configuration.
-    
+
     Returns:
         Dictionary with the settings.
     """
@@ -72,7 +72,7 @@ def load_config() -> Dict[str, Any]:
 async def start_bot(config: Dict[str, Any]) -> None:
     """
     Starts the Telegram bot with error handling and reconnection.
-    
+
     Args:
         config: Bot settings.
     """
@@ -85,37 +85,37 @@ async def start_bot(config: Dict[str, Any]) -> None:
             logger.error("python-telegram-bot library not found.")
             logger.error("Install it with: pip install python-telegram-bot")
             sys.exit(1)
-        
+
         # Check bot token
         bot_token = config.get("bot_token")
         if not bot_token:
             logger.error("Bot token not configured in the configuration file.")
             sys.exit(1)
-        
+
         # Check connection to Telegram
         logger.info("Checking connection to Telegram...")
         bot = Bot(token=bot_token)
         me = await bot.get_me()
         logger.info(f"Connected to Telegram as @{me.username} (ID: {me.id})")
-        
+
         # Import main bot module
         try:
             # First try to import the main module
             sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            
+
             # First try unified_telegram_bot_utf8.            if os.path.exists("bot/unified_telegram_bot_utf8.py"):
                 logger.info("Importing module unified_telegram_bot_utf8...")
                 from bot.unified_telegram_bot_utf8 import main as bot_main
                 await bot_main()
                 return
-            
+
             # Try eva_guarani_main.py
             elif os.path.exists("bot/eva_guarani_main.py"):
                 logger.info("Importing module eva_guarani_main...")
                 from bot.eva_guarani_main import main as eva_guarani_main
                 await eva_guarani_main()
                 return
-            
+
             # Try telegram_bot.py in the root
             elif os.path.exists("telegram_bot.py"):
                 logger.info("Importing module telegram_bot...")
@@ -127,48 +127,48 @@ async def start_bot(config: Dict[str, Any]) -> None:
                     return
                 else:
                     logger.error("Error loading the module telegram_bot.py")
-            
+
             # If reached here, no main module found
             logger.error("No main bot file found.")
             logger.error("Check if the files bot/unified_telegram_bot_utf8.py, bot/eva_guarani_main.py or telegram_bot.py exist.")
-            
+
             # As a fallback, run a minimal version of the bot
             logger.info("Starting minimal version of the bot as fallback...")
             await run_minimal_bot(bot_token)
-            
+
         except Exception as e:
             logger.error(f"Error importing bot module: {e}")
             logger.error(traceback.format_exc())
-            
+
             # Start minimal version as fallback
             logger.info("Starting minimal version of the bot as fallback after error...")
             await run_minimal_bot(bot_token)
-    
+
     except Exception as e:
         global CURRENT_RETRY
         CURRENT_RETRY += 1
-        
+
         if MAX_RETRIES > 0 and CURRENT_RETRY > MAX_RETRIES:
             logger.error(f"Maximum number of retries exceeded ({MAX_RETRIES}). Exiting.")
             sys.exit(1)
-        
+
         logger.error(f"Error starting the bot: {e}")
         logger.error(traceback.format_exc())
         logger.info(f"Retrying in {RETRY_DELAY} seconds (attempt {CURRENT_RETRY})...")
-        
+
         await asyncio.sleep(RETRY_DELAY)
         await start_bot(config)
 
 async def run_minimal_bot(token: str) -> None:
     """
     Runs a minimal version of the bot to ensure at least something is working.
-    
+
     Args:
         token: Telegram bot token.
     """
     from telegram import Update
     from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-    
+
     # Minimal handlers
     async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         if update and update.message:
@@ -177,7 +177,7 @@ async def run_minimal_bot(token: str) -> None:
                 "I am running in minimal mode due to an initialization issue.\n"
                 "Please contact the system administrator."
             )
-    
+
     async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         if update and update.message:
             await update.message.reply_text(
@@ -186,7 +186,7 @@ async def run_minimal_bot(token: str) -> None:
                 "/help - Show this help\n"
                 "/status - Check system status"
             )
-    
+
     async def status_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         if update and update.message:
             await update.message.reply_text(
@@ -198,27 +198,27 @@ async def run_minimal_bot(token: str) -> None:
                 "✅ Connection: Active\n\n"
                 "Administrators have been notified."
             )
-    
+
     async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         if update and update.message:
             await update.message.reply_text(
                 "I am running in minimal mode. Please use /help to see available commands."
             )
-    
+
     # Configure application
     application = Application.builder().token(token).build()
-    
+
     # Register handlers
     application.add_handler(CommandHandler("start", start_command))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("status", status_command))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    
+
     # Start bot
     logger.info("Starting bot in minimal mode...")
     await application.initialize()
     await application.start()
-    
+
     # Start polling safely
     updater = application.updater
     if updater:
@@ -226,9 +226,9 @@ async def run_minimal_bot(token: str) -> None:
     else:
         logger.error("Error: Updater is not available.")
         return
-    
+
     logger.info("Minimal bot started successfully! Awaiting commands...")
-    
+
     # Keep the bot running
     while True:
         await asyncio.sleep(1)
@@ -243,14 +243,14 @@ def main() -> None:
     """
     print(banner)
     logger.info("Starting EVA & GUARANI Telegram Bot...")
-    
+
     # Check necessary directories
     for dir_path in ["logs", "config", "data"]:
         os.makedirs(dir_path, exist_ok=True)
-    
+
     # Load configuration
     config = load_config()
-    
+
     # Start bot with error handling
     try:
         asyncio.run(start_bot(config))

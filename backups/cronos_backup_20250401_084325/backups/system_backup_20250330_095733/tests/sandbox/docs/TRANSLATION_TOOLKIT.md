@@ -224,7 +224,7 @@ The Translation Toolkit is designed to work with all components of the EVA & GUA
    ```bash
    # Windows
    set OPENAI_API_KEY=your_api_key_here
-   
+
    # PowerShell
    $env:OPENAI_API_KEY="your_api_key_here"
    ```
@@ -233,10 +233,10 @@ The Translation Toolkit is designed to work with all components of the EVA & GUA
 
    ```bash
    cd "C:\Eva & Guarani - EGOS\sandbox\tools"
-   
+
    # PowerShell
    .\translate_tools.ps1
-   
+
    # Windows Batch
    translate_tools.bat
    ```

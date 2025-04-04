@@ -25,4 +25,4 @@ Write-Host "Iniciando servidor SLOP..." -ForegroundColor Cyan
 Write-Host "Pressione Ctrl+C para encerrar o servidor`n" -ForegroundColor Yellow
 
 # Iniciar o servidor diretamente (sem processos em segundo plano)
-node slop_server.js 
+node slop_server.js

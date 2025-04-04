@@ -3,7 +3,7 @@
 # Date: 2025-03-30
 
 master:
-  source_dirs: 
+  source_dirs:
     - "MASTER"
   target_dir: "QUANTUM_PROMPTS/MASTER"
   backup_dir: "quarantine/MASTER_backup"
@@ -138,4 +138,4 @@ bios_q:
   dependencies:
     - "MASTER"
   ethical_rules:
-    - "bios_q_ethics.json" 
+    - "bios_q_ethics.json"

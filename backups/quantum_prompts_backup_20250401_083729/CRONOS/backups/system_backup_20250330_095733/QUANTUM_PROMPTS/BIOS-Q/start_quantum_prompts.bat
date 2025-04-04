@@ -86,4 +86,4 @@ echo.
 echo Quantum Prompts synchronized successfully!
 echo All models will now have access to the complete context.
 echo.
-pause 
+pause

@@ -78,4 +78,4 @@ This roadmap outlines the systematic migration of directories to optimize system
 - Documentation updated
 
 ---
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

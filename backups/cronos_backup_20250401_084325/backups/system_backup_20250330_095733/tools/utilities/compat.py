@@ -19,11 +19,15 @@ if root_dir not in sys.path:
 # Import quantum modules
 try:
     import quantum
-    
+
     # Create aliases for compatibility
     sys.modules["quantum_master"] = importlib.import_module("quantum.quantum_master")
-    sys.modules["quantum_consciousness_backup"] = importlib.import_module("quantum.quantum_consciousness_backup")
-    sys.modules["quantum_memory_preservation"] = importlib.import_module("quantum.quantum_memory_preservation")
+    sys.modules["quantum_consciousness_backup"] = importlib.import_module(
+        "quantum.quantum_consciousness_backup"
+    )
+    sys.modules["quantum_memory_preservation"] = importlib.import_module(
+        "quantum.quantum_memory_preservation"
+    )
     sys.modules["quantum_optimizer"] = importlib.import_module("quantum.quantum_optimizer")
 except ImportError as e:
     print(f"Error importing quantum modules: {e}")

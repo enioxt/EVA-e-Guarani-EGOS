@@ -118,7 +118,7 @@ graph TD
     EVA --> NEXUS[NEXUS: Modular Analysis]
     EVA --> CRONOS[CRONOS: Context Retention]
     EVA --> ETHIK[ETHIK: Ethical Framework]
-    
+
     CRONOS --> Save[Save Context]
     CRONOS --> Load[Load Context]
     CRONOS --> Monitor[Monitor Context]

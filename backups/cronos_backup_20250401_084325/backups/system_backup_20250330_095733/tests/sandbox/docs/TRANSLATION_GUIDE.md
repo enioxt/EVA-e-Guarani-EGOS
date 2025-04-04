@@ -110,7 +110,7 @@ For AI-assisted translation, you need an OpenAI API key:
    ```
    # Windows
    set OPENAI_API_KEY=your-api-key
-   
+
    # PowerShell
    $env:OPENAI_API_KEY="your-api-key"
    ```

@@ -74,4 +74,4 @@ Write-Host "---
 # Deactivate virtual environment
 Write-Host "[NEXUS Test Runner] Deactivating virtual environment..."
 deactivate
-Write-Host "[NEXUS Test Runner] Finished." 
+Write-Host "[NEXUS Test Runner] Finished."

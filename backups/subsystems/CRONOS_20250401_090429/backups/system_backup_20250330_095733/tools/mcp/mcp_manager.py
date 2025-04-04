@@ -24,7 +24,9 @@ import shutil
 from pathlib import Path
 
 # Configurações
-MCP_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "BIOS-Q", "mcp")
+MCP_ROOT = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "BIOS-Q", "mcp"
+)
 ACTIVE_DIR = os.path.join(MCP_ROOT, "active")
 ARCHIVE_DIR = os.path.join(MCP_ROOT, "archive")
 TEMPLATE_DIR = os.path.join(MCP_ROOT, "templates")
@@ -33,11 +35,12 @@ TEMPLATE_DIR = os.path.join(MCP_ROOT, "templates")
 for dir_path in [MCP_ROOT, ACTIVE_DIR, ARCHIVE_DIR, TEMPLATE_DIR]:
     os.makedirs(dir_path, exist_ok=True)
 
+
 class MCPProtocol:
     """
     Implementação do Model Context Protocol para preservação de contexto no Cursor
     """
-    
+
     def __init__(self, session_id=None, topic=None):
         """Inicializa um novo MCP ou carrega um existente"""
         self.session_id = session_id or self._generate_session_id()
@@ -55,22 +58,22 @@ class MCPProtocol:
         self.metadata = {
             "system": "EVA & GUARANI",
             "subsystem": "BIOS-Q",
-            "encoding_version": "1.0"
+            "encoding_version": "1.0",
         }
-        
+
     def _generate_session_id(self):
         """Gera um ID único para a sessão"""
         timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
         random_suffix = hashlib.md5(str(time.time()).encode()).hexdigest()[:8]
         return f"mcp_{timestamp}_{random_suffix}"
-    
+
     def update_from_conversation(self, conversation_text, summary=None):
         """Atualiza o MCP com informações da conversa atual"""
         # Atualizações básicas
         self.updated_at = datetime.datetime.now().isoformat()
         self.context_size = len(conversation_text)
         self.message_count += 1
-        
+
         # Extrair conceitos-chave
         # Em uma implementação real, usaríamos NLP para extrair conceitos
         # Aqui usamos uma simplificação
@@ -80,29 +83,31 @@ class MCPProtocol:
         for concept in potential_concepts:
             if concept not in self.key_concepts and len(self.key_concepts) < 20:
                 self.key_concepts.append(concept)
-                
+
         # Adicionar resumo se fornecido
         if summary:
-            self.summaries.append({
-                "timestamp": datetime.datetime.now().isoformat(),
-                "content": summary,
-                "token_count": len(summary.split())
-            })
-    
+            self.summaries.append(
+                {
+                    "timestamp": datetime.datetime.now().isoformat(),
+                    "content": summary,
+                    "token_count": len(summary.split()),
+                }
+            )
+
     def save(self, path=None):
         """Salva o MCP no formato JSON"""
         if not path:
             path = os.path.join(ACTIVE_DIR, f"{self.session_id}.json")
-            
+
         # Converter para JSON
         mcp_data = self.to_dict()
-        
+
         # Salvar arquivo
-        with open(path, 'w', encoding='utf-8') as f:
+        with open(path, "w", encoding="utf-8") as f:
             json.dump(mcp_data, f, indent=2)
-            
+
         return path
-    
+
     def to_dict(self):
         """Converte o MCP para dicionário"""
         return {
@@ -118,9 +123,9 @@ class MCPProtocol:
             "status": self.status,
             "version": self.version,
             "related_mcps": self.related_mcps,
-            "metadata": self.metadata
+            "metadata": self.metadata,
         }
-    
+
     @classmethod
     def from_dict(cls, data):
         """Cria um MCP a partir de um dicionário"""
@@ -138,14 +143,14 @@ class MCPProtocol:
         mcp.related_mcps = data.get("related_mcps", [])
         mcp.metadata = data.get("metadata", {})
         return mcp
-    
+
     @classmethod
     def load(cls, path):
         """Carrega um MCP a partir de um arquivo"""
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         return cls.from_dict(data)
-    
+
     def to_cursor_format(self):
         """Converte o MCP para um formato que pode ser incluído numa conversa do Cursor"""
         # Criar uma versão compacta para incluir no prompt
@@ -155,9 +160,9 @@ class MCPProtocol:
             "topic": self.topic,
             "updated": self.updated_at,
             "concepts": self.key_concepts,
-            "summary": self.summaries[-1]["content"] if self.summaries else "Sem resumo disponível"
+            "summary": self.summaries[-1]["content"] if self.summaries else "Sem resumo disponível",
         }
-        
+
         # Formato para incluir na conversa
         cursor_format = (
             "<!-- MCP:START -->\n"
@@ -166,55 +171,56 @@ class MCPProtocol:
             "O MCP acima contém o contexto compactado desta conversa. "
             "Por favor, mantenha-o e use-o para preservar o contexto em caso de reset."
         )
-        
+
         return cursor_format
-        
+
+
 class MCPManager:
     """
     Gerencia MCPs para sessões do Cursor
     """
-    
+
     @staticmethod
     def create_new_mcp(topic=None):
         """Cria um novo MCP"""
         mcp = MCPProtocol(topic=topic)
         file_path = mcp.save()
         return mcp, file_path
-    
+
     @staticmethod
     def get_latest_mcp():
         """Recupera o MCP mais recente"""
         if not os.path.exists(ACTIVE_DIR):
             return None
-            
-        mcp_files = [f for f in os.listdir(ACTIVE_DIR) if f.endswith('.json')]
+
+        mcp_files = [f for f in os.listdir(ACTIVE_DIR) if f.endswith(".json")]
         if not mcp_files:
             return None
-            
+
         # Ordenar por data de modificação (mais recente primeiro)
         mcp_files.sort(key=lambda f: os.path.getmtime(os.path.join(ACTIVE_DIR, f)), reverse=True)
-        
+
         # Carregar o mais recente
         latest_path = os.path.join(ACTIVE_DIR, mcp_files[0])
         return MCPProtocol.load(latest_path)
-    
+
     @staticmethod
     def archive_mcp(mcp):
         """Arquiva um MCP (move de active para archive)"""
         source_path = os.path.join(ACTIVE_DIR, f"{mcp.session_id}.json")
         if not os.path.exists(source_path):
             source_path = mcp.save()
-            
+
         # Atualizar status
         mcp.status = "archived"
         mcp.save(source_path)
-        
+
         # Mover para arquivo
         dest_path = os.path.join(ARCHIVE_DIR, f"{mcp.session_id}.json")
         shutil.move(source_path, dest_path)
-        
+
         return dest_path
-    
+
     @staticmethod
     def get_mcp_by_id(session_id):
         """Recupera um MCP específico pelo ID"""
@@ -222,14 +228,14 @@ class MCPManager:
         active_path = os.path.join(ACTIVE_DIR, f"{session_id}.json")
         if os.path.exists(active_path):
             return MCPProtocol.load(active_path)
-            
+
         # Verificar em archive
         archive_path = os.path.join(ARCHIVE_DIR, f"{session_id}.json")
         if os.path.exists(archive_path):
             return MCPProtocol.load(archive_path)
-            
+
         return None
-    
+
     @staticmethod
     def get_mcp_summary(mcp=None):
         """Gera um resumo de um MCP"""
@@ -237,13 +243,13 @@ class MCPManager:
             mcp = MCPManager.get_latest_mcp()
             if not mcp:
                 return "Nenhum contexto anterior disponível."
-        
+
         # Pegar o resumo mais recente
         if mcp.summaries:
             latest_summary = mcp.summaries[-1]["content"]
         else:
             latest_summary = "Sem resumo disponível."
-            
+
         # Formatar mensagem
         return (
             f"Contexto da sessão anterior (MCP: {mcp.session_id}):\n\n"
@@ -253,7 +259,9 @@ class MCPManager:
             f"Resumo:\n{latest_summary}"
         )
 
+
 # Funções para serem chamadas diretamente do Cursor
+
 
 def save_current_mcp(conversation_text, topic=None, summary=None):
     """
@@ -263,19 +271,20 @@ def save_current_mcp(conversation_text, topic=None, summary=None):
     mcp = MCPManager.get_latest_mcp()
     if not mcp or mcp.status != "active":
         mcp, _ = MCPManager.create_new_mcp(topic)
-    
+
     # Atualizar com a conversa atual
     mcp.update_from_conversation(conversation_text, summary)
-    
+
     # Salvar
     mcp_path = mcp.save()
-    
+
     return {
         "status": "success",
         "message": f"MCP atualizado e salvo em {mcp_path}",
         "mcp_id": mcp.session_id,
-        "cursor_format": mcp.to_cursor_format()
+        "cursor_format": mcp.to_cursor_format(),
     }
+
 
 def load_latest_mcp():
     """
@@ -283,18 +292,16 @@ def load_latest_mcp():
     """
     mcp = MCPManager.get_latest_mcp()
     if not mcp:
-        return {
-            "status": "error",
-            "message": "Nenhum MCP encontrado."
-        }
-    
+        return {"status": "error", "message": "Nenhum MCP encontrado."}
+
     return {
         "status": "success",
         "message": f"MCP {mcp.session_id} carregado com sucesso.",
         "mcp_id": mcp.session_id,
         "cursor_format": mcp.to_cursor_format(),
-        "summary": MCPManager.get_mcp_summary(mcp)
+        "summary": MCPManager.get_mcp_summary(mcp),
     }
+
 
 def cmd_save_mcp(conversation_text=None, topic=None, summary=None):
     """Comando para salvar MCP a partir do Cursor"""
@@ -304,11 +311,11 @@ def cmd_save_mcp(conversation_text=None, topic=None, summary=None):
         return {
             "status": "error",
             "message": "Texto da conversa não fornecido.",
-            "help": "Use !save_mcp com o texto da conversa atual."
+            "help": "Use !save_mcp com o texto da conversa atual.",
         }
-    
+
     result = save_current_mcp(conversation_text, topic, summary)
-    
+
     # Resposta formatada para o Cursor
     response = (
         f"✅ MCP salvo com sucesso!\n\n"
@@ -319,11 +326,9 @@ def cmd_save_mcp(conversation_text=None, topic=None, summary=None):
         f"Para continuar a fazer atualizações automáticas do MCP, "
         f"simplesmente responda a esta mensagem normalmente."
     )
-    
-    return {
-        "display": response,
-        "mcp": result
-    }
+
+    return {"display": response, "mcp": result}
+
 
 def cmd_load_mcp(mcp_id=None):
     """Comando para carregar MCP a partir do Cursor"""
@@ -331,21 +336,15 @@ def cmd_load_mcp(mcp_id=None):
     if mcp_id:
         mcp = MCPManager.get_mcp_by_id(mcp_id)
         if not mcp:
-            return {
-                "display": f"❌ MCP com ID '{mcp_id}' não encontrado.",
-                "status": "error"
-            }
+            return {"display": f"❌ MCP com ID '{mcp_id}' não encontrado.", "status": "error"}
     else:
         # Caso contrário, carregue o mais recente
         result = load_latest_mcp()
         if result["status"] == "error":
-            return {
-                "display": f"❌ {result['message']}",
-                "status": "error"
-            }
-        
+            return {"display": f"❌ {result['message']}", "status": "error"}
+
         mcp = MCPManager.get_mcp_by_id(result["mcp_id"])
-    
+
     # Formatar resposta para o Cursor
     response = (
         f"✅ MCP carregado com sucesso!\n\n"
@@ -355,12 +354,9 @@ def cmd_load_mcp(mcp_id=None):
         f"Tamanho do contexto: {mcp.context_size} caracteres\n\n"
         f"Para continuar com este contexto, simplesmente responda a esta mensagem normalmente."
     )
-    
-    return {
-        "display": response,
-        "mcp": mcp.to_dict(),
-        "cursor_format": mcp.to_cursor_format()
-    }
+
+    return {"display": response, "mcp": mcp.to_dict(), "cursor_format": mcp.to_cursor_format()}
+
 
 def cmd_help():
     """Mostra ajuda para os comandos MCP"""
@@ -379,9 +375,8 @@ Os MCPs (Model Context Protocols) permitem que você preserve o contexto
 entre sessões diferentes do Cursor, evitando a perda de informações
 quando a conversa fica muito longa ou quando o chat é resetado.
 """
-    return {
-        "display": help_text
-    }
+    return {"display": help_text}
+
 
 def prompt_for_mcp_save():
     """Gera um prompt para salvar MCP quando a conversa estiver ficando longa"""
@@ -397,30 +392,33 @@ A conversa atual está se aproximando do limite de tokens do Cursor.
 """
     return prompt
 
+
 def main():
     """Função principal para testes"""
     print("\n✧༺❀༻∞ EVA & GUARANI - MCP Manager ∞༺❀༻✧\n")
-    
+
     # Testar criação de MCP
     mcp, path = MCPManager.create_new_mcp("Teste de MCP")
     print(f"MCP criado em: {path}")
-    
+
     # Testar atualização
-    mcp.update_from_conversation("Este é um teste do sistema de MCP para o EVA & GUARANI.", 
-                                "Teste inicial do sistema MCP.")
+    mcp.update_from_conversation(
+        "Este é um teste do sistema de MCP para o EVA & GUARANI.", "Teste inicial do sistema MCP."
+    )
     mcp.save()
-    
+
     # Testar carregamento
     loaded = MCPManager.get_latest_mcp()
     print(f"MCP carregado: {loaded.session_id}")
     print(f"Tópico: {loaded.topic}")
     print(f"Tamanho do contexto: {loaded.context_size}")
-    
+
     # Mostrar formato para o Cursor
     print("\nFormato para o Cursor:")
     print(loaded.to_cursor_format())
-    
+
     print("\n✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧\n")
+
 
 if __name__ == "__main__":
     main()

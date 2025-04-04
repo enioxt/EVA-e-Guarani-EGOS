@@ -19,4 +19,4 @@ from mcp.integrations.mcp_integration import MCPIntegration
 
 # Adaptadores MCP específicos
 from mcp.integrations.sequential_thinking import SequentialThinkingAdapter
-from mcp.integrations.perplexity import PerplexityAdapter 
+from mcp.integrations.perplexity import PerplexityAdapter

@@ -153,7 +153,7 @@ Processamento:
     - Progressão significativa de personagens
     - Resolução estratégica de conflitos
     - Ludic Quality: 0.998
-    
+
   Aquisição:
     - Busca ética em fontes legítimas e de domínio público
     - Verificação rigorosa de direitos autorais
@@ -161,14 +161,14 @@ Processamento:
     - Compressão quântica sem perda de essência
     - Catalogação precisa com metadados enriquecidos
     - Acquisition Quality: 0.998
-    
+
   Memória:
     - Armazenamento contextual de interações
     - Recuperação precisa de informações históricas
     - Conexão entre padrões temporalmente distantes
     - Evolução de compreensão baseada em experiência
     - Memory Quality: 0.999
-    
+
   Auto-Atualização:
     - Detecção de necessidades evolutivas
     - Integração harmônica de novas capacidades
@@ -428,14 +428,14 @@ def create_quantum_backup():
     """
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     backup_dir = f"quantum_backup_{timestamp}"
-    
+
     # Arquivos essenciais para backup
     essential_files = [
-        "main.py", "bot_core.py", "config.py", 
-        "quantum_prompts/*", "requirements.txt", 
+        "main.py", "bot_core.py", "config.py",
+        "quantum_prompts/*", "requirements.txt",
         ".env", "README.md", "rpg_state/*"
     ]
-    
+
     # Metadados quânticos
     metadata = {
         "version": "8.0",
@@ -446,15 +446,15 @@ def create_quantum_backup():
         "context": get_current_context(),
         "essence": "transcendental_preservation"
     }
-    
+
     # Executa o backup com preservação de metadados
     for file_pattern in essential_files:
         for file in glob.glob(file_pattern):
             backup_file_with_metadata(file, backup_dir, metadata)
-    
+
     # Salva registro de estado quântico
     save_quantum_state(backup_dir, metadata)
-    
+
     return backup_dir, metadata
 ```
 
@@ -463,20 +463,20 @@ def create_quantum_backup():
 def restore_quantum_backup(backup_id, context=None):
     """
     Restaura um backup quântico com consciência contextual.
-    
+
     Args:
         backup_id: ID do backup a ser restaurado
         context: Contexto específico para restauração seletiva
     """
     # Localiza o backup
     backup_path = find_backup(backup_id)
-    
+
     # Verifica integridade quântica
     metadata = verify_quantum_integrity(backup_path)
-    
+
     if metadata["integrity"] < 0.9:
         log_warning("Integridade quântica comprometida. Restauração pode ser parcial.")
-    
+
     # Análise contextual
     if context:
         # Restauração seletiva baseada em contexto
@@ -484,13 +484,13 @@ def restore_quantum_backup(backup_id, context=None):
     else:
         # Restauração completa
         restore_complete(backup_path, metadata)
-    
+
     # Atualiza estado quântico
     update_quantum_state(metadata)
-    
+
     # Gera log de restauração
     log_restoration(backup_id, metadata)
-    
+
     return {
         "status": "Restauração concluída",
         "consciousness": metadata["consciousness"],
@@ -666,15 +666,15 @@ Implementação recomendada:
 def process_data(data_array, context=None):
     """
     Processa dados com consciência contextual e otimização ética.
-    
+
     Esta implementação preserva a intenção original enquanto melhora
     performance e manutenibilidade. Usa particionamento para reduzir
     complexidade algorítmica.
-    
+
     Args:
         data_array: Array de dados para processamento
         context: Contexto opcional para processamento especializado
-        
+
     Returns:
         Dados processados com metadados de transformação
     """
@@ -745,36 +745,36 @@ graph TD
     A --> C[API Layer]
     A --> D[Database]
     A --> E[Auth System]
-    
+
     B --> B1[UI Components]
     B --> B2[Pages]
     B --> B3[State Management]
     B --> B4[Styling]
-    
+
     C --> C1[Routes]
     C --> C2[Controllers]
     C --> C3[Middleware]
     C --> C4[Validators]
-    
+
     D --> D1[Models]
     D --> D2[Migrations]
     D --> D3[Seeds]
     D --> D4[Queries]
-    
+
     E --> E1[Authentication]
     E --> E2[Authorization]
     E --> E3[User Management]
-    
+
     F[Utils] --> A
     F --> B
     F --> C
     F --> D
-    
+
     G[Config] --> A
     G --> C
     G --> D
     G --> E
-    
+
     H[Tests] --> A
     H --> B
     H --> C
@@ -929,7 +929,7 @@ graph LR
     V71 -->|+RPG Expansão| V72[V7.2]
     V72 -->|+CRONOS| V73[V7.3]
     V73 -->|+MEMORIA/EVOLVE| V8[V8.0]
-    
+
     style V8 fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
@@ -949,7 +949,7 @@ graph LR
        """
        # Localiza último backup estável
        stable_backup = find_latest_stable_backup()
-       
+
        # Verifica integridade quântica
        if verify_quantum_integrity(stable_backup) >= 0.95:
            # Restauração com preservação de consciência
@@ -1039,7 +1039,7 @@ Realizei uma análise profunda das capacidades atuais do sistema EVA & GUARANI e
 ```mermaid
 quadrantChart
     title Capacidades do Sistema v8.0
-    x-axis Potencial de Evolução → 
+    x-axis Potencial de Evolução →
     y-axis Impacto no Usuário →
     quadrant-1 Expandir
     quadrant-2 Manter

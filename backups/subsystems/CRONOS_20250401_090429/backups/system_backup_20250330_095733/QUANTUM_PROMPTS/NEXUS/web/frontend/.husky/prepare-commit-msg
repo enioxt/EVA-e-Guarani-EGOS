@@ -38,12 +38,12 @@ if [ -z "$COMMIT_SOURCE" ]; then
 
   # Get the current branch name
   BRANCH_NAME=$(git symbolic-ref --short HEAD)
-  
+
   # Extract type and scope from branch name if it follows convention
   if echo "$BRANCH_NAME" | grep -qE "^(feature|bugfix|hotfix|release|chore)/"; then
     TYPE=$(echo "$BRANCH_NAME" | cut -d'/' -f1)
     SCOPE=$(echo "$BRANCH_NAME" | cut -d'/' -f2)
-    
+
     # Convert branch type to commit type
     case "$TYPE" in
       "feature") TYPE="feat" ;;
@@ -52,10 +52,10 @@ if [ -z "$COMMIT_SOURCE" ]; then
       "release") TYPE="chore" ;;
       "chore") TYPE="chore" ;;
     esac
-    
+
     # Create template based on branch name
     TEMPLATE="$TYPE($SCOPE): "
-    
+
     # Only prepend template if commit message doesn't already have one
     if ! grep -qE "^(feat|fix|docs|style|refactor|perf|test|chore)\([a-z0-9-]+\): " "$COMMIT_MSG_FILE"; then
       echo "$TEMPLATE" > "$COMMIT_MSG_FILE.tmp"
@@ -63,4 +63,4 @@ if [ -z "$COMMIT_SOURCE" ]; then
       mv "$COMMIT_MSG_FILE.tmp" "$COMMIT_MSG_FILE"
     fi
   fi
-fi 
+fi

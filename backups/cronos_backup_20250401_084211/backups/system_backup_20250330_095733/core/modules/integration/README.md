@@ -147,7 +147,7 @@ Args:
     description: Character's description
     instructions: Instructions for the character
     model: Model to be used
-    
+
 Returns:
     Dictionary with the created character's data
 
@@ -177,7 +177,7 @@ Starts ElizaOS with the specified character.
 
 Args:
     character_name: Character file name (without path)
-    
+
 Returns:
     True if successfully started, False otherwise
 
@@ -200,7 +200,7 @@ Args:
     data: Dictionary containing the data to be processed
     operation: Type of quantum operation to be performed
     consciousness_level: Level of quantum consciousness to be used
-    
+
 Returns:
     Dictionary with the result of the quantum processing
 

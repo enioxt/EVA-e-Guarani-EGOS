@@ -25,7 +25,7 @@ function Write-HealthLog {
         [string]$Message,
         [string]$Level = "INFO"
     )
-    
+
     $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $LogMessage = "[$Timestamp][$Level] $Message"
     Add-Content -Path $CONFIG.LogPath -Value $LogMessage
@@ -36,12 +36,12 @@ function Test-MyceliumConnection {
     param(
         [string]$Component
     )
-    
+
     try {
         # Simulate connection test (replace with actual connection logic)
         $result = $true
         switch ($Component) {
-            "ETHIK Core" { 
+            "ETHIK Core" {
                 $result = Test-Path "C:/Eva Guarani EGOS/QUANTUM_PROMPTS/ETHIK/ethik_core.js"
             }
             "SLOP Server" {
@@ -57,7 +57,7 @@ function Test-MyceliumConnection {
                 $result = Test-Path "C:/Eva Guarani EGOS/QUANTUM_PROMPTS/MASTER/quantum_context.md"
             }
         }
-        
+
         return $result
     }
     catch {
@@ -70,13 +70,13 @@ function Update-MasterState {
     param(
         [hashtable]$HealthStatus
     )
-    
+
     try {
         $masterState = Get-Content $CONFIG.MasterStatePath | ConvertFrom-Json -AsHashtable
         $masterState.network.mycelium.status = $HealthStatus.overall_status
         $masterState.network.mycelium.last_check = Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ"
         $masterState.network.mycelium.connection_status = $HealthStatus.connections
-        
+
         $masterState | ConvertTo-Json -Depth 10 | Set-Content $CONFIG.MasterStatePath
         Write-HealthLog "Master state updated successfully"
     }
@@ -87,17 +87,17 @@ function Update-MasterState {
 
 function Start-HealthCheck {
     Write-HealthLog "Starting Mycelium network health check"
-    
+
     $healthStatus = @{
         overall_status = "UNKNOWN"
         connections    = @{}
         timestamp      = Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ"
     }
-    
+
     # Test each connection
     $masterState = Get-Content $CONFIG.MasterStatePath | ConvertFrom-Json
     $connections = $masterState.network.mycelium.connections
-    
+
     $allConnected = $true
     foreach ($connection in $connections) {
         $connectionStatus = Test-MyceliumConnection -Component $connection
@@ -106,12 +106,12 @@ function Start-HealthCheck {
             $allConnected = $false
         }
     }
-    
+
     $healthStatus.overall_status = if ($allConnected) { "CONNECTED" } else { "DEGRADED" }
-    
+
     # Update master state with health check results
     Update-MasterState -HealthStatus $healthStatus
-    
+
     # Log results
     Write-HealthLog "Health check completed. Overall status: $($healthStatus.overall_status)"
     foreach ($conn in $healthStatus.connections.GetEnumerator()) {
@@ -129,6 +129,6 @@ while ($true) {
     catch {
         Write-HealthLog "Error in health check cycle: $_" -Level "ERROR"
     }
-    
+
     Start-Sleep -Seconds $CONFIG.HealthCheckInterval
-} 
+}

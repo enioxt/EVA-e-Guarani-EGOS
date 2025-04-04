@@ -5,8 +5,10 @@
 # Example structure
 STANDARD_PROMPTS = {
     "summarize": "Provide a concise summary of the following text: {text}",
-    "analyze_sentiment": "Analyze the sentiment (positive, negative, neutral) of this message: {message}",
+    "analyze_sentiment": "Analyze the sentiment (positive, negative, neutral) "
+    "of this message: {message}",
 }
+
 
 def format_prompt(protocol_name: str, **kwargs) -> str:
     """Formats a standard prompt with given arguments."""
@@ -19,4 +21,4 @@ def format_prompt(protocol_name: str, **kwargs) -> str:
             return None
     else:
         print(f"Error: Unknown protocol '{protocol_name}'")
-        return None 
+        return None

@@ -9,4 +9,4 @@ from context_monitor import stop_monitoring
 
 print("Parando o monitor de contexto...")
 stop_monitoring()
-print("Monitor interrompido.") 
+print("Monitor interrompido.")

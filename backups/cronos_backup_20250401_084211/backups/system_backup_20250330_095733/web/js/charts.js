@@ -162,4 +162,4 @@ class QuantumCharts {
 }
 
 // Initialize charts
-const quantumCharts = new QuantumCharts(); 
+const quantumCharts = new QuantumCharts();

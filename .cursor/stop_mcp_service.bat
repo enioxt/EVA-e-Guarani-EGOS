@@ -7,4 +7,4 @@ taskkill /FI "IMAGENAME eq python.exe" /FI "WINDOWTITLE eq tools.integration.mcp
 
 echo MCP service stopped.
 echo.
-echo To start the service again, run start_mcp_service.bat 
+echo To start the service again, run start_mcp_service.bat

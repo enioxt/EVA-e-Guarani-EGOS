@@ -47,4 +47,4 @@ To minimize syntax errors, enforce consistent coding style, and improve code qua
 2.  Verify/Update corresponding tool configuration files (`.flake8`, `pyproject.toml`, `.prettierrc`).
 3.  Document the developer workflow (`pre-commit install`) in the main `README.md` or a `CONTRIBUTING.md` file.
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

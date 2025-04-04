@@ -103,7 +103,7 @@ def exemplo_funcao():
     """
     print("Olá, mundo!")
     return True
-```[HF TRANSLATION] 
+```[HF TRANSLATION]
 
 ## Seção 4: Conclusão
 

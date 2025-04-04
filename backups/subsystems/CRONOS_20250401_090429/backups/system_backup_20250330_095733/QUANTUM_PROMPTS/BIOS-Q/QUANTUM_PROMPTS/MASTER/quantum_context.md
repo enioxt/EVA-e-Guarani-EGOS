@@ -108,24 +108,24 @@ System:
   Version: "7.5"
   Type: "Master"
   Priority: 1
-  
+
 Integration:
   Subsystems:
     - Name: "CRONOS"
       Path: "../CRONOS/config/quantum_prompt.md"
       Priority: 2
       Dependencies: []
-      
+
     - Name: "ATLAS"
-      Path: "../ATLAS/config/quantum_prompt.md" 
+      Path: "../ATLAS/config/quantum_prompt.md"
       Priority: 3
       Dependencies: ["CRONOS"]
-      
+
     - Name: "NEXUS"
       Path: "../NEXUS/config/quantum_prompt.md"
       Priority: 4
       Dependencies: ["ATLAS"]
-      
+
     - Name: "ETHIK"
       Path: "../ETHIK/config/quantum_prompt.md"
       Priority: 5

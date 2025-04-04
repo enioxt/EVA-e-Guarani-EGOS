@@ -44,7 +44,7 @@ class ContextManager:
         self.context: Dict[str, Any] = {}
         self.backup_path = "backups"
         self.logger = logging.getLogger("cronos-context")
-        
+
     def save_context(self, key: str, value: Any) -> bool:
         """Save a value to the quantum context."""
         try:
@@ -53,34 +53,34 @@ class ContextManager:
         except Exception as e:
             self.logger.error(f"Error saving context: {e}")
             return False
-            
+
     def get_context(self, key: str) -> Optional[Any]:
         """Retrieve a value from the quantum context."""
         return self.context.get(key)
-        
+
     def backup_context(self, filename: str) -> bool:
         """Create a quantum backup of the current context."""
         try:
             os.makedirs(self.backup_path, exist_ok=True)
             backup_file = os.path.join(self.backup_path, filename)
-            
+
             with open(backup_file, 'w') as f:
                 json.dump(self.context, f, indent=2)
-                
+
             return True
         except Exception as e:
             self.logger.error(f"Error creating backup: {e}")
             return False
-            
+
     def restore_context(self, filename: str) -> bool:
         """Restore context from a quantum backup."""
         try:
             backup_file = os.path.join(self.backup_path, filename)
-            
+
             with open(backup_file, 'r') as f:
                 self.context = json.load(f)
-                
+
             return True
         except Exception as e:
             self.logger.error(f"Error restoring backup: {e}")
-            return False 
+            return False

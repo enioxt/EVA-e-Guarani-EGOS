@@ -71,7 +71,7 @@ METADATA:
 
 # EVA & GUARANI - SLOP Filesystem Module
 
-Version: 1.0.0  
+Version: 1.0.0
 Date: 2025-03-29
 
 ## Overview
@@ -259,13 +259,13 @@ The module can be configured with the following options:
 const config = {
   // Directories that can be accessed by the module (all paths must be in these directories)
   allowedDirectories: ['C:/Eva Guarani EGOS'],
-  
+
   // Maximum file size in bytes (default: 10MB)
   maxFileSize: 10 * 1024 * 1024,
-  
+
   // Maximum number of results for listing and search operations
   maxResults: 1000,
-  
+
   // Log level (debug, info, warn, error)
   logLevel: 'info'
 };

@@ -11,4 +11,4 @@ python3 cursor_commands.py mcp_status
 
 echo ""
 echo "O monitor continuará rodando em segundo plano."
-echo "Para verificar o status, use o comando: python3 cursor_commands.py mcp_status" 
+echo "Para verificar o status, use o comando: python3 cursor_commands.py mcp_status"

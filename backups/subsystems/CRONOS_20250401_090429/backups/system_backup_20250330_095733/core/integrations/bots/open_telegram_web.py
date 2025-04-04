@@ -25,10 +25,10 @@ config_path = os.path.join(current_dir, "telegram_config.json")
 try:
     with open(config_path, "r", encoding="utf-8") as f:
         config = json.load(f)
-    
+
     bot_name = config.get("bot_name", "avatechartbot")
     print(f"✅ Loaded configuration for bot: {bot_name}")
-    
+
 except Exception as e:
     print(f"❌ Error loading config: {e}")
     bot_name = "avatechartbot"
@@ -60,4 +60,4 @@ except Exception as e:
     print(f"❌ Error opening browser: {e}")
     print(f"Please manually visit: {telegram_web_url}")
 
-print("\n✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧\n") 
+print("\n✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧\n")

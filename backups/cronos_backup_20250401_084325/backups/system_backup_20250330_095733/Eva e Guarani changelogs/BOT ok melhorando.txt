@@ -32,7 +32,7 @@ A estrutura atual parece ter vários arquivos interdependentes, o que dificulta 
 
 Para atender à solicitação do usuário, vou:
 1. Analisar a estrutura atual do projeto
-2. Propor uma unificação/simplificação 
+2. Propor uma unificação/simplificação
 3. Implementar mudanças que permitam rastrear erros mais facilmente
 4. Documentar os arquivos principais
 
@@ -112,11 +112,11 @@ class EVAGuaraniBot:
     Implementação unificada do bot do Telegram para o sistema EVA & GUARANI.
     Esta classe centraliza toda a lógica de interação com o Telegram e o sistema quântico.
     """
-    
+
     def __init__(self, config_path: str = DEFAULT_CONFIG_PATH):
         """
         Inicializa o bot unificado.
-        
+
         Args:
             config_path: Caminho para o arquivo de configuração.
         """
@@ -124,28 +124,28 @@ class EVAGuaraniBot:
         self.is_running = False
         self.last_response_time = 0
         self.quantum_integration = None
-        
+
         # Configurações carregadas do arquivo
         self.bot_token = None
         self.allowed_users = []
         self.admin_users = []
-        
+
         # Objetos do bot
         self.bot = None
         self.updater = None
-        
+
         # Registrar handler para SIGINT
         signal.signal(signal.SIGINT, self._signal_handler)
-        
+
         # Carregar configuração
         self.config = self._load_config()
         if self.config:
             self.bot_token = self.config.get("bot_token")
             self.allowed_users = self.config.get("allowed_users", [])
             self.admin_users = self.config.get("admin_users", [])
-        
+
         logger.info(f"EVAGuaraniBot inicializado")
-    
+
     def _signal_handler(self, sig, frame):
         """
         Manipulador para sinal de interrupção (CTRL+C).
@@ -153,11 +153,11 @@ class EVAGuaraniBot:
         logger.info("Sinal de interrupção recebido. Parando o bot...")
         self.stop()
         sys.exit(0)
-    
+
     def _load_config(self) -> Dict[str, Any]:
         """
         Carrega a configuração do arquivo JSON.
-        
+
         Returns:
             Dicionário com as configurações ou None em caso de erro.
         """
@@ -169,11 +169,11 @@ class EVAGuaraniBot:
         except Exception as e:
             logger.error(f"Erro ao carregar configuração de {self.config_path}: {e}")
             return None
-    
+
     def _setup_telegram_bot(self) -> bool:
         """
         Configura o bot do Telegram.
-        
+
         Returns:
             True se configurado com sucesso, False caso contrário.
         """
@@ -182,7 +182,7 @@ class EVAGuaraniBot:
             try:
                 from telegram import Update, Bot
                 from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackContext
-                
+
                 # Filtros para mensagens
                 # A importação correta depende da versão
                 try:
@@ -191,10 +191,10 @@ class EVAGuaraniBot:
                     from telegram.ext import Filters
             except ImportError:
                 logger.error("Módulo 'python-telegram-bot' não encontrado. Tentando instalar...")
-                
+
                 # Tentar instalar a biblioteca
                 subprocess.check_call([sys.executable, "-m", "pip", "install", "python-telegram-bot==13.15"])
-                
+
                 # Importar novamente após a instalação
                 from telegram import Update, Bot
                 from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackContext
@@ -202,16 +202,16 @@ class EVAGuaraniBot:
                     from telegram.ext.filters import Filters
                 except ImportError:
                     from telegram.ext import Filters
-            
+
             # Configurar o bot
             logger.info("Configurando bot do Telegram...")
-            
+
             # Configurações para o request (ajuda com problemas de conexão)
             request_kwargs = {
                 'read_timeout': 30,
                 'connect_timeout': 30
             }
-            
+
             # Versão 13.15 não aceita alguns parâmetros como connection_pool_size
             # Adaptamos conforme a necessidade
             try:
@@ -219,29 +219,29 @@ class EVAGuaraniBot:
             except TypeError:
                 # Se der erro, tentamos sem o parâmetro problemático
                 self.updater = Updater(self.bot_token)
-            
+
             self.bot = self.updater.bot
-            
+
             # Acessar o dispatcher para registrar handlers
             try:
                 dispatcher = self.updater.dispatcher
             except AttributeError:
                 logger.error("Não foi possível acessar o dispatcher. Versão da biblioteca pode ser incompatível.")
                 return False
-            
+
             # Registrar handlers para comandos
             dispatcher.add_handler(CommandHandler("start", self._handle_start))
             dispatcher.add_handler(CommandHandler("help", self._handle_help))
             dispatcher.add_handler(CommandHandler("status", self._handle_status))
             dispatcher.add_handler(CommandHandler("restart", self._handle_restart))
-            
+
             # Registrar handler para mensagens de texto que não são comandos
             text_filter = Filters.text & ~Filters.command
             dispatcher.add_handler(MessageHandler(text_filter, self._handle_message))
-            
+
             # Registrar handler para erros
             dispatcher.add_error_handler(self._handle_error)
-            
+
             logger.info("Bot do Telegram configurado com sucesso!")
             return True
         except Exception as e:
@@ -251,14 +251,14 @@ class EVAGuaraniBot:
     def _setup_quantum_integration(self) -> bool:
         """
         Configura a integração com o sistema quântico EVA & GUARANI.
-        
+
         Returns:
             True se configurado com sucesso, False caso contrário.
         """
         try:
             # Importar QuantumIntegration diretamente aqui para evitar dependências cíclicas
             from bot.quantum_integration import QuantumIntegration
-            
+
             # Inicializar o sistema quântico
             self.quantum_integration = QuantumIntegration()
             logger.info("Integração com sistema quântico configurada com sucesso")
@@ -266,14 +266,14 @@ class EVAGuaraniBot:
         except Exception as e:
             logger.error(f"Erro ao configurar integração com sistema quântico: {e}")
             return False
-    
+
     def _handle_start(self, update: Update, context: CallbackContext) -> None:
         """
         Manipula o comando /start.
         """
         try:
             user_id = update.effective_user.id
-            
+
             if self._is_user_allowed(user_id):
                 update.effective_message.reply_text(
                     "🌟 *Bem-vindo ao EVA & GUARANI Bot Unificado* 🌟\n\n"
@@ -289,14 +289,14 @@ class EVAGuaraniBot:
                 )
         except Exception as e:
             logger.error(f"Erro ao manipular comando start: {e}")
-    
+
     def _handle_help(self, update: Update, context: CallbackContext) -> None:
         """
         Manipula o comando /help.
         """
         try:
             user_id = update.effective_user.id
-            
+
             if self._is_user_allowed(user_id):
                 update.effective_message.reply_text(
                     "📋 *Comandos Disponíveis* 📋\n\n"
@@ -309,17 +309,17 @@ class EVAGuaraniBot:
                 )
         except Exception as e:
             logger.error(f"Erro ao manipular comando help: {e}")
-    
+
     def _handle_status(self, update: Update, context: CallbackContext) -> None:
         """
         Manipula o comando /status.
         """
         try:
             user_id = update.effective_user.id
-            
+
             if self._is_user_allowed(user_id):
                 quantum_status = "✅ Ativo" if self.quantum_integration else "❌ Inativo"
-                
+
                 update.effective_message.reply_text(
                     "🔄 *Status do Sistema* 🔄\n\n"
                     f"• Bot do Telegram: ✅ Online\n"
@@ -329,21 +329,21 @@ class EVAGuaraniBot:
                 )
         except Exception as e:
             logger.error(f"Erro ao manipular comando status: {e}")
-    
+
     def _handle_restart(self, update: Update, context: CallbackContext) -> None:
         """
         Manipula o comando /restart.
         """
         try:
             user_id = update.effective_user.id
-            
+
             if self._is_user_admin(user_id):
                 update.effective_message.reply_text(
                     "🔄 *Reiniciando sistema quântico* 🔄\n\n"
                     "Por favor, aguarde...",
                     parse_mode="Markdown"
                 )
-                
+
                 # Criar thread para reiniciar a integração
                 threading.Thread(target=self._restart_quantum).start()
             else:
@@ -354,26 +354,26 @@ class EVAGuaraniBot:
                 )
         except Exception as e:
             logger.error(f"Erro ao manipular comando restart: {e}")
-    
+
     def _restart_quantum(self) -> None:
         """
         Reinicia a integração com o sistema quântico.
         """
         try:
             logger.info("Reiniciando integração com sistema quântico...")
-            
+
             # Se houver uma integração ativa, limpe-a
             self.quantum_integration = None
-            
+
             # Aguardar um momento
             time.sleep(2)
-            
+
             # Configurar nova integração
             quantum_configured = self._setup_quantum_integration()
-            
+
             # Notificar administradores
             status_msg = "✅ Sistema quântico reiniciado com sucesso" if quantum_configured else "❌ Falha ao reiniciar sistema quântico"
-            
+
             for admin_id in self.admin_users:
                 try:
                     self.bot.send_message(
@@ -385,7 +385,7 @@ class EVAGuaraniBot:
                     logger.error(f"Erro ao enviar mensagem para admin {admin_id}: {e}")
         except Exception as e:
             logger.error(f"Erro ao reiniciar sistema quântico: {e}")
-    
+
     def _handle_message(self, update: Update, context: CallbackContext) -> None:
         """
         Manipula mensagens de texto recebidas.
@@ -397,12 +397,12 @@ class EVAGuaraniBot:
                 logger.warning(f"Usuário não autorizado tentou enviar mensagem: {user_id}")
                 update.message.reply_text("Você não está autorizado a usar este bot.")
                 return
-            
+
             user_name = update.effective_user.first_name
             user_message = update.message.text
-            
+
             logger.info(f"Mensagem recebida de {user_id} ({user_name}): {user_message}")
-            
+
             # Processar mensagem com o sistema quântico
             self._process_with_quantum(update, context)
         except Exception as e:
@@ -411,7 +411,7 @@ class EVAGuaraniBot:
                 update.message.reply_text("Ocorreu um erro ao processar sua mensagem. Por favor, tente novamente mais tarde.")
             except Exception as reply_error:
                 logger.error(f"Erro ao enviar mensagem de erro: {reply_error}")
-    
+
     def _process_with_quantum(self, update: Update, context: CallbackContext) -> None:
         """
         Processa a mensagem usando o sistema quântico EVA & GUARANI.
@@ -420,9 +420,9 @@ class EVAGuaraniBot:
             user_id = update.effective_user.id
             user_name = update.effective_user.first_name
             user_message = update.message.text
-            
+
             logger.info(f"Processando mensagem para resposta quântica de {user_name} ({user_id})")
-            
+
             # Verificar se o sistema quântico está disponível
             if not self.quantum_integration:
                 update.message.reply_text(
@@ -430,20 +430,20 @@ class EVAGuaraniBot:
                     "Por favor, tente novamente mais tarde."
                 )
                 return
-            
+
             # Obter o histórico de conversa do contexto
             if 'conversation_history' not in context.user_data:
                 context.user_data['conversation_history'] = []
-            
+
             # Limitar o histórico para as últimas 10 mensagens para manter contexto sem sobrecarregar
             conversation_history = context.user_data.get('conversation_history', [])[-10:]
-            
+
             # Preparar dados de contexto
             context_data = {
                 "platform": "telegram",
                 "previous_messages": len(conversation_history)
             }
-            
+
             # Processar a mensagem usando o sistema quântico de forma assíncrona
             async def process_and_respond():
                 try:
@@ -455,34 +455,34 @@ class EVAGuaraniBot:
                         conversation_history=conversation_history,
                         context=context_data
                     )
-                    
+
                     # Extrair a resposta do objeto retornado
                     if isinstance(quantum_response, dict):
                         response = quantum_response.get('response', '')
-                        
+
                         # Adicionar à conversa
                         conversation_history.append({"role": "user", "content": user_message})
                         conversation_history.append({"role": "assistant", "content": response})
                         context.user_data['conversation_history'] = conversation_history
-                        
+
                         # Registrar tempo da última resposta
                         self.last_response_time = time.time()
                     else:
                         response = "Desculpe, ocorreu um erro ao processar sua mensagem."
                         logger.error(f"Resposta quântica inesperada: {quantum_response}")
-                    
+
                     # Remover a assinatura se não for a primeira mensagem
                     if len(conversation_history) > 2 and "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧" in response:
                         response = response.replace("\n\n✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧", "")
                         response = response.replace("✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧", "")
-                    
+
                     # Enviar a resposta
                     update.message.reply_text(response)
                     logger.info(f"Enviada resposta quântica para {user_id}")
                 except Exception as e:
                     logger.error(f"Erro ao processar mensagem com quantum: {e}")
                     update.message.reply_text(f"Olá {user_name}! Encontrei um problema ao processar sua mensagem. Por favor, tente novamente.")
-            
+
             # Executar a coroutine
             asyncio.run(process_and_respond())
         except Exception as e:
@@ -491,18 +491,18 @@ class EVAGuaraniBot:
                 update.message.reply_text("Ocorreu um erro ao processar sua mensagem. Por favor, tente novamente mais tarde.")
             except Exception as reply_error:
                 logger.error(f"Erro ao enviar mensagem de erro: {reply_error}")
-    
+
     def _handle_error(self, update: object, context: CallbackContext) -> None:
         """
         Manipulador de erros para o dispatcher do Telegram.
         """
         logger.error(f"Erro no bot do Telegram: {context.error}")
-        
+
         # Obter informações detalhadas do erro
         tb_list = traceback.format_exception(None, context.error, context.error.__traceback__)
         tb_string = ''.join(tb_list)
         logger.error(f"Traceback completo: {tb_string}")
-        
+
         # Notificar administradores
         for admin_id in self.admin_users:
             try:
@@ -513,66 +513,66 @@ class EVAGuaraniBot:
                 )
             except Exception as e:
                 logger.error(f"Erro ao enviar notificação de erro para admin {admin_id}: {e}")
-    
+
     def _is_user_allowed(self, user_id: Optional[int]) -> bool:
         """
         Verifica se um usuário está autorizado a usar o bot.
-        
+
         Args:
             user_id: ID do usuário.
-            
+
         Returns:
             True se autorizado, False caso contrário.
         """
         if user_id is None:
             return False
-        
+
         # Se a lista de usuários permitidos estiver vazia, permitir todos
         if not self.allowed_users:
             return True
-        
+
         return user_id in self.allowed_users
-    
+
     def _is_user_admin(self, user_id: Optional[int]) -> bool:
         """
         Verifica se um usuário é administrador.
-        
+
         Args:
             user_id: ID do usuário.
-            
+
         Returns:
             True se for admin, False caso contrário.
         """
         if user_id is None:
             return False
-        
+
         return user_id in self.admin_users
-    
+
     def start(self) -> None:
         """
         Inicia o bot.
         """
         print(BANNER)
-        
+
         try:
             logger.info("Iniciando EVAGuaraniBot...")
-            
+
             # Verificar se temos token do bot
             if not self.bot_token:
                 logger.error("Token do bot não configurado!")
                 return
-            
+
             # Configurar o bot do Telegram
             telegram_configured = self._setup_telegram_bot()
             if not telegram_configured:
                 logger.error("Falha ao configurar bot do Telegram!")
                 return
-            
+
             # Configurar integração com o sistema quântico
             quantum_configured = self._setup_quantum_integration()
             if not quantum_configured:
                 logger.warning("Falha ao configurar sistema quântico! O bot funcionará em modo limitado.")
-            
+
             # Notificar administradores que o bot foi iniciado
             for admin_id in self.admin_users:
                 try:
@@ -589,7 +589,7 @@ class EVAGuaraniBot:
                         )
                 except Exception as e:
                     logger.error(f"Erro ao enviar notificação para admin {admin_id}: {e}")
-            
+
             # Iniciar o polling do Telegram
             if self.updater:
                 logger.info("Iniciando polling do Telegram...")
@@ -598,13 +598,13 @@ class EVAGuaraniBot:
                 except TypeError:
                     # Versão antiga não suporta drop_pending_updates
                     self.updater.start_polling()
-                
+
                 self.is_running = True
                 logger.info("Bot iniciado com sucesso. Bot do Telegram online.")
             else:
                 logger.error("Updater não configurado!")
                 return
-            
+
             # Manter o bot em execução
             if self.is_running:
                 logger.info("Mantendo o bot em execução...")
@@ -613,13 +613,13 @@ class EVAGuaraniBot:
             logger.error(f"Erro ao executar bot: {e}")
         finally:
             self.stop()
-    
+
     def stop(self) -> None:
         """
         Para o bot.
         """
         logger.info("Parando EVAGuaraniBot...")
-        
+
         # Parar o updater do Telegram
         if self.updater:
             try:
@@ -627,22 +627,22 @@ class EVAGuaraniBot:
                 logger.info("Bot do Telegram parado com sucesso")
             except Exception as e:
                 logger.error(f"Erro ao parar bot do Telegram: {e}")
-        
+
         self.is_running = False
         logger.info("EVAGuaraniBot parado com sucesso")
 
 def parse_arguments():
     """
     Analisa os argumentos da linha de comando.
-    
+
     Returns:
         Objeto com os argumentos analisados.
     """
     parser = argparse.ArgumentParser(description="EVA & GUARANI Bot Unificado")
     parser.add_argument(
-        "--config", 
-        type=str, 
-        default=DEFAULT_CONFIG_PATH, 
+        "--config",
+        type=str,
+        default=DEFAULT_CONFIG_PATH,
         help=f"Caminho para o arquivo de configuração (padrão: {DEFAULT_CONFIG_PATH})"
     )
     return parser.parse_args()
@@ -653,7 +653,7 @@ def main():
     """
     # Analisar argumentos
     args = parse_arguments()
-    
+
     # Criar e iniciar o bot
     bot = EVAGuaraniBot(config_path=args.config)
     bot.start()
@@ -703,7 +703,7 @@ from typing import Dict, Any, Optional, List, Callable, Union
 def _load_config(self) -> Dict[str, Any]:
     """
     Carrega a configuração do arquivo JSON.
-    
+
     Returns:
         Dicionário com as configurações ou um dicionário vazio em caso de erro.
     """
@@ -1032,7 +1032,7 @@ async def process_and_respond():
             conversation_history=conversation_history,
             context=context_data
         )
-        
+
         # Restante do código...
     except Exception as e:
         # Tratamento de erro...

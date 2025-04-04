@@ -106,7 +106,7 @@ graph TD
 
     A --> E[Quantum Prompts]
 
-    
+
 
     B --> B1[Resizing]
 
@@ -114,19 +114,19 @@ graph TD
 
     B --> B3[Night Mode]
 
-    
+
 
     C --> C1[Chat GPT]
 
     C --> C2[DALL-E]
 
-    
+
 
     D --> D1[Local Backup]
 
     D --> D2[Quantum Metrics]
 
-    
+
 
     E --> E1[Master Prompt v7.4]
 
@@ -134,7 +134,7 @@ graph TD
 
     E --> E3[Future Prompts]
 
-    
+
 
     E2 --> E2A[ARCANUM LUDUS]
 
@@ -154,7 +154,7 @@ graph TD
 
 2. **Message Processing** → Classification and routing to specialized modules
 
-3. **Response Generation** → Produced by the appropriate module 
+3. **Response Generation** → Produced by the appropriate module
 
 4. **Delivery to User** → Sent back via Telegram
 
@@ -170,7 +170,7 @@ graph TD
 
 
 
-**Status**: 85% complete  
+**Status**: 85% complete
 
 **Implemented functionalities**:
 
@@ -196,7 +196,7 @@ graph TD
 
 
 
-**Technical complexity**: Medium-High  
+**Technical complexity**: Medium-High
 
 **Technical debt**: Moderate
 
@@ -206,7 +206,7 @@ graph TD
 
 
 
-**Status**: 70% complete  
+**Status**: 70% complete
 
 **Implemented functionalities**:
 
@@ -232,7 +232,7 @@ graph TD
 
 
 
-**Technical complexity**: High  
+**Technical complexity**: High
 
 **Technical debt**: Low
 
@@ -242,7 +242,7 @@ graph TD
 
 
 
-**Status**: 65% complete (3 out of 5 planned)  
+**Status**: 65% complete (3 out of 5 planned)
 
 **Implemented prompts**:
 
@@ -266,7 +266,7 @@ graph TD
 
 
 
-**Technical complexity**: Medium  
+**Technical complexity**: Medium
 
 **Technical debt**: Low
 
@@ -276,7 +276,7 @@ graph TD
 
 
 
-**Status**: 90% complete  
+**Status**: 90% complete
 
 **Implemented functionalities**:
 
@@ -300,7 +300,7 @@ graph TD
 
 
 
-**Technical complexity**: Medium  
+**Technical complexity**: Medium
 
 **Technical debt**: Very low
 

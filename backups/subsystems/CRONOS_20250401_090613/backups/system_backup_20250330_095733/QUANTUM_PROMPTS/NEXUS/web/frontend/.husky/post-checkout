@@ -59,4 +59,4 @@ if [ "$checkoutType" = 1 ]; then
   }
 fi
 
-echo "${GREEN}✅ Checkout finalizado com sucesso!${NC}" 
+echo "${GREEN}✅ Checkout finalizado com sucesso!${NC}"

@@ -411,7 +411,7 @@ def process_text(text, context=None):
             "ethical_depth": 0.8
         }
     }
-    
+
     response = requests.post(endpoint, headers=headers, json=payload)
     return response.json()
 
@@ -425,7 +425,7 @@ def generate_image(prompt, size="1024x1024"):
             "style": "realistic"
         }
     }
-    
+
     response = requests.post(endpoint, headers=headers, json=payload)
     return response.json()
 
@@ -458,7 +458,7 @@ async function analyzeModule(moduleContent, moduleType = 'code') {
     module_type: moduleType,
     analysis_depth: 0.8
   };
-  
+
   try {
     const response = await axios.post(endpoint, payload, { headers });
     return response.data;
@@ -476,7 +476,7 @@ async function mapSystem(systemDescription, components) {
     components: components,
     mapping_depth: 0.7
   };
-  
+
   try {
     const response = await axios.post(endpoint, payload, { headers });
     return response.data;
@@ -493,7 +493,7 @@ async function mapSystem(systemDescription, components) {
       'function calculateEthics(action, context) { return action.benefit > action.harm; }'
     );
     console.log('Analysis:', moduleAnalysis);
-    
+
     const systemMap = await mapSystem(
       'Ethical recommendation system',
       [

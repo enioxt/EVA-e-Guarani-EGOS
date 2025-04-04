@@ -253,4 +253,4 @@ While the current focus is on implementing a robust `asyncio`-based network, the
 
 These directions represent potential future research and development efforts after the core Mycelium network is stable and integrated.
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

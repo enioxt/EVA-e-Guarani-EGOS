@@ -37,4 +37,4 @@ else {
 # Recarregar o perfil
 . $PROFILE
 
-Write-Host "`nPara testar, digite 'eva' no PowerShell." 
+Write-Host "`nPara testar, digite 'eva' no PowerShell."

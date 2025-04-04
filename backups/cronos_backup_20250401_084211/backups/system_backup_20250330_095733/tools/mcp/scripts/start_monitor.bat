@@ -73,4 +73,4 @@ REM REM
 cd %~dp0
 cd ..
 python -m core.context_monitor
-pause 
+pause

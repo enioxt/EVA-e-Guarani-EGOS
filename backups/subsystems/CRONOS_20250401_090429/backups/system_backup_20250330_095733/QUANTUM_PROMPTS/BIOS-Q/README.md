@@ -77,7 +77,7 @@ METADATA:
 
 EVA & GUARANI BIOS-Q is a quantum-inspired system that integrates multiple advanced capabilities through a mycelial network architecture. It provides intelligent search, multilingual translation, and comprehensive monitoring across all subsystems.
 
-Version: 8.0  
+Version: 8.0
 Created: 2025-03-28
 
 ## Core Systems
@@ -324,16 +324,16 @@ graph TD
     MYC --> QS[Quantum Search]
     MYC --> TR[Translator]
     MYC --> MON[Monitoring]
-    
+
     QS --> |Index| TR
     TR --> |Search| QS
     MON --> |Metrics| QS
     MON --> |Metrics| TR
     MON --> |Metrics| MYC
-    
+
     BIOS --> |API| WEB[Web Frontend]
     BIOS --> |API| TG[Telegram Bot]
-    
+
     WEB --> |User Interface| USER1[Browser Users]
     TG --> |Messaging| USER2[Telegram Users]
 ```

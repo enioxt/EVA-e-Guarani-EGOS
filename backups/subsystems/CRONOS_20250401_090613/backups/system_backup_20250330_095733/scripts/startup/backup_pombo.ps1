@@ -101,23 +101,23 @@ $criticalComponents = @(
 
 foreach ($component in $criticalComponents) {
     # Search for files containing the component name
-    $foundFiles = Get-ChildItem -Path $sourceDir -Recurse -File | 
+    $foundFiles = Get-ChildItem -Path $sourceDir -Recurse -File |
                  Where-Object { $_.Name -like "*$component*" -or (Get-Content $_.FullName -ErrorAction SilentlyContinue | Select-String -Pattern $component -Quiet) }
-    
+
     if ($foundFiles) {
         "- ${component} - Found in:" | Out-File $manifestPath -Append
         foreach ($file in $foundFiles) {
             "  * $($file.FullName.Replace($sourceDir, ''))" | Out-File $manifestPath -Append
-            
+
             # If not already in backup, copy it
             $relativePath = $file.FullName.Replace($sourceDir, '').TrimStart('\')
             $destPath = Join-Path $tempDir $relativePath
             $destDir = [System.IO.Path]::GetDirectoryName($destPath)
-            
+
             if (!(Test-Path $destDir)) {
                 New-Item -ItemType Directory -Path $destDir -Force | Out-Null
             }
-            
+
             if (!(Test-Path $destPath)) {
                 Copy-Item -Path $file.FullName -Destination $destPath -Force
                 Write-Host "Added critical component file: $relativePath"
@@ -164,4 +164,4 @@ foreach ($dir in $systemDirs) {
 Get-Content $manifestPath | Select-String "Critical components status:" -Context 0,20 | ForEach-Object { $_.Line; $_.Context.PostContext } | Out-File $auditReportPath -Append
 
 Write-Host "System audit report created successfully!"
-Write-Host "Audit report location: $auditReportPath" 
+Write-Host "Audit report location: $auditReportPath"

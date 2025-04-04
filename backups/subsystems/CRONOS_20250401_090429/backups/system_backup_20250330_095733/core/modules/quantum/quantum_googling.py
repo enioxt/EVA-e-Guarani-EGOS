@@ -98,11 +98,11 @@ class SourceValidator:
     Component responsible for validating and classifying sources.
     Evaluates the credibility, relevance, and ethical aspects of found sources.
     """
-    
+
     def __init__(self, config_path: str = "config/validation_rules.json"):
         """
         Initializes the source validator.
-        
+
         Args:
             config_path: Path to the configuration file with validation rules
         """
@@ -111,14 +111,14 @@ class SourceValidator:
         self.rules = self._load_rules()
         self.blacklist = self._load_blacklist()
         self.domain_cache = {}  # Cache for already analyzed domain information
-        
-        self.logger.info("Initialized SourceValidator with %d rules and %d domains in the blacklist", 
+
+        self.logger.info("Initialized SourceValidator with %d rules and %d domains in the blacklist",
                          len(self.rules), len(self.blacklist))
-    
+
     def _load_rules(self) -> Dict[str, Any]:
         """
         Loads validation rules from the configuration file.
-        
+
         Returns:
             Dict: Validation rules
         """
@@ -132,11 +132,11 @@ class SourceValidator:
         except Exception as e:
             self.logger.error("Error loading validation rules: %s", str(e))
             return self._default_rules()
-    
+
     def _default_rules(self) -> Dict[str, Any]:
         """
         Defines default validation rules if the configuration file is not found.
-        
+
         Returns:
             Dict: Default validation rules
         """
@@ -165,11 +165,11 @@ class SourceValidator:
                 "wiki": ["wiki", "encyclopedia"]
             }
         }
-    
+
     def _load_blacklist(self) -> List[str]:
         """
         Loads the list of blocked domains.
-        
+
         Returns:
             List: List of blocked domains
         """
@@ -184,20 +184,20 @@ class SourceValidator:
         except Exception as e:
             self.logger.error("Error loading blacklist: %s", str(e))
             return []
-    
+
     def validate(self, result: SearchResult) -> SearchResult:
         """
         Validates a search result, assigning scores and classifying the source type.
-        
+
         Args:
             result: The search result to be validated
-            
+
         Returns:
             SearchResult: The result with updated scores
         """
         # Log the start of validation
         self.logger.debug("Starting validation for URL: %s", result.url)
-        
+
         # Check if it's on the blacklist
         if self._is_blacklisted(result.url):
             result.ethical_score = 0.0
@@ -205,44 +205,44 @@ class SourceValidator:
             result.metadata["blacklisted"] = True
             self.logger.warning("URL is blacklisted: %s", result.url)
             return result
-        
+
         # Determine the source type
         result.source_type = self._determine_source_type(result.url)
-        
+
         # Calculate scores
         result.ethical_score = self._calculate_ethical_score(result)
         result.credibility_score = self._calculate_credibility_score(result)
         result.relevance_score = self._calculate_relevance_score(result)
-        
+
         # Add additional metadata
         result.metadata["validation_timestamp"] = datetime.datetime.now().isoformat()
         result.metadata["validation_version"] = "1.0"
-        
+
         self.logger.debug("Validation completed for %s - Ethical: %.2f, Credibility: %.2f, Relevance: %.2f",
                          result.url, result.ethical_score, result.credibility_score, result.relevance_score)
-        
+
         return result
-    
+
     def _is_blacklisted(self, url: str) -> bool:
         """
         Checks if a URL is on the list of blocked domains.
-        
+
         Args:
             url: The URL to be checked
-            
+
         Returns:
             bool: True if it's blacklisted, False otherwise
         """
         domain = self._extract_domain(url)
         return any(blocked in domain for blocked in self.blacklist)
-    
+
     def _extract_domain(self, url: str) -> str:
         """
         Extracts the domain from a URL.
-        
+
         Args:
             url: The full URL
-            
+
         Returns:
             str: The extracted domain
         """
@@ -250,30 +250,30 @@ class SourceValidator:
         domain = url.lower()
         if "://" in domain:
             domain = domain.split("://")[1]
-        
+
         # Remove path
         if "/" in domain:
             domain = domain.split("/")[0]
-        
+
         return domain
-    
+
     def _determine_source_type(self, url: str) -> SourceType:
         """
         Determines the source type based on the URL.
-        
+
         Args:
             url: The source URL
-            
+
         Returns:
             SourceType: The determined source type
         """
         domain = self._extract_domain(url)
-        
+
         # Check each source type
         for source_type, patterns in self.rules["source_types"].items():
             if any(pattern in domain for pattern in patterns):
                 return SourceType(source_type)
-        
+
         # Try to infer based on domain extensions
         if domain.endswith(".edu") or domain.endswith(".ac."):
             return SourceType.EDUCATIONAL
@@ -293,21 +293,21 @@ class SourceValidator:
             return SourceType.SOCIAL
         elif domain.endswith(".com") or domain.endswith(".net"):
             return SourceType.COMMERCIAL
-        
+
         return SourceType.GENERAL
-    
+
     def _calculate_ethical_score(self, result: SearchResult) -> float:
         """
         Calculates the ethical score of a result.
-        
+
         Args:
             result: The result to be evaluated
-            
+
         Returns:
             float: Ethical score between 0.0 and 1.0
         """
         score = 0.5  # Base score
-        
+
         # Adjust based on source type
         source_type_scores = {
             SourceType.ACADEMIC: 0.2,
@@ -318,45 +318,45 @@ class SourceValidator:
             SourceType.COMMERCIAL: -0.05,
             SourceType.SOCIAL: -0.1
         }
-        
+
         score += source_type_scores.get(result.source_type, 0)
-        
+
         # Check for patterns in the content indicating transparency
         if "privacy" in result.url.lower() or "terms" in result.url.lower():
             score += 0.1
-        
+
         # Check for indicators of problematic content in the snippet
         problematic_patterns = [
             "hack", "crack", "pirate", "illegal download", "free download",
             "leaked", "stolen", "bypass paywall", "circumvent"
         ]
-        
+
         if any(pattern in result.snippet.lower() for pattern in problematic_patterns):
             score -= 0.3
-        
+
         # Ensure the score is between 0 and 1
         return max(0.0, min(1.0, score))
-    
+
     def _calculate_credibility_score(self, result: SearchResult) -> float:
         """
         Calculates the credibility score of a result.
-        
+
         Args:
             result: The result to be evaluated
-            
+
         Returns:
             float: Credibility score between 0.0 and 1.0
         """
         domain = self._extract_domain(result.url)
         score = 0.5  # Base score
-        
+
         # Adjust based on domain extension
         domain_scores = self.rules["domain_scores"]
         for ext, ext_score in domain_scores.items():
             if domain.endswith(f".{ext}"):
                 score += ext_score - 0.5  # Adjust relative to the base score
                 break
-        
+
         # Adjust based on source type
         source_type_scores = {
             SourceType.ACADEMIC: 0.3,
@@ -369,41 +369,41 @@ class SourceValidator:
             SourceType.FORUM: -0.1,
             SourceType.SOCIAL: -0.15
         }
-        
+
         score += source_type_scores.get(result.source_type, 0)
-        
+
         # Check for patterns in the snippet indicating credibility
         credibility_patterns = [
             "research", "study", "published", "peer-reviewed", "evidence",
             "according to", "experts", "professor", "dr.", "phd"
         ]
-        
+
         pattern_matches = sum(1 for pattern in credibility_patterns if pattern in result.snippet.lower())
         score += min(0.2, pattern_matches * 0.04)  # Maximum of 0.2 for patterns
-        
+
         # Ensure the score is between 0 and 1
         return max(0.0, min(1.0, score))
-    
+
     def _calculate_relevance_score(self, result: SearchResult) -> float:
         """
         Calculates the relevance score of a result.
         Note: This is a simplified implementation. In a real system,
         it would be necessary to compare with the original query.
-        
+
         Args:
             result: The result to be evaluated
-            
+
         Returns:
             float: Relevance score between 0.0 and 1.0
         """
         # This is a simulated implementation
         # In a real system, we would use more sophisticated relevance algorithms
-        
+
         # For now, we assign a random score weighted by the source type
         import random
-        
+
         base_score = 0.5
-        
+
         # Adjust based on source type (assuming academic and governmental sources
         # tend to be more relevant for serious queries)
         source_type_weights = {
@@ -417,50 +417,50 @@ class SourceValidator:
             SourceType.FORUM: -0.1,
             SourceType.SOCIAL: -0.1
         }
-        
+
         weight = source_type_weights.get(result.source_type, 0)
-        
+
         # Add a random component to simulate variation
         random_component = random.uniform(-0.1, 0.1)
-        
+
         score = base_score + weight + random_component
-        
+
         # Ensure the score is between 0 and 1
         return max(0.0, min(1.0, score))
-    
+
     def batch_validate(self, results: List[SearchResult]) -> List[SearchResult]:
         """
         Validates a batch of search results.
-        
+
         Args:
             results: List of results to be validated
-            
+
         Returns:
             List[SearchResult]: List of validated results
         """
         self.logger.info("Starting batch validation for %d results", len(results))
         validated_results = []
-        
+
         for result in results:
             validated_result = self.validate(result)
             validated_results.append(validated_result)
-        
+
         self.logger.info("Batch validation completed. %d results processed.", len(validated_results))
         return validated_results
-    
+
     def get_validation_stats(self, results: List[SearchResult]) -> Dict[str, Any]:
         """
         Generates validation statistics for a set of results.
-        
+
         Args:
             results: List of validated results
-            
+
         Returns:
             Dict: Validation statistics
         """
         if not results:
             return {"error": "No results to analyze"}
-        
+
         stats = {
             "total_results": len(results),
             "average_ethical_score": sum(r.ethical_score for r in results) / len(results),
@@ -470,7 +470,7 @@ class SourceValidator:
             "high_credibility_count": sum(1 for r in results if r.credibility_score >= 0.7),
             "low_ethical_score_count": sum(1 for r in results if r.ethical_score < 0.4)
         }
-        
+
         # Calculate source type distribution
         for source_type in SourceType:
             count = sum(1 for r in results if r.source_type == source_type)
@@ -479,35 +479,35 @@ class SourceValidator:
                     "count": count,
                     "percentage": (count / len(results)) * 100
                 }
-        
+
         return stats
 
 class EthicalValidator:
     """
     Responsible for validating ethical aspects of searches and results.
-    
+
     This class implements ethical checks to ensure that the research process
     and the obtained results comply with the ethical principles of the EVA & GUARANI system.
     """
-    
+
     def __init__(self, config: Dict[str, Any]):
         """
         Initializes the ethical validator.
-        
+
         Args:
             config: Configuration for ethical validation
         """
         self.config = config
         self.logger = logging.getLogger("EthicalValidator")
         self.logger.info("Initializing ethical validator...")
-    
+
     def validate_query(self, query: str) -> Tuple[bool, str]:
         """
         Validates a query for ethical aspects.
-        
+
         Args:
             query: The query to be validated
-            
+
         Returns:
             Tuple (is_valid, reason) where is_valid is a boolean indicating if the query
             is ethically valid, and reason is an explanation if it is not.
@@ -517,13 +517,13 @@ class EthicalValidator:
         for term in harmful_terms:
             if term.lower() in query.lower():
                 return False, f"The query contains the potentially harmful term: {term}"
-        
+
         # Add more ethical checks as needed
         return True, "Query successfully validated"
-    
+
     def validate_source(self, result: SearchResult) -> Tuple[float, Dict[str, Any]]:
         """
         Validates a source for ethical aspects and assigns a score.
-        
+
         Args:
             result: The search result to be validated

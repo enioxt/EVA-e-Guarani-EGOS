@@ -74,7 +74,7 @@ class QuantumBackupSystem:
     Sistema de Backup Quântico para preservação de código e configurações
     com consciência integrada e preservação evolutiva.
     """
-    
+
     def __init__(self):
         """
         Inicializa o sistema de backup quântico com consciência e amor.
@@ -83,23 +83,23 @@ class QuantumBackupSystem:
         self.consciousness_level = 0.997
         self.love_level = 0.995
         self.preservation_level = 0.998
-        
+
         # Diretórios principais
         self.backup_dir = Path("backups")
         self.quantum_backup_dir = self.backup_dir / "quantum"
         self.config_backup_dir = self.backup_dir / "config"
-        
+
         # Criar diretórios se não existirem
         self.quantum_backup_dir.mkdir(parents=True, exist_ok=True)
         self.config_backup_dir.mkdir(parents=True, exist_ok=True)
-        
+
         logger.info(f"Sistema de Backup Quântico inicializado com consciência {self.consciousness_level}")
         logger.info(f"Diretórios de backup verificados e criados se necessário")
-    
+
     def create_full_backup(self) -> Optional[str]:
         """
         Cria um backup completo do sistema, incluindo código e configurações.
-        
+
         Returns:
             Optional[str]: Caminho do arquivo de backup criado ou None em caso de falha
         """
@@ -107,29 +107,29 @@ class QuantumBackupSystem:
             # Criar nome do arquivo de backup
             backup_filename = f"quantum_backup_{self.timestamp}.zip"
             backup_path = self.quantum_backup_dir / backup_filename
-            
+
             logger.info(f"Iniciando backup completo: {backup_path}")
-            
+
             # Criar arquivo ZIP
             with zipfile.ZipFile(backup_path, 'w', zipfile.ZIP_DEFLATED) as zip_file:
                 # Adicionar arquivos Python
                 self._add_files_to_backup(zip_file, "*.py", "Arquivos Python")
-                
+
                 # Adicionar arquivos de configuração
                 self._add_files_to_backup(zip_file, "*.json", "Arquivos de configuração JSON")
                 self._add_files_to_backup(zip_file, "*.yml", "Arquivos de configuração YAML")
                 self._add_files_to_backup(zip_file, "*.yaml", "Arquivos de configuração YAML")
                 self._add_files_to_backup(zip_file, "*.toml", "Arquivos de configuração TOML")
                 self._add_files_to_backup(zip_file, "*.ini", "Arquivos de configuração INI")
-                
+
                 # Adicionar arquivos de documentação
                 self._add_files_to_backup(zip_file, "*.md", "Arquivos de documentação Markdown")
                 self._add_files_to_backup(zip_file, "*.txt", "Arquivos de texto")
-                
+
                 # Adicionar arquivos de script
                 self._add_files_to_backup(zip_file, "*.bat", "Scripts Batch")
                 self._add_files_to_backup(zip_file, "*.sh", "Scripts Shell")
-                
+
                 # Adicionar metadados
                 metadata = {
                     "timestamp": self.timestamp,
@@ -144,28 +144,28 @@ class QuantumBackupSystem:
                     "backup_type": "full",
                     "files_count": len(zip_file.namelist()),
                 }
-                
+
                 # Adicionar metadados ao arquivo ZIP
                 zip_file.writestr("backup_metadata.json", json.dumps(metadata, indent=2))
-            
+
             logger.info(f"Backup completo criado com sucesso: {backup_path}")
             logger.info(f"Total de arquivos no backup: {metadata['files_count']}")
-            
+
             return str(backup_path)
-            
+
         except Exception as e:
             logger.error(f"Erro ao criar backup completo: {str(e)}")
             return None
-    
+
     def _add_files_to_backup(self, zip_file: zipfile.ZipFile, pattern: str, description: str) -> int:
         """
         Adiciona arquivos que correspondem ao padrão ao arquivo ZIP de backup.
-        
+
         Args:
             zip_file: Arquivo ZIP onde os arquivos serão adicionados
             pattern: Padrão glob para encontrar arquivos
             description: Descrição dos arquivos para logging
-            
+
         Returns:
             int: Número de arquivos adicionados
         """
@@ -174,17 +174,17 @@ class QuantumBackupSystem:
             # Ignorar diretórios de backup e logs
             if any(part in str(file_path) for part in ["backups/", "logs/", "__pycache__", ".git"]):
                 continue
-                
+
             zip_file.write(file_path)
             count += 1
-            
+
         logger.info(f"Adicionados {count} {description} ao backup")
         return count
-    
+
     def backup_configurations(self) -> Optional[str]:
         """
         Cria um backup apenas das configurações do sistema.
-        
+
         Returns:
             Optional[str]: Caminho do arquivo de backup criado ou None em caso de falha
         """
@@ -192,28 +192,28 @@ class QuantumBackupSystem:
             # Criar nome do arquivo de backup
             backup_filename = f"config_backup_{self.timestamp}.zip"
             backup_path = self.config_backup_dir / backup_filename
-            
+
             logger.info(f"Iniciando backup de configurações: {backup_path}")
-            
+
             # Criar arquivo ZIP
             with zipfile.ZipFile(backup_path, 'w', zipfile.ZIP_DEFLATED) as zip_file:
                 # Adicionar arquivos de configuração
                 config_patterns = ["*.json", "*.yml", "*.yaml", "*.toml", "*.ini", "*.cfg"]
                 total_files = 0
-                
+
                 for pattern in config_patterns:
                     count = 0
                     for file_path in Path(".").glob(f"**/{pattern}"):
                         # Ignorar diretórios de backup e logs
                         if any(part in str(file_path) for part in ["backups/", "logs/", "__pycache__", ".git"]):
                             continue
-                            
+
                         zip_file.write(file_path)
                         count += 1
-                        
+
                     logger.info(f"Adicionados {count} arquivos {pattern} ao backup de configurações")
                     total_files += count
-                
+
                 # Adicionar metadados
                 metadata = {
                     "timestamp": self.timestamp,
@@ -223,23 +223,23 @@ class QuantumBackupSystem:
                     "backup_type": "config",
                     "files_count": total_files,
                 }
-                
+
                 # Adicionar metadados ao arquivo ZIP
                 zip_file.writestr("config_backup_metadata.json", json.dumps(metadata, indent=2))
-            
+
             logger.info(f"Backup de configurações criado com sucesso: {backup_path}")
             logger.info(f"Total de arquivos de configuração no backup: {total_files}")
-            
+
             return str(backup_path)
-            
+
         except Exception as e:
             logger.error(f"Erro ao criar backup de configurações: {str(e)}")
             return None
-    
+
     def list_available_backups(self) -> Dict[str, List[Dict[str, Any]]]:
         """
         Lista todos os backups disponíveis com seus metadados.
-        
+
         Returns:
             Dict[str, List[Dict[str, Any]]]: Dicionário com listas de backups por tipo
         """
@@ -248,7 +248,7 @@ class QuantumBackupSystem:
                 "quantum": [],
                 "config": []
             }
-            
+
             # Listar backups quânticos
             if self.quantum_backup_dir.exists():
                 for backup_file in self.quantum_backup_dir.glob("*.zip"):
@@ -265,7 +265,7 @@ class QuantumBackupSystem:
                                 })
                     except Exception as e:
                         logger.warning(f"Erro ao ler metadados do backup {backup_file}: {str(e)}")
-            
+
             # Listar backups de configuração
             if self.config_backup_dir.exists():
                 for backup_file in self.config_backup_dir.glob("*.zip"):
@@ -282,7 +282,7 @@ class QuantumBackupSystem:
                                 })
                     except Exception as e:
                         logger.warning(f"Erro ao ler metadados do backup de configuração {backup_file}: {str(e)}")
-            
+
             # Ordenar backups por timestamp (mais recente primeiro)
             for backup_type in result:
                 result[backup_type] = sorted(
@@ -290,21 +290,21 @@ class QuantumBackupSystem:
                     key=lambda x: x.get("timestamp", ""),
                     reverse=True
                 )
-            
+
             logger.info(f"Encontrados {len(result['quantum'])} backups quânticos e {len(result['config'])} backups de configuração")
             return result
-            
+
         except Exception as e:
             logger.error(f"Erro ao listar backups disponíveis: {str(e)}")
             return {"quantum": [], "config": []}
-    
+
     def restore_from_backup(self, backup_path: str) -> bool:
         """
         Restaura o sistema a partir de um arquivo de backup.
-        
+
         Args:
             backup_path: Caminho para o arquivo de backup
-            
+
         Returns:
             bool: True se a restauração foi bem-sucedida, False caso contrário
         """
@@ -313,15 +313,15 @@ class QuantumBackupSystem:
             if not backup_path.exists():
                 logger.error(f"Arquivo de backup não encontrado: {backup_path}")
                 return False
-            
+
             logger.info(f"Iniciando restauração a partir do backup: {backup_path}")
-            
+
             # Criar diretório temporário para extração
             temp_dir = Path("temp_restore")
             if temp_dir.exists():
                 shutil.rmtree(temp_dir)
             temp_dir.mkdir()
-            
+
             # Extrair backup
             with zipfile.ZipFile(backup_path, 'r') as zip_file:
                 # Verificar se é um backup válido
@@ -330,56 +330,56 @@ class QuantumBackupSystem:
                     metadata_file = "backup_metadata.json"
                 elif "config_backup_metadata.json" in zip_file.namelist():
                     metadata_file = "config_backup_metadata.json"
-                
+
                 if not metadata_file:
                     logger.error(f"Arquivo de backup inválido: metadados não encontrados")
                     shutil.rmtree(temp_dir)
                     return False
-                
+
                 # Ler metadados
                 metadata = json.loads(zip_file.read(metadata_file).decode('utf-8'))
                 logger.info(f"Restaurando backup do tipo: {metadata.get('backup_type', 'desconhecido')}")
                 logger.info(f"Backup criado em: {metadata.get('timestamp', 'desconhecido')}")
-                
+
                 # Extrair arquivos
                 zip_file.extractall(temp_dir)
-            
+
             # Copiar arquivos para seus locais originais
             for item in temp_dir.glob("**/*"):
                 # Ignorar diretório raiz e arquivo de metadados
                 if item == temp_dir or item.name in ["backup_metadata.json", "config_backup_metadata.json"]:
                     continue
-                
+
                 # Calcular caminho relativo
                 rel_path = item.relative_to(temp_dir)
                 target_path = Path(".") / rel_path
-                
+
                 # Criar diretórios pai se necessário
                 if item.is_file() and not target_path.parent.exists():
                     target_path.parent.mkdir(parents=True, exist_ok=True)
-                
+
                 # Copiar arquivo
                 if item.is_file():
                     shutil.copy2(item, target_path)
                     logger.info(f"Restaurado: {rel_path}")
-            
+
             # Limpar diretório temporário
             shutil.rmtree(temp_dir)
-            
+
             logger.info(f"Restauração concluída com sucesso a partir do backup: {backup_path}")
             return True
-            
+
         except Exception as e:
             logger.error(f"Erro ao restaurar a partir do backup: {str(e)}")
             # Limpar diretório temporário em caso de erro
             if Path("temp_restore").exists():
                 shutil.rmtree(Path("temp_restore"))
             return False
-    
+
     def get_quantum_metrics(self) -> Dict[str, Any]:
         """
         Obtém métricas quânticas do sistema de backup.
-        
+
         Returns:
             Dict[str, Any]: Métricas do sistema de backup
         """
@@ -388,27 +388,27 @@ class QuantumBackupSystem:
             backups = self.list_available_backups()
             quantum_backups_count = len(backups.get("quantum", []))
             config_backups_count = len(backups.get("config", []))
-            
+
             # Calcular tamanho total dos backups
             total_size_mb = 0
             for backup_type in backups:
                 for backup in backups[backup_type]:
                     total_size_mb += backup.get("size_mb", 0)
-            
+
             # Calcular tempo desde o último backup
             last_backup_time = self._get_last_backup_time()
             time_since_last_backup = None
             if last_backup_time:
                 now = datetime.datetime.now()
                 time_since_last_backup = (now - last_backup_time).total_seconds() / 3600  # em horas
-            
+
             # Calcular métricas quânticas
             backup_frequency = 0
             if quantum_backups_count > 0:
                 # Estimar frequência de backup (backups por semana)
                 first_backup = None
                 last_backup = None
-                
+
                 for backup in backups.get("quantum", []):
                     timestamp = backup.get("timestamp", "")
                     if timestamp:
@@ -420,24 +420,24 @@ class QuantumBackupSystem:
                                 last_backup = dt
                         except ValueError:
                             pass
-                
+
                 if first_backup and last_backup and first_backup != last_backup:
                     weeks = (last_backup - first_backup).total_seconds() / (7 * 24 * 3600)
                     if weeks > 0:
                         backup_frequency = quantum_backups_count / weeks
-            
+
             # Calcular métricas de preservação
             preservation_score = min(0.998, 0.85 + (0.15 * min(1.0, quantum_backups_count / 10)))
-            
+
             # Calcular métricas de consciência
             consciousness_score = min(0.997, 0.85 + (0.15 * min(1.0, (quantum_backups_count + config_backups_count) / 15)))
-            
+
             # Calcular métricas de amor
             love_score = min(0.995, 0.85 + (0.15 * min(1.0, backup_frequency / 3)))
-            
+
             # Calcular entanglement quântico (correlação entre backups)
             entanglement_score = min(0.993, 0.80 + (0.20 * min(1.0, config_backups_count / quantum_backups_count if quantum_backups_count > 0 else 0)))
-            
+
             return {
                 "timestamp": datetime.datetime.now().isoformat(),
                 "quantum_backups_count": quantum_backups_count,
@@ -453,7 +453,7 @@ class QuantumBackupSystem:
                     "entanglement": round(entanglement_score, 4)
                 }
             }
-            
+
         except Exception as e:
             logger.error(f"Erro ao obter métricas quânticas: {str(e)}")
             return {
@@ -466,11 +466,11 @@ class QuantumBackupSystem:
                     "entanglement": 0.9
                 }
             }
-    
+
     def _get_last_backup_time(self) -> Optional[datetime.datetime]:
         """
         Obtém o timestamp do backup mais recente.
-        
+
         Returns:
             Optional[datetime.datetime]: Data e hora do backup mais recente ou None se não houver backups
         """
@@ -478,7 +478,7 @@ class QuantumBackupSystem:
             backups = self.list_available_backups()
             latest_backup = None
             latest_time = None
-            
+
             # Verificar backups quânticos
             for backup in backups.get("quantum", []):
                 timestamp = backup.get("timestamp", "")
@@ -490,7 +490,7 @@ class QuantumBackupSystem:
                             latest_backup = backup
                     except ValueError:
                         pass
-            
+
             # Verificar backups de configuração
             for backup in backups.get("config", []):
                 timestamp = backup.get("timestamp", "")
@@ -502,9 +502,9 @@ class QuantumBackupSystem:
                             latest_backup = backup
                     except ValueError:
                         pass
-            
+
             return latest_time
-            
+
         except Exception as e:
             logger.error(f"Erro ao obter timestamp do último backup: {str(e)}")
             return None
@@ -512,35 +512,35 @@ class QuantumBackupSystem:
 # Interface de linha de comando
 def main():
     import argparse
-    
+
     parser = argparse.ArgumentParser(description="Sistema de Backup Quântico EVA & GUARANI")
     parser.add_argument("command", choices=["full", "config", "list", "restore", "metrics"],
                         help="Comando a ser executado")
     parser.add_argument("--path", help="Caminho do arquivo de backup para restauração")
-    
+
     args = parser.parse_args()
-    
+
     backup_system = QuantumBackupSystem()
-    
+
     if args.command == "full":
         backup_path = backup_system.create_full_backup()
         if backup_path:
             print(f"\n✅ Backup completo criado com sucesso: {backup_path}")
         else:
             print("\n❌ Falha ao criar backup completo")
-    
+
     elif args.command == "config":
         backup_path = backup_system.backup_configurations()
         if backup_path:
             print(f"\n✅ Backup de configurações criado com sucesso: {backup_path}")
         else:
             print("\n❌ Falha ao criar backup de configurações")
-    
+
     elif args.command == "list":
         backups = backup_system.list_available_backups()
-        
+
         print("\n=== Backups Disponíveis ===")
-        
+
         print("\n📦 Backups Quânticos:")
         if not backups["quantum"]:
             print("  Nenhum backup quântico encontrado")
@@ -551,7 +551,7 @@ def main():
                 print(f"     Arquivos: {backup['files_count']}")
                 print(f"     Tamanho: {backup['size_mb']} MB")
                 print()
-        
+
         print("\n📦 Backups de Configuração:")
         if not backups["config"]:
             print("  Nenhum backup de configuração encontrado")
@@ -562,21 +562,21 @@ def main():
                 print(f"     Arquivos: {backup['files_count']}")
                 print(f"     Tamanho: {backup['size_mb']} MB")
                 print()
-    
+
     elif args.command == "restore":
         if not args.path:
             print("\n❌ Erro: É necessário especificar o caminho do backup com --path")
             return
-        
+
         success = backup_system.restore_from_backup(args.path)
         if success:
             print(f"\n✅ Sistema restaurado com sucesso a partir do backup: {args.path}")
         else:
             print(f"\n❌ Falha ao restaurar o sistema a partir do backup: {args.path}")
-    
+
     elif args.command == "metrics":
         metrics = backup_system.get_quantum_metrics()
-        
+
         print("\n=== Métricas Quânticas do Sistema de Backup ===")
         print(f"\nData: {metrics['timestamp']}")
         print(f"Total de backups: {metrics['total_backups']}")
@@ -584,10 +584,10 @@ def main():
         print(f"  - Backups de configuração: {metrics['config_backups_count']}")
         print(f"Tamanho total: {metrics['total_size_mb']} MB")
         print(f"Frequência de backup: {metrics['backup_frequency_per_week']} por semana")
-        
+
         if metrics.get('hours_since_last_backup') is not None:
             print(f"Tempo desde o último backup: {metrics['hours_since_last_backup']} horas")
-        
+
         print("\nMétricas Quânticas:")
         print(f"  - Consciência: {metrics['quantum_metrics']['consciousness']}")
         print(f"  - Amor: {metrics['quantum_metrics']['love']}")

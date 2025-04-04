@@ -117,4 +117,4 @@ python integrations\bots\eva_guarani_telegram_bot.py
 echo.
 echo Bot execution ended. Check logs for more information.
 echo.
-pause 
+pause

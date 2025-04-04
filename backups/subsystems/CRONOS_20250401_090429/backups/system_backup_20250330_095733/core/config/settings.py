@@ -82,17 +82,17 @@ def load_config() -> Dict[str, Any]:
 def get_config_value(path: str, default: Any = None) -> Any:
     """
     Retrieves a specific configuration value using a path notation.
-    
+
     Args:
         path: Path to the value, in the format "section.subsection.key"
         default: Default value if the path does not exist
-        
+
     Returns:
         The configuration value or the default value
     """
     keys = path.split('.')
     config_copy = CONFIG
-    
+
     try:
         for key in keys:
             config_copy = config_copy[key]
@@ -102,31 +102,31 @@ def get_config_value(path: str, default: Any = None) -> Any:
 def update_config(path: str, value: Any, save: bool = False) -> bool:
     """
     Updates a specific configuration value.
-    
+
     Args:
         path: Path to the value, in the format "section.subsection.key"
         value: New value
         save: If True, saves the changes to the configuration file
-        
+
     Returns:
         True if the update was successful, False otherwise
     """
     keys = path.split('.')
     config_copy = CONFIG
-    
+
     try:
         # Navigate to the penultimate level
         for key in keys[:-1]:
             if key not in config_copy:
                 config_copy[key] = {}
             config_copy = config_copy[key]
-        
+
         # Update the value
         config_copy[keys[-1]] = value
-        
+
         if save:
             save_config()
-        
+
         return True
     except Exception as e:
         logger.error(f"Error updating configuration {path}: {e}")
@@ -135,7 +135,7 @@ def update_config(path: str, value: Any, save: bool = False) -> bool:
 def save_config() -> bool:
     """
     Saves the current settings to the config.json file.
-    
+
     Returns:
         True if the save was successful, False otherwise
     """
@@ -152,7 +152,7 @@ def save_config() -> bool:
 def get_environment() -> str:
     """
     Returns the current environment (development, testing, production).
-    
+
     Returns:
         String representing the environment
     """
@@ -173,7 +173,7 @@ def is_testing() -> bool:
 def get_log_level() -> int:
     """
     Returns the configured log level.
-    
+
     Returns:
         Logging level constant
     """
@@ -193,16 +193,16 @@ def initialize() -> None:
     """
     global CONFIG
     CONFIG = load_config()
-    
+
     # Set the log level
     logging.getLogger().setLevel(get_log_level())
-    
+
     # Create necessary directories
     for path_key in ['data_dir', 'logs_dir', 'models_dir', 'backup_dir', 'exports_dir', 'temp_dir']:
         path = get_config_value(f'paths.{path_key}')
         if path:
             os.makedirs(Path(BASE_DIR) / path, exist_ok=True)
-    
+
     logger.info(f"System {get_config_value('system.name')} v{get_config_value('system.version')} initialized in environment {get_environment()}")
 
 # Initialize settings when importing the module

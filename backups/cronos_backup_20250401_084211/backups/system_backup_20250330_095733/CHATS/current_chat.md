@@ -117,7 +117,7 @@ Para preservar as conversas, há duas formas:
 
    ```python
    from core.quantum_utils import trigger_context_preservation
-   
+
    # Com texto da conversa atual
    trigger_context_preservation(conversation_text)
    ```

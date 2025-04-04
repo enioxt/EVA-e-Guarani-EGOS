@@ -102,7 +102,7 @@ Factory function to create an instance of CRONOS
 Args:
     config: CRONOS configuration
     system_root: System root path
-    
+
 Returns:
     Cronos: Instance of the CRONOS subsystem
 
@@ -133,7 +133,7 @@ Creates a backup of the system or specific modules
 Args:
     description: Backup description
     include_modules: List of modules to include (None for all)
-    
+
 Returns:
     Dict: Information about the created backup
 
@@ -147,7 +147,7 @@ Args:
     version_id: ID of the version to restore (None to use the latest)
     target_modules: List of modules to restore (None for all)
     target_dir: Target directory for restoration (None to use the original directory)
-    
+
 Returns:
     Dict: Result of the restoration operation
 
@@ -168,7 +168,7 @@ Obtains detailed information about a specific backup
 
 Args:
     version_id: ID of the backup version
-    
+
 Returns:
     Dict: Backup information or None if not found
 
@@ -180,7 +180,7 @@ Removes a specific backup
 
 Args:
     version_id: ID of the backup version to remove
-    
+
 Returns:
     bool: True if removed successfully, False otherwise
 
@@ -192,7 +192,7 @@ Generates a report on the system backups
 
 Args:
     format: Report format (markdown, text)
-    
+
 Returns:
     str: Formatted report
 

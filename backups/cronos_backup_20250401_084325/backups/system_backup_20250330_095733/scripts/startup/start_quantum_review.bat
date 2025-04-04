@@ -90,4 +90,4 @@ REM Iniciar a interface de aprovação
 python core/quantum_approval_ui.py
 
 echo.
-echo ✧༺❀༻∞ Sistema finalizado ∞༺❀༻✧ 
+echo ✧༺❀༻∞ Sistema finalizado ∞༺❀༻✧

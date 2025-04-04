@@ -21,7 +21,7 @@ class Visualizer:
     def __init__(self):
         self.output_dir = Path("QUANTUM_PROMPTS/ATLAS/visualizations")
         self.output_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Configure logging
         logging.basicConfig(
             level=logging.INFO,
@@ -31,7 +31,7 @@ class Visualizer:
                 logging.StreamHandler()
             ]
         )
-        
+
         # Color schemes for different visualization types
         self.colors = {
             "subsystems": {
@@ -55,10 +55,10 @@ class Visualizer:
                 "low": "#B0BEC5"         # Blue gray
             }
         }
-        
+
         # Initialize network graph
         self.G = nx.Graph()
-        
+
     async def create_visualization(self, state: dict) -> dict:
         """Create all visualizations for the current state"""
         try:
@@ -69,34 +69,34 @@ class Visualizer:
                 "ethical_metrics": await self._create_ethical_metrics(state),
                 "timeline": await self._create_timeline(state)
             }
-            
+
             # Save visualizations
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             output_file = self.output_dir / f"visualization_state_{timestamp}.html"
-            
+
             with open(output_file, "w") as f:
                 f.write(self._generate_html_dashboard(visualizations))
-                
+
             logging.info(f"Visualizations created successfully: {output_file}")
             return visualizations
-            
+
         except Exception as e:
             logging.error(f"Error creating visualizations: {str(e)}")
             return {"error": str(e)}
-            
+
     async def _create_system_overview(self, state: dict) -> dict:
         """Create beautiful system overview visualization"""
         try:
             # Create network visualization
             net = Network(height="750px", width="100%", bgcolor="#ffffff", font_color="#333333")
             net.force_atlas_2based()
-            
+
             # Add nodes for each subsystem
             for subsystem, data in state["subsystems"].items():
                 completion = data["completion"]
                 color = self.colors["subsystems"][subsystem]
                 size = 30 + (completion * 20)  # Size based on completion
-                
+
                 net.add_node(
                     subsystem,
                     label=subsystem,
@@ -104,7 +104,7 @@ class Visualizer:
                     size=size,
                     title=f"{subsystem}: {completion:.1f}% complete"
                 )
-                
+
             # Add edges between related subsystems
             connections = [
                 ("MASTER", "BIOS-Q"),
@@ -117,34 +117,34 @@ class Visualizer:
                 ("NEXUS", "ETHIK"),
                 ("ETHIK", "CRONOS")
             ]
-            
+
             for source, target in connections:
                 net.add_edge(source, target, color="#666666", width=2)
-                
+
             # Save to file
             output_file = self.output_dir / "system_overview.html"
             net.save_graph(str(output_file))
-            
+
             return {
                 "type": "network",
                 "file": str(output_file),
                 "timestamp": datetime.now().isoformat()
             }
-            
+
         except Exception as e:
             logging.error(f"Error creating system overview: {str(e)}")
             return {"error": str(e)}
-            
+
     async def _create_progress_metrics(self, state: dict) -> dict:
         """Create beautiful progress metrics visualization"""
         try:
             # Create progress bars for each subsystem
             fig = go.Figure()
-            
+
             subsystems = list(state["subsystems"].keys())
             completion_values = [state["subsystems"][s]["completion"] for s in subsystems]
             colors = [self.colors["subsystems"][s] for s in subsystems]
-            
+
             fig.add_trace(go.Bar(
                 x=completion_values,
                 y=subsystems,
@@ -153,7 +153,7 @@ class Visualizer:
                 text=[f"{v:.1f}%" for v in completion_values],
                 textposition='auto',
             ))
-            
+
             fig.update_layout(
                 title="System Implementation Progress",
                 xaxis_title="Completion Percentage",
@@ -162,33 +162,33 @@ class Visualizer:
                 height=400,
                 showlegend=False
             )
-            
+
             # Save to file
             output_file = self.output_dir / "progress_metrics.html"
             fig.write_html(str(output_file))
-            
+
             return {
                 "type": "plotly",
                 "file": str(output_file),
                 "timestamp": datetime.now().isoformat()
             }
-            
+
         except Exception as e:
             logging.error(f"Error creating progress metrics: {str(e)}")
             return {"error": str(e)}
-            
+
     async def _create_dependency_graph(self, state: dict) -> dict:
         """Create beautiful dependency graph visualization"""
         try:
             net = Network(height="750px", width="100%", bgcolor="#ffffff", font_color="#333333")
             net.force_atlas_2based()
-            
+
             # Add nodes for each phase
             for phase_id, phase_data in state["phases"].items():
                 completion = phase_data["completion"]
                 status = phase_data["status"]
                 color = self.colors["status"][status]
-                
+
                 net.add_node(
                     f"Phase {phase_id}",
                     label=f"Phase {phase_id}",
@@ -196,7 +196,7 @@ class Visualizer:
                     size=25 + (completion * 15),
                     title=f"Phase {phase_id}: {completion:.1f}% complete"
                 )
-                
+
             # Add edges for dependencies
             for phase_id, phase_data in state["phases"].items():
                 for dep_id in phase_data.get("dependencies", []):
@@ -206,28 +206,28 @@ class Visualizer:
                         color="#666666",
                         arrows="to"
                     )
-                    
+
             # Save to file
             output_file = self.output_dir / "dependency_graph.html"
             net.save_graph(str(output_file))
-            
+
             return {
                 "type": "network",
                 "file": str(output_file),
                 "timestamp": datetime.now().isoformat()
             }
-            
+
         except Exception as e:
             logging.error(f"Error creating dependency graph: {str(e)}")
             return {"error": str(e)}
-            
+
     async def _create_ethical_metrics(self, state: dict) -> dict:
         """Create beautiful ethical metrics visualization"""
         try:
             metrics = state.get("ethical_metrics", {})
-            
+
             fig = go.Figure()
-            
+
             # Create radar chart for ethical metrics
             fig.add_trace(go.Scatterpolar(
                 r=[
@@ -247,7 +247,7 @@ class Visualizer:
                 fill='toself',
                 name="Current Metrics"
             ))
-            
+
             fig.update_layout(
                 polar=dict(
                     radialaxis=dict(
@@ -259,33 +259,33 @@ class Visualizer:
                 title="Ethical Framework Metrics",
                 template="plotly_white"
             )
-            
+
             # Save to file
             output_file = self.output_dir / "ethical_metrics.html"
             fig.write_html(str(output_file))
-            
+
             return {
                 "type": "plotly",
                 "file": str(output_file),
                 "timestamp": datetime.now().isoformat()
             }
-            
+
         except Exception as e:
             logging.error(f"Error creating ethical metrics: {str(e)}")
             return {"error": str(e)}
-            
+
     async def _create_timeline(self, state: dict) -> dict:
         """Create beautiful timeline visualization"""
         try:
             fig = go.Figure()
-            
+
             # Create timeline for phases
             for phase_id, phase_data in state["phases"].items():
                 start_date = phase_data.get("start_date", "2025-01-01")
                 end_date = phase_data.get("end_date", "2025-12-31")
                 completion = phase_data["completion"]
                 status = phase_data["status"]
-                
+
                 fig.add_trace(go.Bar(
                     x=[start_date, end_date],
                     y=[f"Phase {phase_id}"],
@@ -294,7 +294,7 @@ class Visualizer:
                     text=f"{completion:.1f}%",
                     textposition='auto',
                 ))
-                
+
             fig.update_layout(
                 title="Project Timeline",
                 xaxis_title="Date",
@@ -304,21 +304,21 @@ class Visualizer:
                 showlegend=False,
                 barmode='overlay'
             )
-            
+
             # Save to file
             output_file = self.output_dir / "timeline.html"
             fig.write_html(str(output_file))
-            
+
             return {
                 "type": "plotly",
                 "file": str(output_file),
                 "timestamp": datetime.now().isoformat()
             }
-            
+
         except Exception as e:
             logging.error(f"Error creating timeline: {str(e)}")
             return {"error": str(e)}
-            
+
     def _generate_html_dashboard(self, visualizations: dict) -> str:
         """Generate beautiful HTML dashboard combining all visualizations"""
         html = f"""
@@ -382,10 +382,10 @@ class Visualizer:
                 <h1>EVA & GUARANI</h1>
                 <p>System Visualization Dashboard - Updated {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>
             </div>
-            
+
             <div class="dashboard">
         """
-        
+
         # Add each visualization
         for title, viz_data in visualizations.items():
             if "error" not in viz_data:
@@ -395,7 +395,7 @@ class Visualizer:
                     <iframe src="{viz_data['file']}" height="600px"></iframe>
                 </div>
                 """
-                
+
         html += """
             </div>
             <div class="footer">
@@ -404,9 +404,9 @@ class Visualizer:
         </body>
         </html>
         """
-        
+
         return html
-        
+
     async def calculate_metrics(self) -> dict:
         """Calculate visualization-related metrics"""
         return {
@@ -415,4 +415,4 @@ class Visualizer:
             "last_update": datetime.now().isoformat()
         }
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

@@ -11,14 +11,15 @@ Ensures proper handling of sanitize requests and responses.
 Version: 8.0.0
 """
 
-import pytest
-import asyncio
-from pathlib import Path
-from unittest.mock import MagicMock, AsyncMock, patch
 import json
+from pathlib import Path
+from unittest.mock import patch
+
+import pytest
 
 # Import the sanitizer and related classes
-from ..core.sanitizer import EthikSanitizer, SanitizationResult
+from ..core.sanitizer import EthikSanitizer
+
 
 # Mock Mycelium Interface (can reuse from test_service or define here)
 class MockMyceliumInterface:
@@ -35,9 +36,11 @@ class MockMyceliumInterface:
             self.subscribed_topics[topic] = []
         self.subscribed_topics[topic].append(handler)
 
+
 @pytest.fixture
 def mock_mycelium():
     return MockMyceliumInterface()
+
 
 @pytest.fixture
 def test_sanitizer_config(tmp_path: Path) -> Dict:
@@ -52,22 +55,24 @@ def test_sanitizer_config(tmp_path: Path) -> Dict:
                 "severity": "high",
                 "patterns": ["BAD_WORD"],
                 "replacements": {"BAD_WORD": "[REPLACED]"},
-                "conditions": []
+                "conditions": [],
             }
         ]
     }
     rules_file.write_text(json.dumps(rules_content))
-    
+
     return {
-        "rules_file": str(rules_file.resolve()), # Pass absolute path
+        "rules_file": str(rules_file.resolve()),  # Pass absolute path
         "history_retention_days": 1,
-        "performance": {"caching": {"max_size": 10}}
+        "performance": {"caching": {"max_size": 10}},
     }
+
 
 @pytest.fixture
 def sanitizer(test_sanitizer_config, mock_mycelium) -> EthikSanitizer:
     """Provides an initialized EthikSanitizer instance."""
     return EthikSanitizer(test_sanitizer_config, mock_mycelium)
+
 
 @pytest.mark.asyncio
 async def test_handle_sanitize_request_success(sanitizer, mock_mycelium):
@@ -77,24 +82,24 @@ async def test_handle_sanitize_request_success(sanitizer, mock_mycelium):
         "id": "req-123",
         "payload": {
             "content": "This contains a BAD_WORD.",
-            "context": {"source": "test_component"}
-        }
+            "context": {"source": "test_component"},
+        },
     }
-    
+
     # Get the handler function from the sanitizer (assuming it subscribed)
     # In a real scenario, Mycelium would route this, here we call it directly
     handler = sanitizer.handle_sanitize_request
     await handler(request_message)
-    
+
     # Check if response was published
     assert len(mock_mycelium.published_messages) == 1
     published = mock_mycelium.published_messages[0]
-    
+
     # Verify response details
     assert published["topic"] == "response.sanitization.req-123"
     assert published["message"]["type"] == "sanitization_response"
     assert published["message"]["reference_id"] == "req-123"
-    
+
     payload = published["message"]["payload"]
     assert payload["original_content"] == "This contains a BAD_WORD."
     assert payload["sanitized_content"] == "This contains a [REPLACED]."
@@ -104,6 +109,7 @@ async def test_handle_sanitize_request_success(sanitizer, mock_mycelium):
     assert payload["changes_made"][0]["original"] == "BAD_WORD"
     assert payload["changes_made"][0]["replacement"] == "[REPLACED]"
 
+
 @pytest.mark.asyncio
 async def test_handle_sanitize_request_no_content(sanitizer, mock_mycelium):
     """Test handling a sanitize request missing the content field."""
@@ -112,44 +118,42 @@ async def test_handle_sanitize_request_no_content(sanitizer, mock_mycelium):
         "payload": {
             # Missing "content"
             "context": {"source": "test_component"}
-        }
+        },
     }
-    
+
     handler = sanitizer.handle_sanitize_request
     await handler(request_message)
-    
+
     # Check if error response was published
     assert len(mock_mycelium.published_messages) == 1
     published = mock_mycelium.published_messages[0]
-    
+
     assert published["topic"] == "response.sanitization.req-456"
     assert published["message"]["type"] == "sanitization_error"
     assert published["message"]["reference_id"] == "req-456"
     assert "Missing 'content'" in published["message"]["error"]
 
+
 @pytest.mark.asyncio
 async def test_handle_sanitize_request_internal_error(sanitizer, mock_mycelium):
     """Test handling when an internal error occurs during sanitization."""
-    request_message = {
-        "id": "req-789",
-        "payload": {
-            "content": "Some content.",
-            "context": {}
-        }
-    }
-    
+    request_message = {"id": "req-789", "payload": {"content": "Some content.", "context": {}}}
+
     # Mock the internal sanitize_content to raise an error
-    with patch.object(sanitizer, 'sanitize_content', side_effect=RuntimeError("Internal processing failed")):
+    with patch.object(
+        sanitizer, "sanitize_content", side_effect=RuntimeError("Internal processing failed")
+    ):
         handler = sanitizer.handle_sanitize_request
         await handler(request_message)
-    
+
     # Check if error response was published
     assert len(mock_mycelium.published_messages) == 1
     published = mock_mycelium.published_messages[0]
-    
+
     assert published["topic"] == "response.sanitization.req-789"
     assert published["message"]["type"] == "sanitization_error"
     assert published["message"]["reference_id"] == "req-789"
     assert "Internal processing failed" in published["message"]["error"]
 
-# Add tests for cache hits via Mycelium requests, different contexts, etc. 
+
+# Add tests for cache hits via Mycelium requests, different contexts, etc.

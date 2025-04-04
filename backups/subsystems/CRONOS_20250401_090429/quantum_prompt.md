@@ -84,11 +84,11 @@ System:
   Type: "Subsystem"
   Priority: 2
   Parent: "EVA & GUARANI"
-  
+
 Integration:
   MasterPrompt: "../MASTER/quantum_context.md"
   Dependencies: []
-  
+
 Capabilities:
   - Context Capture
   - State Preservation

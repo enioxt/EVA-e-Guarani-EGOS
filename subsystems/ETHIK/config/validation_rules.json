@@ -14,7 +14,7 @@
         "action_context.get('action_type') in ['file_write', 'edit_file']",
         "any(f in action_context.get('target_path', '') for f in ['config/', 'ROADMAP.md', 'cursor_initialization.md'])"
       ],
-      "threshold": 0.5, 
+      "threshold": 0.5,
       "action": "warn"
     }
   ]

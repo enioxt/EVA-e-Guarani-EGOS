@@ -250,26 +250,26 @@ MCP_CAPABILITIES = ["system-initialization", "context-management", "file-operati
 
 class PathManager:
     """Cross-platform path management utility"""
-    
+
     @staticmethod
     def normalize_path(path: Union[str, Path]) -> Path:
         """Normalize path for current platform"""
         if isinstance(path, str):
             path = Path(path)
         return path.absolute().resolve()
-    
+
     @staticmethod
     def ensure_directory(path: Union[str, Path]) -> Path:
         """Ensure directory exists and return Path object"""
         path = PathManager.normalize_path(path)
         path.mkdir(parents=True, exist_ok=True)
         return path
-    
+
     @staticmethod
     def is_windows() -> bool:
         """Check if running on Windows"""
         return platform.system().lower() == "windows"
-    
+
     @staticmethod
     def convert_path(path: Union[str, Path]) -> str:
         """Convert path to appropriate format for current platform"""
@@ -280,52 +280,52 @@ class PathManager:
 
 class BIOSQMCP:
     """BIOS-Q MCP Server Implementation"""
-    
+
     def __init__(self):
         """Initialize the BIOS-Q MCP server"""
         self.running = False
         self.session_id = str(uuid.uuid4())
         self.init_timestamp = time.time()
         self.path_manager = PathManager()
-        
+
         # Load configuration
         self.config = self._load_config()
-        
+
         # Setup logging
         self._setup_logging()
-        
+
         # Signal handlers
         signal.signal(signal.SIGINT, self._handle_signal)
         signal.signal(signal.SIGTERM, self._handle_signal)
-        
+
         logger.info(f"BIOS-Q MCP Server initialized with session ID: {self.session_id}")
         logger.info(f"Running on platform: {platform.system()}")
-    
+
     def _load_config(self) -> Dict[str, Any]:
         """Load BIOS-Q configuration"""
         config_path = os.environ.get("BIOS_Q_CONFIG")
-        
+
         if not config_path:
             logger.warning("BIOS_Q_CONFIG environment variable not set, using default config path")
             config_path = Path(__file__).parent.parent / "config" / "bios_q_config.json"
-        
+
         try:
             config_path = self.path_manager.normalize_path(config_path)
             with open(config_path, 'r', encoding='utf-8') as f:
                 config = json.load(f)
-            
+
             # Normalize paths in config
             if "paths" in config:
                 for key, path in config["paths"].items():
                     config["paths"][key] = self.path_manager.convert_path(path)
-            
+
             logger.info(f"Configuration loaded from {config_path}")
             return config
-            
+
         except Exception as e:
             logger.error(f"Failed to load configuration: {e}")
             return self._get_default_config()
-    
+
     def _get_default_config(self) -> Dict[str, Any]:
         """Get default configuration"""
         root_dir = Path.home() / "Eva Guarani EGOS"
@@ -350,7 +350,7 @@ class BIOSQMCP:
                 "file": "bios_q.log"
             }
         }
-    
+
     def _setup_logging(self):
         """Setup logging based on configuration"""
         try:
@@ -358,70 +358,70 @@ class BIOSQMCP:
             log_level = log_config.get("level", "INFO").upper()
             log_format = log_config.get("format", "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
             log_file = log_config.get("file")
-            
+
             if log_file:
                 log_dir = Path(self.config["paths"]["root"]) / "logs"
                 log_path = self.path_manager.ensure_directory(log_dir) / log_file
-                
+
                 file_handler = logging.FileHandler(log_path)
                 file_handler.setFormatter(logging.Formatter(log_format))
                 logger.addHandler(file_handler)
-                
+
                 logger.info(f"Logging to file: {log_path}")
-            
+
             logger.setLevel(getattr(logging, log_level))
-            
+
         except Exception as e:
             logger.error(f"Failed to configure logging: {e}")
-    
+
     def _handle_signal(self, signum, frame):
         """Handle signals to gracefully shutdown the server"""
         logger.info(f"Received signal {signum}, shutting down")
         self.running = False
-    
+
     def initialize_session(self) -> bool:
         """Initialize a new session"""
         try:
             logger.info("Initializing quantum session...")
-            
+
             # Verify directory structure
             if self.config.get("initialization", {}).get("verify_structure", True):
                 self._verify_directory_structure()
-            
+
             # Load context
             if self.config.get("initialization", {}).get("load_context", True):
                 self._load_quantum_context()
-            
+
             # Verify dependencies
             if self.config.get("initialization", {}).get("verify_dependencies", True):
                 self._verify_dependencies()
-            
+
             # Display banner
             if self.config.get("initialization", {}).get("display_banner", True):
                 self._display_banner()
-            
+
             logger.info("Quantum session initialized successfully!")
             return True
-            
+
         except Exception as e:
             logger.error(f"Failed to initialize quantum session: {e}")
             return False
-    
+
     def _verify_directory_structure(self) -> None:
         """Verify the required directory structure exists"""
         logger.info("Verifying directory structure...")
-        
+
         try:
             paths = self.config.get("paths", {})
             root_dir = self.path_manager.normalize_path(paths.get("root", ""))
             quantum_prompts_dir = self.path_manager.normalize_path(paths.get("quantum_prompts", ""))
             bios_backup_dir = self.path_manager.normalize_path(paths.get("bios_backup", ""))
-            
+
             # Create directories if they don't exist
             self.path_manager.ensure_directory(root_dir)
             self.path_manager.ensure_directory(quantum_prompts_dir)
             self.path_manager.ensure_directory(bios_backup_dir)
-            
+
             # Create subsystem directories
             subsystems = self.config.get("subsystems", {})
             for subsystem, info in subsystems.items():
@@ -429,25 +429,25 @@ class BIOSQMCP:
                     subsystem_dir = quantum_prompts_dir / subsystem
                     self.path_manager.ensure_directory(subsystem_dir)
                     logger.info(f"Created subsystem directory: {subsystem_dir}")
-            
+
         except Exception as e:
             logger.error(f"Error verifying directory structure: {e}")
-    
+
     def _load_quantum_context(self) -> None:
         """Load quantum context from files"""
         logger.info("Loading quantum context...")
-        
+
         try:
             quantum_prompts_dir = self.path_manager.normalize_path(
                 self.config.get("paths", {}).get("quantum_prompts", "")
             )
-            
+
             context_files = {
                 "quantum_prompt": quantum_prompts_dir / "quantum_prompt_8.0.md",
                 "setup_session": quantum_prompts_dir / "setup_session.txt",
                 "readme": quantum_prompts_dir / "README.md"
             }
-            
+
             for name, path in context_files.items():
                 if path.exists():
                     logger.info(f"{name.replace('_', ' ').title()} found: {path}")
@@ -459,23 +459,23 @@ class BIOSQMCP:
                         logger.error(f"Error reading {name}: {e}")
                 else:
                     logger.warning(f"{name.replace('_', ' ').title()} not found: {path}")
-                    
+
         except Exception as e:
             logger.error(f"Failed to load quantum context: {e}")
-    
+
     def _verify_dependencies(self) -> None:
         """Verify required dependencies are installed"""
         logger.info("Verifying dependencies...")
-        
+
         try:
             # Check Python version
             python_version = sys.version_info
             logger.info(f"Python version: {python_version.major}.{python_version.minor}.{python_version.micro}")
-            
+
             # Check for required packages
             required_packages = ["rich", "pytest"]
             missing_packages = []
-            
+
             for package in required_packages:
                 try:
                     __import__(package)
@@ -483,22 +483,22 @@ class BIOSQMCP:
                 except ImportError:
                     logger.warning(f"Package {package} is not installed")
                     missing_packages.append(package)
-            
+
             if missing_packages:
                 logger.warning(f"Missing required packages: {', '.join(missing_packages)}")
                 requirements_file = self.path_manager.normalize_path(
                     Path(self.config["paths"]["root"]) / "requirements.txt"
                 )
                 logger.info(f"Install them using: pip install -r {requirements_file}")
-                
+
         except Exception as e:
             logger.error(f"Failed to verify dependencies: {e}")
-    
+
     def _display_banner(self) -> None:
         """Display the EVA & GUARANI banner"""
         banner = f"""
 ✧༺❀༻∞ EVA & GUARANI Quantum System ∞༺❀༻✧
-        
+
 Initializing Quantum Environment...
 • Sequential Thinking MCP: Active
 • Perplexity MCP: Active
@@ -511,12 +511,12 @@ Type 'quantum-help' for setup instructions
 ✧༺❀༻∞ Welcome to the Quantum Realm ∞༺❀༻✧
         """
         logger.info(banner)
-    
+
     async def handle_mcp_message(self, message: Dict[str, Any]) -> Dict[str, Any]:
         """Handle MCP protocol messages"""
         msg_type = message.get("type")
         msg_id = message.get("id", str(uuid.uuid4()))
-        
+
         try:
             if msg_type == "request.capabilities":
                 return {
@@ -530,7 +530,7 @@ Type 'quantum-help' for setup instructions
                     },
                     "capabilities": MCP_CAPABILITIES
                 }
-            
+
             elif msg_type == "request.initialize":
                 success = self.initialize_session()
                 return {
@@ -543,12 +543,12 @@ Type 'quantum-help' for setup instructions
                         "platform": platform.system()
                     }
                 }
-            
+
             elif msg_type == "request.load_context":
                 context_path = message.get("path")
                 success = False
                 content = None
-                
+
                 if context_path:
                     try:
                         path = self.path_manager.normalize_path(context_path)
@@ -557,21 +557,21 @@ Type 'quantum-help' for setup instructions
                         success = True
                     except Exception as e:
                         logger.error(f"Failed to load context from {path}: {e}")
-                
+
                 return {
                     "id": msg_id,
                     "type": "response.load_context",
                     "success": success,
                     "content": content
                 }
-            
+
             else:
                 return {
                     "id": msg_id,
                     "type": "response.error",
                     "error": f"Unknown message type: {msg_type}"
                 }
-                
+
         except Exception as e:
             logger.error(f"Error handling message: {e}")
             return {
@@ -579,54 +579,54 @@ Type 'quantum-help' for setup instructions
                 "type": "response.error",
                 "error": str(e)
             }
-    
+
     async def process_stdin(self):
         """Process MCP messages from stdin"""
         try:
             self.running = True
             loop = asyncio.get_event_loop()
-            
+
             while self.running:
                 try:
                     # Read a line from stdin
                     line = await loop.run_in_executor(None, sys.stdin.readline)
-                    
+
                     if not line:
                         break
-                    
+
                     line = line.strip()
                     if not line:
                         continue
-                    
+
                     # Parse and handle message
                     message = json.loads(line)
                     response = await self.handle_mcp_message(message)
-                    
+
                     # Send response
                     print(json.dumps(response), flush=True)
-                    
+
                 except json.JSONDecodeError as e:
                     logger.error(f"Failed to parse message: {e}")
                     print(json.dumps({
                         "type": "response.error",
                         "error": f"Invalid JSON message: {e}"
                     }), flush=True)
-                    
+
                 except Exception as e:
                     logger.error(f"Error processing message: {e}")
                     print(json.dumps({
                         "type": "response.error",
                         "error": str(e)
                     }), flush=True)
-                    
+
         except Exception as e:
             logger.error(f"Fatal error in process_stdin: {e}")
             self.running = False
-    
+
     async def run(self):
         """Run the MCP server"""
         logger.info(f"Starting BIOS-Q MCP server on {platform.system()}")
-        
+
         try:
             # Process messages from stdin
             await self.process_stdin()
@@ -638,19 +638,19 @@ Type 'quantum-help' for setup instructions
 async def main():
     """Main entry point for the BIOS-Q MCP server"""
     parser = argparse.ArgumentParser(description="BIOS-Q MCP Server")
-    parser.add_argument("--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], 
+    parser.add_argument("--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"],
                         default=os.environ.get("QUANTUM_LOG_LEVEL", "INFO").upper(),
                         help="Logging level")
     args = parser.parse_args()
-    
+
     try:
         # Set log level
         logging.getLogger().setLevel(getattr(logging, args.log_level))
-        
+
         # Initialize and run server
         server = BIOSQMCP()
         await server.run()
-        
+
     except Exception as e:
         logger.error(f"Fatal error in main: {e}")
         sys.exit(1)
@@ -1062,20 +1062,20 @@ logger = logging.getLogger("bios-q-mcp")
 
 class BiosQMCP:
     """Gerenciador principal do BIOS-Q MCP."""
-    
+
     def __init__(self):
         self.config = self.load_config()
         self.initialized = False
-        
+
     def load_config(self) -> Dict[str, Any]:
         """Carrega a configuração do BIOS-Q."""
         config_path = os.getenv("BIOS_Q_CONFIG")
         if not config_path:
             raise ValueError("BIOS_Q_CONFIG environment variable not set")
-            
+
         with open(config_path) as f:
             return json.load(f)
-            
+
     def verify_structure(self) -> bool:
         """Verifica a estrutura de diretórios necessária."""
         paths = self.config["paths"]
@@ -1085,7 +1085,7 @@ class BiosQMCP:
                 logger.error(f"Required path {path_name} does not exist: {path}")
                 return False
         return True
-        
+
     def verify_dependencies(self) -> bool:
         """Verifica as dependências do sistema."""
         try:
@@ -1096,12 +1096,12 @@ class BiosQMCP:
         except ImportError as e:
             logger.error(f"Missing dependency: {str(e)}")
             return False
-            
+
     def initialize_subsystems(self) -> bool:
         """Inicializa os subsistemas do BIOS-Q."""
         subsystems = self.config["subsystems"]
         quantum_prompts_path = Path(self.config["paths"]["quantum_prompts"])
-        
+
         for name, info in subsystems.items():
             if info["required"]:
                 path = quantum_prompts_path / name
@@ -1110,27 +1110,27 @@ class BiosQMCP:
                     return False
                 logger.info(f"Subsystem {name} found at {path}")
         return True
-        
+
     def initialize(self) -> bool:
         """Inicializa o BIOS-Q MCP."""
         logger.info("Initializing BIOS-Q MCP...")
-        
+
         # Verificar estrutura
         if not self.verify_structure():
             return False
-            
+
         # Verificar dependências
         if not self.verify_dependencies():
             return False
-            
+
         # Inicializar subsistemas
         if not self.initialize_subsystems():
             return False
-            
+
         self.initialized = True
         logger.info("BIOS-Q MCP initialized successfully")
         return True
-        
+
     def display_banner(self):
         """Exibe o banner do BIOS-Q."""
         banner = """
@@ -1141,16 +1141,16 @@ Quantum State: Active
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 """
         print(banner)
-        
+
     def run(self):
         """Executa o BIOS-Q MCP."""
         if not self.initialize():
             logger.error("Failed to initialize BIOS-Q MCP")
             sys.exit(1)
-            
+
         if self.config["initialization"].get("display_banner", True):
             self.display_banner()
-            
+
         # TODO: Implementar loop principal do MCP
         logger.info("BIOS-Q MCP running...")
 

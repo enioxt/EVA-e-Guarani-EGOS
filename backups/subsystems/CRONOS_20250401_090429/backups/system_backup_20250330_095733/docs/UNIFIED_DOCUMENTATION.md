@@ -78,7 +78,7 @@ markdown
 
 1. [Project Simplification](#1-project-simplification)
 
-2. [Quantum Knowledge System](#2-quantum-knowledge-system)  
+2. [Quantum Knowledge System](#2-quantum-knowledge-system)
 
 3. [Freemium System](#3-freemium-system)
 
@@ -435,7 +435,7 @@ Use the `/language` command followed by the language code:
 
 - `/language pt` - For Portuguese
 
-- `/language en` - For English 
+- `/language en` - For English
 
 - `/language es` - For Spanish
 
@@ -551,14 +551,14 @@ EVA & GUARANI
 
    cd eva-guarani
 
-   
+
 
 2. Install dependencies:
 
    bash
    pip install -r requirements.txt
 
-   
+
 
 3. Configure essential files:
 
@@ -567,13 +567,13 @@ EVA & GUARANI
 
    copy config\config_template.json config\config.json
 
-   
+
 
    # On Linux/Mac
 
    cp config/config_template.json config/config.json
 
-   
+
 
 4. Edit configuration files with your API keys and preferences
 
@@ -584,13 +584,13 @@ EVA & GUARANI
 
    python unified_eva_guarani_bot.py
 
-   
+
 
    # Version with knowledge system
 
    python telegram_bot_with_knowledge.py
 
-   
+
 
 ### Startup Scripts
 

@@ -75,4 +75,4 @@ Write-Host "Quantum State: ACTIVE"
 Write-Host "Mycelium: CONNECTED"
 Write-Host "ETHIK: VALIDATED"
 
-Write-Host "`n✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧" 
+Write-Host "`n✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"

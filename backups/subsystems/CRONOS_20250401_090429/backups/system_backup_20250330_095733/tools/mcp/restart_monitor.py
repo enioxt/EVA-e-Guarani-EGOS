@@ -27,6 +27,6 @@ print(f"- Limite atual: {status['context_limit']} caracteres")
 print(f"- Fonte do limite: {status['context_source']}")
 print(f"- Mensagens atuais: {status['message_count']}")
 
-is_empirical = (status['context_source'] == 'empirical')
+is_empirical = status["context_source"] == "empirical"
 print(f"\nO sistema está usando o limite empírico: {is_empirical}")
-print("Teste concluído!") 
+print("Teste concluído!")

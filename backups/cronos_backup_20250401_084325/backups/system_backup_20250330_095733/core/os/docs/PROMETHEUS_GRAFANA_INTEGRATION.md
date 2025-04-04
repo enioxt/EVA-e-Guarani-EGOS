@@ -169,7 +169,7 @@ scrape_configs:
   - job_name: 'egos_system'
     static_configs:
       - targets: ['localhost:9090']
-  
+
   - job_name: 'egos_consciousness'
     static_configs:
       - targets: ['localhost:9091']
@@ -260,8 +260,8 @@ python
 # Detect a specific system state and generate art
 metrics, params = bridge.collect_and_transform()
 if params.consciousness_level > 0.95 and params.ethical_alignment > 0.9:
-    bridge.generate_image_from_metrics("transcendent_state.png", 
-                                      metrics=metrics, 
+    bridge.generate_image_from_metrics("transcendent_state.png",
+                                      metrics=metrics,
                                       artistic_params=params)
     bridge.generate_music_from_metrics("transcendent_composition.mid",
                                      metrics=metrics,

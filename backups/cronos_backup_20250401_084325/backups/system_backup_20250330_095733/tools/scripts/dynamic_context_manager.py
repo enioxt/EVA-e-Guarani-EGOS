@@ -8,6 +8,7 @@ import shutil
 from typing import Dict, List, Any
 import re
 
+
 class DynamicContextManager:
     def __init__(self, base_path: str = "C:/Eva & Guarani - EGOS"):
         self.base_path = Path(base_path)
@@ -21,12 +22,8 @@ class DynamicContextManager:
         chat_files = []
         for f in self.chats_path.glob("bios_q_context_*.json"):
             if f.is_file():
-                chat_files.append({
-                    "path": f,
-                    "timestamp": f.stat().st_mtime,
-                    "name": f.name
-                })
-        
+                chat_files.append({"path": f, "timestamp": f.stat().st_mtime, "name": f.name})
+
         return sorted(chat_files, key=lambda x: x["timestamp"], reverse=True)[:limit]
 
     def get_system_state(self) -> Dict[str, Any]:
@@ -36,7 +33,7 @@ class DynamicContextManager:
             "ethical_integrity": 0.998,
             "quantum_coherence": 0.997,
             "active_modules": self._get_active_modules(),
-            "last_update": datetime.datetime.now().isoformat()
+            "last_update": datetime.datetime.now().isoformat(),
         }
 
     def _get_active_modules(self) -> List[str]:
@@ -51,7 +48,7 @@ class DynamicContextManager:
         """Extract recent developments from chat history"""
         recent_chats = self.get_recent_chats(3)
         developments = []
-        
+
         for chat in recent_chats:
             try:
                 with open(chat["path"], "r", encoding="utf-8") as f:
@@ -60,7 +57,7 @@ class DynamicContextManager:
                         developments.extend(data["developments"])
             except Exception as e:
                 print(f"Error reading chat file {chat['path']}: {e}")
-        
+
         return "\n".join(f"- {d}" for d in developments[-5:])
 
     def generate_system_graph(self) -> str:
@@ -105,7 +102,7 @@ graph TD
             "{{ACTIVE_MODULES_LINK}}": self._get_active_modules_link(),
             "{{SYSTEM_GRAPH}}": self.generate_system_graph(),
             "{{UPDATES_LOG}}": self._get_updates_log(),
-            "{{SYSTEM_METADATA}}": self._get_system_metadata()
+            "{{SYSTEM_METADATA}}": self._get_system_metadata(),
         }
 
         # Apply replacements
@@ -130,13 +127,20 @@ graph TD
             "nexus": True,
             "cronos": True,
             "ethik": True,
-            "tools": True
+            "tools": True,
         }
 
     def _get_essential_paths(self) -> str:
         paths = []
-        for path in ["CHATS", "QUANTUM_PROMPTS", "core/atlas", "core/nexus", 
-                    "core/cronos", "core/ethik", "tools"]:
+        for path in [
+            "CHATS",
+            "QUANTUM_PROMPTS",
+            "core/atlas",
+            "core/nexus",
+            "core/cronos",
+            "core/ethik",
+            "tools",
+        ]:
             if (self.base_path / path).exists():
                 paths.append(f"/{path} - Active and synchronized")
             else:
@@ -155,7 +159,7 @@ graph TD
             "1. `/QUANTUM_PROMPTS/VERSION_PERA.md` - Current version specifications",
             "2. `/QUANTUM_PROMPTS/core_principles.md` - Fundamental principles",
             "3. `/CHATS/current_chat.md` - Active conversation state",
-            "4. `/QUANTUM_PROMPTS/MASTER/quantum_context.md` - This file (master context)"
+            "4. `/QUANTUM_PROMPTS/MASTER/quantum_context.md` - This file (master context)",
         ]
         return "\n".join(files)
 
@@ -166,7 +170,7 @@ graph TD
             "- Cross-Platform Development (Windows-focused)",
             "- Ethical Framework Integration",
             "- Advanced Context Management",
-            "- Evolutionary Preservation System"
+            "- Evolutionary Preservation System",
         ]
         return "\n".join(capabilities)
 
@@ -175,7 +179,7 @@ graph TD
             "1. Always load `/QUANTUM_PROMPTS/MASTER` directory first",
             "2. Include `/core` directory for system modules",
             "3. Add `/CHATS` for conversation context",
-            "4. Include `/tools` for utility access"
+            "4. Include `/tools` for utility access",
         ]
         return "\n".join(instructions)
 
@@ -190,7 +194,7 @@ graph TD
             "- Conscious modularity",
             "- Systemic cartography",
             "- Evolutionary preservation",
-            "- Cross-platform harmony"
+            "- Cross-platform harmony",
         ]
         return "\n".join(principles)
 
@@ -200,7 +204,7 @@ graph TD
             f"- Version: {self.version}",
             "- Platform: Windows-focused",
             "- Language: English",
-            "- Framework: Quantum Unified"
+            "- Framework: Quantum Unified",
         ]
         return "\n".join(info)
 
@@ -218,7 +222,9 @@ graph TD
         recent_chats = self.get_recent_chats(5)
         log = ["Recent System Updates:"]
         for chat in recent_chats:
-            log.append(f"- {chat['name']} - {datetime.datetime.fromtimestamp(chat['timestamp']).strftime('%Y-%m-%d %H:%M:%S')}")
+            log.append(
+                f"- {chat['name']} - {datetime.datetime.fromtimestamp(chat['timestamp']).strftime('%Y-%m-%d %H:%M:%S')}"
+            )
         return "\n".join(log)
 
     def _get_system_metadata(self) -> str:
@@ -229,11 +235,12 @@ graph TD
             "active_modules": self._get_active_modules(),
             "consciousness_level": 0.999,
             "ethical_integrity": 0.998,
-            "quantum_coherence": 0.997
+            "quantum_coherence": 0.997,
         }
         return yaml.dump(metadata, allow_unicode=True)
+
 
 if __name__ == "__main__":
     manager = DynamicContextManager()
     manager.update_context()
-    print("\nContext updated successfully. System is quantum-coherent.") 
+    print("\nContext updated successfully. System is quantum-coherent.")

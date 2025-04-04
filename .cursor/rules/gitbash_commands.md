@@ -147,4 +147,4 @@ env
 | `C:\Program Files\Git` | `/c/Program\ Files/Git` |
 | `D:\Projects\Eva Guarani EGOS` | `/d/Projects/Eva\ Guarani\ EGOS` |
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

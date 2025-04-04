@@ -196,4 +196,4 @@ A critical component of Project Coruja is seamless integration with our existing
 - Process documentation should prioritize clarity and reusability
 - The project name "Coruja" (Owl) represents wisdom, vision, and adaptability
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

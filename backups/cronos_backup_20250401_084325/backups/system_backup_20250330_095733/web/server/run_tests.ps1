@@ -10,4 +10,4 @@ pip install -r requirements.txt
 pytest tests/ --cov=. --cov-report=html --cov-report=term-missing -v
 
 # Open coverage report in browser
-Start-Process ".\htmlcov\index.html" 
+Start-Process ".\htmlcov\index.html"

@@ -262,7 +262,7 @@ const NetworkGraph: React.FC = () => {
 
   useEffect(() => {
     if (!svgRef.current) return;
-    
+
     // D3 visualization code here
   }, []);
 

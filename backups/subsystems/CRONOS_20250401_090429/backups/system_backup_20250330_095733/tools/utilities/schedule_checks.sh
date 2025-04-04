@@ -141,4 +141,4 @@ else
     echo "Verificações de atualizações não foram agendadas (script não encontrado)."
 fi
 echo "Para visualizar as tarefas agendadas, execute: crontab -l"
-echo "" 
+echo ""

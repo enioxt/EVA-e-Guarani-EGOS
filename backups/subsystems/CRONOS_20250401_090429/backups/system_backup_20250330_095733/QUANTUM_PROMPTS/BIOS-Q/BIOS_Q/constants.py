@@ -59,14 +59,17 @@ METRICS_INTERVAL = 60  # seconds
 MAX_METRICS_AGE = 7 * 24 * 60 * 60  # 7 days
 GRAFANA_DEFAULT_PORT = 3000
 
+
 # Logging
 class LogLevel(str, Enum):
     """Log levels."""
+
     DEBUG = "DEBUG"
     INFO = "INFO"
     WARNING = "WARNING"
     ERROR = "ERROR"
     CRITICAL = "CRITICAL"
+
 
 DEFAULT_LOG_LEVEL = LogLevel.INFO
 LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -94,9 +97,11 @@ DEFAULT_SOURCE_LANG = "auto"
 DEFAULT_TARGET_LANG = "en"
 TRANSLATION_CACHE_TTL = 86400  # 24 hours
 
+
 # HTTP Status Codes
 class HTTPStatus(int, Enum):
     """Common HTTP status codes."""
+
     OK = 200
     CREATED = 201
     ACCEPTED = 202
@@ -112,9 +117,11 @@ class HTTPStatus(int, Enum):
     NOT_IMPLEMENTED = 501
     SERVICE_UNAVAILABLE = 503
 
+
 # Content Types
 class ContentType(str, Enum):
     """Common content types."""
+
     JSON = "application/json"
     TEXT = "text/plain"
     HTML = "text/html"
@@ -123,9 +130,11 @@ class ContentType(str, Enum):
     MULTIPART = "multipart/form-data"
     OCTET_STREAM = "application/octet-stream"
 
+
 # Error Codes
 class ErrorCode(str, Enum):
     """System error codes."""
+
     INTERNAL_ERROR = "INTERNAL_ERROR"
     AUTHENTICATION_ERROR = "AUTHENTICATION_ERROR"
     AUTHORIZATION_ERROR = "AUTHORIZATION_ERROR"
@@ -136,6 +145,7 @@ class ErrorCode(str, Enum):
     DEPENDENCY_ERROR = "DEPENDENCY_ERROR"
     RATE_LIMIT_EXCEEDED = "RATE_LIMIT_EXCEEDED"
 
+
 # Default Configuration
 DEFAULT_CONFIG: Dict[str, Any] = {
     "system": {
@@ -143,58 +153,54 @@ DEFAULT_CONFIG: Dict[str, Any] = {
         "host": DEFAULT_HOST,
         "port": DEFAULT_PORT,
         "workers": DEFAULT_WORKERS,
-        "debug": False
+        "debug": False,
     },
     "security": {
         "token_expiry": TOKEN_EXPIRY,
         "refresh_token_expiry": REFRESH_TOKEN_EXPIRY,
         "password_min_length": PASSWORD_MIN_LENGTH,
         "max_login_attempts": MAX_LOGIN_ATTEMPTS,
-        "bcrypt_rounds": BCRYPT_ROUNDS
+        "bcrypt_rounds": BCRYPT_ROUNDS,
     },
     "rate_limiting": {
         "enabled": True,
         "limit": DEFAULT_RATE_LIMIT,
         "window": RATE_LIMIT_WINDOW,
-        "by_ip": RATE_LIMIT_BY_IP
+        "by_ip": RATE_LIMIT_BY_IP,
     },
-    "caching": {
-        "enabled": CACHE_ENABLED,
-        "ttl": CACHE_EXPIRY,
-        "max_size": DEFAULT_CACHE_SIZE
-    },
+    "caching": {"enabled": CACHE_ENABLED, "ttl": CACHE_EXPIRY, "max_size": DEFAULT_CACHE_SIZE},
     "monitoring": {
         "enabled": True,
         "interval": METRICS_INTERVAL,
         "max_metrics": MAX_METRICS_AGE,
-        "grafana_port": GRAFANA_DEFAULT_PORT
+        "grafana_port": GRAFANA_DEFAULT_PORT,
     },
     "logging": {
         "level": DEFAULT_LOG_LEVEL.value,
         "format": LOG_FORMAT,
         "date_format": DATE_FORMAT,
         "max_size": LOG_ROTATION_SIZE,
-        "backup_count": MAX_LOG_FILES
+        "backup_count": MAX_LOG_FILES,
     },
     "mycelium": {
         "max_nodes": MAX_NODES,
         "max_connections_per_node": MAX_NODE_CONNECTIONS,
         "node_timeout": CONNECTION_TIMEOUT,
-        "update_timeout": UPDATE_PROPAGATION_TIMEOUT
+        "update_timeout": UPDATE_PROPAGATION_TIMEOUT,
     },
     "quantum_search": {
         "max_results": MAX_SEARCH_RESULTS,
         "min_score": MIN_SEARCH_LENGTH,
         "timeout": SEARCH_TIMEOUT,
-        "index_update_interval": INDEX_UPDATE_INTERVAL
+        "index_update_interval": INDEX_UPDATE_INTERVAL,
     },
     "translation": {
         "default_source": DEFAULT_SOURCE_LANG,
         "default_target": DEFAULT_TARGET_LANG,
         "timeout": TRANSLATION_TIMEOUT,
         "max_text_length": MAX_TEXT_LENGTH,
-        "cache_ttl": TRANSLATION_CACHE_TTL
-    }
+        "cache_ttl": TRANSLATION_CACHE_TTL,
+    },
 }
 
 # File size limits
@@ -209,4 +215,4 @@ TEMP_DIR = "temp"
 
 # Version info
 PYTHON_MIN_VERSION = (3, 9, 0)
-BUILD_DATE = "2025-03-26" 
+BUILD_DATE = "2025-03-26"

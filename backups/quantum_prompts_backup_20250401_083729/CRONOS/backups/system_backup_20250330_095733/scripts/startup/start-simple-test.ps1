@@ -34,4 +34,4 @@ try {
 } catch {
     Write-Host "Error starting test server: $_" -ForegroundColor Red
     exit 1
-} 
+}

@@ -23,7 +23,7 @@ metadata:
   test_coverage: 0.9
   translation_status: completed
   type: documentation
-  version: '8.0'
+  version: '8.1'
   windows_compatibility: true
 ---
 ```yaml
@@ -69,7 +69,7 @@ METADATA:
   last_updated: '2025-03-29'
 ```
 
-﻿# EVA & GUARANI - BIOS-Q v8.0
+﻿# EVA & GUARANI - BIOS-Q v8.1
 
 > "At the intersection of modular analysis, systemic cartography, and quantum ethics, we transcend dimensions of thought with methodological precision and unconditional love."
 
@@ -77,7 +77,7 @@ METADATA:
 
 EVA & GUARANI BIOS-Q is a quantum-inspired system that integrates multiple advanced capabilities through a mycelial network architecture. It provides intelligent search, multilingual translation, and comprehensive monitoring across all subsystems.
 
-Version: 8.0  
+Version: 8.1
 Created: 2025-03-28
 
 ## Core Systems
@@ -324,16 +324,16 @@ graph TD
     MYC --> QS[Quantum Search]
     MYC --> TR[Translator]
     MYC --> MON[Monitoring]
-    
+
     QS --> |Index| TR
     TR --> |Search| QS
     MON --> |Metrics| QS
     MON --> |Metrics| TR
     MON --> |Metrics| MYC
-    
+
     BIOS --> |API| WEB[Web Frontend]
     BIOS --> |API| TG[Telegram Bot]
-    
+
     WEB --> |User Interface| USER1[Browser Users]
     TG --> |Messaging| USER2[Telegram Users]
 ```
@@ -371,84 +371,84 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 # BIOS-Q MCP
 
-BIOS-Q MCP (Mycelium Control Protocol) é o sistema de inicialização quântico para o ambiente EVA & GUARANI. Ele é responsável por gerenciar a comunicação entre os diferentes MCPs e garantir a inicialização correta do sistema.
+BIOS-Q MCP (Mycelium Control Protocol) is the quantum initialization system for the EVA & GUARANI environment. It is responsible for managing communication between different MCPs and ensuring proper system initialization.
 
-## Requisitos
+## Requirements
 
-- Python 3.9 ou superior
-- pip (gerenciador de pacotes Python)
+- Python 3.9 or higher
+- pip (Python package manager)
 - Git
 
-## Instalação
+## Installation
 
-1. Clone o repositório:
+1. Clone the repository:
 
 ```bash
 git clone <repository_url>
 cd BIOS-Q
 ```
 
-2. Crie e ative um ambiente virtual:
+2. Create and activate a virtual environment:
 
 ```bash
 python -m venv venv
 source venv/Scripts/activate  # Windows
-# ou
+# or
 source venv/bin/activate     # Linux/macOS
 ```
 
-3. Instale as dependências:
+3. Install dependencies:
 
 ```bash
 pip install -e .[dev]
 ```
 
-## Uso
+## Usage
 
-Para iniciar o BIOS-Q MCP, execute:
+To start the BIOS-Q MCP, run:
 
 ```bash
 ./start_bios_q.bat  # Windows
-# ou
+# or
 ./start_bios_q.sh   # Linux/macOS
 ```
 
-O BIOS-Q MCP iniciará e estabelecerá uma conexão persistente com o Cursor IDE.
+The BIOS-Q MCP will start and establish a persistent connection with the Cursor IDE.
 
-## Desenvolvimento
+## Development
 
-### Executando Testes
+### Running Tests
 
-Para executar os testes:
+To run the tests:
 
 ```bash
 pytest
 ```
 
-Para executar os testes com cobertura:
+To run tests with coverage:
 
 ```bash
 pytest --cov=mcp --cov-report=html
 ```
 
-### Estrutura do Projeto
+### Project Structure
 
 ```
 BIOS-Q/
-├── mcp/                    # Código fonte do MCP
+├── mcp/                    # MCP source code
 │   ├── __init__.py
-│   └── bios_q_mcp.py      # Implementação principal
-├── tests/                  # Testes
+│   └── bios_q_mcp.py      # Main implementation
+├── tests/                  # Tests
 │   └── test_bios_q_mcp.py
-├── config/                 # Arquivos de configuração
+├── config/                 # Configuration files
 │   └── bios_q_config.json
-├── setup.py               # Configuração do pacote
-├── pytest.ini            # Configuração do pytest
-├── requirements.txt      # Dependências do projeto
-├── start_bios_q.bat     # Script de inicialização (Windows)
-└── start_bios_q.sh      # Script de inicialização (Linux/macOS)
+├── setup.py               # Package configuration
+├── pytest.ini            # pytest configuration
+├── requirements.txt      # Project dependencies
+├── start_bios_q.bat     # Startup script (Windows)
+└── start_bios_q.sh      # Startup script (Linux/macOS)
 ```
 
-## Licença
+## License
 
-Este projeto é parte do sistema EVA & GUARANI e está sob a licença especificada no arquivo LICENSE.
+This project is part of the EVA & GUARANI system and is under the license specified in the LICENSE file.

@@ -28,7 +28,7 @@ mkdir -p logs config
 # Verificar se o script de inicialização existe
 if [ -f "start_eva_guarani.py" ]; then
     echo "Iniciando o bot usando start_eva_guarani.py..."
-    
+
     # Verificar se o usuário quer executar em background
     if [ "$1" == "--background" ]; then
         echo "Executando em background..."
@@ -41,7 +41,7 @@ if [ -f "start_eva_guarani.py" ]; then
     fi
 elif [ -f "bot/unified_telegram_bot_utf8.py" ]; then
     echo "Script de inicialização não encontrado. Iniciando diretamente o bot..."
-    
+
     # Verificar se o usuário quer executar em background
     if [ "$1" == "--background" ]; then
         echo "Executando em background..."
@@ -57,4 +57,4 @@ else
 fi
 
 echo ""
-echo "Bot encerrado." 
+echo "Bot encerrado."

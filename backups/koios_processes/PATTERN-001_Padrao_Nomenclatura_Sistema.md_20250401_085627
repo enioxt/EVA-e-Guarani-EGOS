@@ -13,12 +13,12 @@
 ├── 🔍 PROBLEMA
 │   ├── Contexto: Necessidade de padronização na nomenclatura e estruturação de
 │   │            arquivos, diretórios e código em todo o sistema EVA & GUARANI
-│   ├── Sintomas: 
+│   ├── Sintomas:
 │   │   - Inconsistência nos nomes de arquivos
 │   │   - Dificuldade em localizar recursos
 │   │   - Confusão na organização de diretórios
 │   │   - Falta de clareza nas relações entre componentes
-│   └── Impacto: 
+│   └── Impacto:
 │       - Redução na produtividade
 │       - Aumento na complexidade de manutenção
 │       - Dificuldade na automação
@@ -28,19 +28,19 @@
 │   ├── 1. Arquivos de Processo
 │   │   Formato: [SUBSISTEMA]-[TIPO]-[NÚMERO]_[Descrição]_[Subdescrição].md
 │   │   Exemplo: MIGRATION-001_Sistema_Migracao_Subsistemas.md
-│   │   
+│   │
 │   ├── 2. Scripts e Códigos
 │   │   Formato: [SUBSISTEMA]-[FUNÇÃO]-[NÚMERO]_[descrição].[extensão]
 │   │   Exemplo: ETHIK-BACKUP-001_sistema_backup.py
-│   │   
+│   │
 │   ├── 3. Testes
 │   │   Formato: test_[SUBSISTEMA]-[FUNÇÃO]-[NÚMERO]_[descrição].[extensão]
 │   │   Exemplo: test_ETHIK-BACKUP-001_sistema_backup.py
-│   │   
+│   │
 │   ├── 4. Documentação
 │   │   Formato: [SUBSISTEMA]-DOC-[NÚMERO]_[descrição].md
 │   │   Exemplo: ETHIK-DOC-001_guia_implementacao.md
-│   │   
+│   │
 │   └── 5. Configurações
 │       Formato: [SUBSISTEMA]-CONFIG-[NÚMERO]_[descrição].[extensão]
 │       Exemplo: ETHIK-CONFIG-001_validacao.json
@@ -162,4 +162,4 @@
         - Documentação clara
         - Integração facilitada
 
-# ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+# ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

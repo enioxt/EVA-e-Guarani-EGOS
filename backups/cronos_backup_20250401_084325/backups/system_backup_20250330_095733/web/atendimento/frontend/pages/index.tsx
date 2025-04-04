@@ -31,7 +31,7 @@ export default function Home() {
                     <span className="block text-eva-primary">WhatsApp com Amor</span>
                   </h1>
                   <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                    EVA Atendimento é a primeira solução de automação para WhatsApp que combina 
+                    EVA Atendimento é a primeira solução de automação para WhatsApp que combina
                     eficiência com ética e consciência. Mantenha seu atendimento humanizado mesmo quando automatizado.
                   </p>
                   <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
@@ -182,4 +182,4 @@ function LightningBoltIcon(props: any) {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
     </svg>
   )
-} 
+}

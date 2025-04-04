@@ -92,4 +92,4 @@ This task roadmap will be integrated with:
 - Integration Config: `tests/integration/conftest.py`
 - Performance Tests: `tests/performance/test_system_performance.py`
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

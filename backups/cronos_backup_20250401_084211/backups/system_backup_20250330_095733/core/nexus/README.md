@@ -104,7 +104,7 @@ Analyzes a code module.
 Args:
     module_path: Path to the module to be analyzed
     output_format: Output format (json, md, html)
-    
+
 Returns:
     Dict: Module analysis
 
@@ -117,7 +117,7 @@ Suggests optimizations for a module.
 Args:
     module_path: Path to the module to be optimized
     analysis: Previous analysis of the module (optional)
-    
+
 Returns:
     Dict: Optimization suggestions
 
@@ -131,7 +131,7 @@ Args:
     module_path: Path to the module
     analysis: Previous analysis of the module (optional)
     output_path: Path to save the documentation
-    
+
 Returns:
     str: Path to the generated documentation
 
@@ -143,7 +143,7 @@ Maps connections between modules.
 
 Args:
     module_paths: List of paths to modules
-    
+
 Returns:
     Dict: Mapping of connections
 

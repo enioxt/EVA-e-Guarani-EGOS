@@ -74,4 +74,4 @@ cd %~dp0
 echo Carregando contexto MCP...
 python cursor_commands.py load_mcp
 echo Contexto carregado com sucesso.
-pause 
+pause

@@ -43,4 +43,4 @@ try {
 catch {
     Write-Log "Error checking MCP service status: $_"
     exit 1
-} 
+}

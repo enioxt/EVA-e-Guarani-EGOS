@@ -1,1 +1,1 @@
-"""Core functionality for the ATLAS subsystem.""" 
+"""Core functionality for the ATLAS subsystem."""

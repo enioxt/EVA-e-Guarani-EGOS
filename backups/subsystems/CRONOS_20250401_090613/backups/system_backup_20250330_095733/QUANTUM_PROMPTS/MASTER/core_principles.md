@@ -102,7 +102,7 @@ graph TD
     EVA --> CRONOS[CRONOS: Evolutionary Preservation]
     EVA --> HARMONY[HARMONY: Cross-Platform Integration]
     EVA --> SLOP[SLOP: Simple Language Open Protocol]
-    
+
     SLOP --> Chat[Chat Endpoint]
     SLOP --> Tools[Tools Endpoint]
     SLOP --> Memory[Memory Management]

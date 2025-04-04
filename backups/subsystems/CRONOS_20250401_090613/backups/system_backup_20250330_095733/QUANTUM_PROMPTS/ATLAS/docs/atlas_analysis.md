@@ -196,4 +196,4 @@ QUANTUM_PROMPTS/ATLAS/
 
 ---
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

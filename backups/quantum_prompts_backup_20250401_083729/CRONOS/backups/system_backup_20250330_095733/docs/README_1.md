@@ -141,23 +141,23 @@ Implements backup strategies that preserve essence while allowing transformation
    bash
    git clone https://github.com/your-username/eva-guarani.git
    cd eva-guarani
-   
+
 
 2. Install the dependencies:
 
    bash
    pip install -r requirements.txt
-   
+
 
 3. Configure the essential files:
 
    bash
    # Windows
    copy config\config_template.json config\config.json
-   
+
    # Linux/Mac
    cp config/config_template.json config/config.json
-   
+
 
 4. Edit the configuration files with your API keys
 
@@ -165,7 +165,7 @@ Implements backup strategies that preserve essence while allowing transformation
 
    bash
    python unified_eva_guarani_bot.py
-   
+
 
 ### Specific Configuration for Cursor IDE
 
@@ -245,15 +245,15 @@ To use the knowledge base in new projects or exercises:
 
    python
    from utils.eva_guarani_utils import setup_quantum_context, auto_documentation
-   
+
    # Configure context
    setup_quantum_context()
-   
+
    # Use decorator for automatic documentation
    @auto_documentation(description="This module implements...")
    def my_function():
        pass
-   
+
 
 2. **Implicit Use**: Cursor IDE already automatically recognizes the EVA & GUARANI context through the configured user rules, making explicit calls unnecessary.
 
@@ -261,30 +261,30 @@ To use the knowledge base in new projects or exercises:
 
    python
    from utils.eva_guarani_utils import add_quantum_context_to_file
-   
+
    # Add EVA & GUARANI context to an existing file
    add_quantum_context_to_file("path/to/file.py")
-   
+
 
 4. **Modularity Analysis**:
 
    python
    from utils.eva_guarani_utils import ModularityAnalyzer
-   
+
    analyzer = ModularityAnalyzer()
    report = analyzer.analyze_file("my_script.py")
    print(report["summary"])
-   
+
 
 5. **System Cartography**:
 
    python
    from utils.eva_guarani_utils import SystemCartographer
-   
+
    cartographer = SystemCartographer()
    system_map = cartographer.map_directory("my_project")
    mermaid_diagram = cartographer.generate_mermaid_diagram(system_map)
-   
+
 
 ### Benefits of Automation
 

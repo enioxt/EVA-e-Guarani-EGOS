@@ -84,13 +84,13 @@ System:
   Type: "Subsystem"
   Priority: 5
   Parent: "EVA & GUARANI"
-  
+
 Integration:
   MasterPrompt: "../MASTER/quantum_context.md"
-  Dependencies: 
+  Dependencies:
     - Name: "NEXUS"
       Path: "../NEXUS/quantum_prompt.md"
-  
+
 Capabilities:
   - Ethical Analysis
   - Value Alignment

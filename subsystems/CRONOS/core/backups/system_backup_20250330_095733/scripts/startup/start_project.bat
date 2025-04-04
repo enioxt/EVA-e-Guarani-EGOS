@@ -203,4 +203,4 @@ echo.
 echo Setup failed. Please check the error messages above.
 
 :end
-pause 
+pause

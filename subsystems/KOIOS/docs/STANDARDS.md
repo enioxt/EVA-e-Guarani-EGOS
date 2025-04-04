@@ -1,142 +1,172 @@
 # EGOS Project Standards (KOIOS v1.0)
 
 **Version:** 1.0
-**Last Updated:** 2025-04-02
+**Last Updated:** April 3, 2025
 
 ## 1. Introduction
 
-This document, maintained by the KOIOS subsystem, defines the mandatory coding, documentation, and architectural standards for the EVA & GUARANI (EGOS) project. Adherence to these standards ensures consistency, maintainability, interoperability, and facilitates AI-assisted development.
+This document, maintained by the KOIOS subsystem, defines the mandatory coding, documentation, and architectural standards for the EVA & GUARANI (EGOS) project. Adherence to these standards ensures consistency, maintainability, interoperability, and facilitates AI-assisted development across the entire system.
 
 **All contributions MUST follow these standards.**
 
-## 2. Language
+## 2. Core Principles
 
-- **Primary Language:** All code, comments, documentation, commit messages, and internal communication MUST be in **English**. This ensures universal accessibility and compatibility with AI tools.
+These standards are guided by the following core principles:
 
-## 3. File Naming Conventions
+*   **Clarity & Readability:** Code and documentation should be easy to understand.
+*   **Consistency:** Uniform practices across all subsystems make the codebase predictable.
+*   **Maintainability:** Standards facilitate future modifications, debugging, and refactoring.
+*   **Interoperability:** Defined structures and protocols (like Mycelium) enable seamless subsystem interaction.
+*   **Testability:** Code should be structured to allow for effective unit and integration testing.
+*   **Ethical Alignment (ETHIK):** Standards should support and not conflict with the project's ethical guidelines.
+*   **AI-Readability:** Structures and documentation formats should be chosen to optimize interaction with AI development assistants.
+*   **Cleanliness:** The project structure should remain organized, avoiding clutter and temporary files in core areas.
 
-- **Python Files (`.py`):** Use `snake_case.py` (lowercase with underscores). Example: `atlas_core.py`, `nexus_service.py`.
-- **Python Test Files (`.py`):** Prefix with `test_`. Example: `test_atlas_core.py`.
-- **Markdown Files (`.md`):** Use `kebab-case.md` (lowercase with hyphens) or `snake_case.md` for general documentation. Use specific names like `README.md`, `ROADMAP.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `LICENSE`. Use `UPPERCASE.md` for specific standard documents like `STANDARDS.md`.
-- **Configuration Files (`.json`, `.yaml`, etc.):** Use `snake_case.json` or descriptive names. Example: `atlas_config.json`, `mycelium_settings.yaml`.
-- **Scripts (`.py`, `.sh`, `.ps1`):** Use `snake_case` or `kebab-case`. Example: `run_tests.sh`, `deploy_service.py`.
-- **Directories:** Use `snake_case` (preferred) or `kebab-case` for functional groupings. Use `UPPERCASE` for top-level subsystem names (e.g., `ATLAS`, `NEXUS`).
+## 3. Language
 
-## 4. Directory Structure (Standard Subsystem Layout)
+*   **Primary Language:** All code, comments, documentation, commit messages, and internal communication MUST be in **English**. This ensures universal accessibility and compatibility with AI tools.
 
-Each primary subsystem (e.g., ATLAS, NEXUS, ETHIK, CRONOS, KOIOS) located under the main `subsystems/` directory SHOULD adhere to the following structure:
+## 4. Directory Structure
+
+### 4.1. Top-Level Directory Structure
+
+The project root SHOULD contain primarily the following directories:
+
+*   `subsystems/`: Contains the core functional subsystems (ATLAS, CRONOS, etc.).
+*   `docs/`: High-level project documentation (MQP, ROADMAP, architecture, etc.) and potentially aggregated subsystem docs.
+*   `scripts/`: Essential, curated scripts for project setup, build, or utility tasks (e.g., `install_dependencies.bat`).
+*   `examples/`: Standalone examples demonstrating usage or integration (e.g., the `sandbox/` API/frontend).
+*   `experiments/`: Code or resources related to experimental features or subsystems not yet integrated (e.g., `ethichain_contracts/`).
+*   `Researchs/`: Research documents, analysis, and related materials.
+*   `backups/`: Default location for backups created by CRONOS (should be in `.gitignore`).
+*   `.venv/`: Project virtual environment (should be in `.gitignore`).
+*   `.git/`: Git repository data.
+*   Configuration files (e.g., `.gitignore`, `pyproject.toml`, `requirements.txt`, `README.md`, `LICENSE`).
+
+**Note:** The root directory should be kept clean. Avoid temporary files, logs, or test outputs. Use the designated directories or `.gitignore`.
+
+### 4.2. Standard Subsystem Layout (`subsystems/SUBSYSTEM_NAME/`)
+
+Each primary subsystem SHOULD adhere to the following structure:
 
 ```
 subsystems/
   └── SUBSYSTEM_NAME/
       ├── __init__.py       # Makes the subsystem a Python package
-      ├── core/             # Core logic, algorithms, main classes
+      ├── core/             # Core logic, algorithms, main classes for the subsystem
       │   └── __init__.py
-      │   └── subsystem_core.py
-      │   └── ... (other core modules)
-      ├── services/         # Service orchestration, Mycelium integration (Optional)
-      │   └── __init__.py
-      │   └── service.py
-      ├── utils/            # Utility functions specific to the subsystem (Optional)
-      │   └── __init__.py
-      │   └── helpers.py
-      ├── config/           # Default configuration files for the subsystem
+      │   └── subsystem_module.py # e.g., nexus_core.py, atlas_core.py
+      │   └── ...             # Other essential core modules (e.g., ast_visitor.py)
+      ├── service.py        # Main service class, handles Mycelium integration (if applicable)
+      ├── config/           # Default configuration files specific to the subsystem (Optional)
       │   └── subsystem_config.json
-      ├── data/             # Data generated or used by the subsystem (Add to .gitignore)
-      │   └── .gitkeep
-      ├── tests/            # Unit and integration tests for the subsystem
+      ├── tests/            # Unit and integration tests for this subsystem ONLY
       │   ├── __init__.py
       │   └── test_core.py
-      │   └── test_service.py
+      │   └── test_service.py # etc.
       ├── docs/             # Subsystem-specific documentation
-      │   └── README.md     # Overview of this specific subsystem
-      │   └── usage.md      # How to use the subsystem
-      │   └── api.md        # API documentation (if applicable)
-      └── README.md         # Top-level README for the subsystem (may duplicate docs/README.md)
+      │   └── README.md     # Detailed overview of this specific subsystem (can be same as root README)
+      │   └── procedures.md # Standard Operating Procedures (SOPs), if applicable (See CRONOS)
+      │   └── ...           # Other specific docs (e.g., design, API)
+      └── README.md         # Top-level README for the subsystem (Concise overview, links to docs/)
 ```
 
 **Notes:**
 
-- Optional directories (`services/`, `utils/`) can be omitted if not needed.
-- The `core/` directory might contain subdirectories for better organization if the logic is complex.
-- The main `README.md` at the subsystem root should provide a concise overview and link to the more detailed documentation in `docs/`.
-- Data generated at runtime should go into `data/` and be gitignored.
+*   Avoid deeply nested or redundant directories within `core/`. Keep core logic flat or minimally nested.
+*   Service logic (Mycelium interaction) typically resides in `service.py` at the subsystem root.
+*   Data generated at runtime by a subsystem should ideally be handled via configuration (e.g., CRONOS storing backups in the top-level `backups/` dir) or placed within a gitignored `data/` directory if strictly necessary locally.
 
-## 5. Mycelium Topic Naming Conventions
+## 5. File Naming Conventions
 
-Standardized topics enhance discoverability and routing within the Mycelium network.
+*   **Python Files (`.py`):** Use `snake_case.py` (lowercase with underscores). Example: `atlas_core.py`, `nexus_service.py`.
+*   **Python Test Files (`.py`):** Prefix with `test_`. Example: `test_atlas_core.py`.
+*   **Markdown Files (`.md`):** Use `snake_case.md` or `kebab-case.md`. Use specific names like `README.md`, `ROADMAP.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `LICENSE`. Use `UPPERCASE.md` for specific standard documents like `STANDARDS.md`.
+*   **Configuration Files (`.json`, `.yaml`, etc.):** Use `snake_case.json` or descriptive names. Example: `atlas_config.json`, `mycelium_settings.yaml`.
+*   **Scripts (`.py`, `.sh`, `.bat`, `.ps1`):** Use `snake_case` or `kebab-case`. Example: `run_tests.sh`, `deploy_service.py`, `install_dependencies.bat`.
+*   **Directories:** Use `snake_case` (preferred) or `kebab-case` for functional groupings (e.g., `core`, `tests`, `historical_changelogs`). Use `UPPERCASE` for top-level subsystem names (e.g., `ATLAS`, `NEXUS`).
+
+## 6. Mycelium Topic Naming Conventions
+
+(Content from previous version remains valid - standard format: `<type>.<source_node>.<action_or_description>`)
 
 **General Format:** `<type>.<source_node>.<action_or_description>`
 
-- **`<type>`:**
-    - `request`: A message requesting an action or data.
-    - `response`: A reply to a specific `request` message (often includes a request ID).
-    - `event`: A notification about something that happened (state change, completion, error).
-    - `command`: A directive for a node to perform an action (stronger than `request`).
-    - `log`: A structured log message emitted onto the network (optional).
-    - `alert`: A high-priority notification requiring attention.
-- **`<source_node>`:** The unique ID of the node publishing the message (e.g., `NEXUS_SERVICE`, `ATLAS_CORE`, `ETHIK_VALIDATOR`). Use uppercase snake_case.
-- **`<action_or_description>`:** Lowercase snake_case describing the purpose.
-    - For `request`: Verb describing the request (e.g., `analyze_workspace`, `get_status`).
-    - For `response`: Usually includes the original request ID (e.g., `request_id_123`).
-    - For `event`: Past tense description (e.g., `analysis_complete`, `status_updated`, `error_occurred`).
-    - For `command`: Verb describing the command (e.g., `start_scan`, `shutdown`).
-    - For `log`: Log level (e.g., `info`, `warning`, `error`).
-    - For `alert`: Severity level (e.g., `critical`, `high`, `medium`).
+*   **`<type>`:** `request`, `response`, `event`, `command`, `log`, `alert`.
+*   **`<source_node>`:** Unique uppercase snake_case ID (e.g., `NEXUS_SERVICE`).
+*   **`<action_or_description>`:** Lowercase snake_case description.
+*   **Response Convention:** `response.<service_node>.<request_id>`.
 
-**Wildcard Subscriptions:** Components can use wildcards (`*` for single level, `>` for multiple levels) to subscribe to patterns.
+**(See previous version for full details and examples)**
+
+## 7. Code Style (Python - PEP 8 + Black)
+
+*   All Python code MUST adhere to [PEP 8](https://peps.python.org/pep-0008/).
+*   **Formatter:** Use `black` for automated code formatting. Configuration TBD in `pyproject.toml`.
+*   **Linter:** Use `ruff` (preferred) or `flake8` for identifying style issues and potential errors. Configuration TBD in `pyproject.toml`.
+*   Maximum line length: 100 characters (configurable via formatter).
+*   **Goal:** Configure `pre-commit` hooks to automatically run formatter and linter before commits.
+
+## 8. Documentation Standards
+
+*   **Docstrings:** All public modules, classes, functions, and methods MUST have docstrings following [PEP 257](https://peps.python.org/pep-0257/). Google style is preferred.
+    *   Docstrings should clearly explain the purpose, arguments, return values, and any potential exceptions.
+*   **READMEs:** Each subsystem MUST have a `README.md` (as defined in section 4.2). The root directory MUST have a `README.md` providing a project overview.
+*   **Standard Operating Procedures (SOPs):** Subsystems providing user-facing procedures (like CRONOS backups) SHOULD have a `docs/procedures.md` file. (See `subsystems/CRONOS/docs/procedures.md` for example).
+*   **Inline Comments:** Use comments sparingly only to explain complex logic or the *why* behind a decision, not the *what*.
+*   **Clarity:** Documentation should be clear, concise, and kept up-to-date with the code.
+
+## 9. Metadata Standards
+
+*   **Markdown Files:** Key documentation files (`.md`) SHOULD include a YAML front matter block for metadata to facilitate organization and potential automated processing by KOIOS.
+*   **Schema:** (To be defined in detail later by KOIOS). A standard metadata schema will be developed, likely including fields like: `subsystem`, `version`, `status`, `author`, `last_updated`, `dependencies`, `type` (e.g., `documentation`, `core_logic`, `test`), `ethical_review` (boolean/status), `test_coverage` (percentage/link), etc.
+
+## 10. Logging Standards
+
+*   **Framework:** Use Python's built-in `logging` module.
+*   **`KoiosLogger`:** A standardized logger (`subsystems/KOIOS/core/logging.py` - **To Be Implemented**) will provide a consistent format and potentially integrate with Mycelium.
+*   **Logger Naming:** Obtain loggers using `logging.getLogger("SUBSYSTEM_NAME.ModuleName")` or similar hierarchical names (e.g., `EGOS.ATLAS.Core`). The `KoiosLogger` might simplify this.
+*   **Format:** (To be implemented by `KoiosLogger`). Should include timestamp, log level, logger name (module path), and message. Structured logging (JSON) is the target for easier parsing and potential aggregation.
+*   **Levels:** Use standard logging levels appropriately (DEBUG, INFO, WARNING, ERROR, CRITICAL).
+*   **Mycelium Logging:** Consider emitting important logs (especially warnings/errors) as `log.<source_node>.<level>` events on Mycelium for system-wide visibility (potentially configured via `KoiosLogger`).
+
+## 11. Testing Standards
+
+*   **Framework:** Use `pytest`.
+*   **Location:** Tests for a subsystem reside *exclusively* within its `tests/` directory.
+*   **Naming:** Test files MUST start with `test_`, test functions MUST start with `test_`.
+*   **Coverage:** Aim for high test coverage (Target: 85%+). Use `pytest-cov`. Reports should be generated (e.g., in `htmlcov/`, which is gitignored).
+*   **Types:** Include unit tests (testing individual functions/methods in isolation) and integration tests (testing interactions between components within a subsystem or potentially across subsystems via mocking/Mycelium). Service-level tests validating Mycelium interactions are crucial.
+*   **Fixtures:** Use `pytest` fixtures effectively to manage test setup and dependencies.
+*   **Mocking:** Use `unittest.mock` for isolating components during testing.
+
+## 12. Commit Messages
+
+*   Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification strictly. This enables automated changelog generation and semantic versioning.
+*   **Format:** `<type>(<scope>): <short summary>`
+    *   `<type>`: `feat`, `fix`, `build`, `chore`, `ci`, `docs`, `style`, `refactor`, `perf`, `test`, etc.
+    *   `<scope>` (Optional): The subsystem or module affected (e.g., `NEXUS`, `ATLAS`, `KOIOS`, `CRONOS.BackupManager`).
+    *   `<short summary>`: Concise description of the change in present tense.
+*   **Body (Optional):** Provide more context after a blank line.
+*   **Footer (Optional):** Reference issue numbers (e.g., `Refs #123`), indicate breaking changes (`BREAKING CHANGE:`).
 
 **Examples:**
 
-- `request.NEXUS_SERVICE.analyze_workspace`
-- `response.NEXUS_SERVICE.req_abc123`
-- `event.CRONOS_SERVICE.backup_complete`
-- `event.ATLAS_CORE.map_updated`
-- `command.BIOS_Q.shutdown_subsystem`
-- `log.ETHIK_VALIDATOR.warning`
-- `alert.ETHIK_VALIDATOR.critical`
-
-**Response Topic Convention:**
-Responses to requests should typically be published on a topic specific to the request ID:
-`response.<service_node>.<request_id>`
-
-## 6. Code Style (Python - PEP 8)
-
-- All Python code MUST adhere to [PEP 8](https://peps.python.org/pep-0008/).
-- Use automated tools like `black`, `ruff`, or `flake8` to enforce style consistency. Configuration for these tools should be included in the project root (`pyproject.toml`).
-- Maximum line length: 100-120 characters (to be finalized).
-
-## 7. Documentation Standards
-
-- **Docstrings:** All public modules, classes, functions, and methods MUST have docstrings following [PEP 257](https://peps.python.org/pep-0257/) (e.g., Google style or NumPy style).
-- **READMEs:** Each subsystem MUST have a `README.md` explaining its purpose, structure, configuration, and usage.
-- **Inline Comments:** Use comments sparingly to explain *why* something is done, not *what* it does (the code should be clear).
-
-## 8. Metadata Standards
-
-- **Markdown Files:** Documentation files (`.md`) SHOULD include a YAML front matter block for metadata.
-- **Schema:** (To be defined in detail later by KOIOS). Will include fields like `subsystem`, `version`, `status`, `author`, `last_updated`, `dependencies`, `type`, `ethical_validation`, `test_coverage`, etc.
-
-## 9. Logging Standards
-
-- **Framework:** Use Python's built-in `logging` module.
-- **Logger Naming:** Obtain loggers using `logging.getLogger("SUBSYSTEM_NAME.ModuleName")` or similar hierarchical names (e.g., `EGOS.ATLAS.Core`).
-- **Format:** (To be finalized, implemented by `KoiosLogger`). Should include timestamp, log level, logger name, and message. Structured logging (JSON) is preferred for potential aggregation.
-- **Levels:** Use standard logging levels appropriately (DEBUG, INFO, WARNING, ERROR, CRITICAL).
-- **Mycelium Logging:** Consider emitting important logs (especially warnings/errors) as `log.<source_node>.<level>` events on Mycelium for system-wide visibility.
-
-## 10. Testing Standards
-
-- **Framework:** Use `pytest`.
-- **Location:** Tests for a module/subsystem reside in its `tests/` directory.
-- **Naming:** Test files MUST start with `test_`, test functions MUST start with `test_`.
-- **Coverage:** Aim for high test coverage (target: 85%+). Use `pytest-cov`.
-- **Types:** Include unit tests, integration tests (where applicable), and potentially service-level tests.
-
-## 11. Commit Messages
-
-- Follow [Conventional Commits](https://www.conventionalcommits.org/) specification. Example: `feat(NEXUS): add AST parsing for function analysis` or `fix(ATLAS): correct layout calculation error`.
+*   `feat(NEXUS): add AST parsing for function analysis`
+*   `fix(ATLAS): correct layout calculation error`
+*   `docs(CRONOS): create initial SOP procedures.md`
+*   `refactor(ETHIK): simplify rule loading logic`
+*   `test(NEXUS): add tests for dependency analysis`
+*   `chore: update .gitignore`
 
 ---
 
-✧༺❀༻∞ KOIOS - EGOS Standards Authority ∞༺❀༻✧ 
+## 13. AI Interaction & Operational Guidelines
+
+These guidelines apply specifically to AI agents (like EVA & GUARANI) interacting with the codebase and development environment within the EGOS framework.
+
+*   **Principle of Artifact Verification (PAV):** Before proposing modifications to an existing file or artifact (e.g., using `edit_file`), AI agents MUST attempt to read the current state of the artifact, or at minimum the relevant sections, to ensure context preservation and prevent accidental data loss or overwriting. File creation is exempt, but explicitly overwriting existing content requires strong justification or user confirmation. Task descriptions like 'finalize', 'review', 'update', or 'enhance' should trigger verification, not assumption of non-existence. *(Note: CORUJA may assist in formulating clear prompts for verification and editing based on this principle.)*
+*   **Context Persistence & Model Switching:** Adherence to KOIOS standards, including PAV, is expected of any AI agent operating within the EGOS context. While the agent framework (e.g., Cursor) aims to maintain operational context across sessions or model switches, this persistence cannot be universally guaranteed, especially when using external model aggregators. It is recommended to **briefly verify key operational guidelines** with the agent after significant changes to the underlying model or environment if context continuity is uncertain. The documented KOIOS standards remain the source of truth for expected behavior.
+*   **(Future: Add other operational refinements here, e.g., Terminal CWD strategy, Python execution path, File Access Strategy)**
+
+✧༺❀༻∞ KOIOS - EGOS Standards Authority ∞༺❀༻✧

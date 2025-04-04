@@ -48,4 +48,4 @@ echo "===================================================="
 echo -e "${GREEN}✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧${RESET}"
 
 # Tornar o script executável
-chmod +x "$0" 
+chmod +x "$0"

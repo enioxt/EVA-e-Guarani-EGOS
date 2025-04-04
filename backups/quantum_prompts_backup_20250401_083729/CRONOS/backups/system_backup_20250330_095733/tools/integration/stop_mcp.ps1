@@ -24,7 +24,7 @@ try {
 
     if ($process) {
         Write-Log "Found MCP process with ID: $($process.Id)"
-        
+
         # Parar o processo
         Stop-Process -Id $process.Id -Force
         Write-Log "MCP service stopped successfully."
@@ -37,4 +37,4 @@ try {
 catch {
     Write-Log "Error stopping MCP service: $_"
     exit 1
-} 
+}

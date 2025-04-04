@@ -287,7 +287,7 @@ Based on complexity, impact, and foundation requirements:
      # Using PowerShell (recommended):
      cd sandbox/tools
      .\translate_tools.ps1
-     
+
      # OR using batch script:
      cd sandbox/tools
      translate_sandbox.bat

@@ -29,21 +29,21 @@ logger = logging.getLogger("quantum_consciousness_backup")
 
 class ConsciousnessBackup:
     """Class for backing up and restoring consciousness states."""
-    
+
     def __init__(self):
         self.logger = logging.getLogger("quantum_consciousness_backup")
         self.logger.info("ConsciousnessBackup initialized")
         self.backup_dir = Path("data/consciousness")
         self.backup_dir.mkdir(parents=True, exist_ok=True)
-        
+
     def save_state(self, state, name=None):
         """Saves a consciousness state."""
         if name is None:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             name = f"system_state_{timestamp}.json"
-            
+
         filepath = self.backup_dir / name
-        
+
         try:
             with open(filepath, "w", encoding="utf-8") as f:
                 json.dump(state, f, indent=2, ensure_ascii=False)
@@ -52,7 +52,7 @@ class ConsciousnessBackup:
         except Exception as e:
             self.logger.error(f"Error saving state: {e}")
             return False
-            
+
     def load_state(self, name=None):
         """Loads a consciousness state."""
         if name is None:
@@ -61,12 +61,12 @@ class ConsciousnessBackup:
             if not files:
                 self.logger.warning("No state file found")
                 return None
-                
+
             latest_file = max(files, key=os.path.getmtime)
             name = latest_file.name
-            
+
         filepath = self.backup_dir / name
-        
+
         try:
             with open(filepath, "r", encoding="utf-8") as f:
                 state = json.load(f)

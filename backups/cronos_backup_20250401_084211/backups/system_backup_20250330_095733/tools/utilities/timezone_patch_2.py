@@ -16,10 +16,12 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 # Monkey patch to fix timezone issues
 original_init = AsyncIOScheduler.__init__
 
+
 def patched_init(self, *args, **kwargs):
-    if 'timezone' not in kwargs:
-        kwargs['timezone'] = pytz.UTC
+    if "timezone" not in kwargs:
+        kwargs["timezone"] = pytz.UTC
     return original_init(self, *args, **kwargs)
+
 
 AsyncIOScheduler.__init__ = patched_init
 

@@ -37,4 +37,4 @@ Features to test:
 - Search for specific terms like "EVA & GUARANI"
 - Verify file size calculations
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

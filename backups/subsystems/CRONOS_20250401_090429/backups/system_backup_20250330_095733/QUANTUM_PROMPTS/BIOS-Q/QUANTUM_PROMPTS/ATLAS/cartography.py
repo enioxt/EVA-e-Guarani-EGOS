@@ -37,13 +37,13 @@ Maps and visualizes system connections.
 class SystemMapper:
     def __init__(self):
         self.connections = {}
-        
+
     def add_connection(self, source, target, connection_type="default"):
         """Add a connection between two components."""
         if source not in self.connections:
             self.connections[source] = {}
         self.connections[source][target] = connection_type
-        
+
     def get_connections(self, component):
         """Get all connections for a component."""
-        return self.connections.get(component, {}) 
+        return self.connections.get(component, {})

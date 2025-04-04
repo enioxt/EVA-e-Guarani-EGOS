@@ -29,19 +29,20 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
         logging.FileHandler(str(log_dir / "documentation_update.log"), encoding="utf-8"),
-        logging.StreamHandler()
-    ]
+        logging.StreamHandler(),
+    ],
 )
+
 
 def scan_directory_structure():
     """Scans the project's directory structure"""
     structure = {}
-    
+
     for category in ["core", "modules", "integrations", "tools", "docs", "tests", "ui", "data"]:
         category_path = ROOT_DIR / category
         if not category_path.exists():
             continue
-            
+
         structure[category] = {}
         for item in category_path.glob("*"):
             if item.is_dir() and not item.name.startswith((".", "__")):
@@ -49,14 +50,15 @@ def scan_directory_structure():
                 for subitem in item.glob("*"):
                     if subitem.is_dir() and not subitem.name.startswith((".", "__")):
                         structure[category][item.name].append(subitem.name)
-    
+
     return structure
+
 
 def update_main_readme():
     """Updates the main README.md with the new structure"""
     readme_path = ROOT_DIR / "README.md"
     structure = scan_directory_structure()
-    
+
     content = f"""# EVA & GUARANI
 
 Modular Analysis System, Systemic Cartography and Quantum Ethics
@@ -78,7 +80,7 @@ EVA & GUARANI is an integrated system that transcends dimensions of thought with
 ### Main Components
 
 """
-    
+
     # Add core structure
     if "core" in structure:
         content += "#### [`/core`](/core) - Essential Components\n\n"
@@ -91,7 +93,7 @@ EVA & GUARANI is an integrated system that transcends dimensions of thought with
             else:
                 content += "\n"
         content += "\n"
-    
+
     # Add modules structure
     if "modules" in structure:
         content += "#### [`/modules`](/modules) - Functional Modules\n\n"
@@ -104,7 +106,7 @@ EVA & GUARANI is an integrated system that transcends dimensions of thought with
             else:
                 content += "\n"
         content += "\n"
-    
+
     # Add integrations structure
     if "integrations" in structure:
         content += "#### [`/integrations`](/integrations) - Integrations\n\n"
@@ -117,7 +119,7 @@ EVA & GUARANI is an integrated system that transcends dimensions of thought with
             else:
                 content += "\n"
         content += "\n"
-    
+
     # Add tools structure
     if "tools" in structure:
         content += "#### [`/tools`](/tools) - Tools\n\n"
@@ -130,7 +132,7 @@ EVA & GUARANI is an integrated system that transcends dimensions of thought with
             else:
                 content += "\n"
         content += "\n"
-    
+
     # Add additional sections
     content += """## 🚀 Getting Started
 
@@ -188,76 +190,79 @@ This project is licensed under the terms of the MIT license. See the `LICENSE` f
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 """
-    
+
     # Save updated README
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)
-    
+
     logging.info("Main README.md updated successfully")
+
 
 def create_module_readmes():
     """Creates or updates README.md for each main module"""
     structure = scan_directory_structure()
-    
+
     for category, modules in structure.items():
         category_path = ROOT_DIR / category
-        
+
         # Create README for the category
         category_readme = category_path / "README.md"
         with open(category_readme, "w", encoding="utf-8") as f:
             f.write(f"# {category.title()}\n\n")
             f.write(f"{category.title()} Components of the EVA & GUARANI System\n\n")
-            
+
             for module, submodules in modules.items():
                 f.write(f"## {module}\n\n")
                 if submodules:
                     for submodule in sorted(submodules):
                         f.write(f"- {submodule}\n")
                 f.write("\n")
-        
+
         # Create README for each module
         for module in modules:
             module_path = category_path / module
             module_readme = module_path / "README.md"
-            
+
             if not module_readme.exists():
                 with open(module_readme, "w", encoding="utf-8") as f:
                     f.write(f"# {module.title()}\n\n")
                     f.write(f"{module.title()} Module of the EVA & GUARANI System\n\n")
-                    
+
                     if modules[module]:
                         f.write("## Components\n\n")
                         for submodule in sorted(modules[module]):
                             f.write(f"- {submodule}\n")
-                    
+
                     f.write("\n## Description\n\n")
                     f.write("TODO: Add detailed module description\n\n")
-                    
+
                     f.write("## Usage\n\n")
                     f.write("TODO: Add usage examples\n\n")
-                    
+
                     f.write("## Dependencies\n\n")
                     f.write("TODO: List specific dependencies\n\n")
-                    
+
                     f.write("---\n\n")
                     f.write("✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧\n")
+
 
 def main():
     """Main function"""
     logging.info("=== STARTING DOCUMENTATION UPDATE ===")
-    
+
     try:
         # Update main README
         update_main_readme()
-        
+
         # Create/update module READMEs
         create_module_readmes()
-        
+
         logging.info("=== DOCUMENTATION UPDATE COMPLETED ===")
-        
+
     except Exception as e:
         logging.error(f"Error during documentation update: {str(e)}")
         logging.info("=== DOCUMENTATION UPDATE INTERRUPTED WITH ERRORS ===")
+
 
 if __name__ == "__main__":
     main()

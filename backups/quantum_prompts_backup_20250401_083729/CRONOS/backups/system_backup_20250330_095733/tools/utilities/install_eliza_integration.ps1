@@ -25,17 +25,17 @@ function Write-Log {
         [string]$Message,
         [string]$Level = "INFO"
     )
-    
+
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $logMessage = "[$timestamp] [$Level] $Message"
-    
+
     Write-Host $logMessage
-    
+
     # Ensure the logs directory exists
     if (-not (Test-Path (Split-Path -Path $logFile -Parent))) {
         New-Item -ItemType Directory -Path (Split-Path -Path $logFile -Parent) -Force | Out-Null
     }
-    
+
     Add-Content -Path $logFile -Value $logMessage -Encoding UTF8
 }
 
@@ -44,10 +44,10 @@ function Test-NodeJs {
     try {
         $nodeVersion = & node --version 2>&1
         $npmVersion = & npm --version 2>&1
-        
+
         Write-Log "Node.js detected: $nodeVersion"
         Write-Log "npm detected: $npmVersion"
-        
+
         return $true
     } catch {
         Write-Log "Node.js or npm not found. Please install Node.js version 23+ from https://nodejs.org/" "ERROR"
@@ -63,7 +63,7 @@ function Test-Pnpm {
         return $true
     } catch {
         Write-Log "pnpm not found. Attempting to install..." "WARNING"
-        
+
         try {
             & npm install -g pnpm
             $pnpmVersion = & pnpm --version 2>&1
@@ -104,35 +104,35 @@ function Test-Git {
 function Clone-ElizaRepo {
     if (Test-Path $installDir) {
         Write-Log "ElizaOS directory already exists. Updating..." "WARNING"
-        
+
         Set-Location $installDir
         & git pull
-        
+
         if ($LASTEXITCODE -ne 0) {
             Write-Log "Error updating repository. Attempting again with a clean repository..." "WARNING"
             Set-Location $scriptPath
             Remove-Item -Recurse -Force $installDir
             return Clone-ElizaRepo
         }
-        
+
         Set-Location $scriptPath
         return $true
     }
-    
+
     Write-Log "Cloning ElizaOS repository..."
     & git clone https://github.com/elizaOS/eliza-starter.git $installDir
-    
+
     if ($LASTEXITCODE -ne 0) {
         Write-Log "Failed to clone ElizaOS repository." "ERROR"
         return $false
     }
-    
+
     # Create logs directory within ElizaOS
     if (-not (Test-Path $elizaLogsDir)) {
         New-Item -ItemType Directory -Path $elizaLogsDir -Force | Out-Null
         Write-Log "Created logs directory: $elizaLogsDir"
     }
-    
+
     return $true
 }
 
@@ -140,31 +140,31 @@ function Clone-ElizaRepo {
 function Install-ElizaDependencies {
     Write-Log "Installing ElizaOS dependencies..."
     Set-Location $installDir
-    
+
     # Copy .env.example to .env (if it doesn't exist)
     if (-not (Test-Path ".env")) {
         Copy-Item ".env.example" ".env"
         Write-Log ".env file created from .env.example"
     }
-    
+
     # Install dependencies
     & pnpm i
-    
+
     if ($LASTEXITCODE -ne 0) {
         Write-Log "Failed to install ElizaOS dependencies." "ERROR"
         Set-Location $scriptPath
         return $false
     }
-    
+
     # Build ElizaOS
     & pnpm build
-    
+
     if ($LASTEXITCODE -ne 0) {
         Write-Log "Failed to build ElizaOS." "ERROR"
         Set-Location $scriptPath
         return $false
     }
-    
+
     Set-Location $scriptPath
     return $true
 }
@@ -175,7 +175,7 @@ function Get-TelegramConfig {
         Write-Log "Telegram configuration file not found: $telegramConfigFile" "ERROR"
         return $null
     }
-    
+
     try {
         $config = Get-Content $telegramConfigFile -Raw | ConvertFrom-Json
         return $config
@@ -190,18 +190,18 @@ function Configure-ElizaForTelegram {
     param (
         [PSCustomObject]$TelegramConfig
     )
-    
+
     if ($null -eq $TelegramConfig) {
         return $false
     }
-    
+
     $botToken = $TelegramConfig.bot_token
-    
+
     if ([string]::IsNullOrEmpty($botToken)) {
         Write-Log "Bot token not found in Telegram configuration." "ERROR"
         return $false
     }
-    
+
     # Create or update .env file for ElizaOS
     $envFile = Join-Path $installDir ".env"
     $envContent = @"
@@ -213,11 +213,11 @@ OPENAI_API_KEY=$($TelegramConfig.openai_api_key)
 ELIZA_INTEGRATION_MODE=telegram
 ELIZA_LOG_LEVEL=info
 "@
-    
+
     try {
         Set-Content -Path $envFile -Value $envContent -Encoding UTF8
         Write-Log ".env file successfully configured for Telegram integration."
-        
+
         # Create ElizaOS configuration file
         $elizaConfig = @{
             version = "1.0"
@@ -232,16 +232,16 @@ ELIZA_LOG_LEVEL=info
             }
             clients = @("telegram")
         }
-        
+
         # Create configuration directory if it doesn't exist
         $elizaConfigDir = Split-Path $elizaConfigFile -Parent
         if (-not (Test-Path $elizaConfigDir)) {
             New-Item -ItemType Directory -Path $elizaConfigDir -Force | Out-Null
         }
-        
+
         $elizaConfigJson = $elizaConfig | ConvertTo-Json -Depth 10
         Set-Content -Path $elizaConfigFile -Value $elizaConfigJson -Encoding UTF8
-        
+
         Write-Log "ElizaOS configuration file successfully created: $elizaConfigFile"
         return $true
     } catch {
@@ -254,7 +254,7 @@ ELIZA_LOG_LEVEL=info
 function Create-StartScript {
     $startScriptPath = Join-Path $scriptPath "start_eliza_telegram.ps1"
     $startScriptBatPath = Join-Path $scriptPath "start_eliza_telegram.bat"
-    
+
     $startScriptContent = @"
 # EVA & GUARANI - ElizaOS Telegram Integration Starter
 `$ErrorActionPreference = "Stop"
@@ -282,7 +282,7 @@ Write-Host "Starting ElizaOS..." -ForegroundColor Green
 # Return to the original directory
 Set-Location `$scriptPath
 "@
-    
+
     $startScriptBatContent = @"
 @echo off
 echo ====================================================
@@ -296,15 +296,15 @@ echo.
 echo Press any key to exit...
 pause > nul
 "@
-    
+
     try {
         Set-Content -Path $startScriptPath -Value $startScriptContent -Encoding UTF8
         Set-Content -Path $startScriptBatPath -Value $startScriptBatContent -Encoding UTF8
-        
+
         Write-Log "Startup scripts successfully created:"
         Write-Log "- $startScriptPath"
         Write-Log "- $startScriptBatPath"
-        
+
         return $true
     } catch {
         Write-Log "Error creating startup scripts: $_" "ERROR"
@@ -316,44 +316,44 @@ pause > nul
 function Install-ElizaIntegration {
     Write-Log "EVA & GUARANI - ElizaOS Integration Installer"
     Write-Log "================================================"
-    
+
     # Initial checks
     if (-not (Test-NodeJs)) {
         exit 1
     }
-    
+
     if (-not (Test-Pnpm)) {
         exit 1
     }
-    
+
     if (-not (Test-Python)) {
         exit 1
     }
-    
+
     if (-not (Test-Git)) {
         exit 1
     }
-    
+
     # Clone and install ElizaOS
     if (-not (Clone-ElizaRepo)) {
         exit 1
     }
-    
+
     if (-not (Install-ElizaDependencies)) {
         exit 1
     }
-    
+
     # Configure integration
     $telegramConfig = Get-TelegramConfig
     if (-not (Configure-ElizaForTelegram -TelegramConfig $telegramConfig)) {
         exit 1
     }
-    
+
     # Create startup scripts
     if (-not (Create-StartScript)) {
         exit 1
     }
-    
+
     # Success banner
     Write-Log "======================================================="
     Write-Log "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"

@@ -72,4 +72,4 @@ REM REM
 @echo off
 cd %~dp0
 python cursor_commands.py !save_mcp %*
-pause 
+pause

@@ -11,9 +11,10 @@ Version: 1.0.0
 """
 
 import ast
-from dataclasses import dataclass, field
-from typing import List, Dict, Set, Optional, Union
 import logging
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional, Union
+
 
 @dataclass
 class ImportInfo:
@@ -22,6 +23,7 @@ class ImportInfo:
     alias: Optional[str] = None
     is_from_import: bool = False
     level: int = 0  # For relative imports
+
 
 @dataclass
 class FunctionInfo:
@@ -34,6 +36,7 @@ class FunctionInfo:
     end_line: int = 0
     complexity: int = 0
 
+
 @dataclass
 class ClassInfo:
     name: str
@@ -44,9 +47,10 @@ class ClassInfo:
     start_line: int = 0
     end_line: int = 0
 
+
 class CodeVisitor(ast.NodeVisitor):
     """AST visitor for analyzing Python code structure."""
-    
+
     def __init__(self, logger: logging.Logger):
         self.logger = logger
         self.imports: List[ImportInfo] = []
@@ -54,18 +58,19 @@ class CodeVisitor(ast.NodeVisitor):
         self.classes: List[ClassInfo] = []
         self.current_class: Optional[ClassInfo] = None
         self.cognitive_load: int = 0
-        self._nesting_level: int = 0 # Track nesting for complexity boost
-        
+        self._nesting_level: int = 0  # Track nesting for complexity boost
+
     def _get_docstring(self, node: ast.AST) -> Optional[str]:
         """Extract docstring from an AST node."""
-        if (isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and 
-            ast.get_docstring(node)):
+        if isinstance(
+            node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)
+        ) and ast.get_docstring(node):
             return ast.get_docstring(node)
         return None
-        
+
     def _get_decorators(self, node: ast.AST) -> List[str]:
         """Extract decorator names from an AST node."""
-        if not hasattr(node, 'decorator_list'):
+        if not hasattr(node, "decorator_list"):
             return []
         decorators = []
         for decorator in node.decorator_list:
@@ -81,27 +86,27 @@ class CodeVisitor(ast.NodeVisitor):
     def visit_Import(self, node: ast.Import):
         """Process Import nodes."""
         for name in node.names:
-            self.imports.append(ImportInfo(
-                module=name.name,
-                alias=name.asname,
-                is_from_import=False
-            ))
+            self.imports.append(
+                ImportInfo(module=name.name, alias=name.asname, is_from_import=False)
+            )
         # Do not call generic_visit here for imports to avoid redundant processing
 
     def visit_ImportFrom(self, node: ast.ImportFrom):
         """Process ImportFrom nodes."""
-        module = node.module or ''
+        module = node.module or ""
         # Aggregate all names from a single 'from ... import ...'
         imported_names = [name.name for name in node.names]
         aliases = {name.name: name.asname for name in node.names if name.asname}
-        self.imports.append(ImportInfo(
-            module=module,
-            names=imported_names,
-            # Consider storing aliases dict if needed later
-            alias=None, # Top-level alias doesn't apply here
-            is_from_import=True,
-            level=node.level
-        ))
+        self.imports.append(
+            ImportInfo(
+                module=module,
+                names=imported_names,
+                # Consider storing aliases dict if needed later
+                alias=None,  # Top-level alias doesn't apply here
+                is_from_import=True,
+                level=node.level,
+            )
+        )
         # Do not call generic_visit here
 
     def visit_FunctionDef(self, node: ast.FunctionDef):
@@ -122,19 +127,19 @@ class CodeVisitor(ast.NodeVisitor):
             docstring=self._get_docstring(node),
             is_async=is_async,
             start_line=node.lineno,
-            end_line=node.end_lineno or node.lineno
+            end_line=node.end_lineno or node.lineno,
         )
-        
+
         if self.current_class:
             self.current_class.methods.append(func_info)
         else:
             self.functions.append(func_info)
-            
-        # --- Complexity: Increment for function definition itself and increase nesting --- 
-        self.cognitive_load += 1 + self._nesting_level 
+
+        # --- Complexity: Increment for function definition itself and increase nesting ---
+        self.cognitive_load += 1 + self._nesting_level
         self._nesting_level += 1
-        self.generic_visit(node) # Visit children
-        self._nesting_level -= 1 # Decrease nesting after visiting children
+        self.generic_visit(node)  # Visit children
+        self._nesting_level -= 1  # Decrease nesting after visiting children
         # ------------------------------------------------------------------------------
 
     def visit_ClassDef(self, node: ast.ClassDef):
@@ -145,12 +150,12 @@ class CodeVisitor(ast.NodeVisitor):
                 bases.append(base.id)
             elif isinstance(base, ast.Attribute):
                 # Crude representation, might need refinement for complex bases
-                try: 
+                try:
                     base_name = f"{base.value.id}.{base.attr}"
-                except AttributeError: 
-                    base_name = "<complex_base>" 
+                except AttributeError:
+                    base_name = "<complex_base>"
                 bases.append(base_name)
-                
+
         class_info = ClassInfo(
             name=node.name,
             bases=bases,
@@ -158,23 +163,23 @@ class CodeVisitor(ast.NodeVisitor):
             decorators=self._get_decorators(node),
             docstring=self._get_docstring(node),
             start_line=node.lineno,
-            end_line=node.end_lineno or node.lineno
+            end_line=node.end_lineno or node.lineno,
         )
-        
+
         # Set as current class for method collection
         prev_class = self.current_class
         self.current_class = class_info
-        # --- Complexity: Increase nesting for visiting class body --- 
-        self._nesting_level += 1 
+        # --- Complexity: Increase nesting for visiting class body ---
+        self._nesting_level += 1
         self.generic_visit(node)
         self._nesting_level -= 1
         # ---------------------------------------------------------
         self.current_class = prev_class
-        
+
         self.classes.append(class_info)
-        
-    # --- Complexity Calculation Methods --- 
-    
+
+    # --- Complexity Calculation Methods ---
+
     def visit_If(self, node: ast.If):
         """Complexity: +1 for if, +1 for each elif, +nesting penalty."""
         self.cognitive_load += 1 + self._nesting_level
@@ -202,7 +207,7 @@ class CodeVisitor(ast.NodeVisitor):
         self._nesting_level += 1
         self.generic_visit(node)
         self._nesting_level -= 1
-        
+
     def visit_Try(self, node: ast.Try):
         """Complexity: +1 for try block, +nesting penalty."""
         # Note: Except handlers are visited separately
@@ -218,24 +223,24 @@ class CodeVisitor(ast.NodeVisitor):
         self._nesting_level += 1
         self.generic_visit(node)
         self._nesting_level -= 1
-        
+
     def visit_BoolOp(self, node: ast.BoolOp):
         """Complexity: +1 for each 'and'/'or'."""
         # An op like (a and b and c) has two 'and's
         if len(node.values) > 1:
             self.cognitive_load += len(node.values) - 1
         self.generic_visit(node)
-        
+
     def visit_Break(self, node: ast.Break):
         """Complexity: +1 for break."""
         self.cognitive_load += 1
         self.generic_visit(node)
-        
+
     def visit_Continue(self, node: ast.Continue):
         """Complexity: +1 for continue."""
         self.cognitive_load += 1
         self.generic_visit(node)
-        
+
     def visit_Lambda(self, node: ast.Lambda):
         """Complexity: +1 for lambda definition, +nesting."""
         self.cognitive_load += 1 + self._nesting_level
@@ -243,14 +248,15 @@ class CodeVisitor(ast.NodeVisitor):
         self.generic_visit(node)
         self._nesting_level -= 1
 
+
 def analyze_code(content: str, logger: logging.Logger) -> Dict:
     """
     Analyze Python code content using AST.
-    
+
     Args:
         content: The Python code to analyze
         logger: Logger instance for recording issues
-        
+
     Returns:
         Dict containing analysis results
     """
@@ -258,71 +264,71 @@ def analyze_code(content: str, logger: logging.Logger) -> Dict:
         tree = ast.parse(content)
         visitor = CodeVisitor(logger)
         visitor.visit(tree)
-        
+
         return {
-            'imports': [
+            "imports": [
                 {
-                    'module': imp.module,
-                    'names': imp.names,
-                    'alias': imp.alias,
-                    'is_from_import': imp.is_from_import,
-                    'level': imp.level
+                    "module": imp.module,
+                    "names": imp.names,
+                    "alias": imp.alias,
+                    "is_from_import": imp.is_from_import,
+                    "level": imp.level,
                 }
                 for imp in visitor.imports
             ],
-            'functions': [
+            "functions": [
                 {
-                    'name': func.name,
-                    'args': func.args,
-                    'decorators': func.decorators,
-                    'docstring': func.docstring,
-                    'is_async': func.is_async,
-                    'start_line': func.start_line,
-                    'end_line': func.end_line
+                    "name": func.name,
+                    "args": func.args,
+                    "decorators": func.decorators,
+                    "docstring": func.docstring,
+                    "is_async": func.is_async,
+                    "start_line": func.start_line,
+                    "end_line": func.end_line,
                 }
                 for func in visitor.functions
             ],
-            'classes': [
+            "classes": [
                 {
-                    'name': cls.name,
-                    'bases': cls.bases,
-                    'methods': [
+                    "name": cls.name,
+                    "bases": cls.bases,
+                    "methods": [
                         {
-                            'name': method.name,
-                            'args': method.args,
-                            'decorators': method.decorators,
-                            'docstring': method.docstring,
-                            'is_async': method.is_async,
-                            'start_line': method.start_line,
-                            'end_line': method.end_line
+                            "name": method.name,
+                            "args": method.args,
+                            "decorators": method.decorators,
+                            "docstring": method.docstring,
+                            "is_async": method.is_async,
+                            "start_line": method.start_line,
+                            "end_line": method.end_line,
                         }
                         for method in cls.methods
                     ],
-                    'decorators': cls.decorators,
-                    'docstring': cls.docstring,
-                    'start_line': cls.start_line,
-                    'end_line': cls.end_line
+                    "decorators": cls.decorators,
+                    "docstring": cls.docstring,
+                    "start_line": cls.start_line,
+                    "end_line": cls.end_line,
                 }
                 for cls in visitor.classes
             ],
-            'cognitive_load': visitor.cognitive_load
+            "cognitive_load": visitor.cognitive_load,
         }
-        
+
     except SyntaxError as e:
         logger.error(f"Syntax error in code: {str(e)}")
         return {
-            'error': f"Syntax error: {str(e)}",
-            'imports': [],
-            'functions': [],
-            'classes': [],
-            'cognitive_load': 0 # Return 0 complexity on syntax error
+            "error": f"Syntax error: {str(e)}",
+            "imports": [],
+            "functions": [],
+            "classes": [],
+            "cognitive_load": 0,  # Return 0 complexity on syntax error
         }
     except Exception as e:
         logger.error(f"Unexpected error during AST analysis: {str(e)}", exc_info=True)
         return {
-            'error': f"AST analysis failed: {str(e)}",
-            'imports': [],
-            'functions': [],
-            'classes': [],
-            'cognitive_load': 0
-        } 
+            "error": f"AST analysis failed: {str(e)}",
+            "imports": [],
+            "functions": [],
+            "classes": [],
+            "cognitive_load": 0,
+        }

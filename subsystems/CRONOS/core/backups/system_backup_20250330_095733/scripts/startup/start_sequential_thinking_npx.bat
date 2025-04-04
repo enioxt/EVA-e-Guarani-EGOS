@@ -125,4 +125,4 @@ cmd /k npx -y @modelcontextprotocol/server-sequential-thinking > logs\sequential
 if errorlevel 1 (
     echo [ERRO] Falha ao iniciar o servidor. Verifique os logs em logs\sequential_thinking_npx.log
     pause
-) 
+)

@@ -12,4 +12,4 @@ Created: 2025-03-26
 from .bios_q_mcp import BiosQMCP
 
 __version__ = "8.0.0"
-__all__ = ["BiosQMCP"] 
+__all__ = ["BiosQMCP"]

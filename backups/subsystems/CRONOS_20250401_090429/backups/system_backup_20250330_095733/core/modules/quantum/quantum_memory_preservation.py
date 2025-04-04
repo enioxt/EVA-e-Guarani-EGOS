@@ -18,9 +18,10 @@ from datetime import datetime
 
 logger = logging.getLogger("quantum_memory_preservation")
 
+
 class MemoryPreservation:
     """Class for memory preservation and retrieval."""
-    
+
     def __init__(self):
         self.logger = logging.getLogger("quantum_memory_preservation")
         self.logger.info("MemoryPreservation initialized")
@@ -28,7 +29,7 @@ class MemoryPreservation:
         self.memory_dir.mkdir(parents=True, exist_ok=True)
         self.memories = {}
         self.load_memories()
-        
+
     def load_memories(self):
         """Loads all saved memories."""
         try:
@@ -40,7 +41,7 @@ class MemoryPreservation:
             self.logger.info(f"Loaded {len(self.memories)} memories")
         except Exception as e:
             self.logger.error(f"Error loading memories: {e}")
-            
+
     def save_memory(self, key, data):
         """Saves a memory."""
         try:
@@ -53,7 +54,7 @@ class MemoryPreservation:
         except Exception as e:
             self.logger.error(f"Error saving memory '{key}': {e}")
             return False
-            
+
     def get_memory(self, key):
         """Retrieves a memory."""
         if key in self.memories:
@@ -62,10 +63,11 @@ class MemoryPreservation:
         else:
             self.logger.warning(f"Memory '{key}' not found")
             return None
-            
+
     def list_memories(self):
         """Lists all available memories."""
         return list(self.memories.keys())
+
 
 # Global instance
 memory_preservation = MemoryPreservation()

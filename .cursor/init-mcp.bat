@@ -25,4 +25,4 @@ if errorlevel 1 (
 )
 
 echo MCP server initialized and running in background.
-echo You can now restart Cursor to use the MCP features. 
+echo You can now restart Cursor to use the MCP features.

@@ -156,7 +156,7 @@ Merge_Reports
 
 
 
-Merge_Reports Module of the 
+Merge_Reports Module of the
 
 
 # ==================================================================
@@ -175,7 +175,7 @@ Css
 
 
 
-Css Module of the 
+Css Module of the
 
 
 # ==================================================================
@@ -194,7 +194,7 @@ Core_Journey
 
 
 
-Core_Journey Module of the 
+Core_Journey Module of the
 
 
 # ==================================================================
@@ -213,7 +213,7 @@ Ava_Tech_Art
 
 
 
-Ava_Tech_Art Module of the 
+Ava_Tech_Art Module of the
 
 
 # ==================================================================
@@ -224,7 +224,7 @@ Ava
 
 
 
-Ava Module of the 
+Ava Module of the
 
 
 # ==================================================================
@@ -233,7 +233,7 @@ Ava Module of the
 
 Quantum_Memory
 
-Quantum_Memory Module of the 
+Quantum_Memory Module of the
 
 
 
@@ -247,7 +247,7 @@ Quantum_Memory Module of the
 
 Quantum_Consciousness
 
-Quantum_Consciousness Module of the 
+Quantum_Consciousness Module of the
 
 
 
@@ -299,7 +299,7 @@ TODO: Add detailed m
 
 Model_Selection
 
-Model_Selection Module of the 
+Model_Selection Module of the
 
 
 
@@ -368,7 +368,7 @@ TODO: Add detailed m
 
 Ethik
 
-Ethik Module of the 
+Ethik Module of the
 
 
 
@@ -399,7 +399,7 @@ Convers
 
 Consciousness
 
-Consciousness Module of the 
+Consciousness Module of the
 
 
 ## Components
@@ -438,7 +438,7 @@ u
 
 Atlas
 
-Atlas Module of the 
+Atlas Module of the
 
 
 

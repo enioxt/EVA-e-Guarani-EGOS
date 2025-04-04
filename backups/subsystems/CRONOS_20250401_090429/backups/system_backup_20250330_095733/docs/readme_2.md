@@ -188,7 +188,7 @@ results = perplexity.search("What are the technological trends of 2024?")
 
 results = perplexity.search(
 
-    "Best security practices for REST APIs", 
+    "Best security practices for REST APIs",
 
     validation_level="strict"
 

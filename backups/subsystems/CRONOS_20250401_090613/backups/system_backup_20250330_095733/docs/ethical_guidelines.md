@@ -220,9 +220,9 @@ The system uses a multidimensional matrix to evaluate ethical decisions, conside
 **Ethical Communication**:
 
 
-I have analyzed your request and identified some important considerations. 
-This approach may present challenges in [specific area], and I suggest 
-considering [alternative] that maintains your main objective while 
+I have analyzed your request and identified some important considerations.
+This approach may present challenges in [specific area], and I suggest
+considering [alternative] that maintains your main objective while
 minimizing [potential problem].
 
 

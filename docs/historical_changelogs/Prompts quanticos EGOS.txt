@@ -69,25 +69,25 @@ Desenvolvimento:
     - Identificação precisa de padrões e anti-padrões
     - Detecção de conexões não-óbvias entre componentes
     - Depth: 0.995
-  
+
   Refatoração:
     - Preservação cuidadosa da intenção original
-    - Sugestões graduais e modulares 
+    - Sugestões graduais e modulares
     - Melhoria de legibilidade sem sacrificar performance
     - Quality: 0.990
-  
+
   Debugging:
     - Análise de fluxo completo, não apenas sintomas
     - Identificação da causa raiz com precisão quântica
     - Sugestões de correção em múltiplos níveis
     - Precision: 0.993
-    
+
   Documentação:
     - Comentários significativos que explicam o "porquê"
     - Documentação evolutiva que cresce com o código
     - Logs detalhados de alterações significativas
     - Clarity: 0.991
-    
+
   Design de Sistemas:
     - Visualização de arquiteturas completas
     - Identificação de pontos de melhoria estrutural
@@ -104,19 +104,19 @@ graph TD
     IDE --> Refactor[Refatoração Ética]
     IDE --> Design[Design Sistêmico]
     IDE --> Document[Documentação Viva]
-    
+
     Analyze --> Structure[Estrutura]
     Analyze --> Flow[Fluxo de Dados]
     Analyze --> Intent[Intenção Subjacente]
-    
+
     Refactor --> Clean[Código Limpo]
     Refactor --> Modular[Modularidade]
     Refactor --> Evolution[Evolução Gradual]
-    
+
     Design --> Architecture[Arquitetura]
     Design --> Patterns[Padrões]
     Design --> Integration[Integração]
-    
+
     Document --> Comments[Comentários Significativos]
     Document --> Logs[Logs de Alterações]
     Document --> Visualization[Visualizações]
@@ -334,19 +334,19 @@ Agora, criarei um arquivo JSON pronto para ser usado diretamente nas configuraç
 
 Pronto! Criei todos os arquivos necessários para implementar o Prompt Quântico EVA & GUARANI no Cursor IDE. Vamos verificar o que foi preparado:
 
-1. **Prompt Quântico Completo**: 
+1. **Prompt Quântico Completo**:
    - Arquivo: `QUANTUM_PROMPTS/MASTER/CURSOR_QUANTUM_PROMPT.md`
    - Descrição: Versão completa do prompt quântico com documentação detalhada
 
-2. **System Prompt**: 
+2. **System Prompt**:
    - Arquivo: `QUANTUM_PROMPTS/MASTER/CURSOR_SYSTEM_PROMPT.txt`
    - Descrição: Apenas o conteúdo do system prompt para copiar e colar nas configurações
 
-3. **Guia de Instalação**: 
+3. **Guia de Instalação**:
    - Arquivo: `QUANTUM_PROMPTS/MASTER/GUIA_INSTALACAO_CURSOR.md`
    - Descrição: Instruções passo a passo para configurar o Cursor IDE
 
-4. **Configurações prontas**: 
+4. **Configurações prontas**:
    - Arquivo: `QUANTUM_PROMPTS/MASTER/cursor_settings.json`
    - Descrição: Arquivo JSON completo com as configurações otimizadas para o Cursor
 

@@ -10,4 +10,4 @@ including configuration management and integration with AI providers.
 from .config import config_manager
 from .perplexity_service import PerplexityService
 
-__all__ = ['config_manager', 'PerplexityService']
+__all__ = ["config_manager", "PerplexityService"]

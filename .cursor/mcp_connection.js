@@ -84,4 +84,4 @@ function updateCursorSettings() {
 }
 
 // Executa a função principal
-configureMCPConnection(); 
+configureMCPConnection();

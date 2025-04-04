@@ -84,13 +84,13 @@ System:
   Type: "Subsystem"
   Priority: 4
   Parent: "EVA & GUARANI"
-  
+
 Integration:
   MasterPrompt: "../MASTER/quantum_context.md"
-  Dependencies: 
+  Dependencies:
     - Name: "ATLAS"
       Path: "../ATLAS/quantum_prompt.md"
-  
+
 Capabilities:
   - Module Analysis
   - Component Integration

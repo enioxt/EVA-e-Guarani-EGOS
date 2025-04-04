@@ -104,7 +104,7 @@ The metadata system is our latest achievement, providing real-time tracking of q
 1. **Adding Metadata to a File**
    ```python
    from tools.metadata_manager import MetadataManager
-   
+
    manager = MetadataManager("C:/Eva Guarani EGOS")
    manager.process_directory()
    ```
@@ -112,10 +112,10 @@ The metadata system is our latest achievement, providing real-time tracking of q
 2. **Monitoring Updates**
    ```python
    from tools.metadata_websocket_client import MetadataWebSocketClient
-   
+
    async def on_update(data):
        print(f"Received update: {data}")
-   
+
    client = MetadataWebSocketClient()
    client.on_metadata_update(on_update)
    await client.start()
@@ -218,4 +218,4 @@ graph TD
   - Improved Windows compatibility
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
-""" 
+"""

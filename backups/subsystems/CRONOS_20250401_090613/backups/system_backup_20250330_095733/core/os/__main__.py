@@ -19,11 +19,8 @@ from datetime import datetime
 # Logging configuration
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler("logs/main_execution.log"),
-        logging.StreamHandler()
-    ]
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("logs/main_execution.log"), logging.StreamHandler()],
 )
 logger = logging.getLogger("bot_main")
 
@@ -35,6 +32,7 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
     logger.info(f"Added parent directory to path: {parent_dir}")
+
 
 # Initialization banner
 def print_banner():
@@ -62,12 +60,13 @@ def print_banner():
     logger.info("Starting EVA & GUARANI - UNIFIED TELEGRAM BOT")
     print(banner)
 
+
 # Main function
 async def main():
     print_banner()
-    
+
     logger.info("Checking main bot files...")
-    
+
     # Check if the eva_guarani_main.py file exists
     eva_guarani_file = os.path.join(os.path.dirname(__file__), "eva_guarani_main.py")
     if os.path.exists(eva_guarani_file):
@@ -75,6 +74,7 @@ async def main():
         try:
             logger.info("Importing module eva_guarani_main...")
             from bot.eva_guarani_main import main as eva_guarani_main
+
             logger.info("Running EVA & GUARANI main...")
             await eva_guarani_main()
             return
@@ -83,13 +83,14 @@ async def main():
             traceback.print_exc()
     else:
         logger.warning(f"EVA & GUARANI main file not found: {eva_guarani_file}")
-    
+
     # If not found or failed, try unified_telegram_bot_utf8.    bot_file = os.path.join(os.path.dirname(__file__), "unified_telegram_bot_utf8.py")
     if os.path.exists(bot_file):
         logger.info(f"Main bot file found: {bot_file}")
         try:
             logger.info("Importing module unified_telegram_bot_utf8...")
             from bot.unified_telegram_bot_utf8 import main as bot_main
+
             logger.info("Running main bot...")
             await bot_main()
             return
@@ -101,6 +102,7 @@ async def main():
         print("ERROR: Could not find the main bot files.")
         print("Check if the files are present in the 'bot' directory.")
         return
+
 
 # Entry point
 if __name__ == "__main__":

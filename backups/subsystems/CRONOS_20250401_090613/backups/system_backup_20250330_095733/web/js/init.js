@@ -38,4 +38,4 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Failed to connect:', error);
         terminal.innerHTML += `\nError connecting to WebSocket server: ${error.message}`;
     });
-}); 
+});

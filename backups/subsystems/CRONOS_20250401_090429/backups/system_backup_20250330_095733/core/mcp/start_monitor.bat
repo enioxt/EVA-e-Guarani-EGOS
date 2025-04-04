@@ -102,4 +102,4 @@ ECHO.
 ECHO Para verificar o status, use o comando: @status
 ECHO.
 ECHO Pressione qualquer tecla para sair.
-pause > nul 
+pause > nul

@@ -50,17 +50,17 @@ javascript
 /**
  * EVA & GUARANI - Systemic Cartography (ATLAS)
  * ==========================================
- * 
+ *
  * This module implements the systemic cartography system (ATLAS) for the VSCode extension,
  * allowing visualization and analysis of dependencies, relationships, and code structures,
  * identifying connections and architectural patterns with an ethical and artistic perspective.
- * 
+ *
  * Incorporated principles:
  * - Ethics: Respectful visualization that preserves the original architectural intent
  * - Love: Harmonious representations focused on system cohesion and beauty
  * - Economy: Efficient processing and optimized visualizations
  * - Art: Aesthetic representations of complex code structures
- * 
+ *
  * @context EVA_GUARANI_ATLAS
  * @version 1.0.0
  * @author EVA & GUARANI Team
@@ -78,16 +78,16 @@ const fs = require('fs');
 const VISUALIZATION_TYPES = {
     // Dependency map between files/modules
     DEPENDENCY_GRAPH: 'dependency_graph',
-    
+
     // Complexity heatmap
     COMPLEXITY_HEATMAP: 'complexity_heatmap',
-    
+
     // Data flow with ethical perspective
     DATA_FLOW: 'data_flow',
-    
+
     // Constellation of related modules
     MODULE_CONSTELLATION: 'module_constellation',
-    
+
     // Code evolution timeline
     EVOLUTION_TIMELINE: 'evolution_timeline'
 };
@@ -146,28 +146,28 @@ class AtlasAnalyzer {
     constructor(context, config) {
         this.context = context;
         this.config = config;
-        
+
         // Configuration for visualizations
-        this.visualizationConfig = { 
+        this.visualizationConfig = {
             ...DEFAULT_VISUALIZATION_CONFIG,
             ...this._loadCustomVisualizationConfig()
         };
-        
+
         // Current status of cartographic analysis
         this.analyzing = false;
         this.progress = 0;
         this.lastAnalysisTime = null;
-        
+
         // Storage of cartography results
         this.cartographyResults = new Map();
-        
+
         // WebView panel for current visualization
         this.visualizationPanel = null;
-        
+
         // Dependencies from other EVA & GUARANI modules
         this.nexusAnalyzer = null; // Will be defined after integration with NEXUS
     }
-    
+
     /**
      * Loads custom configuration for visualizations
      * @private
@@ -183,7 +183,7 @@ class AtlasAnalyzer {
                     '.evaguarani',
                     'atlas_config.json'
                 );
-                
+
                 if (fs.existsSync(configPath)) {
                     const configContent = fs.readFileSync(configPath, 'utf8');
                     const customConfig = JSON.parse(configContent);
@@ -193,10 +193,10 @@ class AtlasAnalyzer {
         } catch (error) {
             console.error('EVA & GUARANI: Error loading custom configuration:', error);
         }
-        
+
         return {};
     }
-    
+
     /**
      * Starts a cartographic analysis
      * @param {string} targetPath - Path of the file or directory to be analyzed
@@ -212,7 +212,7 @@ class AtlasAnalyzer {
         if (this.analyzing) {
             throw new Error('A cartographic analysis is already in progress. Please wait or cancel the current analysis.');
         }
-        
+
         // Define default options
         const defaultOptions = {
             visualizationType: VISUALIZATION_TYPES.DEPENDENCY_GRAPH,
@@ -220,28 +220,28 @@ class AtlasAnalyzer {
             includeNodeModules: false,
             progressCallback: null
         };
-        
+
         // Merge options
         const cartographyOptions = {...defaultOptions, ...options};
-        
+
         // Check if the target exists
         if (!fs.existsSync(targetPath)) {
             throw new Error(`Path not found: ${targetPath}`);
         }
-        
+
         // Update status
         this.analyzing = true;
         this.progress = 0;
-        
+
         // Record start time
         const startTime = Date.now();
-        
+
         try {
             // Notify start of analysis
             vscode.window.showInformationMessage(
                 `EVA & GUARANI: Starting systemic cartography with love and awareness.`
             );
-            
+
             // Create initial result
             const result = {
                 targetPath,
@@ -253,56 +253,56 @@ class AtlasAnalyzer {
                 metrics: {},
                 ethicalFindings: []
             };
-            
+
             // Execute analysis based on visualization type
             switch (cartographyOptions.visualizationType) {
                 case VISUALIZATION_TYPES.DEPENDENCY_GRAPH:
                     await this._analyzeDependencies(targetPath, cartographyOptions, result);
                     break;
-                    
+
                 case VISUALIZATION_TYPES.COMPLEXITY_HEATMAP:
                     await this._analyzeComplexity(targetPath, cartographyOptions, result);
                     break;
-                    
+
                 case VISUALIZATION_TYPES.DATA_FLOW:
                     await this._analyzeDataFlow(targetPath, cartographyOptions, result);
                     break;
-                    
+
                 case VISUALIZATION_TYPES.MODULE_CONSTELLATION:
                     await this._analyzeModuleConstellation(targetPath, cartographyOptions, result);
                     break;
-                    
+
                 case VISUALIZATION_TYPES.EVOLUTION_TIMELINE:
                     await this._analyzeEvolution(targetPath, cartographyOptions, result);
                     break;
-                    
+
                 default:
                     throw new Error(`Invalid visualization type: ${cartographyOptions.visualizationType}`);
             }
-            
+
             // Calculate ethical metrics
             await this._calculateEthicalMetrics(result);
-            
+
             // Calculate duration
             const duration = Date.now() - startTime;
             result.duration = duration;
-            
+
             // Store results
             const resultKey = `${targetPath}_${cartographyOptions.visualizationType}_${new Date().toISOString()}`;
             this.cartographyResults.set(resultKey, result);
             this.lastAnalysisTime = new Date();
-            
+
             // Notify completion
             vscode.window.showInformationMessage(
                 `EVA & GUARANI: Systemic cartography completed with love and awareness (${duration}ms).`
             );
-            
+
             return result;
         } catch (error) {
             vscode.window.showErrorMessage(
                 `EVA & GUARANI: Error during systemic cartography: ${error.message}`
             );
-            
+
             throw error;
         } finally {
             // Update status
@@ -310,7 +310,7 @@ class AtlasAnalyzer {
             this.progress = 100;
         }
     }
-    
+
     /**
      * Cancels the ongoing cartographic analysis
      * @returns {boolean} Whether the analysis was successfully canceled
@@ -319,18 +319,18 @@ class AtlasAnalyzer {
         if (!this.analyzing) {
             return false;
         }
-        
+
         // Update status
         this.analyzing = false;
-        
+
         // Notify cancellation
         vscode.window.showInformationMessage(
             `EVA & GUARANI: Systemic cartography canceled with respect.`
         );
-        
+
         return true;
     }
-    
+
     /**
      * Gets the most recent cartography result
      * @returns {Object|null} Most recent result or null if none available
@@ -339,23 +339,23 @@ class AtlasAnalyzer {
         if (this.cartographyResults.size === 0) {
             return null;
         }
-        
+
         // Find the most recent result
         let latestResult = null;
         let latestTimestamp = 0;
-        
+
         for (const [key, result] of this.cartographyResults) {
             const timestamp = result.timestamp;
-            
+
             if (timestamp > latestTimestamp) {
                 latestTimestamp = timestamp;
                 latestResult = result;
             }
         }
-        
+
         return latestResult;
     }
-    
+
     /**
      * Collects files recursively from a directory
      * @private
@@ -369,25 +369,25 @@ class AtlasAnalyzer {
         if (depth < 0) {
             return;
         }
-        
+
         try {
             const files = fs.readdirSync(directory);
-            
+
             for (const file of files) {
                 const filePath = path.join(directory, file);
-                
+
                 // Skip node_modules unless explicitly included
                 if (file === 'node_modules' && !includeNodeModules) {
                     continue;
                 }
-                
+
                 // Skip hidden directories
                 if (file.startsWith('.')) {
                     continue;
                 }
-                
+
                 const stats = fs.statSync(filePath);
-                
+
                 if (stats.isDirectory()) {
                     // Recurse into subdirectories with reduced depth
                     await this._collectFiles(filePath, filesList, depth - 1, includeNodeModules);
@@ -399,7 +399,7 @@ class AtlasAnalyzer {
             console.error(`Error accessing directory ${directory}:`, error);
         }
     }
-    
+
     /**
      * Completes the dependency analysis
      * @private
@@ -410,46 +410,46 @@ class AtlasAnalyzer {
     async _analyzeDependencies(targetPath, options, result) {
         // Check if it's a file or directory
         const stats = fs.statSync(targetPath);
-        
+
         // Identify files for analysis
         const filesToAnalyze = [];
-        
+
         if (stats.isFile()) {
             filesToAnalyze.push(targetPath);
         } else if (stats.isDirectory()) {
             // Collect files recursively based on scope
-            const depth = options.scope === CARTOGRAPHY_SCOPE.PROJECT ? Infinity : 
+            const depth = options.scope === CARTOGRAPHY_SCOPE.PROJECT ? Infinity :
                         options.scope === CARTOGRAPHY_SCOPE.MODULE ? 2 : 1;
-            
+
             await this._collectFiles(targetPath, filesToAnalyze, depth, options.includeNodeModules);
         }
-        
+
         // Dependency map: file -> [dependencies]
         const dependencies = new Map();
         const fileNodes = new Map(); // file -> node id
         let nodeCounter = 0;
-        
+
         // Analyze each file
         for (let i = 0; i < filesToAnalyze.length; i++) {
             const filePath = filesToAnalyze[i];
-            
+
             // Update progress
             this._updateProgress(options, i, filesToAnalyze.length);
-            
+
             // Read file content
             try {
                 const content = fs.readFileSync(filePath, 'utf8');
                 const fileImports = this._extractImports(filePath, content);
-                
+
                 dependencies.set(filePath, fileImports);
-                
+
                 // Create node for this file if it doesn't exist
                 if (!fileNodes.has(filePath)) {
                     const nodeId = `node_${nodeCounter++}`;
                     fileNodes.set(filePath, nodeId);
                     result.nodes.push(this._createFileNode(filePath, nodeId));
                 }
-                
+
                 // Create nodes for each import
                 for (const importPath of fileImports) {
                     if (!fileNodes.has(importPath)) {
@@ -462,14 +462,14 @@ class AtlasAnalyzer {
                 console.error(`Error analyzing file ${filePath}:`, error);
             }
         }
-        
+
         // Create edges to represent dependencies
         for (const [file, imports] of dependencies) {
             const sourceId = fileNodes.get(file);
-            
+
             for (const importPath of imports) {
                 const targetId = fileNodes.get(importPath);
-                
+
                 if (sourceId && targetId) {
                     result.edges.push({
                         id: `edge_${sourceId}_${targetId}`,
@@ -480,13 +480,13 @@ class AtlasAnalyzer {
                 }
             }
         }
-        
+
         // Calculate metrics for the dependency network
         this._calculateDependencyMetrics(dependencies, result);
-        
+
         return result;
     }
-    
+
     /**
      * Checks if a file is a code file
      * @private
@@ -496,15 +496,15 @@ class AtlasAnalyzer {
     _isCodeFile(filePath) {
         const ext = path.extname(filePath).toLowerCase();
         const codeExtensions = [
-            '.js', '.jsx', '.ts', '.tsx', '.py', 
-            '.java', '.c', '.cpp', '.cs', '.go', 
+            '.js', '.jsx', '.ts', '.tsx', '.py',
+            '.java', '.c', '.cpp', '.cs', '.go',
             '.rb', '.php', '.html', '.css', '.vue',
             '.json', '.md', '.yaml', '.yml'
         ];
-        
+
         return codeExtensions.includes(ext);
     }
-    
+
     /**
      * Extracts imports from a file
      * @private
@@ -516,10 +516,10 @@ class AtlasAnalyzer {
         const imports = [];
         const ext = path.extname(filePath).toLowerCase();
         const fileDir = path.dirname(filePath);
-        
+
         // Import patterns for different languages
         let importPatterns = [];
-        
+
         // JavaScript / TypeScript
         if (['.js', '.jsx', '.ts', '.tsx'].includes(ext)) {
             importPatterns = [
@@ -547,13 +547,13 @@ class AtlasAnalyzer {
                 { regex: /import\s+([a-zA-Z0-9_.]+);/g, group: 1 }
             ];
         }
-        
+
         // Extract imports based on patterns
         for (const pattern of importPatterns) {
             let match;
             while ((match = pattern.regex.exec(content)) !== null) {
                 const importPath = match[pattern.group];
-                
+
                 // Resolve module/file path
                 const resolvedPath = this._resolveImportPath(importPath, filePath, ext);
                 if (resolvedPath) {
@@ -561,10 +561,10 @@ class AtlasAnalyzer {
                 }
             }
         }
-        
+
         return imports;
     }
-    
+
     /**
      * Resolves the path of an import to an absolute file path
      * @private
@@ -575,18 +575,18 @@ class AtlasAnalyzer {
      */
     _resolveImportPath(importPath, currentFilePath, fileExt) {
         const currentDir = path.dirname(currentFilePath);
-        
+
         // JavaScript/TypeScript: resolve relative path
         if (['.js', '.jsx', '.ts', '.tsx'].includes(fileExt)) {
             if (importPath.startsWith('.')) {
                 // Relative path, add extension if necessary
                 let resolvedPath = path.resolve(currentDir, importPath);
-                
+
                 // Check if path exists with extension
                 if (fs.existsSync(resolvedPath)) {
                     return resolvedPath;
                 }
-                
+
                 // Try adding common extensions
                 const extensions = ['.js', '.jsx', '.
 

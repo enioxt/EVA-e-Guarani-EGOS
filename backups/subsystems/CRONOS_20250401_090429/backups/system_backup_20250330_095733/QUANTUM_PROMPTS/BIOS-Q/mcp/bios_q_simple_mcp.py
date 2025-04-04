@@ -6,11 +6,11 @@ import logging
 from typing import Any, Dict, Optional
 
 logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
-logger = logging.getLogger('bios_q_simple_mcp')
+logger = logging.getLogger("bios_q_simple_mcp")
+
 
 class BiosQSimpleMCP:
     def __init__(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
@@ -56,7 +56,7 @@ class BiosQSimpleMCP:
                     "type": "response",
                     "id": msg_id,
                     "status": "success" if success else "error",
-                    "data": {"initialized": self.initialized}
+                    "data": {"initialized": self.initialized},
                 }
             elif msg_type == "shutdown":
                 self.running = False
@@ -64,7 +64,7 @@ class BiosQSimpleMCP:
                     "type": "response",
                     "id": msg_id,
                     "status": "success",
-                    "data": {"shutdown": True}
+                    "data": {"shutdown": True},
                 }
             elif msg_type == "list_tools":
                 response = {
@@ -76,15 +76,15 @@ class BiosQSimpleMCP:
                             {
                                 "name": "bios_q_status",
                                 "description": "Get BIOS-Q status",
-                                "schema": {"type": "object", "properties": {}}
+                                "schema": {"type": "object", "properties": {}},
                             },
                             {
                                 "name": "bios_q_heartbeat",
                                 "description": "Check if BIOS-Q is alive",
-                                "schema": {"type": "object", "properties": {}}
-                            }
+                                "schema": {"type": "object", "properties": {}},
+                            },
                         ]
-                    }
+                    },
                 }
             elif msg_type == "execute":
                 tool_name = message.get("tool")
@@ -93,40 +93,33 @@ class BiosQSimpleMCP:
                         "type": "response",
                         "id": msg_id,
                         "status": "success",
-                        "data": {
-                            "initialized": self.initialized,
-                            "running": self.running
-                        }
+                        "data": {"initialized": self.initialized, "running": self.running},
                     }
                 elif tool_name == "bios_q_heartbeat":
                     response = {
                         "type": "response",
                         "id": msg_id,
                         "status": "success",
-                        "data": {"alive": True}
+                        "data": {"alive": True},
                     }
                 else:
                     response = {
                         "type": "error",
                         "id": msg_id,
-                        "error": f"Unknown tool: {tool_name}"
+                        "error": f"Unknown tool: {tool_name}",
                     }
             else:
                 response = {
                     "type": "error",
                     "id": msg_id,
-                    "error": f"Unknown message type: {msg_type}"
+                    "error": f"Unknown message type: {msg_type}",
                 }
 
             await self.write_message(response)
 
         except Exception as e:
             logger.error(f"Error processing message: {e}")
-            error_response = {
-                "type": "error",
-                "id": msg_id if msg_id else "",
-                "error": str(e)
-            }
+            error_response = {"type": "error", "id": msg_id if msg_id else "", "error": str(e)}
             await self.write_message(error_response)
 
     async def run(self) -> None:
@@ -137,12 +130,14 @@ class BiosQSimpleMCP:
                 await self.process_message(message)
         logger.info("BiosQSimpleMCP shutdown")
 
+
 class BiosQProtocol(asyncio.Protocol):
     def connection_made(self, transport: asyncio.BaseTransport) -> None:
         pass
 
     def connection_lost(self, exc: Optional[Exception]) -> None:
         pass
+
 
 async def main() -> bool:
     try:
@@ -166,5 +161,6 @@ async def main() -> bool:
         logger.error(f"Error in main: {e}")
         return False
 
+
 if __name__ == "__main__":
-    asyncio.run(main()) 
+    asyncio.run(main())

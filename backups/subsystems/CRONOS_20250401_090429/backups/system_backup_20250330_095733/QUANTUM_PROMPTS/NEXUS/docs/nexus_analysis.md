@@ -139,4 +139,4 @@ Documentation: 45%
 O processo de unificação do NEXUS está progredindo conforme planejado. A estrutura básica está estabelecida e as dependências principais estão configuradas. O foco agora deve ser na implementação dos componentes core e na garantia de qualidade através de testes abrangentes.
 
 ---
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

@@ -14,4 +14,4 @@ Write-Host "Pressione Ctrl+C para encerrar o monitor`n" -ForegroundColor Yellow
 $env:EVA_GUARANI_DIR = "C:\Eva Guarani EGOS"
 
 # Iniciar o monitor diretamente
-node mycelium_monitor.js 
+node mycelium_monitor.js

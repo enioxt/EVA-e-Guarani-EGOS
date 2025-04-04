@@ -84,19 +84,19 @@ graph TD
     EVA --> MYTHIC[MYTHIC CODEX]
     EVA --> STRATEGOS[STRATEGOS]
     EVA --> BALDURS[BALDURS_LEGACY]
-    
+
     ARCANUM --> Mechanics[Game Mechanics]
     ARCANUM --> Systems[Systems & Probability]
-    
+
     MYTHIC --> Narrative[Narrative & Myths]
     MYTHIC --> Archetypes[Archetypes & Symbols]
-    
+
     STRATEGOS --> Tactics[Tactics & Conflict]
     STRATEGOS --> Politics[Politics & Strategy]
-    
+
     BALDURS --> Moral[Moral Dilemmas]
     BALDURS --> Philosophy[Philosophical Issues]
-    
+
     Mechanics -.-> Narrative
     Systems -.-> Archetypes
     Tactics -.-> Philosophy
@@ -167,26 +167,26 @@ Systems:
     - STRATEGOS: Tactics and strategy in combat and conflict
     - BALDURS: Adapted D&D 5E mechanics
     - System Balance: 0.995
-  
+
   Narrative:
     - MYTHIC: Archetypal structures and story development
     - BALDURS: Moral dilemmas and narrative consequences
     - STRATEGOS: Conflicts between factions and political entities
     - Narrative Depth: 0.997
-    
+
   Characters:
     - MYTHIC: Archetypal development and hero's journey
     - BALDURS: Moral depth and ethical development
     - ARCANUM: Technical implementation and balancing
     - Character Complexity: 0.996
-    
+
   Worlds:
     - MYTHIC: Deep cosmology and mythology
     - STRATEGOS: Geopolitics and factional dynamics
     - BALDURS: Sword Coast and Forgotten Realms
     - ARCANUM: Ecology and natural systems
     - World Coherence: 0.993
-    
+
   Metaphysics:
     - BALDURS: Philosophical and theological issues
     - MYTHIC: Archetypes and symbolic meaning

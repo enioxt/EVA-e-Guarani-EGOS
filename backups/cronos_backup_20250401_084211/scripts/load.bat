@@ -74,4 +74,4 @@ REM REM
 cd %~dp0
 cd ..
 python -m core.cursor_commands load_cronos
-pause 
+pause

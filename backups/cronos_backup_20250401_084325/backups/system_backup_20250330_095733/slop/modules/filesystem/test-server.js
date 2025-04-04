@@ -45,7 +45,7 @@ METADATA:
  * EVA & GUARANI - SLOP Filesystem Module Test Server
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This script creates a minimal SLOP-compatible server to test the filesystem module.
  * It simulates the SLOP server structure and registers the filesystem module.
  */
@@ -153,19 +153,19 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
           <div id="result"></div>
         </div>
       </div>
-      
+
       <script>
         // Helper function to display results
         function displayResult(data) {
           document.getElementById('result').textContent = JSON.stringify(data, null, 2);
         }
-        
+
         // Helper function to display error
         function displayError(error) {
           document.getElementById('result').innerHTML = '<span style="color: red">Error: ' + error.message + '</span>';
           console.error(error);
         }
-        
+
         // Helper function to make API requests
         async function apiRequest(endpoint, data) {
           try {
@@ -176,25 +176,25 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               },
               body: JSON.stringify(data)
             });
-            
+
             const result = await response.json();
-            
+
             if (!response.ok) {
               throw new Error(result.error || 'Unknown error');
             }
-            
+
             return result;
           } catch (error) {
             displayError(error);
             throw error;
           }
         }
-        
+
         // Prepare additional inputs based on operation
         function prepareAdditionalInputs(inputsHtml) {
           document.getElementById('additionalInputs').innerHTML = inputsHtml;
         }
-        
+
         // Read file operation
         async function readFile() {
           prepareAdditionalInputs(`
@@ -203,22 +203,22 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <input id="encoding" value="utf8" />
             </div >
     `);
-          
+
           const path = document.getElementById('path').value;
           const encoding = document.getElementById('encoding')?.value || 'utf8';
-          
+
           try {
             const result = await apiRequest('/fs/read', {
               path,
               encoding
             });
-            
+
             displayResult(result);
           } catch (error) {
             // Error is already displayed by apiRequest
           }
         }
-        
+
         // Write file operation
         async function writeFile() {
           prepareAdditionalInputs(`
@@ -240,14 +240,14 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <button id="runWrite">Write File</button>
             </div>
           `);
-          
+
           // Wait for user to enter content
           document.getElementById('runWrite').onclick = async function() {
             const path = document.getElementById('path').value;
             const content = document.getElementById('content').value;
             const encoding = document.getElementById('encoding').value;
             const createDirectories = document.getElementById('createDirectories').checked;
-            
+
             try {
               const result = await apiRequest('/fs/write', {
                 path,
@@ -255,14 +255,14 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
                 encoding,
                 createDirectories
               });
-              
+
               displayResult(result);
             } catch (error) {
               // Error is already displayed by apiRequest
             }
           };
         }
-        
+
         // List directory operation
         async function listDirectory(recursive) {
           prepareAdditionalInputs(`
@@ -271,23 +271,23 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <input id="pattern" placeholder="Optional pattern to filter files" />
             </div >
     `);
-          
+
           const path = document.getElementById('path').value;
           const pattern = document.getElementById('pattern')?.value || null;
-          
+
           try {
             const result = await apiRequest('/fs/list', {
               path,
               recursive,
               pattern
             });
-            
+
             displayResult(result);
           } catch (error) {
             // Error is already displayed by apiRequest
           }
         }
-        
+
         // Search files operation
         async function searchFiles() {
           prepareAdditionalInputs(`
@@ -313,18 +313,18 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <button id="runSearch">Search</button>
             </div>
           `);
-          
+
           document.getElementById('runSearch').onclick = async function() {
             const path = document.getElementById('path').value;
             const namePattern = document.getElementById('namePattern').value || null;
             const contentPattern = document.getElementById('contentPattern').value || null;
             const recursive = document.getElementById('recursive').checked;
             const maxResults = parseInt(document.getElementById('maxResults').value, 10);
-            
+
             if (!namePattern && !contentPattern) {
               return displayError(new Error('At least one pattern (name or content) is required'));
             }
-            
+
             try {
               const result = await apiRequest('/fs/search', {
                 path,
@@ -333,14 +333,14 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
                 recursive,
                 maxResults
               });
-              
+
               displayResult(result);
             } catch (error) {
               // Error is already displayed by apiRequest
             }
           };
         }
-        
+
         // Delete file operation
         async function deleteFile() {
           prepareAdditionalInputs(`
@@ -360,26 +360,26 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <button id="runDelete" disabled>Confirm Delete</button>
             </div>
           `);
-          
+
           // Enable the delete button only when confirmed
           document.getElementById('confirm').onchange = function() {
             document.getElementById('runDelete').disabled = !this.checked;
           };
-          
+
           document.getElementById('runDelete').onclick = async function() {
             if (!document.getElementById('confirm').checked) {
               return;
             }
-            
+
             const path = document.getElementById('path').value;
             const recursive = document.getElementById('recursive').checked;
-            
+
             try {
               const result = await apiRequest('/fs/delete', {
                 path,
                 recursive
               });
-              
+
               displayResult(result);
             } catch (error) {
               // Error is already displayed by apiRequest
@@ -412,4 +412,4 @@ process.on('uncaughtException', (error) => {
 
 process.on('unhandledRejection', (reason, promise) => {
   mockSlopServer.logger.error('Unhandled rejection at:', promise, 'reason:', reason);
-}); 
+});

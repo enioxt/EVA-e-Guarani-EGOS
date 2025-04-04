@@ -19,4 +19,4 @@
 
 *(Placeholder: Define strategies for how the system should handle ambiguous user requests or AI errors.)*
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

@@ -179,4 +179,4 @@ macos = true
 minimum_python = "3.10"
 legacy_support = false
 cross_platform = true
-api_compatibility = true 
+api_compatibility = true

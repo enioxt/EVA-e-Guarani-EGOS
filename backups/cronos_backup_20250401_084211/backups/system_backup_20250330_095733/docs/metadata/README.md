@@ -261,4 +261,4 @@ class MetadataWebSocketClient:
 6. Submit pull request
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
-""" 
+"""

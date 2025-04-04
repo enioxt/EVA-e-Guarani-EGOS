@@ -192,4 +192,4 @@ python tools/system_maintenance_cli.py reorganize
 python tools/system_maintenance_cli.py backup
 ```
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

@@ -158,4 +158,4 @@ metadata:
 ## 🎯 Contato
 For questions or concerns, please contact the EVA & GUARANI team.
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

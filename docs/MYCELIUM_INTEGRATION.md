@@ -278,12 +278,12 @@ async def publish_with_retry(client, topic, data, max_retries=3):
 def test_message_handling():
     client = MockMyceliumClient()
     handler = MessageHandler(client)
-    
+
     result = handler.process_message({
         "type": "command",
         "data": {"action": "test"}
     })
-    
+
     assert result.success == True
 ```
 
@@ -293,10 +293,10 @@ def test_message_handling():
 async def test_subsystem_communication():
     client1 = MyceliumClient()
     client2 = MyceliumClient()
-    
+
     await client1.publish("test.topic", {"msg": "hello"})
     response = await client2.receive("test.topic")
-    
+
     assert response.data["msg"] == "hello"
 ```
 
@@ -393,4 +393,4 @@ async def monitor_queue_depth(client, threshold=1000):
 Copyright (c) 2024 EGOS Project
 Licensed under the MIT License
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

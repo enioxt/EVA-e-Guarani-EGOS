@@ -248,7 +248,7 @@ flowchart TD
 
     Root --> Data[data/]
 
-    
+
 
     Core --> CoreEGOS[egos/]
 
@@ -262,7 +262,7 @@ flowchart TD
 
     Core --> CoreConfig[config/]
 
-    
+
 
     Modules --> ModQuantum[quantum/]
 
@@ -270,7 +270,7 @@ flowchart TD
 
     Modules --> ModAnalysis[analysis/]
 
-    
+
 
     Integrations --> IntBots[bots/]
 
@@ -278,7 +278,7 @@ flowchart TD
 
     Integrations --> IntPlatforms[platforms/]
 
-    
+
 
     Tools --> ToolsScripts[scripts/]
 
@@ -286,7 +286,7 @@ flowchart TD
 
     Tools --> ToolsMaintenance[maintenance/]
 
-    
+
 
     Data --> DataLogs[logs/]
 
@@ -298,7 +298,7 @@ flowchart TD
 
     Data --> DataSchemas[schemas/]
 
-    
+
 
     Docs --> DocArch[architecture/]
 
@@ -306,13 +306,13 @@ flowchart TD
 
     Docs --> DocDev[developer_guides/]
 
-    
+
 
     Tests --> TestUnit[unit/]
 
     Tests --> TestIntegration[integration/]
 
-    
+
 
     UI --> UIComponents[components/]
 
@@ -390,7 +390,7 @@ graph LR
 
     Feedback --> Dev
 
-    
+
 
     class Dev,Build active;
 
@@ -414,7 +414,7 @@ gantt
 
     dateFormat  YYYY-MM-DD
 
-    
+
 
     section Phase 1: Cleanup
 
@@ -426,7 +426,7 @@ gantt
 
     Folder Quarantine      :done, task4, 2025-03-19, 1d
 
-    
+
 
     section Phase 2: Reorganization
 
@@ -436,7 +436,7 @@ gantt
 
     Reorganization Execution :done, task7, 2025-03-18, 2d
 
-    
+
 
     section Phase 3: Next Steps
 

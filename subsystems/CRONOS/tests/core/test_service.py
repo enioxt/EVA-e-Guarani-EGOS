@@ -1,32 +1,28 @@
 # subsystems/CRONOS/tests/core/test_service.py
 
-import unittest
 import asyncio
-from unittest.mock import MagicMock, AsyncMock, patch, call, mock_open # Added mock_open
-from typing import Dict, Any, List
-from datetime import datetime, timedelta # Added timedelta
-from pathlib import Path
-import json # Added json
-import os # Added os
-import subprocess # Added missing import
+import subprocess  # Added missing import
+import unittest
 from dataclasses import asdict
+from datetime import datetime, timedelta  # Added timedelta
+from pathlib import Path
+from unittest.mock import AsyncMock, MagicMock, mock_open, patch  # Added mock_open
 
 # Need to adjust path if tests are run from root vs subsystems/CRONOS
 # Assuming run from root for now
-from subsystems.CRONOS.core.service import CronosService, SystemState, SystemBackupInfo
+from subsystems.CRONOS.core.service import CronosService, SystemBackupInfo, SystemState
 from subsystems.MYCELIUM.core.interface import MyceliumInterface
 
 
 class TestCronosService(unittest.IsolatedAsyncioTestCase):
-
     def setUp(self):
         """Set up mocks and CronosService instance for each test."""
         # Ensure the interface mock itself is an AsyncMock if its methods are async
-        self.mock_interface = AsyncMock(spec=MyceliumInterface) # Make interface mock async
+        self.mock_interface = AsyncMock(spec=MyceliumInterface)  # Make interface mock async
         self.mock_interface.connect = AsyncMock(return_value=True)
         self.mock_interface.disconnect = AsyncMock(return_value=True)
         # Make publish_event an AsyncMock too, as it's awaited in the service
-        self.mock_interface.publish_event = AsyncMock() 
+        self.mock_interface.publish_event = AsyncMock()
         self.mock_interface.report_health = AsyncMock()
 
         self.config = {
@@ -34,11 +30,7 @@ class TestCronosService(unittest.IsolatedAsyncioTestCase):
             "backup_location": "mock_backups/CRONOS",
             "excluded_directories": [".git", "node_modules", ".venv"],
             "excluded_extensions": [".log", ".pyc"],
-            "retention_policy": {
-                "daily": 2,
-                "weekly": 1,
-                "monthly": 1
-            }
+            "retention_policy": {"daily": 2, "weekly": 1, "monthly": 1},
             # Add stray_backup_patterns if needed by its test
         }
         self.service = CronosService(self.config, self.mock_interface)
@@ -76,27 +68,31 @@ class TestCronosService(unittest.IsolatedAsyncioTestCase):
         """Test the stop sequence."""
         # Start it first to have something to stop
         self.service._running = True
-        self.service._backup_task = asyncio.create_task(asyncio.sleep(1)) # Simulate running task
+        self.service._backup_task = asyncio.create_task(asyncio.sleep(1))  # Simulate running task
 
         await self.service.stop()
 
         mock_save_history.assert_called_once()
         self.mock_interface.disconnect.assert_awaited_once()
-        self.assertTrue(self.service._backup_task.cancelled()) # Check task was cancelled
+        self.assertTrue(self.service._backup_task.cancelled())  # Check task was cancelled
         self.assertFalse(self.service._running)
 
     # --- History Management Tests --- #
 
-    @patch("builtins.open", new_callable=mock_open, read_data='{"last_updated": "2023-01-01T10:00:00", "backups": [{"id": "b1", "name": "N1", "timestamp": "2023-01-01T09:00:00", "size_bytes": 100, "location":"b1"}], "states": [{"id": "s1", "name": "S1", "timestamp": "2023-01-01T08:00:00"}]}')
-    @patch("pathlib.Path.is_dir", return_value=True) # Assume backup dir exists
+    @patch(
+        "builtins.open",
+        new_callable=mock_open,
+        read_data='{"last_updated": "2023-01-01T10:00:00", "backups": [{"id": "b1", "name": "N1", "timestamp": "2023-01-01T09:00:00", "size_bytes": 100, "location":"b1"}], "states": [{"id": "s1", "name": "S1", "timestamp": "2023-01-01T08:00:00"}]}',
+    )
+    @patch("pathlib.Path.is_dir", return_value=True)  # Assume backup dir exists
     def test_load_version_history_success(self, mock_is_dir, mock_file):
         """Test loading valid version history."""
         # Patch Path.exists using patch.object within the test method
-        with patch.object(Path, 'exists', return_value=True) as mock_exists:
+        with patch.object(Path, "exists", return_value=True) as mock_exists:
             self.service._load_version_history()
 
-        mock_exists.assert_called() # Check exists was called (might be multiple times)
-        mock_file.assert_called_with(self.service.version_history_file, 'r', encoding='utf-8')
+        mock_exists.assert_called()  # Check exists was called (might be multiple times)
+        mock_file.assert_called_with(self.service.version_history_file, "r", encoding="utf-8")
         self.assertIn("b1", self.service.backups)
         self.assertEqual(self.service.backups["b1"].name, "N1")
         self.assertIsInstance(self.service.backups["b1"].timestamp, datetime)
@@ -106,20 +102,20 @@ class TestCronosService(unittest.IsolatedAsyncioTestCase):
     def test_load_version_history_not_found(self):
         """Test loading when history file doesn't exist."""
         # Use nested with statements and patch.object for Path.exists
-        with patch.object(Path, 'exists', return_value=False) as mock_exists:
+        with patch.object(Path, "exists", return_value=False) as mock_exists:
             with patch("builtins.open", mock_open()) as mock_file:
-                with patch.object(self.service, '_save_version_history') as mock_save:
+                with patch.object(self.service, "_save_version_history") as mock_save:
                     self.service._load_version_history()
 
-        mock_exists.assert_called_once() # Check Path.exists was called once on the history file
+        mock_exists.assert_called_once()  # Check Path.exists was called once on the history file
         # mock_file assertion might be complex with mock_open, focus on effect
         self.assertEqual(len(self.service.backups), 0)
         self.assertEqual(len(self.service.states), 0)
-        mock_save.assert_called_once() # Should create an empty one
+        mock_save.assert_called_once()  # Should create an empty one
 
-    @patch("json.dump") 
+    @patch("json.dump")
     @patch("builtins.open", new_callable=mock_open)
-    @patch.object(Path, 'exists', return_value=True) # Keep patch.object for exists
+    @patch.object(Path, "exists", return_value=True)  # Keep patch.object for exists
     def test_save_version_history(self, mock_exists, mock_file, mock_json_dump):
         """Test saving the version history by checking json.dump call."""
         # Add some dummy data
@@ -128,11 +124,11 @@ class TestCronosService(unittest.IsolatedAsyncioTestCase):
         s1_info = SystemState("s1", "S1", timestamp=now)
         self.service.backups["b1"] = b1_info
         self.service.states["s1"] = s1_info
-        
+
         self.service._save_version_history()
 
         # Check file was opened for writing
-        mock_file.assert_called_once_with(self.service.version_history_file, 'w', encoding='utf-8')
+        mock_file.assert_called_once_with(self.service.version_history_file, "w", encoding="utf-8")
         # Check json.dump was called with the correct structure
         mock_json_dump.assert_called_once()
         dump_args = mock_json_dump.call_args.args[0]
@@ -145,14 +141,14 @@ class TestCronosService(unittest.IsolatedAsyncioTestCase):
         expected_b_dict["location"] = b1_info.id
         expected_b_dict["timestamp"] = now.isoformat()
         self.assertEqual(dump_args["backups"][0], expected_b_dict)
-        
+
         self.assertEqual(len(dump_args["states"]), 1)
         expected_s_dict = asdict(s1_info)
         expected_s_dict["timestamp"] = now.isoformat()
         self.assertEqual(dump_args["states"][0], expected_s_dict)
 
         # Check the file handle passed to json.dump was the one from open
-        self.assertEqual(file_handle, mock_file()) 
+        self.assertEqual(file_handle, mock_file())
 
     # --- State Capture Tests --- #
 
@@ -171,7 +167,7 @@ class TestCronosService(unittest.IsolatedAsyncioTestCase):
             capture_output=True,
             text=True,
             check=True,
-            encoding='utf-8'
+            encoding="utf-8",
         )
 
     @patch("subprocess.run", side_effect=subprocess.CalledProcessError(1, "git", stderr="Error"))
@@ -201,26 +197,31 @@ class TestCronosService(unittest.IsolatedAsyncioTestCase):
         expected_paths = [
             "pyproject.toml",
             "requirements.txt",
-            "subsystems/CRONOS/config/backup_config.json"
+            "subsystems/CRONOS/config/backup_config.json",
         ]
-        
+
         hashes = self.service._get_config_hashes()
-        
+
         self.assertEqual(len(hashes), len(expected_paths))
         for rel_path in expected_paths:
-             self.assertIn(rel_path, hashes)
-             # Check if hash looks like MD5 (32 hex chars) or is "Error"/"NotFound"
-             self.assertTrue(len(hashes[rel_path]) == 32 or hashes[rel_path] in ["Error", "NotFound"])
-             if len(hashes[rel_path]) == 32:
-                  # Crude check for hex
-                  int(hashes[rel_path], 16)
-                  
+            self.assertIn(rel_path, hashes)
+            # Check if hash looks like MD5 (32 hex chars) or is "Error"/"NotFound"
+            self.assertTrue(
+                len(hashes[rel_path]) == 32 or hashes[rel_path] in ["Error", "NotFound"]
+            )
+            if len(hashes[rel_path]) == 32:
+                # Crude check for hex
+                int(hashes[rel_path], 16)
+
         # Check read_bytes was called for each file
         self.assertEqual(mock_read_bytes.call_count, len(expected_paths))
 
     # --- Backup/Cleanup Flow Tests --- #
 
-    @patch("subsystems.CRONOS.core.service.CronosService._execute_backup_file_copy", new_callable=AsyncMock)
+    @patch(
+        "subsystems.CRONOS.core.service.CronosService._execute_backup_file_copy",
+        new_callable=AsyncMock,
+    )
     @patch("subsystems.CRONOS.core.service.CronosService._capture_current_state")
     @patch("subsystems.CRONOS.core.service.CronosService.clean_old_backups", new_callable=AsyncMock)
     @patch("subsystems.CRONOS.core.service.CronosService._save_version_history")
@@ -239,17 +240,20 @@ class TestCronosService(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.service.backups[backup_id].size_bytes, 10240)
         mock_save.assert_called_once()
         mock_clean.assert_awaited_once()
-        
+
         # Verify publish_event was awaited, but skip checking args due to mock issues
         self.mock_interface.publish_event.assert_awaited_once()
 
-    @patch("subsystems.CRONOS.core.service.CronosService._execute_backup_file_copy", new_callable=AsyncMock)
+    @patch(
+        "subsystems.CRONOS.core.service.CronosService._execute_backup_file_copy",
+        new_callable=AsyncMock,
+    )
     async def test_create_backup_copy_failure(self, mock_copy):
         """Test create_backup when the file copy fails."""
         mock_copy.return_value = (None, None, None, None)
         backup_id = await self.service.create_backup("Failed Backup", "manual")
         self.assertIsNone(backup_id)
-        
+
         # Verify publish_event was awaited, but skip checking args due to mock issues
         self.mock_interface.publish_event.assert_awaited_once()
 
@@ -263,44 +267,60 @@ class TestCronosService(unittest.IsolatedAsyncioTestCase):
         # Code logic keeps: Latest(1d), Daily(3d), Weekly(8d) => 3 backups kept
         # Deletes: 15d, 35d, 65d
         mock_dirs = {
-            "system_backup_" + (now - timedelta(days=1)).strftime("%Y%m%d_%H%M%S"): now - timedelta(days=1), # Keep latest & daily 1
-            "system_backup_" + (now - timedelta(days=3)).strftime("%Y%m%d_%H%M%S"): now - timedelta(days=3), # Keep weekly 1 (policy 1w)
-            "system_backup_" + (now - timedelta(days=8)).strftime("%Y%m%d_%H%M%S"): now - timedelta(days=8), # Keep monthly 1 (policy 1m)
-            "system_backup_" + (now - timedelta(days=15)).strftime("%Y%m%d_%H%M%S"): now - timedelta(days=15),# Delete
-            "system_backup_" + (now - timedelta(days=35)).strftime("%Y%m%d_%H%M%S"): now - timedelta(days=35),# Delete
-            "system_backup_" + (now - timedelta(days=65)).strftime("%Y%m%d_%H%M%S"): now - timedelta(days=65), # Delete
+            "system_backup_" + (now - timedelta(days=1)).strftime("%Y%m%d_%H%M%S"): now
+            - timedelta(days=1),  # Keep latest & daily 1
+            "system_backup_" + (now - timedelta(days=3)).strftime("%Y%m%d_%H%M%S"): now
+            - timedelta(days=3),  # Keep weekly 1 (policy 1w)
+            "system_backup_" + (now - timedelta(days=8)).strftime("%Y%m%d_%H%M%S"): now
+            - timedelta(days=8),  # Keep monthly 1 (policy 1m)
+            "system_backup_" + (now - timedelta(days=15)).strftime("%Y%m%d_%H%M%S"): now
+            - timedelta(days=15),  # Delete
+            "system_backup_" + (now - timedelta(days=35)).strftime("%Y%m%d_%H%M%S"): now
+            - timedelta(days=35),  # Delete
+            "system_backup_" + (now - timedelta(days=65)).strftime("%Y%m%d_%H%M%S"): now
+            - timedelta(days=65),  # Delete
         }
+
         # Mock iterdir to return Path objects with names and is_dir method
         def mock_iterdir_gen():
             for name in mock_dirs.keys():
-                 mock_path = MagicMock(spec=Path)
-                 mock_path.name = name
-                 mock_path.is_dir.return_value = True
-                 yield mock_path
+                mock_path = MagicMock(spec=Path)
+                mock_path.name = name
+                mock_path.is_dir.return_value = True
+                yield mock_path
+
         mock_iterdir.return_value = mock_iterdir_gen()
         for name, ts in mock_dirs.items():
-            self.service.backups[name] = SystemBackupInfo(id=name, name="Test", timestamp=ts, location=self.service.backup_base_path / name)
+            self.service.backups[name] = SystemBackupInfo(
+                id=name, name="Test", timestamp=ts, location=self.service.backup_base_path / name
+            )
 
         await self.service.clean_old_backups()
 
         # Check that the correct paths were targeted for deletion by name
-        path_to_delete1 = self.service.backup_base_path / ("system_backup_" + (now - timedelta(days=15)).strftime("%Y%m%d_%H%M%S"))
-        path_to_delete2 = self.service.backup_base_path / ("system_backup_" + (now - timedelta(days=35)).strftime("%Y%m%d_%H%M%S")) # Corrected deleted path
-        path_to_delete3 = self.service.backup_base_path / ("system_backup_" + (now - timedelta(days=65)).strftime("%Y%m%d_%H%M%S")) # Corrected deleted path
-        
+        path_to_delete1 = self.service.backup_base_path / (
+            "system_backup_" + (now - timedelta(days=15)).strftime("%Y%m%d_%H%M%S")
+        )
+        path_to_delete2 = self.service.backup_base_path / (
+            "system_backup_" + (now - timedelta(days=35)).strftime("%Y%m%d_%H%M%S")
+        )  # Corrected deleted path
+        path_to_delete3 = self.service.backup_base_path / (
+            "system_backup_" + (now - timedelta(days=65)).strftime("%Y%m%d_%H%M%S")
+        )  # Corrected deleted path
+
         calls = mock_rmtree.call_args_list
-        deleted_path_names = {call.args[0].name for call in calls if hasattr(call.args[0], 'name')}
-        
+        deleted_path_names = {call.args[0].name for call in calls if hasattr(call.args[0], "name")}
+
         self.assertIn(path_to_delete1.name, deleted_path_names)
         self.assertIn(path_to_delete2.name, deleted_path_names)
         self.assertIn(path_to_delete3.name, deleted_path_names)
-        self.assertEqual(len(deleted_path_names), 3) # Assert exactly 3 deletions
-        
+        self.assertEqual(len(deleted_path_names), 3)  # Assert exactly 3 deletions
+
         # Check that the correct number of backups remain in memory (3 kept: 1d, 3d, 8d)
         self.assertEqual(len(self.service.backups), 3)
         mock_save.assert_called_once()
 
 
 # Main execution block
-if __name__ == '__main__':
-    unittest.main() 
+if __name__ == "__main__":
+    unittest.main()

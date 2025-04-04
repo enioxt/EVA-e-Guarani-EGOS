@@ -51,4 +51,4 @@ npm run build || {
   exit 1
 }
 
-echo "${GREEN}✅ Merge finalizado com sucesso!${NC}" 
+echo "${GREEN}✅ Merge finalizado com sucesso!${NC}"

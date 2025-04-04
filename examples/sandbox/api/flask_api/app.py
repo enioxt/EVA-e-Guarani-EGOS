@@ -16,8 +16,8 @@ from flask_cors import CORS
 
 # Flask configuration
 app = Flask(__name__)
-app.config['JSON_SORT_KEYS'] = False
-app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+app.config["JSON_SORT_KEYS"] = False
+app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
 
 # Allow cross-origin requests (CORS)
 CORS(app)
@@ -27,38 +27,38 @@ try:
     # Add project root directory to PYTHONPATH
     project_root = Path(__file__).resolve().parent.parent.parent.parent
     core_dir = project_root / "core"
-    
+
     if core_dir.exists():
         sys.path.insert(0, str(project_root))
-        
+
         # Try to import core modules
         # Define variables to avoid linter errors
         atlas_core = None
         nexus_core = None  # type: ignore
         cronos_core = None  # type: ignore
         ethik_core = None
-        
+
         # Try to import each module separately
         try:
             from core.atlas import atlas_core
         except ImportError:
             pass
-            
+
         try:
             from core.nexus import nexus_core  # type: ignore
         except ImportError:
             pass
-            
+
         try:
             from core.cronos import cronos_core  # type: ignore
         except ImportError:
             pass
-            
+
         try:
             from core.ethik import ethik_core
         except ImportError:
             pass
-        
+
         # Check if any module was successfully imported
         MODULES_AVAILABLE = any([atlas_core, nexus_core, cronos_core, ethik_core])
         if MODULES_AVAILABLE:
@@ -79,8 +79,8 @@ SAMPLE_DATA = {
         "description": "Systemic Cartography Module",
         "maps": [
             {"id": 1, "name": "Knowledge Map", "nodes": 42, "connections": 120},
-            {"id": 2, "name": "Concept Map", "nodes": 18, "connections": 36}
-        ]
+            {"id": 2, "name": "Concept Map", "nodes": 18, "connections": 36},
+        ],
     },
     "nexus": {
         "name": "NEXUS",
@@ -88,16 +88,16 @@ SAMPLE_DATA = {
         "components": [
             {"id": 1, "name": "Code Analyzer", "quality": 0.92},
             {"id": 2, "name": "Pattern Detector", "quality": 0.89},
-            {"id": 3, "name": "Module Connector", "quality": 0.95}
-        ]
+            {"id": 3, "name": "Module Connector", "quality": 0.95},
+        ],
     },
     "cronos": {
         "name": "CRONOS",
         "description": "Evolutionary Preservation Module",
         "backups": [
             {"id": 1, "timestamp": "2023-09-15T14:30:00", "integrity": 0.99},
-            {"id": 2, "timestamp": "2023-10-20T09:45:00", "integrity": 0.98}
-        ]
+            {"id": 2, "timestamp": "2023-10-20T09:45:00", "integrity": 0.98},
+        ],
     },
     "ethik": {
         "name": "ETHIK",
@@ -107,34 +107,39 @@ SAMPLE_DATA = {
             "Compassionate temporality",
             "Sacred privacy",
             "Universal accessibility",
-            "Unconditional love"
-        ]
-    }
+            "Unconditional love",
+        ],
+    },
 }
 
+
 # Routes
-@app.route('/')
+@app.route("/")
 def index():
     """Serve the main HTML page"""
     # Path to the frontend directory
     frontend_dir = Path(__file__).resolve().parent.parent.parent / "frontend" / "html_basic"
     return send_from_directory(directory=str(frontend_dir), path="index.html")
 
-@app.route('/api/status')
+
+@app.route("/api/status")
 def status():
     """Return API status and module availability"""
-    return jsonify({
-        "status": "online",
-        "version": "1.0.0-sandbox",
-        "modules": {
-            "atlas": MODULES_AVAILABLE and atlas_core is not None,
-            "nexus": MODULES_AVAILABLE and nexus_core is not None,
-            "cronos": MODULES_AVAILABLE and cronos_core is not None,
-            "ethik": MODULES_AVAILABLE and ethik_core is not None
+    return jsonify(
+        {
+            "status": "online",
+            "version": "1.0.0-sandbox",
+            "modules": {
+                "atlas": MODULES_AVAILABLE and atlas_core is not None,
+                "nexus": MODULES_AVAILABLE and nexus_core is not None,
+                "cronos": MODULES_AVAILABLE and cronos_core is not None,
+                "ethik": MODULES_AVAILABLE and ethik_core is not None,
+            },
         }
-    })
+    )
 
-@app.route('/api/atlas')
+
+@app.route("/api/atlas")
 def atlas():
     """Returns data from the ATLAS module"""
     if MODULES_AVAILABLE and atlas_core:
@@ -144,11 +149,12 @@ def atlas():
             pass
         except Exception as e:
             return jsonify({"error": f"Error calling ATLAS module: {str(e)}"}), 500
-    
+
     # Return sample data
     return jsonify(SAMPLE_DATA["atlas"])
 
-@app.route('/api/nexus')
+
+@app.route("/api/nexus")
 def nexus():
     """Returns data from the NEXUS module"""
     if MODULES_AVAILABLE and nexus_core:
@@ -158,11 +164,12 @@ def nexus():
             pass
         except Exception as e:
             return jsonify({"error": f"Error calling NEXUS module: {str(e)}"}), 500
-    
+
     # Return sample data
     return jsonify(SAMPLE_DATA["nexus"])
 
-@app.route('/api/cronos')
+
+@app.route("/api/cronos")
 def cronos():
     """Returns data from the CRONOS module"""
     if MODULES_AVAILABLE and cronos_core:
@@ -172,11 +179,12 @@ def cronos():
             pass
         except Exception as e:
             return jsonify({"error": f"Error calling CRONOS module: {str(e)}"}), 500
-    
+
     # Return sample data
     return jsonify(SAMPLE_DATA["cronos"])
 
-@app.route('/api/ethik')
+
+@app.route("/api/ethik")
 def ethik():
     """Returns data from the ETHIK module"""
     if MODULES_AVAILABLE and ethik_core:
@@ -186,34 +194,36 @@ def ethik():
             pass
         except Exception as e:
             return jsonify({"error": f"Error calling ETHIK module: {str(e)}"}), 500
-    
+
     # Return sample data
     return jsonify(SAMPLE_DATA["ethik"])
 
-@app.route('/api/integrate', methods=['POST'])
+
+@app.route("/api/integrate", methods=["POST"])
 def integrate():
     """Processes the received data through integrated modules"""
     if not request.is_json:
         return jsonify({"error": "Request must be JSON"}), 400
-    
+
     data = request.get_json()
-    
+
     # In a real implementation, would process data with appropriate modules
-    
+
     result = {
         "received": data,
         "processed": True,
         "timestamp": "2023-11-15T10:30:00",
-        "message": "Data processed successfully"
+        "message": "Data processed successfully",
     }
-    
+
     return jsonify(result)
 
+
 # Start the API if run directly
-if __name__ == '__main__':
-    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
-    host = os.environ.get('FLASK_HOST', '127.0.0.1')
-    port = int(os.environ.get('FLASK_PORT', 5000))
-    
+if __name__ == "__main__":
+    debug_mode = os.environ.get("FLASK_DEBUG", "False").lower() == "true"
+    host = os.environ.get("FLASK_HOST", "127.0.0.1")
+    port = int(os.environ.get("FLASK_PORT", 5000))
+
     print(f"Starting EVA & GUARANI Sandbox API on {host}:{port}")
     app.run(host=host, port=port, debug=debug_mode)

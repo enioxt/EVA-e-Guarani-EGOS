@@ -45,17 +45,17 @@ javascript
 /**
  * EVA & GUARANI - Terminology Guard
  * =================================
- * 
+ *
  * This module monitors and validates terminological consistency in the code,
  * ensuring that important terms are used correctly and maintaining the conceptual coherence
  * of the EVA & GUARANI system.
- * 
+ *
  * Incorporated principles:
  * - Ethics: Suggested corrections with respect to the original intent
  * - Love: Constructive and educational feedback
  * - Economy: Efficient checks that do not impact performance
  * - Art: Clear and harmonious communication of suggestions
- * 
+ *
  * @context EVA_GUARANI_QUANTUM_TERMINOLOGY
  * @version 1.0.0
  * @author EVA & GUARANI Team
@@ -83,14 +83,14 @@ const DEFAULT_TERMINOLOGY = {
         "compassionate temporality": ["compassionate time", "temporal compassion"],
         "universal possibility of redemption": ["universal redemption", "possibility of redemption"]
     },
-    
+
     // Subsystems
     systems: {
         "ATLAS": ["atlas", "Atlas", "cartography system", "cartography"],
         "NEXUS": ["nexus", "Nexus", "analysis system", "analyzer"],
         "CRONOS": ["cronos", "Cronos", "preservation system", "preserver"]
     },
-    
+
     // Technical aspects
     technical: {
         "quantum context": ["context", "code context"],
@@ -102,7 +102,7 @@ const DEFAULT_TERMINOLOGY = {
         "evolutionary mode": ["evolution mode"],
         "quantum mode": ["quantum mode", "quantum"]
     },
-    
+
     // Metrics and indicators
     metrics: {
         "cartographic clarity": ["map clarity", "cartography clarity"],
@@ -114,7 +114,7 @@ const DEFAULT_TERMINOLOGY = {
         "technical optimization": ["technical improvement", "technical enhancement"],
         "contextual preservation": ["contextual maintenance", "context permanence"]
     },
-    
+
     // Processes and operations
     processes: {
         "cartograph": ["map system", "create map"],
@@ -140,14 +140,14 @@ class TerminologyGuard {
         this.diagnosticCollection = diagnosticCollection;
         this.config = config;
         this.terminology = {...DEFAULT_TERMINOLOGY};
-        
+
         // Inverse mapping for efficient search
         this.termMapping = this._buildTermMapping();
-        
+
         // Load custom project terminology
         this._loadCustomTerminology();
     }
-    
+
     /**
      * Builds inverse mapping of non-preferred terms to their
      * preferred equivalents, optimizing search.
@@ -156,7 +156,7 @@ class TerminologyGuard {
      */
     _buildTermMapping() {
         const mapping = new Map();
-        
+
         // For each category in the terminology
         for (const category in this.terminology) {
             // For each preferred term in the category
@@ -166,7 +166,7 @@ class TerminologyGuard {
                     preferred: preferred,
                     category: category
                 });
-                
+
                 // For each non-preferred synonym
                 for (const nonPreferred of this.terminology[category][preferred]) {
                     // Add synonym to mapping (pointing to the preferred term)
@@ -177,10 +177,10 @@ class TerminologyGuard {
                 }
             }
         }
-        
+
         return mapping;
     }
-    
+
     /**
      * Loads custom project terminology
      * respecting autonomy and specific needs.
@@ -189,35 +189,35 @@ class TerminologyGuard {
     _loadCustomTerminology() {
         const projectRoot = this.config.getProjectRoot();
         if (!projectRoot) return;
-        
+
         const terminologyPath = path.join(projectRoot, '.evaguarani', 'terminology.json');
-        
+
         if (fs.existsSync(terminologyPath)) {
             try {
                 const customTerminology = JSON.parse(fs.readFileSync(terminologyPath, 'utf8'));
-                
+
                 // Merge with the default terminology
                 for (const category in customTerminology) {
                     if (!this.terminology[category]) {
                         this.terminology[category] = {};
                     }
-                    
+
                     // Add or overwrite terms
                     for (const preferred in customTerminology[category]) {
                         this.terminology[category][preferred] = customTerminology[category][preferred];
                     }
                 }
-                
+
                 // Rebuild mapping
                 this.termMapping = this._buildTermMapping();
-                
+
                 console.log('EVA & GUARANI: Custom terminology loaded with love and respect');
             } catch (error) {
                 console.log(`EVA & GUARANI: Error loading custom terminology: ${error.message}`);
             }
         }
     }
-    
+
     /**
      * Checks the terminology used in a document
      * @param {vscode.TextDocument} document - Document to be checked
@@ -228,56 +228,56 @@ class TerminologyGuard {
             this.diagnosticCollection.delete(document.uri);
             return;
         }
-        
+
         // Check if we should analyze this file
         if (!this.config.shouldAnalyzeFile(document.uri.fsPath)) {
             this.diagnosticCollection.delete(document.uri);
             return;
         }
-        
+
         // Get the configured severity
         const severity = this._getSeverity();
-        
+
         // Start diagnostics array
         const diagnostics = [];
-        
+
         // Get the full text of the document
         const text = document.getText();
-        
+
         // Check each non-preferred term
         for (const [nonPreferred, info] of this.termMapping) {
             // Skip if it's the preferred term itself
             if (nonPreferred === info.preferred.toLowerCase()) {
                 continue;
             }
-            
+
             // Search for occurrences of the non-preferred term
             let searchIndex = 0;
             let match;
-            
+
             // Regular expression to find the complete term (with word boundaries)
             const regex = new RegExp(`\\b${this._escapeRegex(nonPreferred)}\\b`, 'gi');
-            
+
             // While finding occurrences
             while ((match = regex.exec(text)) !== null) {
                 // Start and end position of the occurrence
                 const startPos = document.positionAt(match.index);
                 const endPos = document.positionAt(match.index + match[0].length);
-                
+
                 // Range of the occurrence
                 const range = new vscode.Range(startPos, endPos);
-                
+
                 // Create diagnostic with educational message and suggestion
                 const diagnostic = new vscode.Diagnostic(
                     range,
                     `Consider using "${info.preferred}" instead of "${match[0]}" to maintain terminological consistency.`,
                     severity
                 );
-                
+
                 // Add code and source to the diagnostic
                 diagnostic.code = 'evaguarani.terminology';
                 diagnostic.source = 'EVA & GUARANI';
-                
+
                 // Add correction action
                 diagnostic.relatedInformation = [
                     new vscode.DiagnosticRelatedInformation(
@@ -285,16 +285,16 @@ class TerminologyGuard {
                         `"${info.preferred}" is the preferred term in the "${info.category}" category.`
                     )
                 ];
-                
+
                 // Add to diagnostics array
                 diagnostics.push(diagnostic);
             }
         }
-        
+
         // Update diagnostics in the collection
         this.diagnosticCollection.set(document.uri, diagnostics);
     }
-    
+
     /**
      * Gets the configured severity for terminology violations
      * @private
@@ -302,7 +302,7 @@ class TerminologyGuard {
      */
     _getSeverity() {
         const severityString = this.config.get('terminologyViolationSeverity', 'Warning');
-        
+
         switch (severityString) {
             case 'Hint':
                 return vscode.DiagnosticSeverity.Hint;
@@ -316,7 +316,7 @@ class TerminologyGuard {
                 return vscode.DiagnosticSeverity.Information;
         }
     }
-    
+
     /**
      * Escapes special characters in a string for use in a regular expression
      * @private
@@ -326,7 +326,7 @@ class TerminologyGuard {
     _escapeRegex(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
-    
+
     /**
      * Registers code action providers to correct terminology
      * @param {vscode.ExtensionContext} context - Extension context
@@ -334,10 +334,10 @@ class TerminologyGuard {
     registerCodeActions(context) {
         // Create code action provider
         const codeActionProvider = this._createCodeActionProvider();
-        
+
         // Register for all language types
         const languageSelector = { pattern: '**/*.*' };
-        
+
         // Add to subscription list
         context.subscriptions.push(
             vscode.languages.registerCodeActionsProvider(
@@ -349,7 +349,7 @@ class TerminologyGuard {
             )
         );
     }
-    
+
     /**
      * Creates a code action provider to correct terminology
      * @private
@@ -358,30 +358,30 @@ class TerminologyGuard {
     _createCodeActionProvider() {
         // Reference to the current object for use within the provider
         const self = this;
-        
+
         // Return provider object
         return {
             provideCodeActions(document, range, context, token) {
                 // Array of code actions
                 const actions = [];
-                
+
                 // For each diagnostic in the context
                 for (const diagnostic of context.diagnostics) {
                     // Check if it's a terminology diagnostic
                     if (diagnostic.code === 'evaguarani.terminology' && diagnostic.source === 'EVA & GUARANI') {
                         // Get the current text
                         const nonPreferredTerm = document.getText(diagnostic.range);
-                        
+
                         // Find the corresponding preferred term
                         const preferredTerm = self._findPreferredTerm(nonPreferredTerm);
-                        
+
                         if (preferredTerm) {
                             // Create correction action with love and education
                             const action = new vscode.CodeAction(
                                 `Replace with "${preferredTerm}"`,
                                 vscode.CodeActionKind.QuickFix
                             );
-                            
+
                             // Configure text edit
                             action.edit = new vscode.WorkspaceEdit();
                             action.edit.replace(
@@ -389,32 +389,32 @@ class TerminologyGuard {
                                 diagnostic.range,
                                 preferredTerm
                             );
-                            
+
                             // Mark that this action fixes the diagnostic
                             action.diagnostics = [diagnostic];
                             action.isPreferred = true;
-                            
+
                             // Add to actions list
                             actions.push(action);
-                            
+
                             // Add action to ignore this occurrence
                             const ignoreAction = new vscode.CodeAction(
                                 `Ignore this occurrence`,
                                 vscode.CodeActionKind.QuickFix
                             );
                             ignoreAction.diagnostics = [diagnostic];
-                            
+
                             // Add to actions list
                             actions.push(ignoreAction);
                         }
                     }
                 }
-                
+
                 return actions;
             }
         };
     }
-    
+
     /**
      * Finds the preferred term for a non-preferred term
      * @private
@@ -425,7 +425,7 @@ class TerminologyGuard {
         const info = this.termMapping.get(nonPreferredTerm.toLowerCase());
         return info ? info.preferred : null;
     }
-    
+
     /**
      * Exports the terminology to the project
      * Allows customization with respect to autonomy.
@@ -436,25 +436,25 @@ class TerminologyGuard {
             vscode.window.showWarningMessage('No EVA & GUARANI project detected.');
             return;
         }
-        
+
         // Create .evaguarani directory
         const configDir = path.join(projectRoot, '.evaguarani');
-        
+
         try {
             if (!fs.existsSync(configDir)) {
                 fs.mkdirSync(configDir, { recursive: true });
             }
-            
+
             // Path to terminology file
             const terminologyPath = path.join(configDir, 'terminology.json');
-            
+
             // Export terminology as JSON
             fs.writeFileSync(
                 terminologyPath,
                 JSON.stringify(this.terminology, null, 2),
                 'utf8'
             );
-            
+
             // Create explanatory README
             fs.writeFileSync(
                 path.join(configDir, 'TERMINOLOGY.md'),
@@ -494,11 +494,11 @@ is initialized in a project containing this file.
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 `
             );
-            
+
             vscode.window.showInformationMessage(
                 'Terminology exported with love and consciousness. Now you can customize it!'
             );
-            
+
         } catch (error) {
             console.log(`EVA & GUARANI: Error exporting terminology: ${error.message}`);
             vscode.window.showErrorMessage(
@@ -506,7 +506,7 @@ is initialized in a project containing this file.
             );
         }
     }
-    
+
     /**
      * Checks terminology in all workspace files
      * with love and economic consciousness (optimized processing).
@@ -516,18 +516,18 @@ is initialized in a project containing this file.
         if (!this.config.isEnabled() || !this.config.get('enforceTerminology', true)) {
             return;
         }
-        
+
         // Get workspace folders
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders || workspaceFolders.length === 0) {
             return;
         }
-        
+
         // For each folder
         for (const folder of workspaceFolders) {
             // Create search pattern for files
             const pattern = new vscode.RelativePattern(folder, '**/*.*');
-            
+
             // Find files
             vscode.workspace.findFiles(pattern).then(uris => {
                 // For each file found (with economic consciousness)
@@ -535,7 +535,7 @@ is initialized in a project containing this file.
                 const checkNextBatch = () => {
                     const batch = uris.slice(processed, processed + 10);
                     processed += 10;
-                    
+
                     if (batch.length === 0) {
                         // All files have been processed
                         vscode.window.showInformationMessage(
@@ -543,14 +543,14 @@ is initialized in a project containing this file.
                         );
                         return;
                     }
-                    
+
                     // Process this batch
                     Promise.all(batch.map(uri => {
                         // Check if we should analyze this file
                         if (!this.config.shouldAnalyzeFile(uri.fsPath)) {
                             return Promise.resolve();
                         }
-                        
+
                         // Open document and check terminology
                         return vscode.workspace.openTextDocument(uri).then(document => {
                             this.checkTerminology(document);
@@ -562,7 +562,7 @@ is initialized in a project containing this file.
                         setImmediate(checkNextBatch);
                     });
                 };
-                
+
                 // Start processing in batches
                 checkNextBatch();
             });

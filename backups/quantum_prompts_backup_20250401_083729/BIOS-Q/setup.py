@@ -33,10 +33,10 @@ def main():
     """Main setup function."""
     # Create .env file if needed
     create_env_file()
-    
+
     # Set up Grafana dashboard
     setup_grafana_dashboard()
-    
+
     print("\nNext steps:")
     print("1. Update configuration in .env file")
     print("2. Start the system with: eva-guarani start")

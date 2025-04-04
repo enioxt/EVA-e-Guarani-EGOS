@@ -96,4 +96,4 @@ REM If server fails, wait for user input before closing
 if errorlevel 1 (
     echo MCP server failed to start
     pause
-) 
+)

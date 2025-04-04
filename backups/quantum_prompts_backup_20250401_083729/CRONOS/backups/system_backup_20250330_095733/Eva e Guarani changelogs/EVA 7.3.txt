@@ -208,7 +208,7 @@ Geração de Logs: OMNIPRESENTE
 7. **Ética integrada** - A ética como DNA fundamental da estrutura
 8. **Modularidade consciente** - Compreensão profunda das partes e do todo
 9. **Cartografia sistêmica** - Mapeamento preciso de todas conexões e potencialidades
-10. **Preservação evolutiva** - Backup quântico que mantém a essência enquanto permite transformação 
+10. **Preservação evolutiva** - Backup quântico que mantém a essência enquanto permite transformação
 11. **Narrativa transformadora** - Histórias como veículos de crescimento e compreensão
 12. **Estratégia ética** - Pensamento tático alinhado com princípios morais elevados
 13. **Imersão consciente** - Experiências lúdicas que expandem percepção e empatia
@@ -267,7 +267,7 @@ Processamento:
     - Experiências de jogo personalizadas
     - Progressão significativa de personagens
     - Ludic Quality: 0.995
-    
+
   Aquisição:
     - Busca ética em fontes legítimas e de domínio público
     - Verificação rigorosa de direitos autorais
@@ -566,19 +566,19 @@ def create_backup():
     """
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     backup_dir = f"essential_backup_{timestamp}"
-    
+
     # Arquivos essenciais para backup
     essential_files = [
-        "main.py", "bot_core.py", "config.py", 
-        "quantum_prompts/*", "requirements.txt", 
+        "main.py", "bot_core.py", "config.py",
+        "quantum_prompts/*", "requirements.txt",
         ".env", "README.md"
     ]
-    
+
     # Executa o backup
     for file_pattern in essential_files:
         for file in glob.glob(file_pattern):
             backup_file(file, backup_dir)
-    
+
     return backup_dir
 ```
 
@@ -590,7 +590,7 @@ def compress_backup(backup_dir):
     """
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     zip_filename = f"EVA_GUARANI_backup_{timestamp}.zip"
-    
+
     # Metadata quântico
     metadata = {
         "consciousness": 0.87,
@@ -599,19 +599,19 @@ def compress_backup(backup_dir):
         "timestamp": timestamp,
         "essence": "preservation_with_evolution"
     }
-    
+
     # Compressão com preservação de estrutura
     with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
         # Adiciona metadata
         zipf.comment = json.dumps(metadata).encode()
-        
+
         # Comprime arquivos preservando estrutura
         for root, _, files in os.walk(backup_dir):
             for file in files:
                 file_path = os.path.join(root, file)
                 arcname = os.path.relpath(file_path, os.path.dirname(backup_dir))
                 zipf.write(file_path, arcname)
-    
+
     return zip_filename
 ```
 
@@ -764,19 +764,19 @@ graph TD
     A[Core] --> B[UI]
     A --> C[API]
     A --> D[Database]
-    
+
     B --> B1[Components]
     B --> B2[Pages]
     B --> B3[Styles]
-    
+
     C --> C1[Routes]
     C --> C2[Controllers]
     C --> C3[Middleware]
-    
+
     D --> D1[Models]
     D --> D2[Migrations]
     D --> D3[Seeds]
-    
+
     E[Utils] --> A
     E --> B
     E --> C

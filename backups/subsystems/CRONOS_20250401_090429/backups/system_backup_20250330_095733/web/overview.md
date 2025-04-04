@@ -94,15 +94,15 @@ graph TD
     EVA[EVA & GUARANI Master Prompt v7.4] --> ARCANUM[ARCANUM LUDUS]
     EVA --> MYTHIC[MYTHIC CODEX]
     EVA --> STRATEGOS[STRATEGOS]
-    
+
     ARCANUM --> A1[RPG Systems]
     ARCANUM --> A2[Campaign Creation]
     ARCANUM --> A3[Table Management]
-    
+
     MYTHIC --> M1[Narrative Development]
     MYTHIC --> M2[World Building]
     MYTHIC --> M3[Character Creation]
-    
+
     STRATEGOS --> S1[Tactical Combat]
     STRATEGOS --> S2[Advanced Mechanics]
     STRATEGOS --> S3[Balancing]
@@ -148,7 +148,7 @@ Ethical Awareness: 0.97
 ### Usage Example
 
 
-Prompt: Create a level 3 adventure for D&D 5e where players need to 
+Prompt: Create a level 3 adventure for D&D 5e where players need to
 investigate disappearances in a small village, with elements of gothic horror.
 
 
@@ -200,7 +200,7 @@ Resonance: 0.95
 ### Usage Example
 
 
-Prompt: Develop a mythology for a world where magic is derived from 
+Prompt: Develop a mythology for a world where magic is derived from
 living constellations that cyclically manifest in the sky.
 
 
@@ -252,7 +252,7 @@ Integration: 0.92
 ### Usage Example
 
 
-Prompt: Create a final encounter for a Pathfinder 2e campaign against a 
+Prompt: Create a final encounter for a Pathfinder 2e campaign against a
 level 10 necromancer in a laboratory full of alchemical experiments.
 
 

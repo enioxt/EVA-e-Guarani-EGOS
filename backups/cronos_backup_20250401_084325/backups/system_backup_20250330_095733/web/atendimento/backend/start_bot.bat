@@ -100,4 +100,4 @@ echo.
 echo Para encerrar o bot, feche a janela do prompt de comando ou use o Gerenciador de Tarefas.
 echo.
 
-exit /b 0 
+exit /b 0

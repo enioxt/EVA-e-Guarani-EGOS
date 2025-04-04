@@ -8,7 +8,7 @@ function Create-Backup {
         [string]$SourcePath,
         [string]$BackupPath
     )
-    
+
     if (Test-Path $SourcePath) {
         Write-Host "Criando backup de $SourcePath para $BackupPath"
         Copy-Item -Path $SourcePath -Destination $BackupPath -Recurse -Force
@@ -23,7 +23,7 @@ function Safe-Move {
         [string]$Source,
         [string]$Destination
     )
-    
+
     if (Test-Path $Source) {
         Write-Host "Movendo $Source para $Destination"
         Move-Item -Path $Source -Destination $Destination -Force

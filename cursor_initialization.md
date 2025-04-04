@@ -1,62 +1,62 @@
-# EVA & GUARANI - Cursor Initialization v8.1
+# EVA & GUARANI - Inicialização do Cursor v8.1
 
-**Last Updated:** 2025-04-02
+**Última Atualização:** 2025-04-02
 
-## Quantum Unified Structure
+## Estrutura Quântica Unificada
 
-This document details the initialization process for the EVA & GUARANI system (EGOS) in its current unified state. The system comprises interconnected subsystems designed for optimal human-AI interaction and development.
+Este documento detalha o processo de inicialização para o sistema EVA & GUARANI (EGOS) em seu estado unificado atual. O sistema compreende subsistemas interconectados projetados para interação e desenvolvimento humano-IA ideal.
 
-**Core Subsystems:** ATLAS, BIOS-Q, CORUJA, CRONOS, ETHIK, HARMONY, KOIOS, MYCELIUM, NEXUS, TRANSLATOR.
+**Subsistemas Principais:** ATLAS, BIOS-Q, CORUJA, CRONOS, ETHIK, HARMONY, KOIOS, MYCELIUM, NEXUS, TRANSLATOR.
 
-## AI Integration Focus
+## Foco na Integração de IA
 
-EGOS is fundamentally designed to enhance communication and integration between humans and AI systems:
+O EGOS é fundamentalmente projetado para aprimorar a comunicação e integração entre humanos e sistemas de IA:
 
-- **Optimized Communication**: Reduces noise in human-AI interactions.
-- **Context Preservation**: Maintains conversational continuity across AI sessions (CRONOS target).
-- **Knowledge Structuring**: Information architecture optimized for AI processing.
-- **Command Patterns**: Simplified interaction protocols for AI understanding.
-- **AI-Readable Design**: Directory and documentation structure for easy AI navigation.
-- **Minimal Input Principles**: Maximize AI understanding from concise prompts.
-- **Cross-Model Integration**: Framework for consistent interaction across different AI models.
+- **Comunicação Otimizada**: Reduz ruído nas interações humano-IA.
+- **Preservação de Contexto**: Mantém continuidade conversacional entre sessões de IA (alvo CRONOS).
+- **Estruturação de Conhecimento**: Arquitetura de informação otimizada para processamento de IA.
+- **Padrões de Comando**: Protocolos de interação simplificados para compreensão da IA.
+- **Design Legível por IA**: Estrutura de diretório e documentação para fácil navegação da IA.
+- **Princípios de Entrada Mínima**: Maximiza a compreensão da IA a partir de prompts concisos.
+- **Integração Entre Modelos**: Framework para interação consistente entre diferentes modelos de IA.
 
-## Current Cursor Integration
+## Integração Atual do Cursor
 
-- **Sequential Thinking MCP**: Available for complex problem-solving.
-- **Perplexity MCP**: Available for web research.
-- **BIOS-Q Integration**: Basic structure established.
-- **CRONOS Integration**: Optimized backup system implemented.
-- **Mycelium Network**: Core Python implementation (asyncio-based) complete and tested.
+- **Sequential Thinking MCP**: Disponível para resolução de problemas complexos.
+- **Perplexity MCP**: Disponível para pesquisa na web.
+- **Integração BIOS-Q**: Estrutura básica estabelecida.
+- **Integração CRONOS**: Sistema de backup otimizado implementado.
+- **Rede Mycelium**: Implementação Python principal (baseada em asyncio) completa e testada.
 
-## System Initialization & Maintenance
+## Inicialização e Manutenção do Sistema
 
-System integrity and state preservation are managed by the CRONOS subsystem. For reliable operation, follow these guidelines:
+A integridade do sistema e a preservação do estado são gerenciadas pelo subsistema CRONOS. Para operação confiável, siga estas diretrizes:
 
-1.  **Consult CRONOS Documentation:** Refer to the CRONOS subsystem's implementation and documentation (target location: `subsystems/CRONOS/docs/procedures.md` - *to be created/updated*) for the standard procedures for:
-    *   Creating clean system backups.
-    *   Verifying system integrity.
-    *   Restoring system state.
-2.  **Prioritize Standard Procedures:** Avoid using outdated commands or scripts found in backups or logs. Use the current, documented CRONOS procedures.
-3.  **Document Procedures (CRONOS Task):** A key task for CRONOS development is to clearly document these standard operating procedures.
+1.  **Consulte a Documentação CRONOS:** Consulte a implementação e documentação do subsistema CRONOS (localização alvo: `subsystems/CRONOS/docs/procedures.md` - *a ser criado/atualizado*) para os procedimentos padrão para:
+    *   Criação de backups limpos do sistema.
+    *   Verificação da integridade do sistema.
+    *   Restauração do estado do sistema.
+2.  **Priorize Procedimentos Padrão:** Evite usar comandos ou scripts desatualizados encontrados em backups ou logs. Use os procedimentos CRONOS atuais e documentados.
+3.  **Documente Procedimentos (Tarefa CRONOS):** Uma tarefa chave para o desenvolvimento do CRONOS é documentar claramente estes procedimentos operacionais padrão.
 
-*(Previous initialization information referenced scripts like `create_clean_backup.py` and `verify_cleanup.py`, but their status is unverified. Rely on current CRONOS documentation.)*
+*(Informações de inicialização anteriores referenciavam scripts como `create_clean_backup.py` e `verify_cleanup.py`, mas seu status não é verificado. Confie na documentação CRONOS atual.)*
 
-## Next Steps (Based on Roadmap v8.1 - Q2 2025 Priorities)
+## Próximos Passos (Baseado no Roadmap v8.1 - Prioridades Q2 2025)
 
-1.  **System Standardization:**
-    *   Complete directory structure migration.
-    *   Implement KOIOS Standardization System.
-    *   Complete English language migration.
-2.  **KOIOS Evolution:**
-    *   Enhance core KOIOS system.
-    *   Improve search system.
-    *   Develop documentation system.
-3.  **Mycelium Network Integration:**
-    *   Plan BIOS-Q integration for Network instance.
-    *   Integrate pilot subsystems (e.g., KOIOS, CORUJA) with Mycelium.
-    *   Implement Phase 2 features (Health, Sync, Routing).
-4.  **Enhance ETHIK:** Continue core enhancement and validation development.
-5.  **Develop CORUJA:** Continue Phase 1 (Documentation, Templates, Metrics).
-6.  **Develop MCP Integrations:** Prioritize CRONOS, NEXUS, ETHIK, and ATLAS MCPs.
+1.  **Padronização do Sistema:**
+    *   Completar a migração da estrutura de diretórios.
+    *   Implementar o Sistema de Padronização KOIOS.
+    *   Completar a migração para o idioma inglês.
+2.  **Evolução do KOIOS:**
+    *   Aprimorar o sistema KOIOS principal.
+    *   Melhorar o sistema de busca.
+    *   Desenvolver o sistema de documentação.
+3.  **Integração da Rede Mycelium:**
+    *   Planejar a integração BIOS-Q para instância de Rede.
+    *   Integrar subsistemas piloto (ex: KOIOS, CORUJA) com Mycelium.
+    *   Implementar recursos da Fase 2 (Saúde, Sincronização, Roteamento).
+4.  **Aprimorar ETHIK:** Continuar o desenvolvimento de validação e aprimoramento principal.
+5.  **Desenvolver CORUJA:** Continuar a Fase 1 (Documentação, Modelos, Métricas).
+6.  **Desenvolver Integrações MCP:** Priorizar MCPs CRONOS, NEXUS, ETHIK e ATLAS.
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

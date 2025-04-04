@@ -92,7 +92,7 @@ markdown
   # Basic implementation example
   from loguru import logger
   import sys
-  
+
   # Configuration for all modules
   logger.configure(
       handlers=[
@@ -101,7 +101,7 @@ markdown
       ],
       levels=[{"name": "QUANTUM", "no": 25, "color": "<magenta>"}]
   )
-  
+
   # Usage example
   logger.debug("Technical details")
   logger.info("Normal operation")
@@ -109,7 +109,7 @@ markdown
   logger.warning("Attention needed")
   logger.error("Recoverable error")
   logger.critical("Critical system failure")
-  
+
 
 - [ ] **Modify all modules to use the new system**
 
@@ -133,7 +133,7 @@ markdown
   python
   import os
   import chardet
-  
+
   def check_encoding(root_dir='.'):
       problematic_files = []
       for dirpath, _, filenames in os.walk(root_dir):
@@ -146,14 +146,14 @@ markdown
                       if result['encoding'] != 'utf-8' or result['confidence'] < 0.9:
                           problematic_files.append((file_path, result['encoding'], result['confidence']))
       return problematic_files
-  
+
 
 - [ ] **Standardize headers in Python files**
 
   python
   #!/usr/bin/env python
   # -*- coding: utf-8 -*-
-  
+
 
 - [ ] **Fix `ethik_core.js` file**
 
@@ -182,25 +182,25 @@ markdown
   import pytest
   from unittest.mock import MagicMock
   from src.image_processor import ImageProcessor
-  
+
   @pytest.fixture
   def image_processor():
       config = {"max_size": 1024, "quality": 90}
       return ImageProcessor(config)
-  
+
   def test_resize_image(image_processor):
       # Arrange
       test_image = "tests/fixtures/test_image.jpg"
       target_size = (800, 600)
-      
+
       # Act
       result = image_processor.resize(test_image, target_size)
-      
+
       # Assert
       assert result["width"] == 800
       assert result["height"] == 600
       assert os.path.exists(result["path"])
-  
+
 
 - [ ] **Implement integration tests**
 

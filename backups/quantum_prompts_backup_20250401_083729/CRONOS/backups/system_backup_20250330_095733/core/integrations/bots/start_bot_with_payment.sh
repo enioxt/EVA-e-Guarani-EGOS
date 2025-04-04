@@ -65,4 +65,4 @@ deactivate
 
 echo ""
 echo "[INFO] Bot encerrado."
-echo "" 
+echo ""

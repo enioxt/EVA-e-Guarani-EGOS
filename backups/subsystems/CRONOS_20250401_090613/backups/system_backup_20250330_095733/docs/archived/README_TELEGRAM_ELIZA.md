@@ -254,11 +254,11 @@ PowerShell script that automates the installation and configuration of ElizaOS f
 
 1. **Configure the bot token**:
 
-   
+
 
    Edit the file `config/telegram_config.json` and add the bot token:
 
-   
+
 
    json
 
@@ -272,39 +272,39 @@ PowerShell script that automates the installation and configuration of ElizaOS f
 
    }
 
-   
+
 
 
 
 2. **Install ElizaOS**:
 
-   
+
 
    Run the installation script:
 
-   
+
 
    powershell
 
    .\install_eliza_integration.ps1
 
-   
+
 
 
 
 3. **Start the Bridge**:
 
-   
+
 
    Run the batch file to start the bridge:
 
-   
 
-   
+
+
 
    start_telegram_eliza_bridge.bat
 
-   
+
 
 
 
@@ -416,29 +416,29 @@ To add new features:
 
 1. **Custom Handlers**:
 
-   
+
 
    Add new handlers in the `TelegramElizaBridge` class in the `start_telegram_eliza_bridge.py` file:
 
-   
+
 
    python
 
    dispatcher.add_handler(CommandHandler("mycommand", self._handle_mycommand))
 
-   
+
 
    def _handle_mycommand(self, update: Update, context: CallbackContext) -> None:
 
        # Handler implementation
 
-   
+
 
 
 
 2. **Integration with ElizaOS**:
 
-   
+
 
    Extend the `ElizaBot` class in `bot/eliza_integration.py` to add specific functionalities.
 

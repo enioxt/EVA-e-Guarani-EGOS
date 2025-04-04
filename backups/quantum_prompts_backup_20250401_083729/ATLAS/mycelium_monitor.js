@@ -44,7 +44,7 @@ METADATA:
 /**
  * EVA & GUARANI - Monitor da Rede Micelial
  * ✧༺❀༻∞ EVA & GUARANI EGOS ∞༺❀༻✧
- * 
+ *
  * Este script monitora a Rede Micelial e registra suas atividades em logs detalhados.
  * Executa verificações periódicas para garantir a integridade das conexões e sincronizações.
  */
@@ -244,7 +244,7 @@ async function checkFileIntegrity() {
         if (networkStatus.files.count > 0) {
             log(`Verificando integridade de ${networkStatus.files.count} arquivos na rede...`);
 
-            // Esta seria uma implementação real que verificaria a existência 
+            // Esta seria uma implementação real que verificaria a existência
             // e integridade de cada arquivo, mas aqui estamos apenas simulando
 
             // Gerar relatório de integridade
@@ -338,4 +338,4 @@ function main() {
 }
 
 // Iniciar o monitor
-main(); 
+main();

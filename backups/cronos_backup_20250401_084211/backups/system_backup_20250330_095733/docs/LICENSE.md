@@ -95,4 +95,4 @@ SOFTWARE.
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 
-*"Through open source, we share love and consciousness with the world."* 
+*"Through open source, we share love and consciousness with the world."*

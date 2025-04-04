@@ -24,15 +24,14 @@ config = {
         "web/atendimento/frontend_streamlit/pages",
         "web/atendimento/backend/app/integrations",
         "tools/integration",
-        "core/config/modules"
+        "core/config/modules",
     ],
     "target_dir": "QUANTUM_PROMPTS/NEXUS",
     "backup_dir": "quarantine/NEXUS_backup",
     "models_dir": "models_backup",
-    "required_tools": [
-        "python"
-    ]
+    "required_tools": ["python"],
 }
+
 
 class NexusUnification:
     """Handles the unification process for the NEXUS subsystem."""
@@ -43,16 +42,16 @@ class NexusUnification:
         self.backup_path = Path(f"{config['backup_dir']}_{self.timestamp}")
         self.models_backup_path = Path(f"{config['models_dir']}_{self.timestamp}")
         self.target_path = Path(config["target_dir"])
-        
+
         # Metrics
         self.metrics = {
             "files_processed": 0,
             "directories_created": 0,
             "bytes_transferred": 0,
             "models_preserved": 0,
-            "references_updated": 0
+            "references_updated": 0,
         }
-        
+
         # Setup logging
         self.setup_logger()
 
@@ -67,7 +66,7 @@ class NexusUnification:
 
         # File handler
         log_file = log_dir / f"nexus_unification_{self.timestamp}.log"
-        file_handler = logging.FileHandler(log_file, encoding='utf-8')
+        file_handler = logging.FileHandler(log_file, encoding="utf-8")
         file_handler.setLevel(logging.INFO)
 
         # Console handler
@@ -75,7 +74,7 @@ class NexusUnification:
         console_handler.setLevel(logging.INFO)
 
         # Formatter
-        formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s')
+        formatter = logging.Formatter("[%(asctime)s] [%(levelname)s] %(message)s")
         file_handler.setFormatter(formatter)
         console_handler.setFormatter(formatter)
 
@@ -114,7 +113,7 @@ class NexusUnification:
         """Create a backup of all NEXUS related files."""
         self.logger.info("Creating backup...")
         self.backup_path.mkdir(parents=True, exist_ok=True)
-        
+
         files_backed_up = 0
         for source_dir in config["source_dirs"]:
             source_path = Path(source_dir)
@@ -126,14 +125,14 @@ class NexusUnification:
                         backup_file_path.parent.mkdir(parents=True, exist_ok=True)
                         shutil.copy2(file_path, backup_file_path)
                         files_backed_up += 1
-        
+
         self.logger.info(f"Backed up {files_backed_up} files")
         return self.verify_backup_integrity()
 
     def verify_backup_integrity(self):
         """Verify the integrity of backed up files."""
         self.logger.info("Verifying backup integrity...")
-        
+
         def calculate_hash(file_path):
             """Calculate SHA-256 hash of a file."""
             sha256_hash = hashlib.sha256()
@@ -149,14 +148,14 @@ class NexusUnification:
                     if file_path.is_file():
                         relative_path = file_path.relative_to(source_path)
                         backup_file_path = self.backup_path / source_dir / relative_path
-                        
+
                         if not backup_file_path.exists():
                             self.logger.error(f"Backup file missing: {backup_file_path}")
                             return False
-                        
+
                         source_hash = calculate_hash(file_path)
                         backup_hash = calculate_hash(backup_file_path)
-                        
+
                         if source_hash != backup_hash:
                             self.logger.error(f"Hash mismatch for {file_path}")
                             return False
@@ -180,7 +179,7 @@ class NexusUnification:
             "docs",
             "tests/unit",
             "tests/integration",
-            "scripts"
+            "scripts",
         ]
 
         for dir_path in directories:
@@ -192,22 +191,22 @@ class NexusUnification:
     def migrate_files(self):
         """Move files to their new locations."""
         self.logger.info("Starting file migration...")
-        
+
         # File mapping
         file_mapping = {
-            'core/nexus/__init__.py': 'core/python/__init__.py',
-            'core/nexus/src/nexus_core.py': 'core/python/nexus_core.py',
-            'web/atendimento/frontend_streamlit/pages/nexus.py': 'web/frontend/nexus.py',
-            'web/atendimento/backend/app/integrations/egos_connector.py': 'web/backend/api/egos_connector.py',
-            'tools/integration/nexus_bridge.py': 'integrations/nexus_bridge.py',
-            'core/config/modules/nexus_config.json': 'config/nexus_config.json',
-            'core/nexus/README.md': 'docs/README.md'
+            "core/nexus/__init__.py": "core/python/__init__.py",
+            "core/nexus/src/nexus_core.py": "core/python/nexus_core.py",
+            "web/atendimento/frontend_streamlit/pages/nexus.py": "web/frontend/nexus.py",
+            "web/atendimento/backend/app/integrations/egos_connector.py": "web/backend/api/egos_connector.py",
+            "tools/integration/nexus_bridge.py": "integrations/nexus_bridge.py",
+            "core/config/modules/nexus_config.json": "config/nexus_config.json",
+            "core/nexus/README.md": "docs/README.md",
         }
 
         for source, target in file_mapping.items():
             source_path = Path(source)
             target_path = self.target_path / target
-            
+
             if source_path.exists():
                 target_path.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(source_path, target_path)
@@ -220,19 +219,19 @@ class NexusUnification:
     def update_references(self):
         """Update file references to match new structure."""
         self.logger.info("Updating file references...")
-        
+
         patterns = [
-            (r'from (core\.)?nexus\.', 'from QUANTUM_PROMPTS.NEXUS.'),
-            (r'import (core\.)?nexus\.', 'import QUANTUM_PROMPTS.NEXUS.'),
-            (r'from [\'"].*?/nexus/', 'from \'QUANTUM_PROMPTS/NEXUS/'),
-            (r'require\([\'"].*?/nexus/', 'require(\'QUANTUM_PROMPTS/NEXUS/'),
-            (r'"path":\s*".*?/nexus/', '"path": "QUANTUM_PROMPTS/NEXUS/')
+            (r"from (core\.)?nexus\.", "from QUANTUM_PROMPTS.NEXUS."),
+            (r"import (core\.)?nexus\.", "import QUANTUM_PROMPTS.NEXUS."),
+            (r'from [\'"].*?/nexus/', "from 'QUANTUM_PROMPTS/NEXUS/"),
+            (r'require\([\'"].*?/nexus/', "require('QUANTUM_PROMPTS/NEXUS/"),
+            (r'"path":\s*".*?/nexus/', '"path": "QUANTUM_PROMPTS/NEXUS/'),
         ]
 
         python_files = [
-            'core/python/nexus_core.py',
-            'web/frontend/nexus.py',
-            'web/backend/api/egos_connector.py'
+            "core/python/nexus_core.py",
+            "web/frontend/nexus.py",
+            "web/backend/api/egos_connector.py",
         ]
 
         for file_path in python_files:
@@ -240,10 +239,10 @@ class NexusUnification:
             if full_path.exists():
                 content = full_path.read_text()
                 original_content = content
-                
+
                 for pattern, replacement in patterns:
                     content = re.sub(pattern, replacement, content)
-                
+
                 if content != original_content:
                     full_path.write_text(content)
                     self.metrics["references_updated"] += 1
@@ -252,13 +251,13 @@ class NexusUnification:
     def validate_migration(self):
         """Validate the migration process."""
         self.logger.info("Validating migration...")
-        
+
         # Required files
         required_files = [
-            'core/python/__init__.py',
-            'core/python/nexus_core.py',
-            'config/nexus_config.json',
-            'docs/README.md'
+            "core/python/__init__.py",
+            "core/python/nexus_core.py",
+            "config/nexus_config.json",
+            "docs/README.md",
         ]
 
         for file_path in required_files:
@@ -282,11 +281,11 @@ class NexusUnification:
             "metrics": self.metrics,
             "status": "success",
             "backup_location": str(self.backup_path),
-            "models_backup": str(self.models_backup_path)
+            "models_backup": str(self.models_backup_path),
         }
 
         report_path = Path("logs") / f"nexus_unification_report_{self.timestamp}.json"
-        with open(report_path, 'w') as f:
+        with open(report_path, "w") as f:
             json.dump(report, f, indent=2)
 
         self.logger.info("Unification report generated successfully")
@@ -295,7 +294,7 @@ class NexusUnification:
         """Execute the unification process."""
         try:
             self.logger.info("Starting NEXUS unification process...")
-            
+
             if not self.check_environment():
                 raise Exception("Environment check failed")
 
@@ -318,7 +317,8 @@ class NexusUnification:
             self.logger.error(f"Unification failed: {str(e)}")
             return False
 
+
 if __name__ == "__main__":
     unification = NexusUnification()
     success = unification.execute()
-    sys.exit(0 if success else 1) 
+    sys.exit(0 if success else 1)

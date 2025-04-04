@@ -106,4 +106,4 @@ python integrations\bots\simple_telegram_bot.py
 echo.
 echo Bot execution ended. Check logs for more information.
 echo.
-pause 
+pause

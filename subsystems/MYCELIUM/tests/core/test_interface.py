@@ -1,23 +1,24 @@
 # subsystems/MYCELIUM/tests/core/test_interface.py
 
-import unittest
 import asyncio
-from unittest.mock import MagicMock, AsyncMock, patch, call # Added call
-from typing import Dict, Any, List
+import unittest
 from datetime import datetime
+from unittest.mock import AsyncMock, MagicMock  # Added call
+
+from subsystems.MYCELIUM.core.interface import MyceliumInterface
 
 # Assume network and interface are importable
 from subsystems.MYCELIUM.core.network import MyceliumNetwork
-from subsystems.MYCELIUM.core.interface import MyceliumInterface
 
 
 class TestMyceliumInterface(unittest.IsolatedAsyncioTestCase):
-
     def setUp(self):
         """Set up a mock network and an interface instance for each test."""
         self.mock_network = MagicMock(spec=MyceliumNetwork)
         # Mock methods that return values or are awaited
-        self.mock_network.generate_uuid = MagicMock(side_effect=lambda: f"uuid-{datetime.now().isoformat()}")
+        self.mock_network.generate_uuid = MagicMock(
+            side_effect=lambda: f"uuid-{datetime.now().isoformat()}"
+        )
         self.mock_network.register_node = AsyncMock(return_value=True)
         self.mock_network.remove_node = AsyncMock(return_value=True)
         self.mock_network.route_message = AsyncMock()
@@ -35,7 +36,7 @@ class TestMyceliumInterface(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.interface._node_id, self.node_id)
         self.assertEqual(len(self.interface._response_waiters), 0)
         # Test initialization errors
-        with self.assertRaises(ValueError): 
+        with self.assertRaises(ValueError):
             MyceliumInterface(None, "test")
         with self.assertRaises(ValueError):
             MyceliumInterface(self.mock_network, "")
@@ -45,16 +46,17 @@ class TestMyceliumInterface(unittest.IsolatedAsyncioTestCase):
         node_type = "TESTER"
         version = "1.1"
         capabilities = ["testing"]
-        
+
         result = await self.interface.connect(node_type, version, capabilities)
-        
+
         self.assertTrue(result)
         # Check if network methods were called correctly
         self.mock_network.register_node.assert_called_once_with(
             self.node_id, node_type, version, capabilities
         )
         self.mock_network.register_response_handler.assert_called_once_with(
-            self.node_id, self.interface._handle_response # Check it registers its internal handler
+            self.node_id,
+            self.interface._handle_response,  # Check it registers its internal handler
         )
 
     async def test_disconnect(self):
@@ -64,27 +66,27 @@ class TestMyceliumInterface(unittest.IsolatedAsyncioTestCase):
         self.interface._response_waiters["pending_corr_id"] = test_future
 
         result = await self.interface.disconnect()
-        
+
         self.assertTrue(result)
         self.mock_network.remove_response_handler.assert_called_once_with(self.node_id)
         self.mock_network.remove_node.assert_called_once_with(self.node_id)
-        self.assertIsNone(self.interface._node_id) # Node ID should be cleared
+        self.assertIsNone(self.interface._node_id)  # Node ID should be cleared
         # Verify the future was cancelled, checking the message is unreliable
-        self.assertTrue(test_future.cancelled()) 
+        self.assertTrue(test_future.cancelled())
         # self.assertIn("Node disconnecting", str(test_future.exception())) # Removed unreliable check
 
     async def test_publish_event(self):
         """Test publishing an event formats message and calls route_message."""
         topic = "event.test.occurred"
         payload = {"data": 123}
-        
+
         await self.interface.publish_event(topic, payload)
-        
+
         # Check that route_message was called
         self.mock_network.route_message.assert_called_once()
         # Get the message argument passed to route_message
         sent_message = self.mock_network.route_message.call_args[0][0]
-        
+
         # Verify message structure
         self.assertEqual(sent_message["header"]["message_type"], "EVENT")
         self.assertEqual(sent_message["header"]["sender_node"], self.node_id)
@@ -96,13 +98,13 @@ class TestMyceliumInterface(unittest.IsolatedAsyncioTestCase):
     async def test_subscribe(self):
         """Test subscribing calls network's add_subscription."""
         topic = "event.test.listen"
-        async def my_callback(message): pass
+
+        async def my_callback(message):
+            pass
 
         await self.interface.subscribe(topic, my_callback)
 
-        self.mock_network.add_subscription.assert_called_once_with(
-            topic, self.node_id, my_callback
-        )
+        self.mock_network.add_subscription.assert_called_once_with(topic, self.node_id, my_callback)
 
     async def test_report_health(self):
         """Test reporting health publishes an event."""
@@ -136,19 +138,20 @@ class TestMyceliumInterface(unittest.IsolatedAsyncioTestCase):
                 response_msg = {
                     "header": {
                         # Use mock_network here
-                        "message_id": self.mock_network.generate_uuid(), 
+                        "message_id": self.mock_network.generate_uuid(),
                         "correlation_id": message["header"]["correlation_id"],
                         "timestamp": datetime.now().isoformat(),
                         "sender_node": target_node,
-                        "target_node": self.node_id, 
+                        "target_node": self.node_id,
                         "topic": topic,
                         "message_type": "RESPONSE",
                         "priority": "MEDIUM",
-                        "version": "1.0"
+                        "version": "1.0",
                     },
-                    "payload": expected_response_payload
+                    "payload": expected_response_payload,
                 }
                 await self.interface._handle_response(response_msg)
+
         self.mock_network.route_message = mock_route_message
 
         response = await self.interface.send_request(target_node, topic, payload, timeout=1)
@@ -176,28 +179,30 @@ class TestMyceliumInterface(unittest.IsolatedAsyncioTestCase):
 
         async def mock_route_message_error(message):
             if message["header"]["message_type"] == "REQUEST":
-                 response_msg = {
+                response_msg = {
                     "header": {
                         # Use mock_network here
-                        "message_id": self.mock_network.generate_uuid(), 
+                        "message_id": self.mock_network.generate_uuid(),
                         "correlation_id": message["header"]["correlation_id"],
                         "timestamp": datetime.now().isoformat(),
                         "sender_node": target_node,
-                        "target_node": self.node_id, 
+                        "target_node": self.node_id,
                         "topic": topic,
                         "message_type": "RESPONSE",
                         "priority": "MEDIUM",
-                        "version": "1.0"
+                        "version": "1.0",
                     },
-                    "payload": error_response_payload
+                    "payload": error_response_payload,
                 }
-                 await self.interface._handle_response(response_msg)
+                await self.interface._handle_response(response_msg)
+
         self.mock_network.route_message = mock_route_message_error
 
         # Use assertRaisesRegex to check for the specific error message within the Exception
         with self.assertRaisesRegex(Exception, "Target failed"):
             await self.interface.send_request(target_node, topic, payload, timeout=1)
 
+
 # Main execution block
-if __name__ == '__main__':
-    unittest.main() 
+if __name__ == "__main__":
+    unittest.main()

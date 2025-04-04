@@ -35,4 +35,4 @@ Move-Item -Path "QUANTUM_PROMPTS/CRONOS/scripts/ethik_unification.py" -Destinati
 Move-Item -Path "QUANTUM_PROMPTS/CRONOS/scripts/setup_ethik_env.ps1" -Destination "QUANTUM_PROMPTS/ETHIK/scripts/" -Force
 Move-Item -Path "QUANTUM_PROMPTS/CRONOS/unification_reports/ethik_analysis.md" -Destination "QUANTUM_PROMPTS/ETHIK/docs/" -Force
 
-Write-Host "File migration completed successfully!" 
+Write-Host "File migration completed successfully!"

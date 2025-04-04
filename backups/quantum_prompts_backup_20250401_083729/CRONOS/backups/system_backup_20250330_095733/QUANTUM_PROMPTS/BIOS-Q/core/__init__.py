@@ -12,4 +12,4 @@ Created: 2025-03-26
 from .mycelium_network import MyceliumNetwork, MyceliumNode
 
 __version__ = "8.0.0"
-__all__ = ["MyceliumNetwork", "MyceliumNode"] 
+__all__ = ["MyceliumNetwork", "MyceliumNode"]

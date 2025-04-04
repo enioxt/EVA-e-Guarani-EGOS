@@ -419,4 +419,4 @@ QUANTUM_PROMPTS/ETHIK/
 
 ---
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

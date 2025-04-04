@@ -25,7 +25,7 @@ try:
     from .quantum_consciousness_backup import consciousness_backup
     from .quantum_memory_preservation import memory_preservation
     from .quantum_optimizer import quantum_optimizer
-    
+
     logger.info("Quantum modules imported successfully")
 except ImportError as e:
     logger.warning(f"Error importing quantum modules: {e}")

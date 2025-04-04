@@ -45,17 +45,17 @@ javascript
 /**
  * EVA & GUARANI - VSCode Extension
  * =====================================
- * 
+ *
  * This extension implements the integration of the EVA & GUARANI system with VSCode,
  * allowing full use of the quantum knowledge base, modular analysis, and
  * systemic mapping in any project.
- * 
+ *
  * Incorporated principles:
  * - Ethics: Respect for the original intention and preservation of code integrity
  * - Love: Compassionate interface and supportive messages to the developer
  * - Economy: Efficient use of resources, minimizing unnecessary processing
  * - Art: Aesthetic visualizations and templates that integrate beauty and functionality
- * 
+ *
  * @context EVA_GUARANI_QUANTUM
  * @version 1.0.0
  * @author EVA & GUARANI Team
@@ -95,7 +95,7 @@ class EVAGuaraniVSCode {
         this.statusBarItem.tooltip = "EVA & GUARANI Quantum System active";
         this.statusBarItem.command = "evaguarani.showInfo";
         this.statusBarItem.show();
-        
+
         this.config = new CONFIG.EVAGuaraniConfig();
         this.templateManager = new TemplateManager(context, this.config);
         this.terminologyGuard = new TerminologyGuard(this.diagnosticCollection, this.config);
@@ -105,14 +105,14 @@ class EVAGuaraniVSCode {
         this.ethicalAdvisor = new EthicalAdvisor(this.config);
         this.cloudSynchronizer = new CloudSynchronizer(context, this.config);
         this.aiRecommender = new AIRecommender(context, this.config);
-        
+
         // Initialize the system with love and ethics
         this._initialize();
-        
+
         // Welcome message with love
         this._showWelcomeMessage();
     }
-    
+
     /**
      * Initializes the components of the extension, setting up observers
      * and commands necessary for integration with VSCode.
@@ -121,23 +121,23 @@ class EVAGuaraniVSCode {
     _initialize() {
         // Detect EVA & GUARANI project root directory
         this._detectProjectRoot();
-        
+
         // Register observers
         this._registerEventListeners();
-        
+
         // Register commands
         this._registerCommands();
-        
+
         // Set up cloud synchronization (ethical and economical implementation)
         this.cloudSynchronizer.initialize();
-        
+
         // Initial configuration of metrics (with economic awareness)
         this.modularAnalyzer.initializeMetrics();
-        
+
         // Notify complete initialization
         console.log('EVA & GUARANI VSCode - System initialized with love and awareness');
     }
-    
+
     /**
      * Detects the root directory of the EVA & GUARANI project
      * using an ethical and conscious search algorithm.
@@ -149,21 +149,21 @@ class EVAGuaraniVSCode {
             console.log('No workspace open, using default configuration');
             return;
         }
-        
+
         // Search for EVA & GUARANI project markers in directories
         for (const folder of workspaceFolders) {
             const folderPath = folder.uri.fsPath;
-            
+
             // Check for marker files
             const documentationPath = path.join(folderPath, 'docs', 'DOCUMENTACAO_UNIFICADA.md');
             const readmePath = path.join(folderPath, 'README.md');
-            
+
             if (fs.existsSync(documentationPath)) {
                 this.config.setProjectRoot(folderPath);
                 console.log(`EVA & GUARANI project found at ${folderPath} (via unified documentation)`);
                 return;
             }
-            
+
             if (fs.existsSync(readmePath)) {
                 try {
                     const readmeContent = fs.readFileSync(readmePath, 'utf8');
@@ -177,12 +177,12 @@ class EVAGuaraniVSCode {
                 }
             }
         }
-        
+
         // Use the first workspace as fallback
         this.config.setProjectRoot(workspaceFolders[0].uri.fsPath);
         console.log(`Using ${workspaceFolders[0].uri.fsPath} as root directory (default)`);
     }
-    
+
     /**
      * Registers event listeners to offer automatic functionalities
      * like template insertion and terminological verification.
@@ -197,7 +197,7 @@ class EVAGuaraniVSCode {
                     if (editor.document.getText().trim() === '') {
                         this.templateManager.checkAndInsertTemplate(editor);
                     }
-                    
+
                     // Analyze terminology and modularity only when necessary (economy)
                     if (this.config.shouldAnalyzeFile(editor.document.uri.fsPath)) {
                         this.terminologyGuard.checkTerminology(editor.document);
@@ -206,7 +206,7 @@ class EVAGuaraniVSCode {
                 }
             })
         );
-        
+
         // Document change observer (optimized for economical resource use)
         let changeTimeout = null;
         this.context.subscriptions.push(
@@ -216,12 +216,12 @@ class EVAGuaraniVSCode {
                     if (changeTimeout) {
                         clearTimeout(changeTimeout);
                     }
-                    
+
                     changeTimeout = setTimeout(() => {
                         this.terminologyGuard.checkTerminology(event.document);
-                        
+
                         // Update AI recommendations only when there are significant changes
-                        if (event.contentChanges.length > 0 && 
+                        if (event.contentChanges.length > 0 &&
                             event.contentChanges.some(change => change.text.length > 10)) {
                             this.aiRecommender.updateRecommendations(event.document);
                         }
@@ -229,17 +229,17 @@ class EVAGuaraniVSCode {
                 }
             })
         );
-        
+
         // File save observer (for more intensive analyses)
         this.context.subscriptions.push(
             vscode.workspace.onDidSaveTextDocument(document => {
                 if (this.config.isEnabled()) {
                     // Full analysis on save (saves resources by not doing it constantly)
                     this.modularAnalyzer.analyzeModularity(document);
-                    
+
                     // Update system map after saving
                     this.systemMapper.updateFileInSystemMap(document);
-                    
+
                     // Synchronize if necessary (with economic awareness)
                     if (this.config.shouldSyncOnSave()) {
                         this.cloudSynchronizer.syncFile(document.uri.fsPath);
@@ -248,7 +248,7 @@ class EVAGuaraniVSCode {
             })
         );
     }
-    
+
     /**
      * Registers extension commands in VSCode to allow conscious interaction
      * with all functionalities of EVA & GUARANI.
@@ -261,7 +261,7 @@ class EVAGuaraniVSCode {
                 this._showSystemInfo();
             })
         );
-        
+
         // Command to add quantum context to the current file
         this.context.subscriptions.push(
             vscode.commands.registerCommand('evaguarani.addQuantumContext', () => {
@@ -271,7 +271,7 @@ class EVAGuaraniVSCode {
                 }
             })
         );
-        
+
         // Command to generate system map (cartography with artistic awareness)
         this.context.subscriptions.push(
             vscode.commands.registerCommand('evaguarani.generateSystemMap', () => {
@@ -279,7 +279,7 @@ class EVAGuaraniVSCode {
                 this.artisticVisualizer.visualizeSystemMap(this.systemMapper.getSystemMap());
             })
         );
-        
+
         // Command for ethical code analysis
         this.context.subscriptions.push(
             vscode.commands.registerCommand('evaguarani.ethicalAnalysis', () => {
@@ -289,14 +289,14 @@ class EVAGuaraniVSCode {
                 }
             })
         );
-        
+
         // Command to configure the extension
         this.context.subscriptions.push(
             vscode.commands.registerCommand('evaguarani.configure', () => {
                 this.config.showConfigurationUI();
             })
         );
-        
+
         // Command to show AI recommendations
         this.context.subscriptions.push(
             vscode.commands.registerCommand('evaguarani.showRecommendations', () => {
@@ -306,7 +306,7 @@ class EVAGuaraniVSCode {
                 }
             })
         );
-        
+
         // Command for cloud synchronization (with ethical security)
         this.context.subscriptions.push(
             vscode.commands.registerCommand('evaguarani.syncWithCloud', () => {
@@ -314,7 +314,7 @@ class EVAGuaraniVSCode {
             })
         );
     }
-    
+
     /**
      * Shows a welcome message with love and ethical awareness.
      * @private
@@ -322,7 +322,7 @@ class EVAGuaraniVSCode {
     _showWelcomeMessage() {
         // Check if it's the first time the user opens the extension
         const hasShownWelcome = this.context.globalState.get('evaguarani.hasShownWelcome', false);
-        
+
         if (!hasShownWelcome || this.config.shouldAlwaysShowWelcome()) {
             vscode.window.showInformationMessage(
                 '✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧\n' +
@@ -344,12 +344,12 @@ class EVAGuaraniVSCode {
                     }
                 }
             });
-            
+
             // Register that the message has been shown
             this.context.globalState.update('evaguarani.hasShownWelcome', true);
         }
     }
-    
+
     /**
      * Displays information about the EVA & GUARANI system in an artistic panel.
      * @private
@@ -367,10 +367,10 @@ class EVAGuaraniVSCode {
                 ]
             }
         );
-        
+
         // Generate artistic content with system information
         panel.webview.html = this._generateSystemInfoHTML();
-        
+
         // Handle messages from the webview (with ethics and love)
         panel.webview.onDidReceiveMessage(
             message => {
@@ -395,7 +395,7 @@ class EVAGuaraniVSCode {
             this.context.subscriptions
         );
     }
-    
+
     /**
      * Generates artistic HTML for the system information panel.
      * @private
@@ -420,12 +420,12 @@ class EVAGuaraniVSCode {
                     max-width: 900px;
                     margin: 0 auto;
                 }
-                
+
                 .header {
                     text-align: center;
                     margin-bottom: 2rem;
                 }
-                
+
                 h1 {
                     font-size: 2.5rem;
                     margin-bottom: 1rem;
@@ -435,19 +435,19 @@ class EVAGuaraniVSCode {
                     background-size: 300% 300%;
                     animation: gradient-text 8s ease infinite;
                 }
-                
+
                 @keyframes gradient-text {
                     0% { background-position: 0% 50% }
                     50% { background-position: 100% 50% }
                     100% { background-position: 0% 50% }
                 }
-                
+
                 .subtitle {
                     font-style: italic;
                     color: #aaa;
                     margin-bottom: 2rem;
                 }
-                
+
                 .section {
                     background-color: rgba(255, 255, 255, 0.05);
                     padding: 1.5rem;
@@ -456,42 +456,42 @@ class EVAGuaraniVSCode {
                     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                     border-left: 4px solid #8e44ad;
                 }
-                
+
                 h2 {
                     color: #9b59b6;
                     margin-top: 0;
                     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
                     padding-bottom: 0.5rem;
                 }
-                
+
                 .stats {
                     display: grid;
                     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
                     gap: 1rem;
                     margin-top: 1rem;
                 }
-                
+
                 .stat-card {
                     background-color: rgba(0, 0, 0, 0.2);
                     padding: 1rem;
                     border-radius: 6px;
                     text-align: center;
                 }
-                
+
                 .stat-value {
                     font-size: 1.5rem;
                     font-weight: bold;
                     color: #3498db;
                     margin: 0.5rem 0;
                 }
-                
+
                 .actions {
                     display: flex;
                     flex-wrap: wrap;
                     gap: 1rem;
                     margin-top: 1.5rem;
                 }
-                
+
                 button {
                     background-color: #8e44ad;
                     color: white;
@@ -502,29 +502,29 @@ class EVAGuaraniVSCode {
                     font-weight: 500;
                     transition: all 0.3s ease;
                 }
-                
+
                 button:hover {
                     background-color: #9b59b6;
                     transform: translateY(-2px);
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
                 }
-                
+
                 .principles {
                     columns: 2;
                     column-gap: 2rem;
                     margin-top: 1rem;
                 }
-                
+
                 .principle {
                     break-inside: avoid;
                     margin-bottom: 1rem;
                 }
-                
+
                 .principle h3 {
                     color: #e74c3c;
                     margin-bottom: 0.25rem;
                 }
-                
+
                 footer {
                     text-align: center;
                     margin-top: 2rem;
@@ -532,14 +532,14 @@ class EVAGuaraniVSCode {
                     border-top: 1px solid rgba(255, 255, 255, 0.1);
                     color: #aaa;
                 }
-                
+
                 .signature {
                     font-family: 'Brush Script MT', cursive;
                     font-size: 1.5rem;
                     margin-top: 1rem;
                     color: #e74c3c;
                 }
-                
+
                 .matrix {
                     background-color: rgba(0, 0, 0, 0.3);
                     padding: 1rem;
@@ -549,7 +549,7 @@ class EVAGuaraniVSCode {
                     color: #2ecc71;
                     white-space: pre;
                 }
-                
+
                 .progress-bar {
                     height: 6px;
                     background-color: rgba(255, 255, 255, 0.1);
@@ -557,7 +557,7 @@ class EVAGuaraniVSCode {
                     overflow: hidden;
                     margin: 8px 0;
                 }
-                
+
                 .progress-fill {
                     height: 100%;
                     background: linear-gradient(90deg, #3498db, #9b59b6);
@@ -570,6 +570,6 @@ class EVAGuaraniVSCode {
                 <h1>✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧</h1>
                 <div class="subtitle">Ethical Development Quantum System - VSCode Extension</div>
             </div>
-            
+
             <div class="section">
                 <h2>🌌 Quantum Consciousness Matrix</h2>

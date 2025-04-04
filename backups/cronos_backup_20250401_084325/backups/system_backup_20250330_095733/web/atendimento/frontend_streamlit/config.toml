@@ -16,4 +16,4 @@ enableCORS = true
 gatherUsageStats = false
 
 [logger]
-level = "info" 
+level = "info"

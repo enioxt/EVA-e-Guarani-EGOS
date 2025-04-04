@@ -234,4 +234,4 @@ Special thanks to all contributors and the EVA & GUARANI community.
 Version: 1.0
 Last Updated: 2024-03-28
 Status: Active Development
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

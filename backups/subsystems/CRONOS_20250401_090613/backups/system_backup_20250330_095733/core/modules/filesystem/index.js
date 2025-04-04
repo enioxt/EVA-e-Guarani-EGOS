@@ -45,7 +45,7 @@ METADATA:
  * EVA & GUARANI - SLOP Filesystem Module
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This module provides filesystem access through the SLOP API.
  * It allows reading, writing, listing, and searching files in specified directories.
  */
@@ -608,4 +608,4 @@ async function deleteFile(req, res) {
 
 module.exports = {
     initialize
-}; 
+};

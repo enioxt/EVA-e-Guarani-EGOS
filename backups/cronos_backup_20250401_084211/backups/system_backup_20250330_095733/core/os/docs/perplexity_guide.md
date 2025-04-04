@@ -273,28 +273,28 @@ try:
         validation_level="strict",
         context="Academic research on ethics and technology"
     )
-    
+
     if results["status"] == "success":
         print("\n=== SEARCH RESULTS ===\n")
         print(results["content"])
-        
+
         print("\n=== SOURCES ===\n")
         for i, source in enumerate(results["sources"], 1):
             print(f"{i}. {source['title']}")
             print(f"   URL: {source['url']}")
             print(f"   Reliability: {source['reliability']:.2f}")
-        
+
         print("\n=== METADATA ===\n")
         print(f"Validation level: {results['metadata']['validation_level']}")
         print(f"Confidence score: {results['metadata']['confidence_score']:.2f}")
-        
+
         if results['potential_biases']:
             print("\n=== POTENTIAL BIASES ===\n")
             for bias in results['potential_biases']:
                 print(f"- {bias}")
     else:
         print(f"Error: {results.get('reason', 'Unknown failure')}")
-        
+
 except Exception as e:
     print(f"Error during search: {e}")
 

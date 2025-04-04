@@ -22,4 +22,4 @@ except ImportError:
 """
 EVA & GUARANI Translator - Engines Package
 Contains translation engines including HuggingFace and OpenAI implementations.
-""" 
+"""

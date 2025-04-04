@@ -170,7 +170,7 @@ graph LR
 
 
 ### Technical Metrics
-- **Lines of Code**: ~12,000 
+- **Lines of Code**: ~12,000
 - **Components**: 24 main modules
 - **Test Coverage**: 45% (goal: 80%)
 - **Average Response Time**: 1.8s (goal: <1.5s)

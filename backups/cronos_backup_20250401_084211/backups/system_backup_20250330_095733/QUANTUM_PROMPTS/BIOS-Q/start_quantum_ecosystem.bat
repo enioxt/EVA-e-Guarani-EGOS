@@ -129,4 +129,4 @@ echo.
 echo ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 echo.
 
-pause 
+pause

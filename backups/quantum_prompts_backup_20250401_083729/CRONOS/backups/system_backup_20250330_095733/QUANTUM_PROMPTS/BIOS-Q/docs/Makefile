@@ -66,4 +66,4 @@ linkcheck:
 apidoc:
 	sphinx-apidoc -o "$(SOURCEDIR)/api" ../bios_q
 	@echo
-	@echo "API documentation generated in $(SOURCEDIR)/api." 
+	@echo "API documentation generated in $(SOURCEDIR)/api."

@@ -68,14 +68,14 @@ def check_dependencies():
         'aiohttp': 'aiohttp',
         'psutil': 'psutil'
     }
-    
+
     missing_packages = []
     for package, import_name in required_packages.items():
         try:
             __import__(import_name)
         except ImportError:
             missing_packages.append(package)
-    
+
     if missing_packages:
         logger.error("Dependências faltando. Por favor, instale:")
         for package in missing_packages:
@@ -89,7 +89,7 @@ if not check_dependencies():
 
 class MCPTool:
     """Definição de uma ferramenta para o protocolo MCP."""
-    def __init__(self, name: str, description: str, parameters: Dict[str, Any], 
+    def __init__(self, name: str, description: str, parameters: Dict[str, Any],
                  handler: Callable[[Dict[str, Any]], Union[Dict[str, Any], Awaitable[Dict[str, Any]]]]):
         self.name = name
         self.description = description
@@ -98,7 +98,7 @@ class MCPTool:
 
 class MCPServer:
     """Implementação do servidor MCP para EVA & GUARANI."""
-    
+
     def __init__(self, host: str = "localhost", port: int = 38002, status_port: int = 38003):
         self.host = host
         self.port = port
@@ -114,7 +114,7 @@ class MCPServer:
     def _register_tools(self) -> Dict[str, MCPTool]:
         """Registra as ferramentas disponíveis no servidor."""
         tools = {}
-        
+
         # Ferramenta de pesquisa com Perplexity
         if perplexity_api.is_configured():
             tools["perplexity_search"] = MCPTool(
@@ -139,24 +139,24 @@ class MCPServer:
                 handler=self._handle_perplexity_search
             )
             logger.info("Ferramenta de pesquisa Perplexity registrada")
-        
+
         # Adicione outras ferramentas aqui...
-        
+
         return tools
-    
+
     async def _handle_perplexity_search(self, params: Dict[str, Any]) -> Dict[str, Any]:
         """Manipulador para a ferramenta de pesquisa Perplexity."""
         query = params.get("query", "")
         model = params.get("model", "sonar-small-online")
-        
+
         if not query:
             return {
                 "error": "O parâmetro 'query' é obrigatório"
             }
-        
+
         # Executa a busca
         result = perplexity_api.get_search_result(query, model)
-        
+
         return {
             "result": result
         }
@@ -166,7 +166,7 @@ class MCPServer:
         try:
             self.clients.append(websocket)
             logger.info(f"Novo cliente conectado. Total: {len(self.clients)}")
-            
+
     async for message in websocket:
         try:
             data = json.loads(message)
@@ -196,16 +196,16 @@ class MCPServer:
             if data.get("type") == "perplexity_search":
                 if not self.perplexity_api:
                     self.perplexity_api = PerplexityAPI()
-                
+
                 query = data.get("query", "")
                 persona = data.get("persona", "default")
-                
+
                 if not query:
                     return {
                         "status": "error",
                         "message": "Query parameter is required"
                     }
-                
+
                 result = await self.perplexity_api.search(query, persona)
                 return {
                     "status": "success",
@@ -245,16 +245,16 @@ class MCPServer:
         try:
             # Carrega variáveis de ambiente
             load_dotenv()
-            
+
             # Verifica se a API key está configurada
             if not os.getenv("PERPLEXITY_API_KEY"):
                 logger.error("PERPLEXITY_API_KEY não encontrada nas variáveis de ambiente")
                 return
-            
+
             # Inicializa a API do Perplexity
             self.perplexity_api = PerplexityAPI()
             logger.info("API do Perplexity inicializada com sucesso")
-            
+
             # Inicializa o servidor WebSocket
             self.server = await serve(
                 self.handle_client,
@@ -265,7 +265,7 @@ class MCPServer:
                 close_timeout=10,
                 max_size=10485760
             )
-            
+
             # Inicializa o servidor de status HTTP
             app = aiohttp.web.Application()
             app.router.add_get('/status', self.status_handler)
@@ -273,26 +273,26 @@ class MCPServer:
             await runner.setup()
             self.status_server = aiohttp.web.TCPSite(runner, self.host, self.status_port)
             await self.status_server.start()
-            
+
             self.start_time = time.time()
             self.running = True
-            
+
             logger.info("MCP Server inicializado")
             logger.info(f"Versão do MCP: 1.0")
             logger.info(f"Nome do servidor: eva-guarani")
-            
+
             if sys.platform == 'win32':
                 logger.info("Executando no Windows, manipulação de sinais limitada")
-            
+
             logger.info(f"Servidor MCP iniciado em ws://{self.host}:{self.port}")
             logger.info(f"Endpoint de status disponível em http://{self.host}:{self.status_port}/status")
-            
+
             # Loop principal
             while self.running:
                 uptime = int(time.time() - self.start_time)
                 logger.info(f"Servidor ativo há {uptime} segundos. Clientes conectados: {len(self.clients)}")
                 await asyncio.sleep(60)
-            
+
         except Exception as e:
             logger.error(f"Erro ao iniciar servidor: {str(e)}")
             await self.stop()
@@ -313,14 +313,14 @@ async def shutdown_server(server, signal=None):
         logger.info(f"Recebido sinal {signal.name}, desligando servidor...")
     else:
         logger.info("Desligando servidor...")
-    
+
     await server.stop()
-    
+
     # Give tasks time to complete
     tasks = [t for t in asyncio.all_tasks() if t is not asyncio.current_task()]
     for task in tasks:
         task.cancel()
-    
+
     await asyncio.gather(*tasks, return_exceptions=True)
     asyncio.get_event_loop().stop()
 
@@ -332,26 +332,26 @@ async def main():
             port=38002,
             status_port=38003
         )
-        
+
         # Check if we're running on Windows
         if platform.system() != 'Windows':
             # Unix-style signal handling (not supported on Windows)
             for sig in (signal.SIGINT, signal.SIGTERM):
                 asyncio.get_event_loop().add_signal_handler(
-                    sig, 
+                    sig,
                     lambda s=sig: asyncio.create_task(shutdown_server(server, s))
                 )
         else:
             # Windows alternative
             logger.info("Executando no Windows, manipulação de sinais limitada")
-        
+
         # Start the server
         await server.start()
-        
+
         # Keep the server running
         while True:
             await asyncio.sleep(1)
-            
+
     except KeyboardInterrupt:
         logger.info("Recebido sinal de interrupção (Ctrl+C)")
         await shutdown_server(server)
@@ -368,4 +368,4 @@ if __name__ == "__main__":
     except Exception as e:
         logger.error(f"Erro ao iniciar servidor: {str(e)}")
         logger.error(traceback.format_exc())
-        sys.exit(1) 
+        sys.exit(1)

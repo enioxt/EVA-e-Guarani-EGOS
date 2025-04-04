@@ -176,7 +176,7 @@ if %ERRORLEVEL% EQU 0 (
     echo.
     echo Scan complete. Results saved to: !report_file!
     echo.
-    
+
     :: Check if any files were found
     findstr /i /c:"| File |" "!report_file!" > nul
     if %ERRORLEVEL% EQU 0 (
@@ -188,7 +188,7 @@ if %ERRORLEVEL% EQU 0 (
         echo 3. Return to main menu
         echo.
         set /p translate_option="What would you like to do? (1-3): "
-        
+
         if "!translate_option!"=="1" (
             echo.
             echo Starting batch translation of all detected files...
@@ -206,7 +206,7 @@ if %ERRORLEVEL% EQU 0 (
             echo 2. Return to main menu
             echo.
             set /p post_review="What would you like to do? (1-2): "
-            
+
             if "!post_review!"=="1" (
                 echo.
                 echo Starting batch translation...
@@ -386,15 +386,15 @@ set /a failed=0
 for /F "usebackq tokens=*" %%a in ("%temp_file%") do (
     set "file_path=%%a"
     setlocal enabledelayedexpansion
-    
+
     set /a current+=1
     echo [!current!/%count%] Translating: "!file_path!"
-    
+
     :: Check if file exists
     if exist "!file_path!" (
         :: Translate the file
         python ai_translate_file.py --file "!file_path!"
-        
+
         if !ERRORLEVEL! EQU 0 (
             set /a success+=1
             echo Translation successful.
@@ -430,7 +430,7 @@ call :display_header
 echo API KEY CONFIGURATION
 echo ====================
 echo.
-echo Current API Key: 
+echo Current API Key:
 python "%TRANSLATOR_SCRIPT%" --show-key
 echo.
 echo Options:
@@ -510,4 +510,4 @@ echo Thank you for using EVA ^& GUARANI Translation Tools.
 echo ✧༺❀༻∞ EVA ^& GUARANI ∞༺❀༻✧
 echo.
 endlocal
-exit /b 0 
+exit /b 0

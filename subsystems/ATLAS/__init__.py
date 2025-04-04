@@ -1,1 +1,1 @@
-"""ATLAS subsystem for system cartography and visualization.""" 
+"""ATLAS subsystem for system cartography and visualization."""

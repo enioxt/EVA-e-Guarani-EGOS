@@ -70,4 +70,4 @@ const config: Config.InitialOptions = {
     runInBand: false,
     testLocationInResults: true,
     timers: 'modern'
-} 
+}

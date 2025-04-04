@@ -135,7 +135,7 @@ if "%MODE%"=="simple" (
     echo.
     echo Press Ctrl+C to stop the bot.
     echo.
-    
+
     python "%BOT_DIR%simple_bot.py"
 ) else if "%MODE%"=="web" (
     echo Opening Telegram Web interface...
@@ -148,7 +148,7 @@ if "%MODE%"=="simple" (
         set /p CONFIRM=
         if /i "%CONFIRM%" NEQ "Y" goto :end
     )
-    
+
     echo.
     echo Starting EVA & GUARANI Telegram Bot (Standard Mode)...
     echo.
@@ -156,7 +156,7 @@ if "%MODE%"=="simple" (
     echo.
     echo Press Ctrl+C to stop the bot.
     echo.
-    
+
     python "%BOT_DIR%simple_telegram_bot.py"
 )
 
@@ -185,4 +185,4 @@ echo.
 echo.
 echo Bot execution ended. Check logs for more information.
 echo.
-pause 
+pause

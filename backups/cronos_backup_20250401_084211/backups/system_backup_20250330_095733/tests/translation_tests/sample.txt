@@ -40,4 +40,4 @@ O tradutor EVA & GUARANI é uma ferramenta essencial para projetos multilíngues
 Ele permite converter facilmente conteúdo de português para inglês, mantendo
 a estrutura e o significado original.
 
-Esta é apenas uma amostra para teste de detecção de idioma. 
+Esta é apenas uma amostra para teste de detecção de idioma.

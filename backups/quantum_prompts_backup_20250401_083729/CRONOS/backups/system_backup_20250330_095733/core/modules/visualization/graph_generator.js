@@ -45,10 +45,10 @@ javascript
 /**
  * EVA & GUARANI - Graph Generation Utilities (ATLAS)
  * ==========================================================
- * 
+ *
  * This module provides utilities for generating visualization data
  * for different types of graphs used by the ATLAS subsystem.
- * 
+ *
  * @context EVA_GUARANI_ATLAS_UTILS
  * @version 1.0.0
  * @author EVA & GUARANI Team
@@ -69,10 +69,10 @@ function generateCytoscapeData(nodes, edges, options = {}) {
         colorBy: 'type', // 'type', 'metrics', 'warnings'
         nodeSize: 'fixed' // 'fixed', 'degree', 'centrality'
     };
-    
+
     // Merge options
     const graphOptions = { ...defaultOptions, ...options };
-    
+
     // Format nodes for Cytoscape
     const cytoscapeNodes = nodes.map(node => {
         // Base node data
@@ -82,12 +82,12 @@ function generateCytoscapeData(nodes, edges, options = {}) {
             fullPath: node.fullPath || '',
             type: node.type || 'unknown'
         };
-        
+
         // Add metrics if requested
         if (graphOptions.includeMetrics && node.metrics) {
             nodeData.metrics = node.metrics;
         }
-        
+
         // Add ethical markings if requested
         if (graphOptions.includeEthicalWarnings) {
             if (node.ethical_warning) nodeData.ethical_warning = true;
@@ -96,7 +96,7 @@ function generateCytoscapeData(nodes, edges, options = {}) {
             if (node.isolated) nodeData.isolated = true;
             if (node.highlight) nodeData.highlight = true;
         }
-        
+
         // Set node size based on option
         if (graphOptions.nodeSize === 'degree' && node.metrics) {
             const inDegree = node.metrics.inboundDeps || 0;
@@ -105,17 +105,17 @@ function generateCytoscapeData(nodes, edges, options = {}) {
         } else if (graphOptions.nodeSize === 'centrality' && node.metrics && node.metrics.centrality) {
             nodeData.size = Math.max(10, Math.min(30, 10 + node.metrics.centrality * 3));
         }
-        
+
         // Add custom color
         if (node.color) {
             nodeData.color = node.color;
         }
-        
+
         return {
             data: nodeData
         };
     });
-    
+
     // Format edges for Cytoscape
     const cytoscapeEdges = edges.map(edge => {
         // Base edge data
@@ -125,17 +125,17 @@ function generateCytoscapeData(nodes, edges, options = {}) {
             target: edge.target,
             type: edge.type || 'default'
         };
-        
+
         // Add weight if available
         if (edge.weight) {
             edgeData.weight = edge.weight;
         }
-        
+
         return {
             data: edgeData
         };
     });
-    
+
     return {
         nodes: cytoscapeNodes,
         edges: cytoscapeEdges
@@ -162,10 +162,10 @@ function generateHeatmapData(nodes, options = {}) {
             { value: 1, color: '#00441b' }
         ]
     };
-    
+
     // Merge options
     const heatmapOptions = { ...defaultOptions, ...options };
-    
+
     // Extract values of the selected metric
     const metricValues = nodes
         .filter(node => node.metrics && node.metrics[heatmapOptions.metric] !== undefined)
@@ -178,16 +178,16 @@ function generateHeatmapData(nodes, options = {}) {
                 normalized: Math.min(1, node.metrics[heatmapOptions.metric] / heatmapOptions.maxValue)
             };
         });
-    
+
     // Associate colors based on the scale and normalized values
     metricValues.forEach(item => {
         const scale = heatmapOptions.colorScale;
-        
+
         // Find position on the color scale
         for (let i = 0; i < scale.length - 1; i++) {
             const lower = scale[i];
             const upper = scale[i + 1];
-            
+
             if (item.normalized >= lower.value && item.normalized <= upper.value) {
                 // Calculate interpolated color
                 const ratio = (item.normalized - lower.value) / (upper.value - lower.value);
@@ -195,13 +195,13 @@ function generateHeatmapData(nodes, options = {}) {
                 break;
             }
         }
-        
+
         // If no interval found, use the last color
         if (!item.color) {
             item.color = scale[scale.length - 1].color;
         }
     });
-    
+
     return {
         items: metricValues,
         options: heatmapOptions
@@ -220,12 +220,12 @@ function interpolateColor(color1, color2, ratio) {
     // Convert colors to RGB
     const rgb1 = hexToRgb(color1);
     const rgb2 = hexToRgb(color2);
-    
+
     // Linear interpolation
     const r = Math.round(rgb1.r + (rgb2.r - rgb1.r) * ratio);
     const g = Math.round(rgb1.g + (rgb2.g - rgb1.g) * ratio);
     const b = Math.round(rgb1.b + (rgb2.b - rgb1.b) * ratio);
-    
+
     // Convert back to hex
     return rgbToHex(r, g, b);
 }
@@ -239,17 +239,17 @@ function interpolateColor(color1, color2, ratio) {
 function hexToRgb(hex) {
     // Remove # if present
     hex = hex.replace(/^#/, '');
-    
+
     // Handle shorthand formats (e.g., #fff)
     if (hex.length === 3) {
         hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
     }
-    
+
     // Convert to decimal components
     const r = parseInt(hex.substring(0, 2), 16);
     const g = parseInt(hex.substring(2, 4), 16);
     const b = parseInt(hex.substring(4, 6), 16);
-    
+
     return { r, g, b };
 }
 
@@ -262,7 +262,7 @@ function hexToRgb(hex) {
  * @returns {string} Color in hexadecimal format
  */
 function rgbToHex(r, g, b) {
-    return '#' + 
+    return '#' +
         (r < 16 ? '0' : '') + r.toString(16) +
         (g < 16 ? '0' : '') + g.toString(16) +
         (b < 16 ? '0' : '') + b.toString(16);
@@ -284,48 +284,48 @@ function generateHierarchicalLayout(nodes, edges, options = {}) {
         nodeSeparation: 50,
         edgeMinimization: true
     };
-    
+
     // Merge options
     const layoutOptions = { ...defaultOptions, ...options };
-    
+
     // Data structure to represent directed graph
     const graph = {
         nodes: new Map(),
         children: new Map(),
         parents: new Map()
     };
-    
+
     // Initialize structures
     nodes.forEach(node => {
         graph.nodes.set(node.id, node);
         graph.children.set(node.id, []);
         graph.parents.set(node.id, []);
     });
-    
+
     // Fill parent-child relationships
     edges.forEach(edge => {
         const source = edge.source;
         const target = edge.target;
-        
+
         if (graph.children.has(source) && graph.parents.has(target)) {
             graph.children.get(source).push(target);
             graph.parents.get(target).push(source);
         }
     });
-    
+
     // Simplified topological sorting algorithm
     const visited = new Set();
     const levels = new Map();
-    
+
     // Find nodes without parents (roots)
     const roots = Array.from(graph.nodes.keys())
         .filter(nodeId => graph.parents.get(nodeId).length === 0);
-    
+
     // Initialize roots at level 0
     roots.forEach(root => {
         levels.set(root, 0);
     });
-    
+
     // Function to assign levels recursively
     const assignLevels = (nodeId, level) => {
         if (visited.has(nodeId)) {
@@ -333,21 +333,21 @@ function generateHierarchicalLayout(nodes, edges, options = {}) {
             levels.set(nodeId, Math.max(levels.get(nodeId) || 0, level));
             return;
         }
-        
+
         visited.add(nodeId);
         levels.set(nodeId, level);
-        
+
         // Process children
         graph.children.get(nodeId).forEach(childId => {
             assignLevels(childId, level + 1);
         });
     };
-    
+
     // Assign levels starting from the roots
     roots.forEach(root => {
         assignLevels(root, 0);
     });
-    
+
     // Handle cycles: unvisited nodes
     Array.from(graph.nodes.keys())
         .filter(nodeId => !visited.has(nodeId))
@@ -356,17 +356,17 @@ function generateHierarchicalLayout(nodes, edges, options = {}) {
             const parentLevels = graph.parents.get(nodeId)
                 .filter(parentId => levels.has(parentId))
                 .map(parentId => levels.get(parentId));
-            
-            const level = parentLevels.length > 0 
+
+            const level = parentLevels.length > 0
                 ? Math.max(...parentLevels) + 1
                 : 0;
-                
+
             assignLevels(nodeId, level);
         });
-    
+
     // Calculate X and Y positions based on levels
     const positions = {};
-    
+
     // Group nodes by level
     const nodesByLevel = new Map();
     for (const [nodeId, level] of levels.entries()) {
@@ -375,24 +375,24 @@ function generateHierarchicalLayout(nodes, edges, options = {}) {
         }
         nodesByLevel.get(level).push(nodeId);
     }
-    
+
     // Calculate positions
     for (const [level, nodeIds] of nodesByLevel.entries()) {
         const count = nodeIds.length;
-        
+
         nodeIds.forEach((nodeId, index) => {
             const x = layoutOptions.direction === 'TB'
                 ? layoutOptions.nodeSeparation * (index - (count - 1) / 2)
                 : layoutOptions.levelSeparation * level;
-                
+
             const y = layoutOptions.direction === 'TB'
                 ? layoutOptions.levelSeparation * level
                 : layoutOptions.nodeSeparation * (index - (count - 1) / 2);
-                
+
             positions[nodeId] = { x, y };
         });
     }
-    
+
     return positions;
 }
 

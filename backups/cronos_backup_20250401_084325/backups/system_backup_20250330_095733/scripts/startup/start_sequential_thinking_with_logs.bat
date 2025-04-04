@@ -94,4 +94,4 @@ cmd /c node "C:\Eva Guarani EGOS\tools\mcp-sequentialthinking-tools\dist\index.j
 if errorlevel 1 (
     echo [ERRO] Falha ao iniciar o servidor. Verifique os logs em logs\sequential_thinking.log
     pause
-) 
+)

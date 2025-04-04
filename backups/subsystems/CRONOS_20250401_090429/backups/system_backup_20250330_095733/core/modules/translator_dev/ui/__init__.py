@@ -5,4 +5,4 @@
 UI package for EVA & GUARANI Translator.
 
 This package provides user interface components for the translator.
-""" 
+"""

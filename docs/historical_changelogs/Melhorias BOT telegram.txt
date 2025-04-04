@@ -52,7 +52,7 @@ from egos.ethik import EthikCore
 class TelegramHandlers:
     def __init__(self, application, bot_token):
         # Código existente...
-        
+
         # Integração com ETHIK Core
         self.ethik = EthikCore()
         self.ethical_principles = {
@@ -62,21 +62,21 @@ class TelegramHandlers:
             "inclusividade": 0.94,
             "bem-estar": 0.98
         }
-        
+
     def handle_message(self, update, context):
         # Verificar permissão
         if not self.check_user_permission(update.effective_chat.id):
             return
-            
+
         # Analisar implicações éticas da mensagem
         ethical_analysis = self.ethik.analyze_message(
             update.message.text,
             principles=self.ethical_principles
         )
-        
+
         # Registrar análise ética
         self.log_ethical_analysis(ethical_analysis)
-        
+
         # Continuar processamento apenas se análise ética for aceitável
         if ethical_analysis.score < 0.7:
             message = f"Desculpe, não posso processar esta solicitação por razões éticas: {ethical_analysis.reason}"
@@ -107,20 +107,20 @@ class RateLimiter:
         self.user_requests = {}  # {user_id: [timestamps]}
         self.max_requests = 20   # 20 requisições por minuto
         self.time_window = 60    # 60 segundos (1 minuto)
-        
+
     def check_rate_limit(self, user_id):
         now = datetime.now()
         if user_id not in self.user_requests:
             self.user_requests[user_id] = []
-            
+
         # Remover timestamps antigos
-        self.user_requests[user_id] = [ts for ts in self.user_requests[user_id] 
+        self.user_requests[user_id] = [ts for ts in self.user_requests[user_id]
                                       if now - ts < timedelta(seconds=self.time_window)]
-        
+
         # Verificar se excedeu o limite
         if len(self.user_requests[user_id]) >= self.max_requests:
             return False
-            
+
         # Adicionar timestamp atual
         self.user_requests[user_id].append(now)
         return True
@@ -142,7 +142,7 @@ class RateLimiter:
 def select_optimal_model(query, user_history):
     # Analisar complexidade da consulta
     complexity = analyze_complexity(query)
-    
+
     # Determinar modelo baseado na complexidade
     if complexity < 0.3:
         return "gpt-3.5-turbo"  # Consultas simples
@@ -150,7 +150,7 @@ def select_optimal_model(query, user_history):
         return "gpt-4o-mini"    # Complexidade média
     else:
         return "gpt-4o"         # Consultas complexas
-        
+
     # TODO: Considerar também contexto da conversa e necessidades específicas
 ```
 
@@ -172,10 +172,10 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 def build_main_menu(context, user_id):
     # Obter preferências personalizadas do usuário
     user_preferences = context.user_data.get('preferences', {})
-    
+
     # Construir botões baseado nas preferências do usuário
     buttons = []
-    
+
     # Linha 1 - Funcionalidades principais
     row1 = []
     if user_preferences.get('creativity', True):
@@ -184,14 +184,14 @@ def build_main_menu(context, user_id):
         row1.append(InlineKeyboardButton("🔍 Analisar", callback_data="menu_analyze"))
     row1.append(InlineKeyboardButton("💬 Conversar", callback_data="menu_chat"))
     buttons.append(row1)
-    
+
     # Linha 2 - Configurações e ajuda
     row2 = [
         InlineKeyboardButton("⚙️ Preferências", callback_data="menu_settings"),
         InlineKeyboardButton("❓ Ajuda", callback_data="menu_help")
     ]
     buttons.append(row2)
-    
+
     return InlineKeyboardMarkup(buttons)
 ```
 
@@ -212,10 +212,10 @@ from egos.modules.nexus import ModuleAnalyzer
 
 def analyze_message_intent(message_text, user_history):
     analyzer = ModuleAnalyzer()
-    
+
     # Análise de intenção
     intent_analysis = analyzer.analyze_text(message_text)
-    
+
     return {
         "primary_intent": intent_analysis.primary_intent,
         "confidence": intent_analysis.confidence,
@@ -243,13 +243,13 @@ from egos.modules.atlas import ATLAS
 
 def generate_concept_map(topic, depth=2):
     atlas = ATLAS()
-    
+
     # Mapear conceito e relações
     concept_map = atlas.map_concept(topic, depth=depth)
-    
+
     # Gerar visualização em formato de diagrama
     mermaid_diagram = atlas.visualize(concept_map, format="mermaid")
-    
+
     return mermaid_diagram
 ```
 
@@ -270,7 +270,7 @@ from egos.modules.cronos import CRONOS
 
 def create_quantum_backup(chat_id, conversation_history, context=None):
     cronos = CRONOS()
-    
+
     # Metadados para o backup
     metadata = {
         "timestamp": datetime.now().isoformat(),
@@ -279,14 +279,14 @@ def create_quantum_backup(chat_id, conversation_history, context=None):
         "context": context or {},
         "topics": extract_topics(conversation_history)
     }
-    
+
     # Criar backup com preservação contextual
     backup_id = cronos.create_quantum_backup(
         conversation_history,
         description=f"Conversa com usuário {chat_id}",
         context=metadata
     )
-    
+
     return backup_id
 ```
 
@@ -307,13 +307,13 @@ from egos.modules.logos import LOGOS
 
 def adapt_response_for_audience(technical_response, audience_level):
     logos = LOGOS()
-    
+
     # Níveis de audiência: "beginner", "intermediate", "advanced", "expert"
     adapted_response = logos.adapt_for_audience(
-        technical_response, 
+        technical_response,
         audience=audience_level
     )
-    
+
     return adapted_response
 ```
 
@@ -327,7 +327,7 @@ def log_activity(subsystem, operation, status, context, details, recommendations
     Gera um log estruturado conforme o padrão EGOS.
     """
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
+
     log_entry = {
         "timestamp": timestamp,
         "subsystem": subsystem,
@@ -338,11 +338,11 @@ def log_activity(subsystem, operation, status, context, details, recommendations
         "recommendations": recommendations or [],
         "ethical_reflection": ethical_reflection or ""
     }
-    
+
     # Salvar log em arquivo JSON com formato padronizado
     with open(f"logs/egos_{subsystem.lower()}.log", "a", encoding="utf-8") as f:
         f.write(json.dumps(log_entry) + "\n")
-        
+
     return log_entry
 ```
 
@@ -356,20 +356,20 @@ graph TD
     BOT -->|Verifica Permissões| AUTH[Sistema de Autenticação]
     BOT -->|Valida Conteúdo| ETHIK[ETHIK Core]
     BOT -->|Processa Mensagem| HANDLER[Processador de Mensagens]
-    
+
     HANDLER -->|Analisa Intenção| NEXUS[NEXUS]
     HANDLER -->|Mapeia Conhecimento| ATLAS[ATLAS]
     HANDLER -->|Preserva Contexto| CRONOS[CRONOS]
     HANDLER -->|Formata Resposta| EROS[EROS]
     HANDLER -->|Processa Semântica| LOGOS[LOGOS]
-    
+
     NEXUS -->|Otimiza Modelo| GPT[Modelo GPT]
     LOGOS -->|Envia Prompt| GPT
     GPT -->|Resposta Bruta| LOGOS
     LOGOS -->|Refina Resposta| EROS
     EROS -->|Resposta Formatada| BOT
     BOT -->|Entrega Resposta| USER
-    
+
     ATLAS -->|Atualiza Mapa| KB[Base de Conhecimento]
     CRONOS -->|Backup| STORAGE[Armazenamento Quântico]
 ```
@@ -433,28 +433,28 @@ class EVAGuaraniBot:
     def __init__(self, config_path="config/"):
         self.config_path = config_path
         self.logger = logging.getLogger("EVAGuaraniBot")
-        
+
         # Carregar configurações
         self.bot_config = self._load_config("bot_config.json")
-        self.telegram_config = self._load_config("telegram_config.json") 
+        self.telegram_config = self._load_config("telegram_config.json")
         self.openai_config = self._load_config("openai_config.json")
-        
+
         # Inicializar subsistemas EGOS
         self.ethik = EthikCore()
         self.atlas = ATLAS()
-        self.nexus = NexusSystem() 
+        self.nexus = NexusSystem()
         self.cronos = CRONOS()
         self.eros = EROS()
         self.logos = LOGOS()
-        
+
         # Configuração do bot
         self.bot_token = self.telegram_config.get("bot_token", "")
         self.admin_users = self.telegram_config.get("admin_users", [])
         self.allowed_users = self.bot_config.get("allowed_users", [])
-        
+
         # Sistema de cache
         self.response_cache = {}
-        
+
         # Contadores e métricas
         self.metrics = {
             "total_messages": 0,
@@ -462,7 +462,7 @@ class EVAGuaraniBot:
             "model_usage": {},
             "start_time": datetime.now().isoformat()
         }
-        
+
     def _load_config(self, filename):
         """Carrega arquivo de configuração JSON."""
         filepath = os.path.join(self.config_path, filename)
@@ -472,40 +472,40 @@ class EVAGuaraniBot:
         except Exception as e:
             self.logger.error(f"Erro ao carregar {filepath}: {e}")
             return {}
-            
+
     def initialize(self):
         """Inicializa o bot e seus subsistemas."""
         self.logger.info("Iniciando EVA & GUARANI Bot...")
-        
+
         # Inicializar subsistemas
         self.ethik.initialize()
-        self.atlas.initialize() 
+        self.atlas.initialize()
         self.nexus.initialize()
         self.cronos.initialize()
         self.eros.initialize()
         self.logos.initialize()
-        
+
         # Criar diretórios necessários
         os.makedirs("logs", exist_ok=True)
         os.makedirs("data", exist_ok=True)
         os.makedirs("generated_images", exist_ok=True)
-        
+
         # Registrar início em log
         self.log_activity(
-            "CORE", "INITIALIZATION", "COMPLETED", 
-            "Bot initialization", 
+            "CORE", "INITIALIZATION", "COMPLETED",
+            "Bot initialization",
             "All subsystems initialized successfully",
             "Verify configurations and test basic functionality",
             "Iniciação ética completa, bot preparado com consciência"
         )
-        
+
         self.logger.info("EVA & GUARANI Bot inicializado com sucesso!")
-    
-    def log_activity(self, subsystem, operation, status, context, details, 
+
+    def log_activity(self, subsystem, operation, status, context, details,
                     recommendations=None, ethical_reflection=None):
         """Gera log estruturado no formato EGOS."""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        
+
         log_entry = {
             "timestamp": timestamp,
             "subsystem": subsystem,
@@ -516,30 +516,30 @@ class EVAGuaraniBot:
             "recommendations": recommendations or [],
             "ethical_reflection": ethical_reflection or ""
         }
-        
+
         log_file = f"logs/egos_{subsystem.lower()}.log"
         with open(log_file, "a", encoding="utf-8") as f:
             f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
-            
+
         return log_entry
-    
+
     def check_user_permission(self, user_id):
         """Verifica se o usuário tem permissão para usar o bot."""
         # Se lista de usuários permitidos estiver vazia, permitir todos
         if not self.allowed_users:
             return True
-            
+
         return user_id in self.allowed_users
-    
+
     def is_admin(self, user_id):
         """Verifica se o usuário é administrador."""
         return user_id in self.admin_users
-    
+
     async def start_command(self, update: Update, context: CallbackContext):
         """Handler para o comando /start."""
         user_id = update.effective_chat.id
         username = update.effective_user.username or "Usuário"
-        
+
         # Verificar permissão
         if not self.check_user_permission(user_id):
             await context.bot.send_message(
@@ -547,7 +547,7 @@ class EVAGuaraniBot:
                 text="Desculpe, você não tem permissão para usar este bot."
             )
             return
-        
+
         # Gerar mensagem de boas-vindas personalizada com EROS e LOGOS
         welcome_config = {
             "username": username,
@@ -555,9 +555,9 @@ class EVAGuaraniBot:
             "aesthetic": "friendly",
             "formality_level": "balanced"
         }
-        
+
         welcome_message = self.eros.generate_welcome(welcome_config)
-        
+
         # Criar menu interativo
         keyboard = [
             [
@@ -569,48 +569,48 @@ class EVAGuaraniBot:
                 InlineKeyboardButton("⚙️ Configurações", callback_data="menu_settings")
             ]
         ]
-        
+
         reply_markup = InlineKeyboardMarkup(keyboard)
-        
+
         await context.bot.send_message(
             chat_id=user_id,
             text=welcome_message,
             reply_markup=reply_markup,
             parse_mode="Markdown"
         )
-        
+
         # Registrar interação
         if user_id not in self.metrics["interactions_by_user"]:
             self.metrics["interactions_by_user"][user_id] = 0
         self.metrics["interactions_by_user"][user_id] += 1
-        
+
         # Log de atividade
         self.log_activity(
             "EROS", "WELCOME", "COMPLETED",
-            f"Welcome user {user_id}", 
+            f"Welcome user {user_id}",
             f"Generated personalized welcome for {username}",
             None,
             "Boas-vindas éticas e personalizadas estabelecem conexão inicial positiva"
         )
-    
+
     async def help_command(self, update: Update, context: CallbackContext):
         """Handler para o comando /help."""
         user_id = update.effective_chat.id
-        
+
         # Verificar permissão
         if not self.check_user_permission(user_id):
             return
-            
+
         # Gerar ajuda contextual baseada no histórico do usuário
         user_history = self.get_user_history(user_id)
         help_content = self.logos.generate_help(user_history)
-        
+
         await context.bot.send_message(
             chat_id=user_id,
             text=help_content,
             parse_mode="Markdown"
         )
-        
+
         # Log de atividade
         self.log_activity(
             "LOGOS", "HELP", "COMPLETED",
@@ -619,18 +619,18 @@ class EVAGuaraniBot:
             None,
             "Ajuda contextual promove autonomia e aprendizado progressivo"
         )
-    
+
     def select_optimal_model(self, query, user_history):
         """Seleciona o modelo mais adequado e econômico baseado na consulta."""
         # Analisar complexidade da consulta com NEXUS
         query_analysis = self.nexus.analyze_text(query)
         complexity = query_analysis.get("complexity_score", 0.5)
-        
+
         # Verificar orçamento diário
         daily_budget = self.openai_config.get("usage", {}).get("daily_budget", 10.0)
         usage_today = self.get_usage_today()
         budget_ratio = usage_today / daily_budget
-        
+
         # Seleção baseada em complexidade e orçamento
         if budget_ratio > 0.9:  # Quase no limite do orçamento
             return self.openai_config.get("models", {}).get("economy", "gpt-3.5-turbo")
@@ -640,28 +640,28 @@ class EVAGuaraniBot:
             return self.openai_config.get("models", {}).get("balanced", "gpt-4o-mini")
         else:  # Consulta complexa
             return self.openai_config.get("models", {}).get("quality", "gpt-4o")
-    
+
     def get_usage_today(self):
         """Retorna o uso diário atual da API."""
         # Implementação básica - em um sistema real, isso consultaria
         # logs de uso ou API da OpenAI para dados atualizados
         return 0.0  # Placeholder
-    
+
     def get_user_history(self, user_id):
         """Retorna o histórico de conversa do usuário."""
         # Implementação básica - em um sistema real, isso consultaria
         # um banco de dados ou arquivo de histórico
         return []  # Placeholder
-    
+
     async def handle_message(self, update: Update, context: CallbackContext):
         """Handler principal para mensagens de texto."""
         user_id = update.effective_chat.id
         message_text = update.message.text
-        
+
         # Verificar permissão
         if not self.check_user_permission(user_id):
             return
-            
+
         # Verificar limite de taxa
         # rate_limiter = RateLimiter()  # Implementar esta classe
         # if not rate_limiter.check_rate_limit(user_id):
@@ -670,7 +670,7 @@ class EVAGuaraniBot:
         #         text="Por favor, aguarde um momento antes de enviar mais mensagens."
         #     )
         #     return
-            
+
         # Análise ética da mensagem
         ethical_analysis = self.ethik.analyze_message(message_text)
         if ethical_analysis.get("score", 1.0) < 0.7:
@@ -686,7 +686,7 @@ class EVAGuaraniBot:
                 "Proteção ética ativa preserva integridade do sistema"
             )
             return
-            
+
         # Verificar cache para mensagens similares
         cache_key = self.logos.generate_semantic_hash(message_text)
         if cache_key in self.response_cache:
@@ -704,28 +704,28 @@ class EVAGuaraniBot:
                 "Uso ético de cache preserva recursos sem comprometer qualidade"
             )
             return
-            
+
         # Sinalizar que o bot está digitando
         await context.bot.send_chat_action(chat_id=user_id, action="typing")
-        
+
         # Analisar intenção e contexto com NEXUS
         user_history = self.get_user_history(user_id)
         intent_analysis = self.nexus.analyze_text(message_text, context=user_history)
-        
+
         # Selecionar modelo mais adequado
         model = self.select_optimal_model(message_text, user_history)
-        
+
         # Processar mensagem com LOGOS
         processed_query = self.logos.process_query(
-            message_text, 
+            message_text,
             user_history=user_history,
             intent=intent_analysis
         )
-        
+
         # Gerar resposta com OpenAI
         # response = self.generate_openai_response(processed_query, model)
         response = "Esta é uma resposta simulada de EVA & GUARANI. Em uma implementação real, aqui estaria a resposta gerada pelo modelo de linguagem."
-        
+
         # Adaptar resposta para o usuário com EROS
         formatted_response = self.eros.format_response(
             response,
@@ -733,17 +733,17 @@ class EVAGuaraniBot:
             intent=intent_analysis,
             aesthetic_level=0.8
         )
-        
+
         # Enviar resposta
         await context.bot.send_message(
             chat_id=user_id,
             text=formatted_response,
             parse_mode="Markdown"
         )
-        
+
         # Atualizar cache
         self.response_cache[cache_key] = formatted_response
-        
+
         # Mapear conhecimento com ATLAS
         self.atlas.map_interaction(
             user_id=user_id,
@@ -751,7 +751,7 @@ class EVAGuaraniBot:
             response=response,
             topics=intent_analysis.get("topics", [])
         )
-        
+
         # Backup quântico com CRONOS para conversas importantes
         if intent_analysis.get("importance", 0.0) > 0.8:
             self.cronos.create_quantum_backup(
@@ -764,13 +764,13 @@ class EVAGuaraniBot:
                 },
                 description=f"Conversa importante com {user_id}"
             )
-        
+
         # Atualizar métricas
         self.metrics["total_messages"] += 1
         if user_id not in self.metrics["interactions_by_user"]:
             self.metrics["interactions_by_user"][user_id] = 0
         self.metrics["interactions_by_user"][user_id] += 1
-        
+
         # Log de atividade
         self.log_activity(
             "CORE", "MESSAGE_PROCESSED", "COMPLETED",
@@ -779,77 +779,77 @@ class EVAGuaraniBot:
             None,
             "Resposta gerada com consciência ética e contextual"
         )
-    
+
     def register_handlers(self, application):
         """Registra os handlers para comandos e mensagens."""
         # Comandos básicos
         application.add_handler(CommandHandler("start", self.start_command))
         application.add_handler(CommandHandler("help", self.help_command))
-        
+
         # Comando de status
         application.add_handler(CommandHandler("status", self.status_command))
-        
+
         # Comandos administrativos
         application.add_handler(CommandHandler("stats", self.stats_command))
-        
+
         # Comandos especiais integrados com subsistemas EGOS
         application.add_handler(CommandHandler("ethics", self.ethics_command))
         application.add_handler(CommandHandler("map", self.map_command))
-        
+
         # Handler para mensagens de texto
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.handle_message))
-        
+
         # Handler para imagens
         application.add_handler(MessageHandler(filters.PHOTO, self.handle_photo))
-        
+
         # Handler para callbacks de botões
         application.add_handler(CallbackQueryHandler(self.handle_callback))
-        
+
         # Handler de erro global
         application.add_error_handler(self.error_handler)
-    
+
     async def status_command(self, update, context):
         """Handler para o comando /status."""
         # Implementação básica
         pass
-    
+
     async def stats_command(self, update, context):
         """Handler para o comando /stats (admin)."""
         # Implementação básica
         pass
-    
+
     async def ethics_command(self, update, context):
         """Handler para o comando /ethics."""
         # Implementação básica
         pass
-    
+
     async def map_command(self, update, context):
         """Handler para o comando /map."""
         # Implementação básica
         pass
-    
+
     async def handle_photo(self, update, context):
         """Handler para mensagens com fotos."""
         # Implementação básica
         pass
-    
+
     async def handle_callback(self, update, context):
         """Handler para callbacks de botões inline."""
         # Implementação básica
         pass
-    
+
     async def error_handler(self, update, context):
         """Handler global de erros."""
         # Implementação básica
         pass
-    
+
     def run(self):
         """Inicia o bot."""
         self.initialize()
-        
+
         application = ApplicationBuilder().token(self.bot_token).build()
         self.register_handlers(application)
-        
+
         self.logger.info("Iniciando polling...")
         application.run_polling()
 

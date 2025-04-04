@@ -89,7 +89,7 @@ This sandbox was created to:
 sandbox/
 ├── README.md               # This file
 ├── api/                    # Simple APIs for testing
-│   ├── django_api/         # Django API 
+│   ├── django_api/         # Django API
 │   └── flask_api/          # Flask API (simpler)
 ├── frontend/               # Simple user interfaces
 │   ├── html_basic/         # Pure HTML + fetch API
@@ -133,7 +133,7 @@ sandbox/
    source sandbox_venv/bin/activate  # Linux/macOS
    # or
    sandbox_venv\Scripts\activate      # Windows
-   
+
    # Install dependencies
    pip install -r sandbox/requirements.txt
    ```

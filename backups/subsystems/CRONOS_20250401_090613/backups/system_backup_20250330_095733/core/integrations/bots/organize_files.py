@@ -33,25 +33,20 @@ files_to_keep = [
     # Main bot implementations
     "simple_telegram_bot.py",
     "simple_bot.py",
-    
     # Configuration files
     "telegram_config.json",
-    
     # Startup scripts
     "start_bot.bat",
     "start_bot_with_payment.bat",
-    
     # Utility scripts
     "check_bot.py",
     "open_telegram_web.py",
     "get_telegram_id.py",
-    
     # Documentation
     "README.md",
-    
     # Directories to keep
     "logs",
-    "__pycache__"
+    "__pycache__",
 ]
 
 # Files to move to quarantine
@@ -66,11 +61,9 @@ files_to_quarantine = [
     "run_bot.py",
     "run_bot_direct.py",
     "start_bot_direct.py",
-    
     # Obsolete configuration files
     "telegram_bot.json",
     "bot_config.json",
-    
     # Obsolete startup scripts
     "start_eva_bot.bat",
     "start_eva_guarani_bot.bat",
@@ -80,7 +73,6 @@ files_to_quarantine = [
     "check_bot_status.bat",
     "check_bot_health.bat",
     "start_bot_with_payment.sh",
-    
     # Obsolete utility scripts
     "check_telegram.py",
     "check_bot_status.py",
@@ -90,15 +82,13 @@ files_to_quarantine = [
     "test_telegram_bot.py",
     "start_telegram_bot.py",
     "start_telegram_eliza_bridge.py",
-    
     # PowerShell scripts
     "run_telegram_bot_service.ps1",
     "check_bot_health.ps1",
-    
     # Log files
     "telegram_bot.log",
     "bot_package.log",
-    "telegram_eliza_bridge.log"
+    "telegram_eliza_bridge.log",
 ]
 
 # Track results
@@ -114,22 +104,22 @@ print("=" * 60)
 
 for item in os.listdir(current_dir):
     item_path = os.path.join(current_dir, item)
-    
+
     # Skip if it's a directory in the keep list
     if os.path.isdir(item_path) and item in files_to_keep:
         kept_files.append(item)
         continue
-    
+
     # Skip if it's a file to keep
     if item in files_to_keep:
         kept_files.append(item)
         continue
-    
+
     # Move to quarantine if it's in the quarantine list
     if item in files_to_quarantine:
         try:
             destination = os.path.join(quarantine_dir, item)
-            
+
             # Create subdirectories if it's a directory
             if os.path.isdir(item_path):
                 shutil.copytree(item_path, destination)
@@ -143,7 +133,7 @@ for item in os.listdir(current_dir):
                     print(f"Moved file: {item} ➡️ quarantine")
                 except:
                     print(f"Copied file (couldn't remove): {item} ➡️ quarantine")
-            
+
             moved_files.append(item)
         except Exception as e:
             print(f"Error processing {item}: {e}")
@@ -157,7 +147,7 @@ manifest = {
     "moved_files": moved_files,
     "skipped_files": skipped_files,
     "kept_files": kept_files,
-    "description": "Automated cleanup of bot files to reduce redundancy and improve organization"
+    "description": "Automated cleanup of bot files to reduce redundancy and improve organization",
 }
 
 with open(os.path.join(quarantine_dir, "manifest.json"), "w", encoding="utf-8") as f:
@@ -178,4 +168,4 @@ print("\n✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧")
 if __name__ == "__main__":
     print("\nDone! Files have been organized.")
     print("To restore files from quarantine, copy them back from:")
-    print(f"{quarantine_dir}") 
+    print(f"{quarantine_dir}")

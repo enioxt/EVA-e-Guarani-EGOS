@@ -100,6 +100,7 @@ exclude = [
     ".git",
     ".pytest_cache",
     ".venv",
+    "venv",
     "build",
     "dist",
     "logs",
@@ -108,7 +109,17 @@ exclude = [
     "experiments",
     "examples/sandbox", # Exclude sandbox specifically
     "Researchs",
-    "docs/historical_changelogs"
+    "docs/historical_changelogs",
+    "external",  # Ignore entire external directory
+    ".cursor",   # Ignore cursor directory
+    ".obsidian", # Ignore obsidian directory
+    ".roo",      # Ignore roo directory
+    ".benchmarks",# Ignore benchmark directory
+    # Add specific files to ignore if needed
+    "WhatsApp Chat with Mensagens Enio.txt",
+    "openrouter_mcp_implementation_plan.md",
+    "migration_plan.md",
+    "ai_translation_log.txt"
 ]
 
 [tool.ruff.isort]
@@ -120,4 +131,4 @@ python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true # Start with this, can tighten later
-exclude = ['venv', '.venv', 'build', 'dist', 'logs', 'backups', 'htmlcov', 'experiments', 'examples'] 
+exclude = ['venv', '.venv', 'build', 'dist', 'logs', 'backups', 'htmlcov', 'experiments', 'examples']

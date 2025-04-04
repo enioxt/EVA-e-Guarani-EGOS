@@ -7,4 +7,4 @@ Part of the EVA & GUARANI Quantum System
 from .quantum_visualization import QuantumVisualizer, QuantumConnection
 
 __version__ = "0.1.0"
-__all__ = ["QuantumVisualizer", "QuantumConnection"] 
+__all__ = ["QuantumVisualizer", "QuantumConnection"]

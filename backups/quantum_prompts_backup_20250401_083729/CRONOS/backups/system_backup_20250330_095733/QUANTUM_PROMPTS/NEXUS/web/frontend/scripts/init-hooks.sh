@@ -51,4 +51,4 @@ if [ -d ".husky" ] && [ -f ".husky/commit-msg" ] && [ -f ".husky/pre-commit" ]; 
 else
   echo "${RED}❌ Git hooks initialization failed${NC}"
   exit 1
-fi 
+fi

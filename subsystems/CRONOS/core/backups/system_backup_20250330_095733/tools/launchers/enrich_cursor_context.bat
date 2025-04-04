@@ -89,7 +89,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 REM Check if command is provided
 if "%~1"=="" (
-    echo Usage: 
+    echo Usage:
     echo   enrich_cursor_context.bat enrich "Your search query" [--persona PERSONA_NAME]
     echo   enrich_cursor_context.bat list
     echo   enrich_cursor_context.bat get CONTEXT_NAME
@@ -98,13 +98,13 @@ if "%~1"=="" (
     echo   enrich_cursor_context.bat enrich "Latest developments in quantum computing" --persona scientist
     echo   enrich_cursor_context.bat list
     echo.
-    
+
     set /p COMMAND="Enter command (enrich/list/get): "
-    
+
     if "!COMMAND!"=="enrich" (
         set /p QUERY="Enter your search query: "
         set /p PERSONA="Enter persona (optional, press Enter to skip): "
-        
+
         if "!PERSONA!"=="" (
             set ARGS=enrich "!QUERY!"
         ) else (
@@ -142,4 +142,4 @@ echo.
 echo ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 echo.
 
-pause 
+pause

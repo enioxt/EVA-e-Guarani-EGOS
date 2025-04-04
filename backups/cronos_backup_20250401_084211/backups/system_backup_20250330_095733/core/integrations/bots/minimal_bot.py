@@ -20,8 +20,8 @@ import datetime
 # Setup basic logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler()]
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.StreamHandler()],
 )
 
 logger = logging.getLogger("minimal_bot")
@@ -40,16 +40,16 @@ config_path = os.path.join(current_dir, "telegram_config.json")
 try:
     with open(config_path, "r", encoding="utf-8") as f:
         config = json.load(f)
-    
+
     token = config.get("token", "")
     bot_name = config.get("bot_name", "avatechartbot")
-    
+
     if not token:
         logger.error("Bot token not configured in telegram_config.json")
         sys.exit(1)
-        
+
     logger.info(f"Loaded configuration for bot: {bot_name}")
-    
+
 except Exception as e:
     logger.error(f"Error loading config: {e}")
     sys.exit(1)
@@ -58,10 +58,14 @@ except Exception as e:
 try:
     from telegram import Bot, Update, ParseMode
     from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+
     logger.info("Successfully imported python-telegram-bot")
 except ImportError:
-    logger.error("Failed to import python-telegram-bot. Please install it: pip install python-telegram-bot==13.15")
+    logger.error(
+        "Failed to import python-telegram-bot. Please install it: pip install python-telegram-bot==13.15"
+    )
     sys.exit(1)
+
 
 def start_command(update: Update, context: CallbackContext):
     """Handle the /start command"""
@@ -76,8 +80,9 @@ def start_command(update: Update, context: CallbackContext):
                 "• /status - Show bot status\n\n"
                 "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
             ),
-            parse_mode=ParseMode.MARKDOWN
+            parse_mode=ParseMode.MARKDOWN,
         )
+
 
 def status_command(update: Update, context: CallbackContext):
     """Handle the /status command"""
@@ -87,7 +92,7 @@ def status_command(update: Update, context: CallbackContext):
         hours = seconds // 3600
         minutes = (seconds % 3600) // 60
         seconds = seconds % 60
-        
+
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=(
@@ -97,8 +102,9 @@ def status_command(update: Update, context: CallbackContext):
                 f"• Uptime: {days}d {hours}h {minutes}m {seconds}s\n\n"
                 f"✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
             ),
-            parse_mode=ParseMode.MARKDOWN
+            parse_mode=ParseMode.MARKDOWN,
         )
+
 
 def text_message(update: Update, context: CallbackContext):
     """Handle text messages"""
@@ -109,37 +115,39 @@ def text_message(update: Update, context: CallbackContext):
                 "I received your message, but I'm currently running in minimal mode for testing.\n\n"
                 "Please use /start or /status to interact with me.\n\n"
                 "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
-            )
+            ),
         )
+
 
 def main():
     """Main function to run the bot"""
     global start_time
     start_time = datetime.datetime.now()
-    
+
     print("\n✧༺❀༻∞ EVA & GUARANI - Minimal Telegram Bot ∞༺❀༻✧\n")
     print(f"Starting minimal bot: {bot_name}")
     print(f"Token: {token[:6]}...{token[-4:]}")
     print("Press Ctrl+C to stop the bot.")
     print()
-    
+
     # Create the Updater and dispatcher
     updater = Updater(token=token, use_context=True)
     dispatcher = updater.dispatcher
-    
+
     # Add handlers
     dispatcher.add_handler(CommandHandler("start", start_command))
     dispatcher.add_handler(CommandHandler("status", status_command))
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, text_message))
-    
+
     # Start the bot
     updater.start_polling()
     print("Bot is running!")
-    
+
     # Run the bot until Ctrl+C is pressed
     updater.idle()
-    
+
     print("\n✧༺❀༻∞ Bot stopped ∞༺❀༻✧\n")
 
+
 if __name__ == "__main__":
-    main() 
+    main()

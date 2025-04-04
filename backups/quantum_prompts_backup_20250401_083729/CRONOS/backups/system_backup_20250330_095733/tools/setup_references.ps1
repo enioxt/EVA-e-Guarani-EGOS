@@ -49,10 +49,10 @@ foreach ($dir in $largeDirs) {
     $sourcePath = Join-Path $projectRoot $dir.Name
     $targetParentPath = Join-Path $refsDir $dir.Type
     $targetPath = Join-Path $targetParentPath $dir.Name
-    
+
     if (Test-Path $sourcePath) {
         Write-Host "`nLarge directory found: $($dir.Name)" -ForegroundColor Yellow
-        
+
         $choice = Read-Host "Do you want to move $($dir.Name) to $targetParentPath and create a symlink? (y/n)"
         if ($choice -eq "y") {
             # Check if target already exists
@@ -60,7 +60,7 @@ foreach ($dir in $largeDirs) {
                 $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
                 $targetPath = "$targetPath`_$timestamp"
             }
-            
+
             # Move directory
             Write-Host "Moving $($dir.Name) to $targetPath..." -ForegroundColor Yellow
             try {
@@ -70,17 +70,17 @@ foreach ($dir in $largeDirs) {
                     Remove-Item -Path $backupPath -Recurse -Force
                 }
                 Rename-Item -Path $sourcePath -NewName "$($dir.Name).backup"
-                
+
                 # Move the backup to target
                 if (-not (Test-Path $targetParentPath)) {
                     New-Item -ItemType Directory -Path $targetParentPath | Out-Null
                 }
                 Move-Item -Path "$sourcePath.backup" -Destination $targetPath
-                
+
                 # Create symbolic link
                 Write-Host "Creating symbolic link..." -ForegroundColor Yellow
                 cmd /c mklink /D $sourcePath $targetPath
-                
+
                 Write-Host "✓ Successfully moved $($dir.Name) and created symlink" -ForegroundColor Green
             }
             catch {
@@ -98,4 +98,4 @@ Write-Host "eva_guarani.code-workspace" -ForegroundColor White
 
 Write-Host "`n--------------------------------------------------------------------------------" -ForegroundColor Cyan
 Write-Host "`nPress any key to exit..." -ForegroundColor Yellow
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") 
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

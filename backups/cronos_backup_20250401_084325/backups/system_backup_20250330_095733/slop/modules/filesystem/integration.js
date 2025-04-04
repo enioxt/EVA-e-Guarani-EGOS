@@ -45,7 +45,7 @@ METADATA:
  * EVA & GUARANI - Filesystem Module Integration
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This file provides integration functions for the filesystem module.
  */
 
@@ -142,4 +142,4 @@ function register(slopServer, options = {}) {
 
 module.exports = {
     register
-}; 
+};

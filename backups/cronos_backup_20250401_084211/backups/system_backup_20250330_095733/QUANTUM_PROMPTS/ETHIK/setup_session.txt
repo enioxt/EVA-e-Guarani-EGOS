@@ -146,4 +146,4 @@ This file provides initialization instructions for development sessions.
    - All paths use Windows format
    - All commands compatible with Windows
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

@@ -86,7 +86,7 @@ Quando precisar mudar de chat no Cursor:
    # No chat antigo antes de fechar
    integration = CursorIntegration()
    integration.update_cursor_state()
-   
+
    # No novo chat
    integration = CursorIntegration()
    integration.restore_cursor_state()

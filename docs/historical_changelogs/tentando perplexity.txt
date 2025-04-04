@@ -40,7 +40,7 @@ client = OpenAI(
 
 # Realizar chamada de chat
 response = client.chat.completions.create(
-    model="sonar-pro", 
+    model="sonar-pro",
     messages=[
         {"role": "system", "content": "Seja preciso e conciso."},
         {"role": "user", "content": "Quantas estrelas existem em nossa galáxia?"}

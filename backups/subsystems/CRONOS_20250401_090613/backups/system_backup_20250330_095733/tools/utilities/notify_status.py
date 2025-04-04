@@ -20,16 +20,14 @@ from datetime import datetime
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler("logs/notification.log"),
-        logging.StreamHandler()
-    ]
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("logs/notification.log"), logging.StreamHandler()],
 )
 logger = logging.getLogger("notify_status")
 
 # Load configuration
 CONFIG_PATH = os.path.join("config", "eva_guarani_config.json")
+
 
 def load_config():
     """Loads the bot configuration."""
@@ -37,21 +35,22 @@ def load_config():
         if not os.path.exists(CONFIG_PATH):
             logger.error(f"Configuration file not found: {CONFIG_PATH}")
             return None
-        
-        with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
+
+        with open(CONFIG_PATH, "r", encoding="utf-8") as f:
             config = json.load(f)
-        
+
         return config
     except Exception as e:
         logger.error(f"Error loading configuration: {e}")
         return None
+
 
 def check_bot_status(bot_token):
     """Checks if the bot is online using the Telegram API."""
     try:
         url = f"https://api.telegram.org/bot{bot_token}/getMe"
         response = requests.get(url, timeout=10)
-        
+
         if response.status_code == 200:
             data = response.json()
             if data.get("ok"):
@@ -64,19 +63,20 @@ def check_bot_status(bot_token):
     except Exception as e:
         return False, f"Error checking bot status: {e}"
 
+
 def is_bot_running():
     """Checks if the bot process is running."""
     try:
         import psutil
-        
-        for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+
+        for proc in psutil.process_iter(["pid", "name", "cmdline"]):
             try:
-                cmdline = proc.info.get('cmdline', [])
-                if cmdline and any('unified_telegram_bot' in cmd for cmd in cmdline if cmd):
-                    return True, proc.info['pid']
+                cmdline = proc.info.get("cmdline", [])
+                if cmdline and any("unified_telegram_bot" in cmd for cmd in cmdline if cmd):
+                    return True, proc.info["pid"]
             except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                 pass
-        
+
         return False, None
     except ImportError:
         logger.warning("Module psutil not found. Unable to check processes.")
@@ -85,21 +85,18 @@ def is_bot_running():
         logger.error(f"Error checking processes: {e}")
         return False, None
 
+
 def send_notification(bot_token, chat_ids, message, parse_mode="HTML"):
     """Sends a notification to the specified chat IDs."""
     success_count = 0
-    
+
     for chat_id in chat_ids:
         try:
             url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-            data = {
-                "chat_id": chat_id,
-                "text": message,
-                "parse_mode": parse_mode
-            }
-            
+            data = {"chat_id": chat_id, "text": message, "parse_mode": parse_mode}
+
             response = requests.post(url, json=data, timeout=10)
-            
+
             if response.status_code == 200:
                 logger.info(f"Notification successfully sent to {chat_id}")
                 success_count += 1
@@ -107,32 +104,35 @@ def send_notification(bot_token, chat_ids, message, parse_mode="HTML"):
                 logger.error(f"Error sending notification to {chat_id}: {response.text}")
         except Exception as e:
             logger.error(f"Error sending notification to {chat_id}: {e}")
-    
+
     return success_count
+
 
 def main():
     """Main function."""
-    parser = argparse.ArgumentParser(description='Check bot status and send notification')
-    parser.add_argument('--message', help='Custom message to send')
-    parser.add_argument('--force', action='store_true', help='Force sending even if the bot is offline')
-    parser.add_argument('--chat-id', help='Specific chat ID to send the notification')
+    parser = argparse.ArgumentParser(description="Check bot status and send notification")
+    parser.add_argument("--message", help="Custom message to send")
+    parser.add_argument(
+        "--force", action="store_true", help="Force sending even if the bot is offline"
+    )
+    parser.add_argument("--chat-id", help="Specific chat ID to send the notification")
     args = parser.parse_args()
-    
+
     # Load configuration
     config = load_config()
     if not config:
         print("❌ Failed to load configuration.")
         return 1
-    
+
     # Get bot token
     bot_token = config.get("telegram", {}).get("bot_token") or config.get("bot_token")
     if not bot_token:
         print("❌ Bot token not found in configuration.")
         return 1
-    
+
     # Get admin IDs
     admin_users = config.get("telegram", {}).get("admin_users", [])
-    
+
     # If a specific chat_id was provided, use only it
     if args.chat_id:
         try:
@@ -141,19 +141,19 @@ def main():
         except ValueError:
             print(f"❌ Invalid chat ID: {args.chat_id}")
             return 1
-    
+
     if not admin_users:
         print("❌ No admin ID found in configuration.")
         return 1
-    
+
     # Check bot status
     print("Checking bot status...")
     api_status, api_info = check_bot_status(bot_token)
     process_status, pid = is_bot_running()
-    
+
     # Prepare message
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
+
     if args.message:
         message = args.message
     else:
@@ -197,14 +197,16 @@ def main():
 <b>Status:</b> The bot is not responding on the Telegram API and no process was found.
 <b>Recommended action:</b> Start the bot using the command: python start_eva_guarani.<b>Error:</b> {api_info}
 """
-    
+
     # Send notification
     if api_status or process_status or args.force:
         print(f"Sending notification to {len(admin_users)} administrators...")
         success_count = send_notification(bot_token, admin_users, message)
-        
+
         if success_count > 0:
-            print(f"✅ Notification successfully sent to {success_count}/{len(admin_users)} administrators.")
+            print(
+                f"✅ Notification successfully sent to {success_count}/{len(admin_users)} administrators."
+            )
             return 0
         else:
             print("❌ Failed to send notifications.")
@@ -212,6 +214,7 @@ def main():
     else:
         print("❌ Bot is offline and --force was not specified. No notification sent.")
         return 1
+
 
 if __name__ == "__main__":
     sys.exit(main())

@@ -6,7 +6,7 @@ I'll continue integrating the filesystem module into the EVA & GUARANI system, m
  * EVA & GUARANI - SLOP Filesystem Module Test Server
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This script creates a minimal SLOP-compatible server to test the filesystem module.
  * It simulates the SLOP server structure and registers the filesystem module.
  */
@@ -30,12 +30,12 @@ const mockSlopServer = {
     error: (...args) => console.log('\x1b[31m[ERROR]\x1b[0m', ...args),
     debug: (...args) => console.log('\x1b[90m[DEBUG]\x1b[0m', ...args)
   },
-  
+
   // Add route to the server
   addRoute(route) {
     this.routes.push(route);
     this.logger.debug(`Route added: ${route.method} ${route.path}`);
-    
+
     // Register the route with Express
     this.app[route.method.toLowerCase()](route.path, route.handler);
   }
@@ -114,19 +114,19 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
           <div id="result"></div>
         </div>
       </div>
-      
+
       <script>
         // Helper function to display results
         function displayResult(data) {
           document.getElementById('result').textContent = JSON.stringify(data, null, 2);
         }
-        
+
         // Helper function to display error
         function displayError(error) {
           document.getElementById('result').innerHTML = '<span style="color: red">Error: ' + error.message + '</span>';
           console.error(error);
         }
-        
+
         // Helper function to make API requests
         async function apiRequest(endpoint, data) {
           try {
@@ -137,25 +137,25 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               },
               body: JSON.stringify(data)
             });
-            
+
             const result = await response.json();
-            
+
             if (!response.ok) {
               throw new Error(result.error || 'Unknown error');
             }
-            
+
             return result;
           } catch (error) {
             displayError(error);
             throw error;
           }
         }
-        
+
         // Prepare additional inputs based on operation
         function prepareAdditionalInputs(inputsHtml) {
           document.getElementById('additionalInputs').innerHTML = inputsHtml;
         }
-        
+
         // Read file operation
         async function readFile() {
           prepareAdditionalInputs(`
@@ -164,22 +164,22 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <input id="encoding" value="utf8" />
             </div>
           `);
-          
+
           const path = document.getElementById('path').value;
           const encoding = document.getElementById('encoding')?.value || 'utf8';
-          
+
           try {
             const result = await apiRequest('/fs/read', {
               path,
               encoding
             });
-            
+
             displayResult(result);
           } catch (error) {
             // Error is already displayed by apiRequest
           }
         }
-        
+
         // Write file operation
         async function writeFile() {
           prepareAdditionalInputs(`
@@ -201,14 +201,14 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <button id="runWrite">Write File</button>
             </div>
           `);
-          
+
           // Wait for user to enter content
           document.getElementById('runWrite').onclick = async function() {
             const path = document.getElementById('path').value;
             const content = document.getElementById('content').value;
             const encoding = document.getElementById('encoding').value;
             const createDirectories = document.getElementById('createDirectories').checked;
-            
+
             try {
               const result = await apiRequest('/fs/write', {
                 path,
@@ -216,14 +216,14 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
                 encoding,
                 createDirectories
               });
-              
+
               displayResult(result);
             } catch (error) {
               // Error is already displayed by apiRequest
             }
           };
         }
-        
+
         // List directory operation
         async function listDirectory(recursive) {
           prepareAdditionalInputs(`
@@ -232,23 +232,23 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <input id="pattern" placeholder="Optional pattern to filter files" />
             </div>
           `);
-          
+
           const path = document.getElementById('path').value;
           const pattern = document.getElementById('pattern')?.value || null;
-          
+
           try {
             const result = await apiRequest('/fs/list', {
               path,
               recursive,
               pattern
             });
-            
+
             displayResult(result);
           } catch (error) {
             // Error is already displayed by apiRequest
           }
         }
-        
+
         // Search files operation
         async function searchFiles() {
           prepareAdditionalInputs(`
@@ -274,18 +274,18 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <button id="runSearch">Search</button>
             </div>
           `);
-          
+
           document.getElementById('runSearch').onclick = async function() {
             const path = document.getElementById('path').value;
             const namePattern = document.getElementById('namePattern').value || null;
             const contentPattern = document.getElementById('contentPattern').value || null;
             const recursive = document.getElementById('recursive').checked;
             const maxResults = parseInt(document.getElementById('maxResults').value, 10);
-            
+
             if (!namePattern && !contentPattern) {
               return displayError(new Error('At least one pattern (name or content) is required'));
             }
-            
+
             try {
               const result = await apiRequest('/fs/search', {
                 path,
@@ -294,14 +294,14 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
                 recursive,
                 maxResults
               });
-              
+
               displayResult(result);
             } catch (error) {
               // Error is already displayed by apiRequest
             }
           };
         }
-        
+
         // Delete file operation
         async function deleteFile() {
           prepareAdditionalInputs(`
@@ -321,26 +321,26 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <button id="runDelete" disabled>Confirm Delete</button>
             </div>
           `);
-          
+
           // Enable the delete button only when confirmed
           document.getElementById('confirm').onchange = function() {
             document.getElementById('runDelete').disabled = !this.checked;
           };
-          
+
           document.getElementById('runDelete').onclick = async function() {
             if (!document.getElementById('confirm').checked) {
               return;
             }
-            
+
             const path = document.getElementById('path').value;
             const recursive = document.getElementById('recursive').checked;
-            
+
             try {
               const result = await apiRequest('/fs/delete', {
                 path,
                 recursive
               });
-              
+
               displayResult(result);
             } catch (error) {
               // Error is already displayed by apiRequest
@@ -359,7 +359,7 @@ mockSlopServer.app.listen(port, () => {
   mockSlopServer.logger.info(`SLOP Test Server listening on port ${port}`);
   mockSlopServer.logger.info(`Test UI available at http://localhost:${port}/test-ui`);
   mockSlopServer.logger.info(`API endpoints:`);
-  
+
   // Log all registered routes
   mockSlopServer.routes.forEach(route => {
     mockSlopServer.logger.info(`  ${route.method} ${route.path} - ${route.description}`);
@@ -382,7 +382,7 @@ Let me try with the correct path format:
  * EVA & GUARANI - SLOP Filesystem Module Test Server
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This script creates a minimal SLOP-compatible server to test the filesystem module.
  * It simulates the SLOP server structure and registers the filesystem module.
  */
@@ -406,12 +406,12 @@ const mockSlopServer = {
     error: (...args) => console.log('\x1b[31m[ERROR]\x1b[0m', ...args),
     debug: (...args) => console.log('\x1b[90m[DEBUG]\x1b[0m', ...args)
   },
-  
+
   // Add route to the server
   addRoute(route) {
     this.routes.push(route);
     this.logger.debug(`Route added: ${route.method} ${route.path}`);
-    
+
     // Register the route with Express
     this.app[route.method.toLowerCase()](route.path, route.handler);
   }
@@ -490,19 +490,19 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
           <div id="result"></div>
         </div>
       </div>
-      
+
       <script>
         // Helper function to display results
         function displayResult(data) {
           document.getElementById('result').textContent = JSON.stringify(data, null, 2);
         }
-        
+
         // Helper function to display error
         function displayError(error) {
           document.getElementById('result').innerHTML = '<span style="color: red">Error: ' + error.message + '</span>';
           console.error(error);
         }
-        
+
         // Helper function to make API requests
         async function apiRequest(endpoint, data) {
           try {
@@ -513,25 +513,25 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               },
               body: JSON.stringify(data)
             });
-            
+
             const result = await response.json();
-            
+
             if (!response.ok) {
               throw new Error(result.error || 'Unknown error');
             }
-            
+
             return result;
           } catch (error) {
             displayError(error);
             throw error;
           }
         }
-        
+
         // Prepare additional inputs based on operation
         function prepareAdditionalInputs(inputsHtml) {
           document.getElementById('additionalInputs').innerHTML = inputsHtml;
         }
-        
+
         // Read file operation
         async function readFile() {
           prepareAdditionalInputs(`
@@ -540,22 +540,22 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <input id="encoding" value="utf8" />
             </div>
           `);
-          
+
           const path = document.getElementById('path').value;
           const encoding = document.getElementById('encoding')?.value || 'utf8';
-          
+
           try {
             const result = await apiRequest('/fs/read', {
               path,
               encoding
             });
-            
+
             displayResult(result);
           } catch (error) {
             // Error is already displayed by apiRequest
           }
         }
-        
+
         // Write file operation
         async function writeFile() {
           prepareAdditionalInputs(`
@@ -577,14 +577,14 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <button id="runWrite">Write File</button>
             </div>
           `);
-          
+
           // Wait for user to enter content
           document.getElementById('runWrite').onclick = async function() {
             const path = document.getElementById('path').value;
             const content = document.getElementById('content').value;
             const encoding = document.getElementById('encoding').value;
             const createDirectories = document.getElementById('createDirectories').checked;
-            
+
             try {
               const result = await apiRequest('/fs/write', {
                 path,
@@ -592,14 +592,14 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
                 encoding,
                 createDirectories
               });
-              
+
               displayResult(result);
             } catch (error) {
               // Error is already displayed by apiRequest
             }
           };
         }
-        
+
         // List directory operation
         async function listDirectory(recursive) {
           prepareAdditionalInputs(`
@@ -608,23 +608,23 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <input id="pattern" placeholder="Optional pattern to filter files" />
             </div>
           `);
-          
+
           const path = document.getElementById('path').value;
           const pattern = document.getElementById('pattern')?.value || null;
-          
+
           try {
             const result = await apiRequest('/fs/list', {
               path,
               recursive,
               pattern
             });
-            
+
             displayResult(result);
           } catch (error) {
             // Error is already displayed by apiRequest
           }
         }
-        
+
         // Search files operation
         async function searchFiles() {
           prepareAdditionalInputs(`
@@ -650,18 +650,18 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <button id="runSearch">Search</button>
             </div>
           `);
-          
+
           document.getElementById('runSearch').onclick = async function() {
             const path = document.getElementById('path').value;
             const namePattern = document.getElementById('namePattern').value || null;
             const contentPattern = document.getElementById('contentPattern').value || null;
             const recursive = document.getElementById('recursive').checked;
             const maxResults = parseInt(document.getElementById('maxResults').value, 10);
-            
+
             if (!namePattern && !contentPattern) {
               return displayError(new Error('At least one pattern (name or content) is required'));
             }
-            
+
             try {
               const result = await apiRequest('/fs/search', {
                 path,
@@ -670,14 +670,14 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
                 recursive,
                 maxResults
               });
-              
+
               displayResult(result);
             } catch (error) {
               // Error is already displayed by apiRequest
             }
           };
         }
-        
+
         // Delete file operation
         async function deleteFile() {
           prepareAdditionalInputs(`
@@ -697,26 +697,26 @@ mockSlopServer.app.get('/test-ui', (req, res) => {
               <button id="runDelete" disabled>Confirm Delete</button>
             </div>
           `);
-          
+
           // Enable the delete button only when confirmed
           document.getElementById('confirm').onchange = function() {
             document.getElementById('runDelete').disabled = !this.checked;
           };
-          
+
           document.getElementById('runDelete').onclick = async function() {
             if (!document.getElementById('confirm').checked) {
               return;
             }
-            
+
             const path = document.getElementById('path').value;
             const recursive = document.getElementById('recursive').checked;
-            
+
             try {
               const result = await apiRequest('/fs/delete', {
                 path,
                 recursive
               });
-              
+
               displayResult(result);
             } catch (error) {
               // Error is already displayed by apiRequest
@@ -735,7 +735,7 @@ mockSlopServer.app.listen(port, () => {
   mockSlopServer.logger.info(`SLOP Test Server listening on port ${port}`);
   mockSlopServer.logger.info(`Test UI available at http://localhost:${port}/test-ui`);
   mockSlopServer.logger.info(`API endpoints:`);
-  
+
   // Log all registered routes
   mockSlopServer.routes.forEach(route => {
     mockSlopServer.logger.info(`  ${route.method} ${route.path} - ${route.description}`);
@@ -758,7 +758,7 @@ Now I'll create a basic integration script to connect the filesystem module with
  * EVA & GUARANI - Filesystem Module Integration for SLOP Server
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This file integrates the Filesystem Module with the main SLOP server.
  */
 
@@ -788,13 +788,13 @@ function registerFilesystemModule(slopServer) {
     try {
         // Log the integration
         slopServer.logger.info('[SLOP] Initializing filesystem module integration');
-        
+
         // Verify module files exist
         if (!fs.existsSync(MODULE_PATH)) {
             slopServer.logger.error(`[SLOP] Filesystem module not found at ${MODULE_PATH}`);
             return false;
         }
-        
+
         // Import the integration module
         const filesystemIntegration = require(path.join(MODULE_PATH, 'integration'));
 
@@ -805,10 +805,10 @@ function registerFilesystemModule(slopServer) {
             maxResults: 1000,
             logLevel: slopServer.config.logLevel || 'info'
         });
-        
+
         slopServer.logger.info('[SLOP] Filesystem module integration complete');
         slopServer.logger.info(`[SLOP] Allowed directories: ${ALLOWED_DIRS.join(', ')}`);
-        
+
         // Add a reference to the filesystem module in the SLOP server state
         slopServer.state = slopServer.state || {};
         slopServer.state.filesystemModule = {
@@ -817,7 +817,7 @@ function registerFilesystemModule(slopServer) {
             allowedDirectories: ALLOWED_DIRS,
             timestamp: new Date().toISOString()
         };
-        
+
         // Return success
         return true;
     } catch (error) {
@@ -844,7 +844,7 @@ Let me try with the relative path:
  * EVA & GUARANI - Filesystem Module Integration for SLOP Server
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This file integrates the Filesystem Module with the main SLOP server.
  */
 
@@ -874,13 +874,13 @@ function registerFilesystemModule(slopServer) {
     try {
         // Log the integration
         slopServer.logger.info('[SLOP] Initializing filesystem module integration');
-        
+
         // Verify module files exist
         if (!fs.existsSync(MODULE_PATH)) {
             slopServer.logger.error(`[SLOP] Filesystem module not found at ${MODULE_PATH}`);
             return false;
         }
-        
+
         // Import the integration module
         const filesystemIntegration = require(path.join(MODULE_PATH, 'integration'));
 
@@ -891,10 +891,10 @@ function registerFilesystemModule(slopServer) {
             maxResults: 1000,
             logLevel: slopServer.config.logLevel || 'info'
         });
-        
+
         slopServer.logger.info('[SLOP] Filesystem module integration complete');
         slopServer.logger.info(`[SLOP] Allowed directories: ${ALLOWED_DIRS.join(', ')}`);
-        
+
         // Add a reference to the filesystem module in the SLOP server state
         slopServer.state = slopServer.state || {};
         slopServer.state.filesystemModule = {
@@ -903,7 +903,7 @@ function registerFilesystemModule(slopServer) {
             allowedDirectories: ALLOWED_DIRS,
             timestamp: new Date().toISOString()
         };
-        
+
         // Return success
         return true;
     } catch (error) {
@@ -945,7 +945,7 @@ Based on the analysis of the SLOP server, let's create the filesystem module str
  * EVA & GUARANI - Filesystem Module for SLOP Server
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This module provides filesystem operations for the SLOP server.
  */
 
@@ -994,12 +994,12 @@ function initialize(options = {}, dependencies = {}) {
 
     // Set logger
     state.logger = dependencies.logger || console;
-    
+
     // Mark as initialized
     state.initialized = true;
-    
+
     state.logger.info(`[Filesystem] Module initialized with ${state.config.allowedDirectories.length} allowed directories`);
-    
+
     return {
         name: 'filesystem',
         version: '1.0.0',
@@ -1063,7 +1063,7 @@ function getStats() {
  */
 function isPathAllowed(targetPath) {
     const normalizedPath = path.normalize(targetPath);
-    
+
     return state.config.allowedDirectories.some(allowedDir => {
         const normalizedAllowedDir = path.normalize(allowedDir);
         return normalizedPath.startsWith(normalizedAllowedDir);
@@ -1090,52 +1090,52 @@ function generateFileId(filePath) {
 async function readFile(req, res) {
     try {
         const filePath = req.query.path;
-        
+
         if (!filePath) {
             return res.status(400).json({
                 status: 'error',
                 message: 'Missing required parameter: path'
             });
         }
-        
+
         // Check if path is allowed
         if (!isPathAllowed(filePath)) {
             state.logger.warn(`[Filesystem] Attempted to read unauthorized path: ${filePath}`);
             state.stats.errors++;
-            
+
             return res.status(403).json({
                 status: 'error',
                 message: 'Access to this path is not allowed'
             });
         }
-        
+
         // Check if file exists
         const stats = await fs.stat(filePath);
-        
+
         if (!stats.isFile()) {
             state.logger.warn(`[Filesystem] Attempted to read a non-file: ${filePath}`);
             state.stats.errors++;
-            
+
             return res.status(400).json({
                 status: 'error',
                 message: 'The specified path is not a file'
             });
         }
-        
+
         // Check file size
         if (stats.size > state.config.maxFileSize) {
             state.logger.warn(`[Filesystem] File too large: ${filePath} (${stats.size} bytes)`);
             state.stats.errors++;
-            
+
             return res.status(400).json({
                 status: 'error',
                 message: `File size exceeds the maximum allowed size (${state.config.maxFileSize} bytes)`
             });
         }
-        
+
         // Read file content
         const content = await fs.readFile(filePath, 'utf8');
-        
+
         // Update stats
         state.stats.reads++;
         state.stats.lastOperation = {
@@ -1143,9 +1143,9 @@ async function readFile(req, res) {
             path: filePath,
             timestamp: new Date().toISOString()
         };
-        
+
         state.logger.debug(`[Filesystem] Read file: ${filePath} (${content.length} bytes)`);
-        
+
         // Return successful response
         res.status(200).json({
             status: 'success',
@@ -1165,7 +1165,7 @@ async function readFile(req, res) {
     } catch (error) {
         state.stats.errors++;
         state.logger.error(`[Filesystem] Error reading file: ${error.message}`);
-        
+
         // Return error response
         res.status(500).json({
             status: 'error',
@@ -1182,48 +1182,48 @@ async function readFile(req, res) {
 async function writeFile(req, res) {
     try {
         const { path: filePath, content, createDirectories } = req.body;
-        
+
         if (!filePath || content === undefined) {
             return res.status(400).json({
                 status: 'error',
                 message: 'Missing required parameters: path and content'
             });
         }
-        
+
         // Check if path is allowed
         if (!isPathAllowed(filePath)) {
             state.logger.warn(`[Filesystem] Attempted to write to unauthorized path: ${filePath}`);
             state.stats.errors++;
-            
+
             return res.status(403).json({
                 status: 'error',
                 message: 'Access to this path is not allowed'
             });
         }
-        
+
         // Check content size
         if (Buffer.byteLength(content, 'utf8') > state.config.maxFileSize) {
             state.logger.warn(`[Filesystem] Content too large for file: ${filePath}`);
             state.stats.errors++;
-            
+
             return res.status(400).json({
                 status: 'error',
                 message: `Content size exceeds the maximum allowed size (${state.config.maxFileSize} bytes)`
             });
         }
-        
+
         // Create directory if it doesn't exist and createDirectories is true
         if (createDirectories) {
             const directory = path.dirname(filePath);
             await fs.mkdir(directory, { recursive: true });
         }
-        
+
         // Write content to file
         await fs.writeFile(filePath, content, 'utf8');
-        
+
         // Get file stats
         const stats = await fs.stat(filePath);
-        
+
         // Update stats
         state.stats.writes++;
         state.stats.lastOperation = {
@@ -1231,9 +1231,9 @@ async function writeFile(req, res) {
             path: filePath,
             timestamp: new Date().toISOString()
         };
-        
+
         state.logger.debug(`[Filesystem] Wrote to file: ${filePath} (${Buffer.byteLength(content, 'utf8')} bytes)`);
-        
+
         // Return successful response
         res.status(200).json({
             status: 'success',
@@ -1251,7 +1251,7 @@ async function writeFile(req, res) {
     } catch (error) {
         state.stats.errors++;
         state.logger.error(`[Filesystem] Error writing file: ${error.message}`);
-        
+
         // Return error response
         res.status(500).json({
             status: 'error',
@@ -1268,47 +1268,47 @@ async function writeFile(req, res) {
 async function listDirectory(req, res) {
     try {
         const { path: dirPath, recursive, pattern } = req.query;
-        
+
         if (!dirPath) {
             return res.status(400).json({
                 status: 'error',
                 message: 'Missing required parameter: path'
             });
         }
-        
+
         // Check if path is allowed
         if (!isPathAllowed(dirPath)) {
             state.logger.warn(`[Filesystem] Attempted to list unauthorized directory: ${dirPath}`);
             state.stats.errors++;
-            
+
             return res.status(403).json({
                 status: 'error',
                 message: 'Access to this path is not allowed'
             });
         }
-        
+
         // Read directory
         const entries = await fs.readdir(dirPath, { withFileTypes: true });
-        
+
         // Process entries
         const files = [];
         const directories = [];
-        
+
         for (const entry of entries) {
             const entryPath = path.join(dirPath, entry.name);
-            
+
             // Skip if pattern is provided and doesn't match
             if (pattern && !entry.name.match(new RegExp(pattern))) {
                 continue;
             }
-            
+
             if (entry.isDirectory()) {
                 directories.push({
                     name: entry.name,
                     path: entryPath,
                     type: 'directory'
                 });
-                
+
                 // Process subdirectories if recursive is true
                 if (recursive === 'true') {
                     const subDirResult = await listDirectory({
@@ -1318,7 +1318,7 @@ async function listDirectory(req, res) {
                             pattern
                         }
                     }, { json: () => {} });
-                    
+
                     if (subDirResult.data) {
                         directories[directories.length - 1].children = {
                             files: subDirResult.data.files,
@@ -1328,7 +1328,7 @@ async function listDirectory(req, res) {
                 }
             } else if (entry.isFile()) {
                 const stats = await fs.stat(entryPath);
-                
+
                 files.push({
                     name: entry.name,
                     path: entryPath,
@@ -1340,7 +1340,7 @@ async function listDirectory(req, res) {
                 });
             }
         }
-        
+
         // Update stats
         state.stats.lists++;
         state.stats.lastOperation = {
@@ -1348,9 +1348,9 @@ async function listDirectory(req, res) {
             path: dirPath,
             timestamp: new Date().toISOString()
         };
-        
+
         state.logger.debug(`[Filesystem] Listed directory: ${dirPath} (${files.length} files, ${directories.length} dirs)`);
-        
+
         // Return successful response
         res.status(200).json({
             status: 'success',
@@ -1365,7 +1365,7 @@ async function listDirectory(req, res) {
     } catch (error) {
         state.stats.errors++;
         state.logger.error(`[Filesystem] Error listing directory: ${error.message}`);
-        
+
         // Return error response
         res.status(500).json({
             status: 'error',
@@ -1382,34 +1382,34 @@ async function listDirectory(req, res) {
 async function searchFiles(req, res) {
     try {
         const { path: startPath, query, recursive, limit } = req.query;
-        
+
         if (!startPath || !query) {
             return res.status(400).json({
                 status: 'error',
                 message: 'Missing required parameters: path and query'
             });
         }
-        
+
         // Check if path is allowed
         if (!isPathAllowed(startPath)) {
             state.logger.warn(`[Filesystem] Attempted to search in unauthorized directory: ${startPath}`);
             state.stats.errors++;
-            
+
             return res.status(403).json({
                 status: 'error',
                 message: 'Access to this path is not allowed'
             });
         }
-        
+
         // Set limit
         const maxResults = limit ? parseInt(limit, 10) : state.config.maxResults;
-        
+
         // Results
         const results = {
             matchesByName: [],
             matchesByContent: []
         };
-        
+
         // Search function
         async function searchInDirectory(dirPath) {
             // Stop if we've reached the limit
@@ -1418,10 +1418,10 @@ async function searchFiles(req, res) {
             ) {
                 return;
             }
-            
+
             // Read directory
             const entries = await fs.readdir(dirPath, { withFileTypes: true });
-            
+
             // Process entries
             for (const entry of entries) {
                 // Stop if we've reached the limit
@@ -1430,9 +1430,9 @@ async function searchFiles(req, res) {
                 ) {
                     break;
                 }
-                
+
                 const entryPath = path.join(dirPath, entry.name);
-                
+
                 if (entry.isDirectory() && recursive === 'true') {
                     // Process subdirectory
                     await searchInDirectory(entryPath);
@@ -1440,7 +1440,7 @@ async function searchFiles(req, res) {
                     // Check filename
                     if (entry.name.toLowerCase().includes(query.toLowerCase())) {
                         const stats = await fs.stat(entryPath);
-                        
+
                         results.matchesByName.push({
                             name: entry.name,
                             path: entryPath,
@@ -1451,35 +1451,35 @@ async function searchFiles(req, res) {
                             modified: stats.mtime
                         });
                     }
-                    
+
                     // Check content if file is not too large
                     const stats = await fs.stat(entryPath);
-                    
+
                     if (stats.size <= state.config.maxFileSize) {
                         try {
                             const content = await fs.readFile(entryPath, 'utf8');
-                            
+
                             if (content.toLowerCase().includes(query.toLowerCase())) {
                                 // Find context around the match
                                 const contentLines = content.split('\n');
                                 const matchingLines = [];
-                                
+
                                 for (let i = 0; i < contentLines.length; i++) {
                                     if (contentLines[i].toLowerCase().includes(query.toLowerCase())) {
                                         const startLine = Math.max(0, i - 1);
                                         const endLine = Math.min(contentLines.length - 1, i + 1);
-                                        
+
                                         matchingLines.push({
                                             line: i + 1,
                                             context: contentLines.slice(startLine, endLine + 1).join('\n')
                                         });
-                                        
+
                                         if (matchingLines.length >= 5) {
                                             break; // Limit to 5 matches per file
                                         }
                                     }
                                 }
-                                
+
                                 results.matchesByContent.push({
                                     name: entry.name,
                                     path: entryPath,
@@ -1499,10 +1499,10 @@ async function searchFiles(req, res) {
                 }
             }
         }
-        
+
         // Start search
         await searchInDirectory(startPath);
-        
+
         // Update stats
         state.stats.searches++;
         state.stats.lastOperation = {
@@ -1511,12 +1511,12 @@ async function searchFiles(req, res) {
             query,
             timestamp: new Date().toISOString()
         };
-        
+
         state.logger.debug(
             `[Filesystem] Search in ${startPath} for "${query}": ` +
             `${results.matchesByName.length} name matches, ${results.matchesByContent.length} content matches`
         );
-        
+
         // Return successful response
         res.status(200).json({
             status: 'success',
@@ -1535,7 +1535,7 @@ async function searchFiles(req, res) {
     } catch (error) {
         state.stats.errors++;
         state.logger.error(`[Filesystem] Error searching: ${error.message}`);
-        
+
         // Return error response
         res.status(500).json({
             status: 'error',
@@ -1552,28 +1552,28 @@ async function searchFiles(req, res) {
 async function deleteFile(req, res) {
     try {
         const { path: targetPath, recursive } = req.query;
-        
+
         if (!targetPath) {
             return res.status(400).json({
                 status: 'error',
                 message: 'Missing required parameter: path'
             });
         }
-        
+
         // Check if path is allowed
         if (!isPathAllowed(targetPath)) {
             state.logger.warn(`[Filesystem] Attempted to delete unauthorized path: ${targetPath}`);
             state.stats.errors++;
-            
+
             return res.status(403).json({
                 status: 'error',
                 message: 'Access to this path is not allowed'
             });
         }
-        
+
         // Check if path exists
         const stats = await fs.stat(targetPath);
-        
+
         if (stats.isDirectory()) {
             // Delete directory
             if (recursive === 'true') {
@@ -1597,7 +1597,7 @@ async function deleteFile(req, res) {
             // Delete file
             await fs.unlink(targetPath);
         }
-        
+
         // Update stats
         state.stats.deletes++;
         state.stats.lastOperation = {
@@ -1605,9 +1605,9 @@ async function deleteFile(req, res) {
             path: targetPath,
             timestamp: new Date().toISOString()
         };
-        
+
         state.logger.debug(`[Filesystem] Deleted ${stats.isDirectory() ? 'directory' : 'file'}: ${targetPath}`);
-        
+
         // Return successful response
         res.status(200).json({
             status: 'success',
@@ -1620,7 +1620,7 @@ async function deleteFile(req, res) {
     } catch (error) {
         state.stats.errors++;
         state.logger.error(`[Filesystem] Error deleting: ${error.message}`);
-        
+
         // Return error response
         res.status(500).json({
             status: 'error',
@@ -1641,7 +1641,7 @@ Now let's create a module integration file:
  * EVA & GUARANI - Filesystem Module Integration
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This file provides integration functions for the filesystem module.
  */
 
@@ -1655,28 +1655,28 @@ const fsModule = require('./index');
  */
 function register(slopServer, options = {}) {
     const logger = slopServer.logger || console;
-    
+
     logger.info('[Filesystem] Registering filesystem module with SLOP server');
-    
+
     // Initialize the filesystem module
     const module = fsModule.initialize(options, {
         logger: logger
     });
-    
+
     // Register routes
     const routes = module.routes;
-    
+
     routes.forEach(route => {
         logger.debug(`[Filesystem] Registering route: ${route.method} ${route.path}`);
-        
+
         // Add route to Express app
         slopServer.app[route.method.toLowerCase()](route.path, route.handler);
     });
-    
+
     // Add module info endpoint
     slopServer.app.get('/filesystem/info', (req, res) => {
         const stats = module.stats();
-        
+
         res.json({
             status: 'success',
             data: {
@@ -1696,14 +1696,14 @@ function register(slopServer, options = {}) {
             }
         });
     });
-    
+
     // Register WebSocket events if needed
     if (slopServer.wss) {
         slopServer.wss.on('connection', (ws) => {
             ws.on('message', (message) => {
                 try {
                     const data = JSON.parse(message);
-                    
+
                     // Handle filesystem-specific messages
                     if (data.type === 'filesystem') {
                         switch (data.action) {
@@ -1714,7 +1714,7 @@ function register(slopServer, options = {}) {
                                     data: module.stats()
                                 }));
                                 break;
-                                
+
                             default:
                                 ws.send(JSON.stringify({
                                     type: 'filesystem',
@@ -1729,10 +1729,10 @@ function register(slopServer, options = {}) {
             });
         });
     }
-    
+
     // Log registration completion
     logger.info('[Filesystem] Module successfully registered with SLOP server');
-    
+
     return module;
 }
 
@@ -1747,7 +1747,7 @@ Now let's create an adapter file for client-side usage:
  * EVA & GUARANI - Filesystem Module Client Adapter
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This module provides a client-side adapter for the filesystem module.
  */
 
@@ -1759,11 +1759,11 @@ Now let's create an adapter file for client-side usage:
 function createAdapter(options = {}) {
     const baseUrl = options.baseUrl || 'http://localhost:3000';
     const fetch = options.fetch || global.fetch;
-    
+
     if (!fetch) {
         throw new Error('Fetch implementation is required. Please provide a fetch implementation in options.');
     }
-    
+
     /**
      * Make an API request to the filesystem module
      * @param {string} endpoint - API endpoint
@@ -1773,14 +1773,14 @@ function createAdapter(options = {}) {
      */
     async function makeRequest(endpoint, method, data = null) {
         const url = new URL(`${baseUrl}${endpoint}`);
-        
+
         const requestOptions = {
             method: method,
             headers: {
                 'Accept': 'application/json'
             }
         };
-        
+
         // For GET requests, add parameters to URL
         if (method === 'GET' && data) {
             Object.entries(data).forEach(([key, value]) => {
@@ -1793,21 +1793,21 @@ function createAdapter(options = {}) {
             requestOptions.headers['Content-Type'] = 'application/json';
             requestOptions.body = JSON.stringify(data);
         }
-        
+
         try {
             const response = await fetch(url.toString(), requestOptions);
             const result = await response.json();
-            
+
             if (!response.ok) {
                 throw new Error(result.message || `API request failed with status ${response.status}`);
             }
-            
+
             return result;
         } catch (error) {
             throw new Error(`Filesystem API request failed: ${error.message}`);
         }
     }
-    
+
     return {
         /**
          * Read a file from the filesystem
@@ -1818,7 +1818,7 @@ function createAdapter(options = {}) {
             const result = await makeRequest('/filesystem/read', 'GET', { path: filePath });
             return result.data;
         },
-        
+
         /**
          * Write content to a file
          * @param {string} filePath - Path to the file
@@ -1834,7 +1834,7 @@ function createAdapter(options = {}) {
             });
             return result.data;
         },
-        
+
         /**
          * List directory contents
          * @param {string} directoryPath - Path to the directory
@@ -1850,7 +1850,7 @@ function createAdapter(options = {}) {
             });
             return result.data;
         },
-        
+
         /**
          * Search for files
          * @param {string} directoryPath - Path to search in
@@ -1868,7 +1868,7 @@ function createAdapter(options = {}) {
             });
             return result.data;
         },
-        
+
         /**
          * Delete a file or directory
          * @param {string} filePath - Path to delete
@@ -1882,7 +1882,7 @@ function createAdapter(options = {}) {
             });
             return result.data;
         },
-        
+
         /**
          * Get filesystem module information
          * @returns {Promise<Object>} - Module information
@@ -1913,7 +1913,7 @@ Now let's create a test cli file for manual testing:
  * EVA & GUARANI - Filesystem Module CLI Test
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This utility allows testing the filesystem module from the command line.
  */
 
@@ -2012,7 +2012,7 @@ function createMockRes() {
 // Start a test server
 function startServer() {
     const port = 3001;
-    
+
     app.get('/', (req, res) => {
         res.send(`
             <html>
@@ -2032,7 +2032,7 @@ function startServer() {
                 </head>
                 <body>
                     <h1>EVA & GUARANI Filesystem Module Test</h1>
-                    
+
                     <div class="operation">
                         <h2>Read File</h2>
                         <form id="readForm">
@@ -2042,7 +2042,7 @@ function startServer() {
                         </form>
                         <div id="readResult" class="result"></div>
                     </div>
-                    
+
                     <div class="operation">
                         <h2>Write File</h2>
                         <form id="writeForm">
@@ -2058,7 +2058,7 @@ function startServer() {
                         </form>
                         <div id="writeResult" class="result"></div>
                     </div>
-                    
+
                     <div class="operation">
                         <h2>List Directory</h2>
                         <form id="listForm">
@@ -2074,7 +2074,7 @@ function startServer() {
                         </form>
                         <div id="listResult" class="result"></div>
                     </div>
-                    
+
                     <div class="operation">
                         <h2>Search Files</h2>
                         <form id="searchForm">
@@ -2092,7 +2092,7 @@ function startServer() {
                         </form>
                         <div id="searchResult" class="result"></div>
                     </div>
-                    
+
                     <div class="operation">
                         <h2>Delete File/Directory</h2>
                         <form id="deleteForm">
@@ -2106,25 +2106,25 @@ function startServer() {
                         </form>
                         <div id="deleteResult" class="result"></div>
                     </div>
-                    
+
                     <div class="operation">
                         <h2>Module Info</h2>
                         <button id="infoButton">Get Info</button>
                         <div id="infoResult" class="result"></div>
                     </div>
-                    
+
                     <script>
                         // Helper function to display results
                         function displayResult(elementId, data) {
                             const element = document.getElementById(elementId);
                             element.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
                         }
-                        
+
                         // Read File
                         document.getElementById('readForm').addEventListener('submit', async (e) => {
                             e.preventDefault();
                             const path = document.getElementById('readPath').value;
-                            
+
                             try {
                                 const response = await fetch(\`/filesystem/read?path=\${encodeURIComponent(path)}\`);
                                 const result = await response.json();
@@ -2133,14 +2133,14 @@ function startServer() {
                                 displayResult('readResult', { error: error.message });
                             }
                         });
-                        
+
                         // Write File
                         document.getElementById('writeForm').addEventListener('submit', async (e) => {
                             e.preventDefault();
                             const path = document.getElementById('writePath').value;
                             const content = document.getElementById('writeContent').value;
                             const createDirectories = document.getElementById('createDirectories').checked;
-                            
+
                             try {
                                 const response = await fetch('/filesystem/write', {
                                     method: 'POST',
@@ -2153,20 +2153,20 @@ function startServer() {
                                 displayResult('writeResult', { error: error.message });
                             }
                         });
-                        
+
                         // List Directory
                         document.getElementById('listForm').addEventListener('submit', async (e) => {
                             e.preventDefault();
                             const path = document.getElementById('listPath').value;
                             const recursive = document.getElementById('listRecursive').checked;
                             const pattern = document.getElementById('listPattern').value;
-                            
+
                             try {
                                 const url = new URL('/filesystem/list', window.location.origin);
                                 url.searchParams.append('path', path);
                                 url.searchParams.append('recursive', recursive);
                                 if (pattern) url.searchParams.append('pattern', pattern);
-                                
+
                                 const response = await fetch(url);
                                 const result = await response.json();
                                 displayResult('listResult', result);
@@ -2174,7 +2174,7 @@ function startServer() {
                                 displayResult('listResult', { error: error.message });
                             }
                         });
-                        
+
                         // Search Files
                         document.getElementById('searchForm').addEventListener('submit', async (e) => {
                             e.preventDefault();
@@ -2182,14 +2182,14 @@ function startServer() {
                             const query = document.getElementById('searchQuery').value;
                             const recursive = document.getElementById('searchRecursive').checked;
                             const limit = document.getElementById('searchLimit').value;
-                            
+
                             try {
                                 const url = new URL('/filesystem/search', window.location.origin);
                                 url.searchParams.append('path', path);
                                 url.searchParams.append('query', query);
                                 url.searchParams.append('recursive', recursive);
                                 url.searchParams.append('limit', limit);
-                                
+
                                 const response = await fetch(url);
                                 const result = await response.json();
                                 displayResult('searchResult', result);
@@ -2197,22 +2197,22 @@ function startServer() {
                                 displayResult('searchResult', { error: error.message });
                             }
                         });
-                        
+
                         // Delete File/Directory
                         document.getElementById('deleteForm').addEventListener('submit', async (e) => {
                             e.preventDefault();
                             const path = document.getElementById('deletePath').value;
                             const recursive = document.getElementById('deleteRecursive').checked;
-                            
+
                             if (!confirm(\`Are you sure you want to delete \${path}?\`)) {
                                 return;
                             }
-                            
+
                             try {
                                 const url = new URL('/filesystem/delete', window.location.origin);
                                 url.searchParams.append('path', path);
                                 url.searchParams.append('recursive', recursive);
-                                
+
                                 const response = await fetch(url, { method: 'DELETE' });
                                 const result = await response.json();
                                 displayResult('deleteResult', result);
@@ -2220,7 +2220,7 @@ function startServer() {
                                 displayResult('deleteResult', { error: error.message });
                             }
                         });
-                        
+
                         // Module Info
                         document.getElementById('infoButton').addEventListener('click', async () => {
                             try {
@@ -2236,7 +2236,7 @@ function startServer() {
             </html>
         `);
     });
-    
+
     app.get('/filesystem/info', (req, res) => {
         res.json({
             status: 'success',
@@ -2256,7 +2256,7 @@ function startServer() {
             }
         });
     });
-    
+
     app.listen(port, () => {
         logger.info(`Test server running at http://localhost:${port}`);
         logger.info(`Press Ctrl+C to stop`);
@@ -2269,91 +2269,91 @@ async function processCommand() {
         showHelp();
         return;
     }
-    
+
     if (command === 'server') {
         startServer();
         return;
     }
-    
+
     if (command === 'read') {
         const filePath = args[1];
-        
+
         if (!filePath) {
             logger.error('Missing file path');
             return;
         }
-        
+
         const req = createMockReq('GET', '/filesystem/read', { path: filePath });
         const res = createMockRes();
-        
+
         await module.routes.find(r => r.path === '/filesystem/read').handler(req, res);
         return;
     }
-    
+
     if (command === 'write') {
         const filePath = args[1];
         const content = args[2] || '';
-        
+
         if (!filePath) {
             logger.error('Missing file path');
             return;
         }
-        
+
         const req = createMockReq('POST', '/filesystem/write', null, {
             path: filePath,
             content,
             createDirectories: args.includes('--create-dirs')
         });
         const res = createMockRes();
-        
+
         await module.routes.find(r => r.path === '/filesystem/write').handler(req, res);
         return;
     }
-    
+
     if (command === 'list') {
         const dirPath = args[1];
-        
+
         if (!dirPath) {
             logger.error('Missing directory path');
             return;
         }
-        
+
         const recursive = args.includes('--recursive');
         let pattern = null;
-        
+
         const patternIndex = args.indexOf('--pattern');
         if (patternIndex !== -1 && args.length > patternIndex + 1) {
             pattern = args[patternIndex + 1];
         }
-        
+
         const req = createMockReq('GET', '/filesystem/list', {
             path: dirPath,
             recursive: recursive.toString(),
             pattern
         });
         const res = createMockRes();
-        
+
         await module.routes.find(r => r.path === '/filesystem/list').handler(req, res);
         return;
     }
-    
+
     if (command === 'search') {
         const dirPath = args[1];
         const query = args[2];
-        
+
         if (!dirPath || !query) {
             logger.error('Missing directory path or search query');
             return;
         }
-        
+
         const recursive = !args.includes('--no-recursive');
         let limit = 100;
-        
+
         const limitIndex = args.indexOf('--limit');
         if (limitIndex !== -1 && args.length > limitIndex + 1) {
             limit = parseInt(args[limitIndex + 1], 10);
         }
-        
+
         const req = createMockReq('GET', '/filesystem/search', {
             path: dirPath,
             query,
@@ -2361,19 +2361,19 @@ async function processCommand() {
             limit
         });
         const res = createMockRes();
-        
+
         await module.routes.find(r => r.path === '/filesystem/search').handler(req, res);
         return;
     }
-    
+
     if (command === 'delete') {
         const filePath = args[1];
-        
+
         if (!filePath) {
             logger.error('Missing file path');
             return;
         }
-        
+
         // Ask for confirmation
         if (!args.includes('--force')) {
             console.log(`Are you sure you want to delete ${filePath}? (y/N)`);
@@ -2381,74 +2381,74 @@ async function processCommand() {
             stdin.setRawMode(true);
             stdin.resume();
             stdin.setEncoding('utf8');
-            
+
             await new Promise(resolve => {
                 stdin.once('data', (key) => {
                     stdin.setRawMode(false);
                     stdin.pause();
-                    
+
                     if (key.toLowerCase() !== 'y') {
                         console.log('Operation cancelled');
                         resolve(false);
                         return;
                     }
-                    
+
                     resolve(true);
                 });
             }).then(confirmed => {
                 if (!confirmed) {
                     return;
                 }
-                
+
                 const recursive = args.includes('--recursive');
-                
+
                 const req = createMockReq('DELETE', '/filesystem/delete', {
                     path: filePath,
                     recursive: recursive.toString()
                 });
                 const res = createMockRes();
-                
+
                 module.routes.find(r => r.path === '/filesystem/delete').handler(req, res);
             });
-            
+
             return;
         }
-        
+
         const recursive = args.includes('--recursive');
-        
+
         const req = createMockReq('DELETE', '/filesystem/delete', {
             path: filePath,
             recursive: recursive.toString()
         });
         const res = createMockRes();
-        
+
         await module.routes.find(r => r.path === '/filesystem/delete').handler(req, res);
         return;
     }
-    
+
     if (command === 'info') {
         console.log('\n\x1b[1mEVA & GUARANI Filesystem Module Information\x1b[0m');
         console.log(`Name: ${module.name}`);
         console.log(`Version: ${module.version}`);
         console.log('\nAvailable Routes:');
-        
+
         module.routes.forEach(route => {
             console.log(`  ${route.method} ${route.path}`);
             console.log(`    ${route.description}`);
         });
-        
+
         console.log('\nAllowed Directories:');
         allowedDirectories.forEach(dir => {
             console.log(`  - ${dir}`);
         });
-        
+
         console.log('\nConfiguration:');
         console.log(`  Max File Size: ${module.config?.maxFileSize || 10 * 1024 * 1024} bytes`);
         console.log(`  Max Results: ${module.config?.maxResults || 100}`);
-        
+
         return;
     }
-    
+
     logger.error(`Unknown command: ${command}`);
     showHelp();
 }
@@ -2746,16 +2746,16 @@ const filesystem = createAdapter({
 async function example() {
     // Read a file
     const file = await filesystem.readFile('C:/path/to/file.txt');
-    
+
     // Write a file
     await filesystem.writeFile('C:/path/to/new-file.txt', 'Hello, world!', true);
-    
+
     // List a directory
     const listing = await filesystem.listDirectory('C:/path/to/directory', true);
-    
+
     // Search for files
     const results = await filesystem.searchFiles('C:/path/to/directory', 'searchterm', true, 100);
-    
+
     // Delete a file
     await filesystem.deleteFile('C:/path/to/file.txt');
 }
@@ -2848,7 +2848,7 @@ Now that we've created all the necessary files, let's update our main filesystem
  * EVA & GUARANI - Filesystem Module Integration for SLOP Server
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This file integrates the Filesystem Module with the main SLOP server.
  */
 
@@ -2878,13 +2878,13 @@ function registerFilesystemModule(slopServer) {
     try {
         // Log the integration
         slopServer.logger.info('[SLOP] Initializing filesystem module integration');
-        
+
         // Verify module files exist
         if (!fs.existsSync(MODULE_PATH)) {
             slopServer.logger.error(`[SLOP] Filesystem module not found at ${MODULE_PATH}`);
             return false;
         }
-        
+
         // Import the integration module
         const filesystemIntegration = require(path.join(MODULE_PATH, 'integration'));
 
@@ -2895,10 +2895,10 @@ function registerFilesystemModule(slopServer) {
             maxResults: 1000,
             logLevel: slopServer.config.logLevel || 'info'
         });
-        
+
         slopServer.logger.info('[SLOP] Filesystem module integration complete');
         slopServer.logger.info(`[SLOP] Allowed directories: ${ALLOWED_DIRS.join(', ')}`);
-        
+
         // Add a reference to the filesystem module in the SLOP server state
         slopServer.state = slopServer.state || {};
         slopServer.state.filesystemModule = {
@@ -2907,7 +2907,7 @@ function registerFilesystemModule(slopServer) {
             allowedDirectories: ALLOWED_DIRS,
             timestamp: new Date().toISOString()
         };
-        
+
         // Return success
         return true;
     } catch (error) {
@@ -2960,7 +2960,7 @@ server.listen(port, config.server.host, () => {
     Object.entries(config.subsystems).forEach(([name, subsystem]) => {
         logger.info(`Subsystem ${name}: ${subsystem.enabled ? 'ACTIVE' : 'INACTIVE'}`);
     });
-    
+
     // Register filesystem module
     const slopServer = {
         app,
@@ -2969,7 +2969,7 @@ server.listen(port, config.server.host, () => {
         config,
         state: {}
     };
-    
+
     if (filesystemIntegration.register(slopServer)) {
         logger.info('Filesystem module registered successfully');
     } else {
@@ -3092,7 +3092,7 @@ if (-not (Test-Path $indexPath)) {
 # Check if dependencies are installed
 if (-not (Test-Path (Join-Path $slopPath "node_modules"))) {
     Write-Host "Dependencies not found. Installing..." -ForegroundColor Yellow
-    
+
     # Create package.json if it doesn't exist
     if (-not (Test-Path $packageJsonPath)) {
         @"
@@ -3116,14 +3116,14 @@ if (-not (Test-Path (Join-Path $slopPath "node_modules"))) {
 "@ | Out-File -FilePath $packageJsonPath -Encoding utf8
         Write-Host "✓ Created package.json" -ForegroundColor Green
     }
-    
+
     # Set current directory to SLOP path
     Set-Location -Path $slopPath
-    
+
     # Install dependencies
     Write-Host "Installing npm dependencies. This may take a moment..." -ForegroundColor Yellow
     npm install
-    
+
     if ($LASTEXITCODE -eq 0) {
         Write-Host "✓ Dependencies installed successfully." -ForegroundColor Green
         $depsInstalled = $true
@@ -3148,10 +3148,10 @@ if ($depsInstalled) {
     Write-Host ""
     Write-Host "Press Ctrl+C to stop the server." -ForegroundColor Yellow
     Write-Host ""
-    
+
     # Set current directory to SLOP path
     Set-Location -Path $slopPath
-    
+
     # Run the server
     node $indexPath
 }
@@ -3204,7 +3204,7 @@ if (-not (Test-Path $indexPath)) {
 # Check if dependencies are installed
 if (-not (Test-Path (Join-Path $slopPath "node_modules"))) {
     Write-Host "Dependencies not found. Installing..." -ForegroundColor Yellow
-    
+
     # Create package.json if it doesn't exist
     if (-not (Test-Path $packageJsonPath)) {
         @"
@@ -3228,14 +3228,14 @@ if (-not (Test-Path (Join-Path $slopPath "node_modules"))) {
 "@ | Out-File -FilePath $packageJsonPath -Encoding utf8
         Write-Host "✓ Created package.json" -ForegroundColor Green
     }
-    
+
     # Set current directory to SLOP path
     Set-Location -Path $slopPath
-    
+
     # Install dependencies
     Write-Host "Installing npm dependencies. This may take a moment..." -ForegroundColor Yellow
     npm install
-    
+
     if ($LASTEXITCODE -eq 0) {
         Write-Host "✓ Dependencies installed successfully." -ForegroundColor Green
         $depsInstalled = $true
@@ -3260,10 +3260,10 @@ if ($depsInstalled) {
     Write-Host ""
     Write-Host "Press Ctrl+C to stop the server." -ForegroundColor Yellow
     Write-Host ""
-    
+
     # Set current directory to SLOP path
     Set-Location -Path $slopPath
-    
+
     # Run the server
     node $indexPath
 }
@@ -3326,7 +3326,7 @@ if (-not (Test-Path $indexPath)) {
 # Check if dependencies are installed
 if (-not (Test-Path (Join-Path $slopPath "node_modules"))) {
     Write-Host "Dependencies not found. Installing..." -ForegroundColor Yellow
-    
+
     # Create package.json if it doesn't exist
     if (-not (Test-Path $packageJsonPath)) {
         @"
@@ -3350,14 +3350,14 @@ if (-not (Test-Path (Join-Path $slopPath "node_modules"))) {
 "@ | Out-File -FilePath $packageJsonPath -Encoding utf8
         Write-Host "✓ Created package.json" -ForegroundColor Green
     }
-    
+
     # Set current directory to SLOP path
     Set-Location -Path $slopPath
-    
+
     # Install dependencies
     Write-Host "Installing npm dependencies. This may take a moment..." -ForegroundColor Yellow
     npm install
-    
+
     if ($LASTEXITCODE -eq 0) {
         Write-Host "✓ Dependencies installed successfully." -ForegroundColor Green
         $depsInstalled = $true
@@ -3382,10 +3382,10 @@ if ($depsInstalled) {
     Write-Host ""
     Write-Host "Press Ctrl+C to stop the server." -ForegroundColor Yellow
     Write-Host ""
-    
+
     # Set current directory to SLOP path
     Set-Location -Path $slopPath
-    
+
     # Run the server
     node $indexPath
 }
@@ -3586,7 +3586,7 @@ function Ensure-Directory {
     param (
         [string]$Path
     )
-    
+
     if (-not (Test-Path $Path)) {
         Write-Host "Creating directory: $Path" -ForegroundColor Yellow
         New-Item -ItemType Directory -Path $Path -Force | Out-Null
@@ -3620,7 +3620,7 @@ $packageJson = Join-Path $rootPath "package.json"
 
 if (-not (Test-Path $packageJson)) {
     Write-Host "Creating package.json file..." -ForegroundColor Yellow
-    
+
     $packageContent = @"
 {
   "name": "eva-guarani-slop-server",
@@ -3642,9 +3642,9 @@ if (-not (Test-Path $packageJson)) {
   }
 }
 "@
-    
+
     Set-Content -Path $packageJson -Value $packageContent
-    
+
     Write-Host "Installing npm packages..." -ForegroundColor Yellow
     npm install
 }
@@ -3702,7 +3702,7 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
             --text-secondary: #667085;
             --border: #E4E7EC;
         }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--background);
@@ -3711,12 +3711,12 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
             display: flex;
             flex-direction: column;
         }
-        
+
         .navbar-brand {
             font-weight: 700;
             color: var(--primary-dark) !important;
         }
-        
+
         .card {
             border-radius: 8px;
             border: 1px solid var(--border);
@@ -3724,66 +3724,66 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
             background-color: var(--card-bg);
             margin-bottom: 24px;
         }
-        
+
         .card-header {
             background-color: var(--card-bg);
             border-bottom: 1px solid var(--border);
             padding: 16px 24px;
             font-weight: 600;
         }
-        
+
         .card-body {
             padding: 24px;
         }
-        
+
         .stats-number {
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 4px;
         }
-        
+
         .stats-label {
             font-size: 14px;
             color: var(--text-secondary);
         }
-        
+
         .dir-item, .file-item {
             padding: 12px 16px;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
         }
-        
+
         .dir-item:last-child, .file-item:last-child {
             border-bottom: none;
         }
-        
+
         .dir-item i, .file-item i {
             margin-right: 12px;
             font-size: 18px;
         }
-        
+
         .dir-item {
             color: var(--info);
             cursor: pointer;
         }
-        
+
         .file-item {
             color: var(--text);
             cursor: pointer;
         }
-        
+
         .file-size {
             margin-left: auto;
             font-size: 12px;
             color: var(--text-secondary);
         }
-        
+
         .breadcrumb {
             padding: 8px 0;
             margin-bottom: 16px;
         }
-        
+
         .file-content {
             background-color: #f8f9fa;
             padding: 16px;
@@ -3793,49 +3793,49 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
             overflow-y: auto;
             font-family: 'Courier New', monospace;
         }
-        
+
         .search-result {
             padding: 12px 16px;
             border-bottom: 1px solid var(--border);
         }
-        
+
         .search-result:last-child {
             border-bottom: none;
         }
-        
+
         .search-path {
             font-size: 14px;
             color: var(--text-secondary);
         }
-        
+
         .footer {
             background-color: var(--card-bg);
             padding: 24px 0;
             margin-top: auto;
             border-top: 1px solid var(--border);
         }
-        
+
         .btn-primary {
             background-color: var(--primary);
             border-color: var(--primary);
         }
-        
+
         .btn-primary:hover {
             background-color: var(--primary-dark);
             border-color: var(--primary-dark);
         }
-        
+
         .loading {
             display: none;
             text-align: center;
             padding: 20px;
         }
-        
+
         .spinner-border {
             width: 3rem;
             height: 3rem;
         }
-        
+
         .alert {
             margin-bottom: 16px;
         }
@@ -3863,13 +3863,13 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
 
     <div class="container my-4">
         <h1 class="mb-4">Filesystem Module</h1>
-        
+
         <div class="alert alert-primary d-flex align-items-center" role="alert">
             <div>
                 <strong>SLOP Server Status:</strong> <span id="server-status">Connecting...</span>
             </div>
         </div>
-        
+
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card">
@@ -3923,7 +3923,7 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
                 </div>
             </div>
         </div>
-        
+
         <div class="row mb-4">
             <div class="col-md-12">
                 <div class="card">
@@ -3951,7 +3951,7 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-6 mb-4">
                 <div class="card">
@@ -3965,22 +3965,22 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
                                 <li class="breadcrumb-item active">Root</li>
                             </ol>
                         </nav>
-                        
+
                         <div id="loading-dir" class="loading">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        
+
                         <div id="error-dir" class="alert alert-danger mx-3" style="display:none;"></div>
-                        
+
                         <div id="directory-listing">
                             <!-- Directory listing will be populated here -->
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-6 mb-4">
                 <div class="card">
                     <div class="card-header">File Viewer</div>
@@ -3990,9 +3990,9 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        
+
                         <div id="error-file" class="alert alert-danger" style="display:none;"></div>
-                        
+
                         <div id="file-info" style="display:none;">
                             <h5 id="file-name">No file selected</h5>
                             <p class="text-muted" id="file-path"></p>
@@ -4005,7 +4005,7 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-6 mb-4">
                 <div class="card">
@@ -4022,15 +4022,15 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
                             </div>
                             <button type="submit" class="btn btn-primary">Search</button>
                         </form>
-                        
+
                         <div id="loading-search" class="loading mt-3">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        
+
                         <div id="error-search" class="alert alert-danger mt-3" style="display:none;"></div>
-                        
+
                         <div class="mt-3">
                             <h5>Search Results</h5>
                             <div id="search-results">
@@ -4040,7 +4040,7 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-6 mb-4">
                 <div class="card">
                     <div class="card-header">Write File</div>
@@ -4056,13 +4056,13 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
                             </div>
                             <button type="submit" class="btn btn-primary">Write File</button>
                         </form>
-                        
+
                         <div id="loading-write" class="loading mt-3">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        
+
                         <div id="error-write" class="alert alert-danger mt-3" style="display:none;"></div>
                         <div id="success-write" class="alert alert-success mt-3" style="display:none;"></div>
                     </div>
@@ -4070,7 +4070,7 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
             </div>
         </div>
     </div>
-    
+
     <footer class="footer">
         <div class="container">
             <div class="row">
@@ -4085,7 +4085,7 @@ cd "/c/Eva Guarani EGOS/QUANTUM_PROMPTS" && mkdir -p slop/public
             </div>
         </div>
     </footer>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/filesystem.js"></script>
 </body>
@@ -4136,14 +4136,14 @@ function initializeWebSocket() {
         console.log("WebSocket connection established");
         document.getElementById('server-status').textContent = 'Connected';
         document.getElementById('server-status').classList.add('text-success');
-        
+
         // Request initial stats
         requestStats();
     };
 
     ws.onmessage = function(event) {
         const message = JSON.parse(event.data);
-        
+
         if (message.type === 'stats') {
             if (message.module === 'filesystem') {
                 updateStatsDisplay(message.data);
@@ -4156,7 +4156,7 @@ function initializeWebSocket() {
         document.getElementById('server-status').textContent = 'Disconnected';
         document.getElementById('server-status').classList.remove('text-success');
         document.getElementById('server-status').classList.add('text-danger');
-        
+
         // Attempt to reconnect after 5 seconds
         setTimeout(initializeWebSocket, 5000);
     };
@@ -4194,31 +4194,31 @@ function setupEventListeners() {
             listDirectory('/');
         }
     });
-    
+
     // Search form
     document.getElementById('search-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         const query = document.getElementById('search-query').value;
         const path = document.getElementById('search-path').value || '/';
-        
+
         if (query) {
             searchFiles(query, path);
         }
     });
-    
+
     // Write file form
     document.getElementById('write-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         const filePath = document.getElementById('file-path-write').value;
         const content = document.getElementById('file-content-write').value;
-        
+
         if (filePath) {
             writeFile(filePath, content);
         }
     });
-    
+
     // Initial directory listing
     listDirectory('/');
 }
@@ -4249,11 +4249,11 @@ function updateModuleStats() {
 function updateStatsDisplay(stats) {
     if (stats) {
         moduleStats = stats;
-        
+
         document.getElementById('files-read').textContent = stats.filesRead || 0;
         document.getElementById('dirs-listed').textContent = stats.directoriesListed || 0;
         document.getElementById('searches-performed').textContent = stats.searchesPerformed || 0;
-        
+
         if (stats.lastOperation && stats.lastOperationTime) {
             const date = new Date(stats.lastOperationTime);
             const timeStr = date.toLocaleTimeString();
@@ -4270,7 +4270,7 @@ function updateStatsDisplay(stats) {
  */
 function listDirectory(path) {
     showLoading('dir');
-    
+
     fetch(`/api/filesystem/list?path=${encodeURIComponent(path)}`)
         .then(response => {
             if (!response.ok) {
@@ -4296,28 +4296,28 @@ function listDirectory(path) {
 function renderDirectoryListing(data, path) {
     const listingElement = document.getElementById('directory-listing');
     const breadcrumbElement = document.getElementById('path-breadcrumb');
-    
+
     // Clear previous content
     listingElement.innerHTML = '';
     breadcrumbElement.innerHTML = '';
-    
+
     // Render breadcrumb
     const pathParts = path.split('/').filter(Boolean);
     let breadcrumbHtml = '<li class="breadcrumb-item"><a href="#" data-path="/">Root</a></li>';
-    
+
     let currentBreadcrumbPath = '';
     for (let i = 0; i < pathParts.length; i++) {
         currentBreadcrumbPath += '/' + pathParts[i];
-        
+
         if (i === pathParts.length - 1) {
             breadcrumbHtml += `<li class="breadcrumb-item active">${pathParts[i]}</li>`;
         } else {
             breadcrumbHtml += `<li class="breadcrumb-item"><a href="#" data-path="${currentBreadcrumbPath}">${pathParts[i]}</a></li>`;
         }
     }
-    
+
     breadcrumbElement.innerHTML = breadcrumbHtml;
-    
+
     // Add click event to breadcrumb links
     breadcrumbElement.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', function(e) {
@@ -4326,7 +4326,7 @@ function renderDirectoryListing(data, path) {
             listDirectory(path);
         });
     });
-    
+
     // Render directory content
     if (data.directories && data.directories.length === 0 && data.files && data.files.length === 0) {
         listingElement.innerHTML = '<div class="p-3 text-center">Empty directory</div>';
@@ -4340,14 +4340,14 @@ function renderDirectoryListing(data, path) {
                 <path d="M11 17L6 12L11 7" stroke="#3E63DD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M18 17L13 12L18 7" stroke="#3E63DD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg> Parent Directory`;
-            
+
             parentItem.addEventListener('click', function() {
                 listDirectory(parentPath);
             });
-            
+
             listingElement.appendChild(parentItem);
         }
-        
+
         // Add directory entries
         if (data.directories) {
             data.directories.forEach(dir => {
@@ -4356,16 +4356,16 @@ function renderDirectoryListing(data, path) {
                 dirItem.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V9C21 7.89543 20.1046 7 19 7H13L11 5H5C3.89543 5 3 5.89543 3 7Z" stroke="#3E63DD" stroke-width="2"/>
                 </svg> ${dir.name}`;
-                
+
                 dirItem.addEventListener('click', function() {
                     const newPath = path === '/' ? `/${dir.name}` : `${path}/${dir.name}`;
                     listDirectory(newPath);
                 });
-                
+
                 listingElement.appendChild(dirItem);
             });
         }
-        
+
         // Add file entries
         if (data.files) {
             data.files.forEach(file => {
@@ -4375,12 +4375,12 @@ function renderDirectoryListing(data, path) {
                     <path d="M13 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V9L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M13 2V9H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg> ${file.name} <span class="file-size">${formatFileSize(file.size)}</span>`;
-                
+
                 fileItem.addEventListener('click', function() {
                     const filePath = path === '/' ? `/${file.name}` : `${path}/${file.name}`;
                     readFile(filePath);
                 });
-                
+
                 listingElement.appendChild(fileItem);
             });
         }
@@ -4393,7 +4393,7 @@ function renderDirectoryListing(data, path) {
  */
 function readFile(path) {
     showLoading('file');
-    
+
     fetch(`/api/filesystem/read?path=${encodeURIComponent(path)}`)
         .then(response => {
             if (!response.ok) {
@@ -4407,7 +4407,7 @@ function readFile(path) {
             document.getElementById('file-name').textContent = path.split('/').pop();
             document.getElementById('file-path').textContent = path;
             document.getElementById('file-content').textContent = data.content;
-            
+
             // Hide loading and error
             document.getElementById('loading-file').style.display = 'none';
             document.getElementById('error-file').style.display = 'none';
@@ -4425,7 +4425,7 @@ function readFile(path) {
  */
 function searchFiles(query, path) {
     showLoading('search');
-    
+
     fetch(`/api/filesystem/search?query=${encodeURIComponent(query)}&path=${encodeURIComponent(path)}`)
         .then(response => {
             if (!response.ok) {
@@ -4448,14 +4448,14 @@ function searchFiles(query, path) {
  */
 function renderSearchResults(data) {
     const resultsElement = document.getElementById('search-results');
-    
+
     // Clear previous results
     resultsElement.innerHTML = '';
-    
+
     // Hide loading and error
     document.getElementById('loading-search').style.display = 'none';
     document.getElementById('error-search').style.display = 'none';
-    
+
     if (data.results && data.results.length > 0) {
         data.results.forEach(result => {
             const resultItem = document.createElement('div');
@@ -4464,11 +4464,11 @@ function renderSearchResults(data) {
                 <div>${result.name}</div>
                 <div class="search-path">${result.path}</div>
             `;
-            
+
             resultItem.addEventListener('click', function() {
                 readFile(result.path);
             });
-            
+
             resultsElement.appendChild(resultItem);
         });
     } else {
@@ -4483,7 +4483,7 @@ function renderSearchResults(data) {
  */
 function writeFile(path, content) {
     showLoading('write');
-    
+
     fetch('/api/filesystem/write', {
         method: 'POST',
         headers: {
@@ -4504,10 +4504,10 @@ function writeFile(path, content) {
         // Hide loading and error
         document.getElementById('loading-write').style.display = 'none';
         document.getElementById('error-write').style.display = 'none';
-        
+
         // Show success message
         showSuccess('write', 'File written successfully');
-        
+
         // If we're currently viewing the directory containing this file, refresh the listing
         const filePath = path.substring(0, path.lastIndexOf('/')) || '/';
         if (filePath === currentPath) {
@@ -4527,11 +4527,11 @@ function writeFile(path, content) {
  */
 function formatFileSize(bytes) {
     if (bytes === 0) return '0 B';
-    
+
     const k = 1024;
     const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    
+
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
@@ -4542,7 +4542,7 @@ function formatFileSize(bytes) {
 function showLoading(section) {
     document.getElementById(`loading-${section}`).style.display = 'block';
     document.getElementById(`error-${section}`).style.display = 'none';
-    
+
     if (section === 'file') {
         document.getElementById('file-info').style.display = 'none';
     } else if (section === 'write') {
@@ -4557,11 +4557,11 @@ function showLoading(section) {
  */
 function showError(section, message) {
     document.getElementById(`loading-${section}`).style.display = 'none';
-    
+
     const errorElement = document.getElementById(`error-${section}`);
     errorElement.textContent = message;
     errorElement.style.display = 'block';
-    
+
     if (section === 'file') {
         document.getElementById('file-info').style.display = 'none';
     } else if (section === 'write') {
@@ -4577,7 +4577,7 @@ function showError(section, message) {
 function showSuccess(section, message) {
     document.getElementById(`loading-${section}`).style.display = 'none';
     document.getElementById(`error-${section}`).style.display = 'none';
-    
+
     const successElement = document.getElementById(`success-${section}`);
     if (successElement) {
         successElement.textContent = message;
@@ -4617,7 +4617,7 @@ function Ensure-Directory {
     param (
         [string]$Path
     )
-    
+
     if (-not (Test-Path $Path)) {
         Write-Host "Creating directory: $Path" -ForegroundColor Yellow
         New-Item -ItemType Directory -Path $Path -Force | Out-Null
@@ -4651,7 +4651,7 @@ $packageJson = Join-Path $rootPath "package.json"
 
 if (-not (Test-Path $packageJson)) {
     Write-Host "Creating package.json file..." -ForegroundColor Yellow
-    
+
     $packageContent = @"
 {
   "name": "eva-guarani-slop-server",
@@ -4673,9 +4673,9 @@ if (-not (Test-Path $packageJson)) {
   }
 }
 "@
-    
+
     Set-Content -Path $packageJson -Value $packageContent
-    
+
     Write-Host "Installing npm packages..." -ForegroundColor Yellow
     npm install
 }

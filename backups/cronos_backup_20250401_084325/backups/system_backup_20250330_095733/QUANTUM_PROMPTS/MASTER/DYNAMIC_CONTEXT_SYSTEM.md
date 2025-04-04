@@ -150,14 +150,14 @@ graph TD
     DCS[Dynamic Context System] --> TMP[Template System]
     DCS --> MGR[Context Manager]
     DCS --> UPD[Auto Updater]
-    
+
     TMP --> STR[Structure]
     TMP --> MRK[Dynamic Markers]
-    
+
     MGR --> STATE[System State]
     MGR --> HIST[History]
     MGR --> BIND[Quantum Bindings]
-    
+
     UPD --> SCH[Scheduler]
     UPD --> LOG[Logger]
     UPD --> SYNC[Synchronizer]

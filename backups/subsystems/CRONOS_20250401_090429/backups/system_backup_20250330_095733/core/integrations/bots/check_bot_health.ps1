@@ -12,12 +12,12 @@ function Write-LogMessage {
     param (
         [Parameter(Mandatory = $true)]
         [string]$Message,
-        
+
         [Parameter(Mandatory = $false)]
         [ValidateSet("INFO", "SUCCESS", "ERROR", "WARNING", "CHECK")]
         [string]$Type = "INFO"
     )
-    
+
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $colorMap = @{
         "INFO" = "Cyan"
@@ -26,7 +26,7 @@ function Write-LogMessage {
         "WARNING" = "Yellow"
         "CHECK" = "Magenta"
     }
-    
+
     $color = $colorMap[$Type]
     Write-Host "[$timestamp] " -NoNewline
     Write-Host "[$Type] " -NoNewline -ForegroundColor $color
@@ -38,11 +38,11 @@ function Test-FileExists {
     param (
         [Parameter(Mandatory = $true)]
         [string]$FilePath,
-        
+
         [Parameter(Mandatory = $true)]
         [string]$Description
     )
-    
+
     if (Test-Path $FilePath) {
         Write-LogMessage "✓ $Description found: $FilePath" -Type "SUCCESS"
         return $true
@@ -58,7 +58,7 @@ function Test-ProcessRunning {
         [Parameter(Mandatory = $true)]
         [string]$ProcessName
     )
-    
+
     $process = Get-Process -Name $ProcessName -ErrorAction SilentlyContinue
     if ($process) {
         Write-LogMessage "✓ Process '$ProcessName' is running (PID: $($process.Id))" -Type "SUCCESS"
@@ -74,25 +74,25 @@ function Test-RecentLogs {
     param (
         [Parameter(Mandatory = $true)]
         [string]$LogPath,
-        
+
         [Parameter(Mandatory = $false)]
         [int]$MinutesThreshold = 10
     )
-    
+
     if (Test-Path $LogPath) {
         $lastWriteTime = (Get-Item $LogPath).LastWriteTime
         $timeDiff = (Get-Date) - $lastWriteTime
-        
+
         if ($timeDiff.TotalMinutes -le $MinutesThreshold) {
             Write-LogMessage "✓ Log updated recently ($([math]::Round($timeDiff.TotalMinutes, 2)) minutes ago)" -Type "SUCCESS"
-            
+
             # Show the last 5 lines of the log
             Write-LogMessage "Latest log entries:" -Type "INFO"
             $lastLines = Get-Content $LogPath -Tail 5
             foreach ($line in $lastLines) {
                 Write-Host "   $line" -ForegroundColor DarkGray
             }
-            
+
             return $true
         } else {
             Write-LogMessage "✗ Log not updated recently ($([math]::Round($timeDiff.TotalMinutes, 2)) minutes ago)" -Type "WARNING"
@@ -109,31 +109,31 @@ function Test-Configuration {
     param (
         [Parameter(Mandatory = $true)]
         [string]$ConfigPath,
-        
+
         [Parameter(Mandatory = $true)]
         [string]$ConfigType,
-        
+
         [Parameter(Mandatory = $false)]
         [string[]]$RequiredFields = @()
     )
-    
+
     if (Test-Path $ConfigPath) {
         try {
             $config = Get-Content $ConfigPath -Raw | ConvertFrom-Json
             Write-LogMessage "✓ Valid $ConfigType configuration file" -Type "SUCCESS"
-            
+
             $missingFields = @()
             foreach ($field in $RequiredFields) {
                 if (-not ($config.PSObject.Properties.Name -contains $field) -or [string]::IsNullOrEmpty($config.$field)) {
                     $missingFields += $field
                 }
             }
-            
+
             if ($missingFields.Count -gt 0) {
                 Write-LogMessage "✗ Missing or empty required fields: $($missingFields -join ', ')" -Type "WARNING"
                 return $false
             }
-            
+
             return $true
         } catch {
             Write-LogMessage "✗ Error parsing $ConfigType configuration file: $_" -Type "ERROR"
@@ -151,27 +151,27 @@ function Test-PythonDependencies {
         [Parameter(Mandatory = $true)]
         [string]$RequirementsPath
     )
-    
+
     if (Test-Path $RequirementsPath) {
         Write-LogMessage "Checking Python dependencies..." -Type "CHECK"
-        
+
         $requirements = Get-Content $RequirementsPath
         $missingPackages = @()
-        
+
         foreach ($req in $requirements) {
             if (-not [string]::IsNullOrWhiteSpace($req) -and -not $req.StartsWith("#")) {
                 $packageInfo = $req -split "=="
                 $packageName = $packageInfo[0].Trim()
-                
+
                 $checkCommand = "python -c `"import $packageName; print('OK')`" 2>&1"
                 $result = Invoke-Expression $checkCommand
-                
+
                 if ($result -ne "OK") {
                     $missingPackages += $packageName
                 }
             }
         }
-        
+
         if ($missingPackages.Count -gt 0) {
             Write-LogMessage "✗ Missing Python dependencies: $($missingPackages -join ', ')" -Type "WARNING"
             return $false
@@ -190,11 +190,11 @@ function Test-APIConnectivity {
     param (
         [Parameter(Mandatory = $true)]
         [string]$APIName,
-        
+
         [Parameter(Mandatory = $true)]
         [string]$APIURL
     )
-    
+
     try {
         $response = Invoke-WebRequest -Uri $APIURL -Method Head -TimeoutSec 10 -ErrorAction Stop
         Write-LogMessage "✓ Connectivity with $APIName API OK (Status: $($response.StatusCode))" -Type "SUCCESS"
@@ -211,10 +211,10 @@ function Test-DiskSpace {
         [Parameter(Mandatory = $false)]
         [int]$MinimumFreeSpaceGB = 1
     )
-    
+
     $drive = Get-PSDrive -Name (Get-Location).Drive.Name
     $freeSpaceGB = [math]::Round($drive.Free / 1GB, 2)
-    
+
     if ($freeSpaceGB -ge $MinimumFreeSpaceGB) {
         Write-LogMessage "✓ Sufficient disk space: $freeSpaceGB GB free" -Type "SUCCESS"
         return $true
@@ -230,12 +230,12 @@ function Test-PythonVersion {
         [Parameter(Mandatory = $false)]
         [version]$MinimumVersion = "3.8.0"
     )
-    
+
     try {
         $versionOutput = python --version 2>&1
         if ($versionOutput -match "Python (\d+\.\d+\.\d+)") {
             $currentVersion = [version]$Matches[1]
-            
+
             if ($currentVersion -ge $MinimumVersion) {
                 Write-LogMessage "✓ Suitable Python version: $currentVersion" -Type "SUCCESS"
                 return $true
@@ -259,16 +259,16 @@ function Get-HealthReport {
         [Parameter(Mandatory = $true)]
         [hashtable]$CheckResults
     )
-    
+
     $totalChecks = $CheckResults.Count
     $passedChecks = ($CheckResults.Values | Where-Object { $_ -eq $true }).Count
     $healthPercentage = [math]::Round(($passedChecks / $totalChecks) * 100, 2)
-    
+
     Write-LogMessage "EVA & GUARANI Bot Health Report" -Type "INFO"
     Write-LogMessage "Total checks: $totalChecks" -Type "INFO"
     Write-LogMessage "Successful checks: $passedChecks" -Type "INFO"
     Write-LogMessage "Overall health: $healthPercentage%" -Type "INFO"
-    
+
     if ($healthPercentage -ge 90) {
         Write-LogMessage "✓ Health status: EXCELLENT" -Type "SUCCESS"
     } elseif ($healthPercentage -ge 75) {
@@ -278,7 +278,7 @@ function Get-HealthReport {
     } else {
         Write-LogMessage "✗ Health status: CRITICAL" -Type "ERROR"
     }
-    
+
     return @{
         TotalChecks = $totalChecks
         PassedChecks = $passedChecks
@@ -292,37 +292,37 @@ function Get-CorrectiveActions {
         [Parameter(Mandatory = $true)]
         [hashtable]$CheckResults
     )
-    
+
     $actions = @()
-    
+
     if (-not $CheckResults["ConfigTelegram"]) {
         $actions += "Check the Telegram configuration file (config/telegram_config.json)"
     }
-    
+
     if (-not $CheckResults["ConfigOpenAI"]) {
         $actions += "Check the OpenAI configuration file (config/openai_config.json)"
     }
-    
+
     if (-not $CheckResults["BotProcess"]) {
         $actions += "Restart the bot using the command: .\setup_and_start.ps1"
     }
-    
+
     if (-not $CheckResults["RecentLogs"]) {
         $actions += "Check the logs for possible errors: logs/bot.log"
     }
-    
+
     if (-not $CheckResults["PythonDependencies"]) {
         $actions += "Reinstall dependencies: pip install -r requirements.txt"
     }
-    
+
     if (-not $CheckResults["PythonVersion"]) {
         $actions += "Upgrade Python to version 3.8.0 or higher"
     }
-    
+
     if (-not $CheckResults["DiskSpace"]) {
         $actions += "Free up disk space to ensure proper bot operation"
     }
-    
+
     if ($actions.Count -gt 0) {
         Write-LogMessage "Recommended corrective actions:" -Type "INFO"
         foreach ($action in $actions) {
@@ -331,7 +331,7 @@ function Get-CorrectiveActions {
     } else {
         Write-LogMessage "✓ No corrective actions needed" -Type "SUCCESS"
     }
-    
+
     return $actions
 }
 

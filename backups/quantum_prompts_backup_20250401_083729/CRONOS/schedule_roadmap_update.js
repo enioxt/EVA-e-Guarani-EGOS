@@ -44,7 +44,7 @@ METADATA:
 /**
  * EVA & GUARANI - Agendador de Atualização de Roadmap
  * ✧༺❀༻∞ EVA & GUARANI EGOS ∞༺❀༻✧
- * 
+ *
  * Este script agenda a execução do atualizador de roadmap para manter
  * a documentação sempre atualizada.
  */
@@ -122,4 +122,4 @@ cron.schedule('0 */6 * * *', () => {
 log('Agendador inicializado! O roadmap será atualizado a cada 6 horas.');
 console.log();
 console.log('Pressione Ctrl+C para parar o agendador.');
-console.log('✧༺❀༻∞ EVA & GUARANI EGOS ∞༺❀༻✧'); 
+console.log('✧༺❀༻∞ EVA & GUARANI EGOS ∞༺❀༻✧');

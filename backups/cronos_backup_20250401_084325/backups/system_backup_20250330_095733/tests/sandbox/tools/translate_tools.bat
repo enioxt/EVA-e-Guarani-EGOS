@@ -220,4 +220,4 @@ echo.
 echo Thank you for using the EVA ^& GUARANI translation tools.
 echo.
 pause
-exit /b 0 
+exit /b 0

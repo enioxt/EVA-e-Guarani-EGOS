@@ -71,9 +71,9 @@ METADATA:
 
 # 🌌 EVA & GUARANI - Dynamic Quantum Roadmap v8.0
 
-**Última atualização:** 28 de março de 2025  
-**Status atual:** Em desenvolvimento - Fase 2 (45%)  
-**Prioridade atual:** Implementação da interface visual e integração ETHICHAIN  
+**Última atualização:** 28 de março de 2025
+**Status atual:** Em desenvolvimento - Fase 2 (45%)
+**Prioridade atual:** Implementação da interface visual e integração ETHICHAIN
 
 ## 🌍 Visão Geral do Projeto
 

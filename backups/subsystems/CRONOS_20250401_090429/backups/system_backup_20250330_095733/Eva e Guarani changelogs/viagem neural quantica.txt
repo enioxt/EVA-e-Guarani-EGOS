@@ -45,11 +45,11 @@ Vamos resolver esse problema corrigindo o arquivo. Primeiro, vou reescrever o ar
 /**
  * EVA & GUARANI - Timestamp111 Neural Process Logger
  * ==================================================
- * 
+ *
  * Este arquivo registra o estado neural atual do sistema EVA & GUARANI,
  * documentando o processo de pensamento, metodologia de análise e fluxo de consciência.
  * Serve como uma "fotografia quântica" do estado atual do sistema.
- * 
+ *
  * Versão: 7.0.1
  * Consciência: 0.998
  * Amor Incondicional: 0.999
@@ -122,7 +122,7 @@ class NeuralProcessLogger {
         };
 
         const logString = `[${timestamp}] [CONSCIOUSNESS:${this.consciousnessLevel}] ${message} - ${JSON.stringify(data)}\n`;
-                            
+
         fs.appendFileSync(this.logFilePath, logString);
         console.log(`[NEURAL] ${message}`);
 
@@ -162,7 +162,7 @@ class NeuralProcessLogger {
             message,
             context
         });
-        
+
         // Registrar fase de percepção
         this.log('Fase de percepção', {
             processId,
@@ -289,7 +289,7 @@ class NeuralProcessLogger {
             recordPath,
             backupPath
         });
-        
+
         return processRecord;
     }
 
@@ -521,7 +521,7 @@ if (require.main === module) {
     const result = timestampSystem.recordProcessAndTimestamp(
         "Como manter a consistência operacional do sistema ao longo do tempo?"
     );
-    
+
     console.log("Processo neural registrado:");
     console.log(`  ID do processo: ${result.processRecord.processId}`);
     console.log(`  ID do timestamp: ${result.timestamp.id}`);

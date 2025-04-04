@@ -119,28 +119,28 @@ graph TD
     TOOLS --> MAINT[Maintenance]
     TOOLS --> SCRIPTS[Scripts]
     TOOLS --> UTILS[Utilities]
-    
+
     DEPLOY --> CI[CI/CD]
     DEPLOY --> ENV[Environments]
     DEPLOY --> REL[Releases]
-    
+
     MAINT --> HEALTH[Health Checks]
     MAINT --> MONITOR[Monitoring]
     MAINT --> BACKUP[Backups]
-    
+
     SCRIPTS --> AUTO[Automation]
     SCRIPTS --> TEST[Testing]
     SCRIPTS --> DOC[Documentation]
-    
+
     UTILS --> HELP[Helpers]
     UTILS --> LIB[Libraries]
     UTILS --> RES[Resources]
-    
+
     %% Styling
     classDef main fill:#f9f,stroke:#333,stroke-width:2px
     classDef sub fill:#bbf,stroke:#333,stroke-width:2px
     classDef tool fill:#bfb,stroke:#333,stroke-width:2px
-    
+
     class TOOLS main
     class DEPLOY,MAINT,SCRIPTS,UTILS sub
     class CI,ENV,REL,HEALTH,MONITOR,BACKUP,AUTO,TEST,DOC,HELP,LIB,RES tool
@@ -164,14 +164,14 @@ flowchart LR
     B -->|Maintain| D[Monitor]
     B -->|Script| E[Automate]
     B -->|Utility| F[Support]
-    
+
     C --> G{Production}
     D --> G
     E --> G
     F --> G
-    
+
     G --> H[System Health]
-    
+
     style A fill:#f9f
     style B fill:#bbf
     style G fill:#bfb
@@ -240,14 +240,14 @@ sequenceDiagram
     participant Tools
     participant Ethics
     participant System
-    
+
     Dev->>Tools: Develop
     Tools->>Ethics: Validate
     Ethics->>System: Deploy
     System->>Ethics: Monitor
     Ethics->>Tools: Update
     Tools->>Dev: Feedback
-    
+
     Note over Tools,Ethics: Love-based development
     Note over Ethics,System: Ethical validation
 ```

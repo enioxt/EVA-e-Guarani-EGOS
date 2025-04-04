@@ -21,7 +21,7 @@ Get-ChildItem
 
 # List directory with details
 dir -Force
-# or 
+# or
 Get-ChildItem -Force
 ```
 
@@ -103,4 +103,4 @@ Get-ChildItem Env:
 5. Commands are case-insensitive in PowerShell
 6. Use `-Force` parameter to override confirmations or create nested directories
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

@@ -66,4 +66,4 @@ pylint>=2.17.0
 # Additional dependencies
 debugpy>=1.8.1
 aiofiles>=23.2.1
-python-json-logger>=2.0.7 
+python-json-logger>=2.0.7

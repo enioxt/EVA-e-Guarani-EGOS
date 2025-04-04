@@ -27,13 +27,13 @@ function Write-Log {
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $logMessage = "[$timestamp] [$Type] $Message"
     Write-Host $logMessage
-    
+
     # Ensure log directory exists
     $logsDir = Join-Path $scriptDir "logs"
     if (-not (Test-Path $logsDir)) {
         New-Item -ItemType Directory -Path $logsDir | Out-Null
     }
-    
+
     Add-Content -Path $logFile -Value $logMessage
 }
 
@@ -217,4 +217,4 @@ Set-Content -Path "src/components/index.ts" -Value $componentsIndex
 Pop-Location
 
 Write-Log "Environment setup completed successfully" "SUCCESS"
-Write-Log "NEXUS environment setup completed" "SUCCESS" 
+Write-Log "NEXUS environment setup completed" "SUCCESS"

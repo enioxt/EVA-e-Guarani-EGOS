@@ -118,7 +118,7 @@ diff
 
 +====================================================
 
- 
+
 
 -This script demonstrates how to use the ATLAS subsystem to map
 
@@ -128,7 +128,7 @@ diff
 
 +allowing you to map and visualize the structure of a project.
 
- 
+
 
 +Usage:
 
@@ -142,7 +142,7 @@ diff
 
  """
 
- 
+
 
 @@ -13,216 +18,132 @@
 
@@ -156,7 +156,7 @@ diff
 
  from pathlib import Path
 
- 
+
 
 -# Add root directory to path to import EGOS modules
 
@@ -166,7 +166,7 @@ diff
 
 +sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
- 
+
 
 -try:
 
@@ -196,7 +196,7 @@ diff
 
 +)
 
- 
+
 
 -def scan_project_structure(project_path):
 
@@ -260,13 +260,13 @@ diff
 
 -    Scans the structure of a project and creates a mapping for ATLAS.
 
--    
+-
 
 -    Args:
 
 -        project_path: Path to the project directory
 
--        
+-
 
 -    Returns:
 
@@ -276,7 +276,7 @@ diff
 
 -    project_path = Path(project_path).resolve()
 
--    
+-
 
 -    if not project_path.exists() or not project_path.is_dir():
 
@@ -284,7 +284,7 @@ diff
 
 -        sys.exit(1)
 
--    
+-
 
 -    # Structure for ATLAS
 
@@ -296,7 +296,7 @@ diff
 
 -    }
 
--    
+-
 
 -    # Map directories and files
 
@@ -308,7 +308,7 @@ diff
 
 -        node_id = str(rel_path)
 
--        
+-
 
 -        if node_id == ".":
 
@@ -320,7 +320,7 @@ diff
 
 -            node_type = "directory"
 
--        
+-
 
 -        # Add node for directory
 
@@ -334,7 +334,7 @@ diff
 
 -        }
 
--        
+-
 
 -        # Add nodes for files
 
@@ -346,7 +346,7 @@ diff
 
 -            file_id = str(file_rel_path)
 
--            
+-
 
 -            # Determine file type
 
@@ -376,7 +376,7 @@ diff
 
 -                file_type = "config"
 
--            
+-
 
 -            # Add node for file
 
@@ -390,7 +390,7 @@ diff
 
 -            }
 
--            
+-
 
 -            # Add edge from directory to file
 
@@ -406,7 +406,7 @@ diff
 
 -            })
 
--    
+-
 
 -    # Add edges between directories (hierarchical structure)
 
@@ -418,7 +418,7 @@ diff
 
 -            parent_id = str(parent_path)
 
--            
+-
 
 -            if parent_id != "." and parent_id in system_data["nodes"]:
 
@@ -434,7 +434,7 @@ diff
 
 -                })
 
--    
+-
 
 -    # Analyze imports in Python files to create additional connections
 
@@ -450,7 +450,7 @@ diff
 
 -                    content = f.read()
 
--                
+-
 
 -                # Simple import analysis
 
@@ -494,7 +494,7 @@ diff
 
 -                print(f"Warning: Could not analyze the file {file_path}: {str(e)}")
 
--    
+-
 
 -    return system_data
 
@@ -520,7 +520,7 @@ diff
 
 +    return parser.parse_args()
 
- 
+
 
  def main():
 
@@ -554,7 +554,7 @@ diff
 
 +    print_banner()
 
-     
+
 
 -    # Command line arguments
 
@@ -570,7 +570,7 @@ diff
 
 +    args = parse_arguments()
 
-     
+
 
 -    args = parser.parse_args()
 
@@ -582,7 +582,7 @@ diff
 
 +        return 1
 
-     
+
 
 -    # Initialize ATLAS
 
@@ -594,7 +594,7 @@ diff
 
 +    print_colored(f"Output format: {args.output}", Colors.BLUE)
 
-     
+
 
 -    # Scan project
 
@@ -602,7 +602,7 @@ diff
 
 -    project_data = scan_project_structure(args.project)
 
--    
+-
 
 -    # Basic statistics
 
@@ -610,7 +610,7 @@ diff
 
 -    num_dirs = sum(1 for node in project_data["nodes"].values() if node["type"] == "directory" or node["type"] == "project")
 
--    
+-
 
 -    print(f"\n[*] Scanned structure:")
 
@@ -622,7 +622,7 @@ diff
 
 -    print(f"    - Total connections: {len(project_data['edges'])}")
 
--    
+-
 
 -    # Map system
 
@@ -632,7 +632,7 @@ diff
 
 -    atlas.map_system(project_data, f"Project: {project_name}")
 
--    
+-
 
 -    # Visualize
 
@@ -644,7 +644,7 @@ diff
 
 -    print(f"[✓] Visualization saved at: {vis_path}")
 
--    
+-
 
 -    # Analyze
 
@@ -652,7 +652,7 @@ diff
 
 -    analysis = atlas.analyze_system()
 
--    
+-
 
 -    print("\n[*] Basic metrics:")
 
@@ -662,7 +662,7 @@ diff
 
 -    print(f"    - Density: {analysis['basic_metrics']['density']:.4f}")
 
--    
+-
 
 -    # Most central nodes
 
@@ -676,7 +676,7 @@ diff
 
 -            print(f"    - {node}: {score:.4f}")
 
--    
+-
 
 -    # Export to Obsidian
 
@@ -688,7 +688,7 @@ diff
 
 -        print(f"[✓] Mapping exported to: {note_path}")
 
--    
+-
 
 -    print("\n⊹⊱∞⊰⊹ ATLAS: Transcending Through Cartography ⊹⊰∞⊱⊹")
 
@@ -698,7 +698,7 @@ diff
 
 +        from core.atlas import AtlasModule
 
-+        
++
 
 +        # Configuration
 
@@ -706,11 +706,11 @@ diff
 
 +        if not config_path:
 
-+            config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 
++            config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
 
 +                                      "config", "modules", "atlas_config.json")
 
-+        
++
 
 +        # Initialize ATLAS
 
@@ -718,7 +718,7 @@ diff
 
 +        atlas = AtlasModule(config_path)
 
-+        
++
 
 +        # Map the project
 
@@ -726,7 +726,7 @@ diff
 
 +        mapping = atlas.map_project(args.project, args.output)
 
-+        
++
 
 +        # Display statistics
 
@@ -752,7 +752,7 @@ diff
 
 +        print(f"    - Complexity: {mapping['metrics']['complexity']}")
 
-+        
++
 
 +        # Generate visualization
 
@@ -762,7 +762,7 @@ diff
 
 +        print_colored(f"Visualization generated at: {visualization_path}", Colors.GREEN)
 
-+        
++
 
 +        # Export to Obsidian if requested
 
@@ -778,13 +778,13 @@ diff
 
 +                print(f"  - {file}")
 
-+        
++
 
 +        print_colored("\n⊹⊱∞⊰⊹ ATLAS: Mapping with Love ⊹⊰∞⊱⊹\n", Colors.CYAN, bold=True)
 
 +        return 0
 
-+        
++
 
 +    except ImportError as e:
 
@@ -800,7 +800,7 @@ diff
 
 +        return 1
 
- 
+
 
  if __name__ == "__main__":
 

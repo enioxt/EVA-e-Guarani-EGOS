@@ -34,6 +34,8 @@ ENV/
 # IDE
 .idea/
 .vscode/
+.cursor/
+.obsidian/
 *.swp
 *.swo
 .project
@@ -46,6 +48,7 @@ ENV/
 *.db
 logs/
 *.log.*
+backups/
 
 # Environment variables and secrets
 .env
@@ -68,6 +71,10 @@ metadata_db.json
 external/logs/
 external/temp/
 external/archive/
+external/dependencies/
+Researchs/
+.roo/
+.benchmarks/
 
 # Testing
 .coverage
@@ -271,3 +278,18 @@ subsystem_unification.log
 *.egg-info/
 
 # Keep research/manual logs, but ignore generated backups/logs
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+
+# Temporary/Personal files (add specific files if needed)
+WhatsApp Chat with Mensagens Enio.txt
+openrouter_mcp_implementation_plan.md
+migration_plan.md
+ai_translation_log.txt

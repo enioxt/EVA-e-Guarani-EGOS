@@ -155,4 +155,4 @@ echo - quantum_init_status.txt (status dos componentes)
 echo.
 
 REM Mantém a janela aberta
-pause 
+pause

@@ -120,4 +120,4 @@ metadataClient.onSubsystemStateUpdate((data) => {
 
 metadataClient.onConnectionChange((connected) => {
     console.log('Connection change:', connected);
-}); 
+});

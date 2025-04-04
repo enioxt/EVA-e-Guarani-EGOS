@@ -23,4 +23,4 @@ echo 2. Reinicie o Cursor IDE
 echo 3. Vá em Settings -^> MCP -^> desative e reative o servidor "eva-guarani-perplexity"
 echo.
 echo Pressione qualquer tecla para continuar...
-pause > nul 
+pause > nul

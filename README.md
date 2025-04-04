@@ -106,8 +106,20 @@ The project follows a structured layout to separate concerns and facilitate coll
 <<<<<<< HEAD
 -   **`/` (Root):** Contains core configuration (`requirements.txt`), main documentation (`README.md`, `cursor_initialization.md`), the primary project roadmaps (`ROADMAPS/`), and entry points.
 -   **`BIOS-Q/`:** Houses the core Python **implementation** of the Basic Input/Output System - Quantum, including its configuration (`config/`), runtime resources (`resources/`), state (`quantum_state.json`), and logs (`logs/`).
--   **`QUANTUM_PROMPTS/`:** The central hub for **conceptual prompts, definitions, and framework documents** that define the system's identity, capabilities, and rules. Contains subdirectories for core systems (`MASTER/` [archived], `BIOS-Q/`, `METADATA/`, `ROADMAPS/` [templates only], etc.).
+-   **`QUANTUM_PROMPTS/`:** (Obsolete) Was the central hub for **conceptual prompts, definitions, and framework documents**. Content has been migrated to subsystems.
 -   **`subsystems/`:** Contains the primary Python **implementation code** for each distinct functional subsystem (e.g., `ATLAS/`, `CRONOS/`, `ETHIK/`, `HARMONY/`, `KOIOS/`, `CORUJA/`, `NEXUS/`, `TRANSLATOR/`). Each subsystem typically has a `core/` directory structure within it and may contain its own local `roadmap.md`.
+    -   **Standard Subsystem Structure:**
+        ```
+        subsystems/<SUBSISTEMA>/
+          ├── __init__.py         # Module definition
+          ├── README.md           # Subsystem documentation
+          ├── core/               # Core logic implementation
+          ├── service.py          # Service layer orchestration (optional)
+          ├── interfaces/         # Interface definitions (optional)
+          ├── tests/              # Unit and integration tests
+          ├── config/             # Specific configurations (optional)
+          └── resources/          # Additional resources (optional)
+        ```
 -   **`src/`:** Contains shared source code, utilities, web components, assets, templates, and potentially core modules not large enough to be full subsystems.
 -   **`tools/`:** Provides utility scripts for development, maintenance, testing, deployment, and metadata management.
 -   **`archives/`:** Contains historical backups and quarantined files (e.g., `unification_backup_20250402/`).
@@ -141,6 +153,7 @@ This structure aims for clarity by separating conceptual definitions (QUANTUM\_P
 - ✓ Integration features (basic SLOP, MCP)
 - ✓ Monitoring system (basic metrics in SLOP)
 - ✓ Mycelium Network (Core Python classes & routing logic implemented & tested)
+- ✓ KoiosLogger Integration (CRONOS, NEXUS, ETHIK)
 
 ### In Progress
 - [ ] System Standardization (KOIOS - CRITICAL)
@@ -192,8 +205,7 @@ This structure aims for clarity by separating conceptual definitions (QUANTUM\_P
 
 Comprehensive documentation is available in the following locations:
 - `/docs/` - General documentation
-- `/QUANTUM_PROMPTS/` - System prompts and configurations
-- `/subsystems/*/docs/` - Subsystem-specific documentation
+- `/subsystems/*/docs/` or `/subsystems/*/README.md` - Subsystem-specific documentation
 
 ## Development
 
@@ -204,8 +216,25 @@ Comprehensive documentation is available in the following locations:
 4. Security-first approach
 5. Quantum consciousness integration
 
+### Implementation Standards & Conventions
+
+1.  **Documentation**: Each file must include a header with metadata (use KOIOS standards) and a descriptive docstring.
+2.  **Typing**: Utilize Python's static typing for all function signatures and variable annotations.
+3.  **Tests**: Implement comprehensive unit and integration tests for all functionalities. Aim for high test coverage.
+4.  **Logging**: Utilize the centralized `KoiosLogger` for all logging activities. Avoid standard `print` statements for operational logging.
+5.  **Configuration**: Separate configuration from code. Load configurations from files (e.g., JSON, YAML) within the `config/` directory (either root or subsystem-specific).
+6.  **Naming Conventions**:
+    *   Packages and modules: `snake_case`
+    *   Classes: `PascalCase`
+    *   Functions and variables: `snake_case`
+    *   Constants: `UPPER_SNAKE_CASE`
+7.  **Code Structuring**:
+    *   Organize code into small, focused functions and classes.
+    *   Adhere to SOLID principles.
+    *   Follow PEP 8 guidelines.
+
 ### Contributing
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) (if available) or adhere to the standards defined here and in KOIOS documentation for details on our code of conduct and the process for submitting pull requests.
 
 ## Testing
 

@@ -85,4 +85,4 @@ process.stdin.on('data', (data) => {
     } catch (error) {
         debug('Error processing message:', error);
     }
-}); 
+});

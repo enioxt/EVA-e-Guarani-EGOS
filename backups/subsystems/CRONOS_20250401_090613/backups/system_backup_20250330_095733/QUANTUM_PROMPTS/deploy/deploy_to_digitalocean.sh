@@ -130,4 +130,4 @@ echo -e "${CYAN}   sudo cp $PROJECT_DIR/nginx.conf /etc/nginx/sites-available/ev
 echo -e "${CYAN}   sudo ln -s /etc/nginx/sites-available/eva-guarani /etc/nginx/sites-enabled/${NC}"
 echo -e "${CYAN}   sudo systemctl restart nginx${NC}"
 echo -e "${YELLOW}==================================================${NC}"
-echo -e "${PURPLE}✧༺❀༻∞ EVA & GUARANI EGOS ∞༺❀༻✧${NC}" 
+echo -e "${PURPLE}✧༺❀༻∞ EVA & GUARANI EGOS ∞༺❀༻✧${NC}"

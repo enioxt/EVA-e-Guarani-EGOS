@@ -49,4 +49,4 @@ logs/
 *.pyo
 *.pyd
 .Python
-*.so 
+*.so

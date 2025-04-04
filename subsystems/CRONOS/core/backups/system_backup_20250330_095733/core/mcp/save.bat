@@ -74,4 +74,4 @@ cd %~dp0
 echo Salvando contexto MCP...
 python cursor_commands.py save_mcp
 echo Contexto salvo com sucesso.
-pause 
+pause

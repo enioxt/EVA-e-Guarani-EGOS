@@ -56,7 +56,7 @@ if (-not (Test-Path "node_modules")) {
 # Register key files in the Mycelium Network
 function Register-MyceliumFiles {
     Write-Host "Registrando arquivos na Rede Micelial..." -ForegroundColor Cyan
-    
+
     # Define a função para registrar arquivos
     function Register-File {
         param (
@@ -65,14 +65,14 @@ function Register-MyceliumFiles {
             [string]$fileType,
             [string[]]$connections
         )
-        
+
         $body = @{
             fileId = $fileId
             filePath = $filePath
             fileType = $fileType
             connections = $connections
         } | ConvertTo-Json
-        
+
         try {
             $response = Invoke-RestMethod -Uri "http://localhost:3000/mycelium/register-file" -Method POST -Body $body -ContentType "application/json"
             Write-Host "  ✓ Arquivo registrado: $fileId" -ForegroundColor Green
@@ -82,23 +82,23 @@ function Register-MyceliumFiles {
             Write-Host $_.Exception.Message -ForegroundColor Red
         }
     }
-    
+
     # Registrar os principais arquivos
     $baseDir = "C:\Eva Guarani EGOS"
     $quantumPromptsDir = Join-Path -Path $baseDir -ChildPath "QUANTUM_PROMPTS"
-    
+
     # Roadmap principal
     $roadmapPath = Join-Path -Path $quantumPromptsDir -ChildPath "MASTER\quantum_roadmap.md"
-    
+
     # README principal
     $readmePath = Join-Path -Path $quantumPromptsDir -ChildPath "README.md"
-    
+
     # Registrar Roadmap
     Register-File -fileId "roadmap-main" -filePath $roadmapPath -fileType "roadmap" -connections @("readme-main")
-    
+
     # Registrar README
     Register-File -fileId "readme-main" -filePath $readmePath -fileType "readme" -connections @("roadmap-main")
-    
+
     Write-Host "Rede Micelial inicializada com os arquivos principais." -ForegroundColor Cyan
 }
 
@@ -116,7 +116,7 @@ Start-Sleep -Seconds 3
 # Register files in the Mycelium Network if the server started successfully
 if ($serverProcess.HasExited -eq $false) {
     Register-MyceliumFiles
-    
+
     # Keep the script running while the server is alive
     while ($serverProcess.HasExited -eq $false) {
         Start-Sleep -Seconds 1
@@ -124,4 +124,4 @@ if ($serverProcess.HasExited -eq $false) {
 }
 else {
     Write-Host "Server failed to start. Exit code: $($serverProcess.ExitCode)" -ForegroundColor Red
-} 
+}

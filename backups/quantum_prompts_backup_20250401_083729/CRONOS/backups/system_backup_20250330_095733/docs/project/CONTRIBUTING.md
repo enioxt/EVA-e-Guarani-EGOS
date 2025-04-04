@@ -267,16 +267,16 @@ graph TD
     B -->|Docs| D[Documentation]
     B -->|Test| E[Testing]
     B -->|Bug| F[Issue]
-    
+
     C --> G[PR]
     D --> G
     E --> G
     F --> G
-    
+
     G --> H{Review}
     H -->|Approved| I[Merge]
     H -->|Changes| J[Update]
-    
+
     style A fill:#f9f
     style B fill:#bbf
     style G fill:#bfb
@@ -375,4 +375,4 @@ We believe in acknowledging all contributions:
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 
-*"Together we create, together we evolve, together we transcend."* 
+*"Together we create, together we evolve, together we transcend."*

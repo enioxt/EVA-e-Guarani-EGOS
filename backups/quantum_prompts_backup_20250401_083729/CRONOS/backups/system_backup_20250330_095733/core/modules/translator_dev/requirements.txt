@@ -76,4 +76,4 @@ argparse>=1.4.0       # Command-line argument parsing
 pytest-cov>=4.1.0     # Coverage reporting
 
 # Utilities
-python-dotenv>=1.0.0  # Environment variables 
+python-dotenv>=1.0.0  # Environment variables

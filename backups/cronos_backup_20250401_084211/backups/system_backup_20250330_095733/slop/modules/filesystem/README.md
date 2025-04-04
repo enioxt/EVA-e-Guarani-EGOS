@@ -364,16 +364,16 @@ const filesystem = createAdapter({
 async function example() {
     // Read a file
     const file = await filesystem.readFile('C:/path/to/file.txt');
-    
+
     // Write a file
     await filesystem.writeFile('C:/path/to/new-file.txt', 'Hello, world!', true);
-    
+
     // List a directory
     const listing = await filesystem.listDirectory('C:/path/to/directory', true);
-    
+
     // Search for files
     const results = await filesystem.searchFiles('C:/path/to/directory', 'searchterm', true, 100);
-    
+
     // Delete a file
     await filesystem.deleteFile('C:/path/to/file.txt');
 }

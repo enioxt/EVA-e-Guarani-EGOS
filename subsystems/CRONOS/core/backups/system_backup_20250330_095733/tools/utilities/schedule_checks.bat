@@ -194,7 +194,7 @@ if "%INTERVAL%"=="HOURLY" (
 REM Schedule update check
 if "%NO_UPDATE_CHECK%"=="0" (
     echo Scheduling update check...
-    
+
     REM For update checks, we use a longer interval
     if "%choice%"=="1" (
         REM Every 6 hours if the main check is every hour

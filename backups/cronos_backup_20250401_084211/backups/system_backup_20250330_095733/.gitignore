@@ -370,5 +370,5 @@ __cursorignore
 # OS specific
 .DS_Store
 Thumbs.db
-desktop.ini 
+desktop.ini
 node_modules

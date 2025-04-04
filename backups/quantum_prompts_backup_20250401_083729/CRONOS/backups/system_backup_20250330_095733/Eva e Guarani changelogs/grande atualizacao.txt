@@ -470,7 +470,7 @@ Todo o sistema QUANTUM PROMPTS é fundamentado em princípios éticos rigorosos:
 
 ✧༺❀༻∞ QUANTUM PROMPTS ∞༺❀༻✧
 
-*Versão da Documentação: 1.0*  
+*Versão da Documentação: 1.0*
 *Última Atualização: 28/02/2025*
 ```
 
@@ -683,7 +683,7 @@ Todo o sistema QUANTUM PROMPTS é fundamentado em princípios éticos rigorosos:
 
 ✧༺❀༻∞ QUANTUM PROMPTS: Evolução Consciente ∞༺❀༻✧
 
-*Versão da Documentação: 1.0*  
+*Versão da Documentação: 1.0*
 *Última Atualização: 28/02/2025*
 ```
 
@@ -719,19 +719,19 @@ graph TD
     A --> C[VERSIONAMENTO]
     A --> D[LOGS]
     A --> E[RESTAURAÇÃO]
-    
+
     B --> B1[Compressão Quântica]
     B --> B2[Preservação Estrutural]
     B --> B3[Integridade de Dados]
-    
+
     C --> C1[Controle de Versões]
     C --> C2[Diferenciação Delta]
     C --> C3[Evolução Temporal]
-    
+
     D --> D1[Registro Universal]
     D --> D2[Documentação Contextual]
     D --> D3[Análise de Transformações]
-    
+
     E --> E1[Recuperação Seletiva]
     E --> E2[Restauração Integral]
     E --> E3[Fusão Temporal]
@@ -783,7 +783,7 @@ O componente de logs implementa:
 
 - **Estrutura Universal de Registro**
   ```
-  [DATA][HORA][SUBSISTEMA][OPERAÇÃO] 
+  [DATA][HORA][SUBSISTEMA][OPERAÇÃO]
   STATUS: Iniciado/Em Progresso/Concluído/Falha
   CONTEXTO: {contexto da operação}
   DETALHES: {informações detalhadas}
@@ -837,18 +837,18 @@ class EVA_Backup:
         self.timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         self.backup_dir = f"essential_backup_{self.timestamp}"
         self.setup_logging()
-        
+
     def setup_logging(self):
         logging.basicConfig(
             level=logging.INFO,
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         )
         self.logger = logging.getLogger("EVA_Backup")
-    
+
     def create_backup(self):
         self.logger.info(f"Criando backup em: {self.backup_dir}")
         os.makedirs(self.backup_dir, exist_ok=True)
-        
+
         # Lista de arquivos essenciais para backup
         essential_files = [
             "main.py", "bot_core.py", "config.py", "context_manager.py",
@@ -857,7 +857,7 @@ class EVA_Backup:
             "quantum_prompt_processamento.txt", "quantum_prompt_livros.txt",
             "NEXUS_MODULAR.md", "ATLAS_CARTOGRAFICO.md"
         ]
-        
+
         # Copia cada arquivo para o diretório de backup
         for file in essential_files:
             if os.path.exists(file):
@@ -865,11 +865,11 @@ class EVA_Backup:
                 self.logger.info(f"Copiado: {file}")
             else:
                 self.logger.warning(f"Arquivo não encontrado: {file}")
-        
+
         # Cria estrutura de diretórios para configurações
         config_dir = os.path.join(self.backup_dir, "config")
         os.makedirs(config_dir, exist_ok=True)
-        
+
         # Copia arquivos de configuração se existirem
         if os.path.exists("config"):
             for config_file in os.listdir("config"):
@@ -878,7 +878,7 @@ class EVA_Backup:
                 if os.path.isfile(src):
                     shutil.copy2(src, dst)
                     self.logger.info(f"Copiado: config/{config_file}")
-        
+
         return self.backup_dir
 
 # Execução do backup
@@ -900,28 +900,28 @@ class EVA_Backup_Compress:
         self.timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         self.zip_filename = f"EVA_GUARANI_backup_{self.timestamp}.zip"
         self.setup_logging()
-    
+
     def setup_logging(self):
         logging.basicConfig(
             level=logging.INFO,
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         )
         self.logger = logging.getLogger("EVA_Backup_Compress")
-    
+
     def compress_backup(self, backup_dir="essential_backup"):
         # Encontra o diretório de backup mais recente se não especificado
         if backup_dir == "essential_backup":
             backup_dirs = [d for d in os.listdir() if d.startswith("essential_backup_")]
             if backup_dirs:
                 backup_dir = sorted(backup_dirs)[-1]  # Pega o mais recente
-        
+
         self.logger.info(f"Compactando backup em: {self.zip_filename}")
-        
+
         # Verifica se o diretório existe
         if not os.path.exists(backup_dir):
             self.logger.error(f"Diretório de backup não encontrado: {backup_dir}")
             return None
-        
+
         # Cria o arquivo ZIP
         with zipfile.ZipFile(self.zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
             # Percorre todos os arquivos e diretórios no diretório de backup
@@ -931,18 +931,18 @@ class EVA_Backup_Compress:
                     arcname = file_path  # Nome dentro do arquivo ZIP
                     self.logger.info(f"Adicionando: {arcname}")
                     zipf.write(file_path, arcname)
-        
+
         # Calcula o tamanho do arquivo ZIP em MB
         zip_size_mb = os.path.getsize(self.zip_filename) / (1024 * 1024)
         self.logger.info(f"Compactação concluída: {self.zip_filename} ({zip_size_mb:.2f} MB)")
-        
+
         return self.zip_filename
 
 # Execução da compressão
 if __name__ == "__main__":
     compressor = EVA_Backup_Compress()
     zip_file = compressor.compress_backup()
-    
+
     if zip_file:
         print("\n✅ Backup compactado com sucesso!")
         print(f"📦 Arquivo: {zip_file}")
@@ -954,7 +954,7 @@ if __name__ == "__main__":
 ### Estrutura de Logs Implementada
 
 ```
-[DATA][HORA][SUBSISTEMA][OPERAÇÃO] 
+[DATA][HORA][SUBSISTEMA][OPERAÇÃO]
 STATUS: Iniciado/Em Progresso/Concluído/Falha
 CONTEXTO: {contexto da operação}
 DETALHES: {informações detalhadas}
@@ -1024,7 +1024,7 @@ Ciclo de Vida:
 
 ✧༺❀༻∞ CRONOS: Preservando a Essência Através do Tempo ∞༺❀༻✧
 
-*Versão: 0.5 (Em Desenvolvimento)*  
+*Versão: 0.5 (Em Desenvolvimento)*
 *Última Atualização: 28/02/2025*
 ```
 
@@ -1157,7 +1157,7 @@ Todo o sistema é fundamentado em princípios éticos rigorosos:
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 
-*Versão: 7.0*  
+*Versão: 7.0*
 *Última Atualização: 28/02/2025*
 ```
 

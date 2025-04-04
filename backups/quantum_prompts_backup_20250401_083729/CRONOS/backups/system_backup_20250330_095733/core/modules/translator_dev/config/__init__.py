@@ -9,4 +9,4 @@ This package provides configuration management for the translator.
 
 from .config import Config
 
-__all__ = ['Config'] 
+__all__ = ["Config"]

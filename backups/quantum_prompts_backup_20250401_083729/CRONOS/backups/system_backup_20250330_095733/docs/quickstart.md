@@ -217,7 +217,7 @@ powershell
 3. Ensure all dependencies are installed:
    powershell
    pip install -r requirements.txt
-   
+
 
 ### Import Errors
 
@@ -227,11 +227,11 @@ powershell
 1. Run the complete setup script:
    powershell
    .\setup_and_start.ps1
-   
+
 2. Check if the quantum modules were created correctly:
    powershell
    python create_quantum_modules.py
-   
+
 
 ### Unicode Character Issues
 
@@ -241,7 +241,7 @@ powershell
 1. Set PowerShell to UTF-8:
    powershell
    [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-   
+
 2. Use the updated script that already includes this setting
 
 ### API Authentication Issues
@@ -252,7 +252,7 @@ powershell
 1. Reconfigure the API keys:
    powershell
    .\configure_api_keys.ps1
-   
+
 2. Check if the keys are correct in the configuration files
 
 ## üîÑ Update

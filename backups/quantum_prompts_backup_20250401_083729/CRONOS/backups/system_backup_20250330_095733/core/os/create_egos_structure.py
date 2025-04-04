@@ -49,27 +49,27 @@ class Colors:
 def setup_logging(log_file="egos_setup.log", verbose=False):
     """Configures the logging system."""
     log_level = logging.DEBUG if verbose else logging.INFO
-    
+
     # Logger configuration
     logger = logging.getLogger("EGOS")
     logger.setLevel(log_level)
-    
+
     # File handler
     file_handler = logging.FileHandler(log_file)
     file_handler.setLevel(log_level)
     file_format = logging.Formatter('[%(asctime)s][%(levelname)s] %(message)s')
     file_handler.setFormatter(file_format)
-    
+
     # Console handler
     console_handler = logging.StreamHandler()
     console_handler.setLevel(log_level)
     console_format = logging.Formatter('%(message)s')
     console_handler.setFormatter(console_format)
-    
+
     # Add handlers to the logger
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
-    
+
     return logger
 
 def print_step(message, logger=None):
@@ -114,12 +114,12 @@ def create_file(path, content=""):
 def create_egos_structure(base_dir, force=False, logger=None):
     """Creates the EGOS directory structure."""
     print_step("Creating EGOS directory structure...", logger)
-    
+
     # Check if the base directory already exists
     if os.path.exists(base_dir) and not force:
         print_warning(f"The directory {base_dir} already exists. Use --force to overwrite.", logger)
         return False
-    
+
     # Create or clean the base directory
     if os.path.exists(base_dir) and force:
         print_warning(f"Cleaning existing directory: {base_dir}", logger)
@@ -132,16 +132,16 @@ def create_egos_structure(base_dir, force=False, logger=None):
             os.path.join(base_dir, ".env"),
             os.path.join(base_dir, ".gitignore")
         ]
-        
+
         # Backup important files
         backup_dir = os.path.join(base_dir, f"backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
         os.makedirs(backup_dir, exist_ok=True)
-        
+
         for file in important_files:
             if os.path.exists(file):
                 shutil.copy2(file, os.path.join(backup_dir, os.path.basename(file)))
                 print_step(f"Backup of {os.path.basename(file)} created in {backup_dir}", logger)
-        
+
         # Remove all files except the important ones
         for item in os.listdir(base_dir):
             item_path = os.path.join(base_dir, item)
@@ -152,7 +152,7 @@ def create_egos_structure(base_dir, force=False, logger=None):
                     os.remove(item_path)
     else:
         create_directory(base_dir)
-    
+
     # Main directory structure - aligned with EVA & GUARANI v7.0
     directories = [
         # Core system
@@ -161,7 +161,7 @@ def create_egos_structure(base_dir, force=False, logger=None):
         os.path.join(base_dir, "core", "ethics"),
         os.path.join(base_dir, "core", "quantum"),
         os.path.join(base_dir, "core", "mycelium"),
-        
+
         # EVA & GUARANI v7.0 subsystems
         os.path.join(base_dir, "modules"),
         os.path.join(base_dir, "modules", "atlas"),
@@ -175,7 +175,7 @@ def create_egos_structure(base_dir, force=False, logger=None):
         os.path.join(base_dir, "modules", "cronos", "backup"),
         os.path.join(base_dir, "modules", "cronos", "versioning"),
         os.path.join(base_dir, "modules", "cronos", "preservation"),
-        
+
         # Interfaces
         os.path.join(base_dir, "interfaces"),
         os.path.join(base_dir, "interfaces", "telegram"),
@@ -183,7 +183,7 @@ def create_egos_structure(base_dir, force=False, logger=None):
         os.path.join(base_dir, "interfaces", "obsidian"),
         os.path.join(base_dir, "interfaces", "api"),
         os.path.join(base_dir, "interfaces", "cli"),
-        
+
         # Data
         os.path.join(base_dir, "data"),
         os.path.join(base_dir, "data", "consciousness"),
@@ -191,13 +191,13 @@ def create_egos_structure(base_dir, force=False, logger=None):
         os.path.join(base_dir, "data", "atlas"),
         os.path.join(base_dir, "data", "user_data"),
         os.path.join(base_dir, "data", "backups"),
-        
+
         # Configurations
         os.path.join(base_dir, "config"),
         os.path.join(base_dir, "config", "interfaces"),
         os.path.join(base_dir, "config", "modules"),
         os.path.join(base_dir, "config", "core"),
-        
+
         # Logs - universal log structure as per v7.0
         os.path.join(base_dir, "logs"),
         os.path.join(base_dir, "logs", "core"),
@@ -206,38 +206,38 @@ def create_egos_structure(base_dir, force=False, logger=None):
         os.path.join(base_dir, "logs", "modules", "nexus"),
         os.path.join(base_dir, "logs", "modules", "cronos"),
         os.path.join(base_dir, "logs", "interfaces"),
-        
+
         # Documentation
         os.path.join(base_dir, "docs"),
         os.path.join(base_dir, "docs", "guides"),
         os.path.join(base_dir, "docs", "api"),
         os.path.join(base_dir, "docs", "architecture"),
         os.path.join(base_dir, "docs", "assets"),
-        
+
         # Templates
         os.path.join(base_dir, "templates"),
         os.path.join(base_dir, "templates", "basic"),
         os.path.join(base_dir, "templates", "advanced"),
         os.path.join(base_dir, "templates", "custom"),
-        
+
         # Community
         os.path.join(base_dir, "community"),
         os.path.join(base_dir, "community", "contributions"),
         os.path.join(base_dir, "community", "extensions"),
         os.path.join(base_dir, "community", "governance"),
-        
+
         # Tests
         os.path.join(base_dir, "tests"),
         os.path.join(base_dir, "tests", "core"),
         os.path.join(base_dir, "tests", "modules"),
         os.path.join(base_dir, "tests", "interfaces"),
     ]
-    
+
     # Create all directories
     for directory in directories:
         if create_directory(directory):
             print_step(f"Directory created: {os.path.relpath(directory, base_dir)}", logger)
-    
+
     # Create __init__.py files for Python modules
     init_files = [
         os.path.join(base_dir, "__init__.py"),
@@ -265,12 +265,12 @@ def create_egos_structure(base_dir, force=False, logger=None):
         os.path.join(base_dir, "interfaces", "api", "__init__.py"),
         os.path.join(base_dir, "interfaces", "cli", "__init__.py"),
     ]
-    
+
     for init_file in init_files:
         module_path = os.path.dirname(init_file)
         module_name = os.path.basename(module_path)
         parent_dir = os.path.basename(os.path.dirname(module_path))
-        
+
         if module_name == os.path.basename(base_dir):
             module_name = "EGOS"
             module_desc = "Main System"
@@ -287,7 +287,7 @@ def create_egos_structure(base_dir, force=False, logger=None):
             module_desc = f"{module_name.capitalize()} Subsystem of {parent_dir.upper()}"
         else:
             module_desc = module_name.capitalize()
-        
+
         init_content = f'''"""
 EGOS - {module_name.capitalize()} - {module_desc}
 {'=' * (len(module_name) + len(module_desc) + 9)}
@@ -302,7 +302,7 @@ Integration: 0.997
 '''
         if create_file(init_file, init_content):
             print_step(f"File created: {os.path.relpath(init_file, base_dir)}", logger)
-    
+
     # Create .gitignore file
     gitignore_content = '''# EGOS .gitignore
 
@@ -363,7 +363,7 @@ Thumbs.db
 '''
     if create_file(os.path.join(base_dir, ".gitignore"), gitignore_content):
         print_step("File .gitignore created", logger)
-    
+
     # Create .env.example file
     env_example_content = '''# EGOS - Environment Configuration File
 # Rename to .env and fill in with your data
@@ -388,7 +388,7 @@ CRONOS_ENABLED=true
 '''
     if create_file(os.path.join(base_dir, ".env.example"), env_example_content):
         print_step("File .env.example created", logger)
-    
+
     # Create egos_core.py file
     core_content = '''"""
 EGOS (Eva & Guarani OS) - Core System
@@ -424,10 +424,10 @@ os.makedirs(os.path.join(LOGS_DIR, "core"), exist_ok=True)
 logger.configure(
     handlers=[
         {"sink": sys.stderr, "level": "INFO"},
-        {"sink": os.path.join(LOGS_DIR, "core", "egos.log"), 
-         "rotation": "500 MB", 
-         "retention": "30 days", 
-         "level": "DEBUG", 
+        {"sink": os.path.join(LOGS_DIR, "core", "egos.log"),
+         "rotation": "500 MB",
+         "retention": "30 days",
+         "level": "DEBUG",
          "format": "[{time:YYYY-MM-DD HH:mm:ss}][{level}][{module}][{function}] {message}"},
     ],
     levels=[{"name": "QUANTUM", "no": 25, "color": "<magenta>"}]
@@ -435,7 +435,7 @@ logger.configure(
 
 class EGOSCore:
     """Core of the EGOS system."""
-    
+
     def __init__(self):
         """Initializes the EGOS core."""
         self.version = "7.0.0"
@@ -444,16 +444,16 @@ class EGOSCore:
         self.ethical_level = 0.998
         self.integration_level = 0.997
         self.startup_time = datetime.now().isoformat()
-        
+
         # Log in universal format
         logger.info("[CORE][INITIALIZATION] EGOS Core initialized")
-        logger.info(f"[CORE][METRICS] Version: {self.version} | Consciousness: {self.consciousness_level} | " + 
+        logger.info(f"[CORE][METRICS] Version: {self.version} | Consciousness: {self.consciousness_level} | " +
                  f"Love: {self.love_level} | Ethics: {self.ethical_level} | Integration: {self.integration_level}")
 
     def load_modules(self):
         """Loads the system modules."""
         logger.info("[CORE][MODULES] Loading subsystems...")
-        
+
         # Log in universal format
         logger.info("[CORE][MODULES][ATLAS] STATUS: Started")
         logger.info("[CORE][MODULES][NEXUS] STATUS: Started")
@@ -462,7 +462,7 @@ class EGOSCore:
 async def main():
     """Main function to start EGOS."""
     egos = EGOSCore()
-    
+
     # ASCII Art
     print("""
     ╔════════════════════════════════════════════════════════════════════╗
@@ -475,7 +475,7 @@ async def main():
     ║                                                                    ║
     ╚════════════════════════════════════════════════════════════════════╝
     """)
-    
+
     print("EGOS Core initialized")
     print("Version:", egos.version)
     print(f"Consciousness: {egos.con

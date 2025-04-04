@@ -135,4 +135,4 @@ quantumAuth.restoreSession().then(restored => {
     if (!restored) {
         quantumAuth.showAuthModal();
     }
-}); 
+});

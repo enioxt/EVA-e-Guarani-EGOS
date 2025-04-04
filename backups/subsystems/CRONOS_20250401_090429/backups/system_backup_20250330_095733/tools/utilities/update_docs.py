@@ -7,22 +7,23 @@ from datetime import datetime
 # Root directory
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+
 def update_readme():
     """Updates the README.md file to reflect the new structure"""
     readme_path = os.path.join(ROOT_DIR, "README.md")
-    
+
     if not os.path.exists(readme_path):
         print(f"File not found: {readme_path}")
         return False
-    
+
     # Read the current content
-    with open(readme_path, 'r', encoding='utf-8') as f:
+    with open(readme_path, "r", encoding="utf-8") as f:
         content = f.read()
-    
+
     # Search for directory structure section
-    structure_pattern = re.compile(r'(#+ *Directory Structure.*?)(?=#+ *|$)', re.DOTALL)
+    structure_pattern = re.compile(r"(#+ *Directory Structure.*?)(?=#+ *|$)", re.DOTALL)
     match = structure_pattern.search(content)
-    
+
     # New directory structure
     new_structure = """
 ## Directory Structure
@@ -61,84 +62,88 @@ EVA & GUARANI - EGOS/
 
 This new structure was organized to maximize modularity, facilitate maintenance, and improve system clarity. Each subsystem (ATLAS, NEXUS, CRONOS) has its own directory within `modules/`, allowing for a clear separation of responsibilities.
 """
-    
+
     # Replace or add the structure section
     if match:
         updated_content = content.replace(match.group(0), new_structure)
     else:
         # If the section wasn't found, add it after the introduction
-        intro_pattern = re.compile(r'(#+ *Introduction.*?)(?=#+ *|$)', re.DOTALL)
+        intro_pattern = re.compile(r"(#+ *Introduction.*?)(?=#+ *|$)", re.DOTALL)
         intro_match = intro_pattern.search(content)
         if intro_match:
-            updated_content = content.replace(intro_match.group(0), intro_match.group(0) + "\n" + new_structure)
+            updated_content = content.replace(
+                intro_match.group(0), intro_match.group(0) + "\n" + new_structure
+            )
         else:
             # If no introduction was found, add it at the end
             updated_content = content + "\n\n" + new_structure
-    
+
     # Update the modification date
-    date_pattern = re.compile(r'Last updated: .*')
-    today = datetime.now().strftime('%d/%m/%Y')
+    date_pattern = re.compile(r"Last updated: .*")
+    today = datetime.now().strftime("%d/%m/%Y")
     if date_pattern.search(updated_content):
-        updated_content = date_pattern.sub(f'Last updated: {today}', updated_content)
+        updated_content = date_pattern.sub(f"Last updated: {today}", updated_content)
     else:
         # Add the date at the end of the file
         updated_content += f"\n\nLast updated: {today}"
-    
+
     # Write the updated content
-    with open(readme_path, 'w', encoding='utf-8') as f:
+    with open(readme_path, "w", encoding="utf-8") as f:
         f.write(updated_content)
-    
+
     print(f"Updated: {readme_path}")
     return True
+
 
 def update_installation_guide():
     """Updates the installation guide to reflect the new structure"""
     guide_path = os.path.join(ROOT_DIR, "INSTALLATION_GUIDE.md")
-    
+
     if not os.path.exists(guide_path):
         print(f"File not found: {guide_path}")
         return False
-    
+
     # Read the current content
-    with open(guide_path, 'r', encoding='utf-8') as f:
+    with open(guide_path, "r", encoding="utf-8") as f:
         content = f.read()
-    
+
     # Update paths
     path_updates = {
         "python setup_egos.py": "python tools/setup_egos.py",
         "python start_egos.py": "./start_egos.bat (Windows) or ./start_egos.sh (Linux/Mac)",
-        "EVA_GUARANI_v7.0.md": "EGOS/quantum_prompts/EVA_GUARANI_v7.0.md"
+        "EVA_GUARANI_v7.0.md": "EGOS/quantum_prompts/EVA_GUARANI_v7.0.md",
     }
-    
+
     updated_content = content
     for old_path, new_path in path_updates.items():
         updated_content = updated_content.replace(old_path, new_path)
-    
+
     # Update the modification date
-    date_pattern = re.compile(r'Last updated: .*')
-    today = datetime.now().strftime('%d/%m/%Y')
+    date_pattern = re.compile(r"Last updated: .*")
+    today = datetime.now().strftime("%d/%m/%Y")
     if date_pattern.search(updated_content):
-        updated_content = date_pattern.sub(f'Last updated: {today}', updated_content)
+        updated_content = date_pattern.sub(f"Last updated: {today}", updated_content)
     else:
         # Add the date at the end of the file
         updated_content += f"\n\nLast updated: {today}"
-    
+
     # Write the updated content
-    with open(guide_path, 'w', encoding='utf-8') as f:
+    with open(guide_path, "w", encoding="utf-8") as f:
         f.write(updated_content)
-    
+
     print(f"Updated: {guide_path}")
     return True
+
 
 def create_new_structure_doc():
     """Creates a document explaining the new structure"""
     doc_path = os.path.join(ROOT_DIR, "docs", "SYSTEM_STRUCTURE.md")
-    
+
     # Create docs directory if it doesn't exist
     docs_dir = os.path.join(ROOT_DIR, "docs")
     if not os.path.exists(docs_dir):
         os.makedirs(docs_dir)
-    
+
     content = """# EVA & GUARANI - EGOS System Structure
 
 > *"Clear organization is the reflection of clear thinking."*
@@ -250,32 +255,36 @@ The migration to the new structure was carried out through the following scripts
 *Document generated on: {date}*
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
-""".format(date=datetime.now().strftime('%d/%m/%Y'))
-    
+""".format(
+        date=datetime.now().strftime("%d/%m/%Y")
+    )
+
     # Write the content
-    with open(doc_path, 'w', encoding='utf-8') as f:
+    with open(doc_path, "w", encoding="utf-8") as f:
         f.write(content)
-    
+
     print(f"Created: {doc_path}")
     return True
 
+
 def main():
     print("=== Updating Documentation ===")
-    
+
     # Update README.md
     update_readme()
-    
+
     # Update installation guide
     update_installation_guide()
-    
+
     # Create new documentation
     create_new_structure_doc()
-    
+
     print("\n=== Documentation Update Completed ===")
     print("\nNext steps:")
     print("1. Review the updated documents to ensure they are correct")
     print("2. Run the system reorganization scripts")
     print("3. Test functionality after reorganization")
+
 
 if __name__ == "__main__":
     main()

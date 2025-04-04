@@ -119,7 +119,7 @@ metadata:
 2025-03-21 11:17:44,603 - ai_translate_file - INFO - OpenAI client initialized with model: gpt-4o
 2025-03-21 11:17:44,603 - ai_translate_file - ERROR - Input file not found: 27.49KB
 2025-03-21 11:20:34,905 - ai_translate_file - INFO - OpenAI client initialized with model: gpt-4o
-2025-03-21 11:20:34,905 - ai_translate_file - ERROR - Input file not found:  2.13 KB 
+2025-03-21 11:20:34,905 - ai_translate_file - ERROR - Input file not found:  2.13 KB
 2025-03-21 11:20:36,270 - ai_translate_file - INFO - OpenAI client initialized with model: gpt-4o
 2025-03-21 11:20:36,270 - ai_translate_file - ERROR - Input file not found: !file_path!
 2025-03-21 11:20:37,642 - ai_translate_file - INFO - OpenAI client initialized with model: gpt-4o

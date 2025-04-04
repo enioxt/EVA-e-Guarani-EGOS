@@ -83,13 +83,34 @@
                 "pipe",
                 "pipe"
             ]
+        },
+        "openrouter": {
+            "command": "node",
+            "args": [
+                "C:\\Eva Guarani EGOS\\.cursor\\mcp-servers\\openrouter_mcp_server.js"
+            ],
+            "type": "stdio",
+            "env": {
+                "DEBUG": "mcp:*",
+                "LOG_LEVEL": "debug",
+                "LOG_FORMAT": "json",
+                "LOG_DIR": "C:\\Eva Guarani EGOS\\logs",
+                "NODE_ENV": "development",
+                "NODE_DEBUG": "net,stream,module,http",
+                "NO_COLOR": "1",
+                "FORCE_COLOR": "0",
+                "OPENROUTER_API_KEY": "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",
+                "MCP_LOG_FILE": "C:\\Eva Guarani EGOS\\logs\\mcp\\openrouter.log"
+            },
+            "windowsHide": true
         }
     },
     "logLevel": "DEBUG",
     "logFile": "C:/Eva Guarani EGOS/logs/mcp/mcp.log",
     "configPaths": [
         ".cursor/mcp/filesystem.json",
-        ".cursor/mcp/sequential-thinking.json"
+        ".cursor/mcp/sequential-thinking.json",
+        ".cursor/mcp/openrouter.json"
     ],
     "initialization": {
         "enforceRequiredServers": true,

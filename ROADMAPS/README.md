@@ -63,4 +63,4 @@ Examples:
 - `20250330_feature_ethik_core_enhancement.md`
 - `20250330_sprint_q2_2024.md`
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

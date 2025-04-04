@@ -19,4 +19,4 @@ CORUJA focuses on enhancing seamless, clear, and efficient communication between
 
 Refer to the detailed roadmap in `docs/CORUJA_roadmap.md`.
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

@@ -5,6 +5,7 @@ repos:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
     -   id: check-yaml
+        exclude: '(^|/)backups/|(^|/)external/|(^|/)\.cursor/|(^|/)\.obsidian/|(^|/)Researchs/|(^|/)\.roo/|(^|/)\.benchmarks/'
     -   id: check-added-large-files
 
 -   repo: https://github.com/psf/black
@@ -12,6 +13,7 @@ repos:
     hooks:
     -   id: black
         args: [--line-length=100]
+        exclude: '(^|/)backups/|(^|/)external/|(^|/)\.cursor/|(^|/)\.obsidian/|(^|/)Researchs/|(^|/)\.roo/|(^|/)\.benchmarks/'
 
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
@@ -21,4 +23,4 @@ repos:
     -   id: ruff
         args: [--fix, --exit-non-zero-on-fix]
     # Run the formatter.
-    -   id: ruff-format 
+    -   id: ruff-format

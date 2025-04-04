@@ -280,7 +280,7 @@ del temp_status.txt
 if not "%status%"=="" (
     call :log_message "There are uncommitted local changes:" "WARNING"
     git status
-    
+
     set /p confirmation="Do you want to continue anyway? Local changes will be preserved. (Y/N): "
     if /i not "%confirmation%"=="Y" (
         call :log_message "Update canceled by user." "INFO"

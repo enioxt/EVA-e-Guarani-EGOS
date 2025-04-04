@@ -39,4 +39,4 @@ def test_function():
     return "Test successful!"
 
 if __name__ == "__main__":
-    print(test_function()) 
+    print(test_function())

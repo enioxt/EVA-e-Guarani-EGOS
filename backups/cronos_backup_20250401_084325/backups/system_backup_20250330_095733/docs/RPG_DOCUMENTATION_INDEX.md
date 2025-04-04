@@ -304,7 +304,7 @@ This index organizes all documentation related to the EVA & GUARANI System and i
 
 ## How to Use This Index
 
-1. **New Users**: 
+1. **New Users**:
 
    - To understand the concept: Start with the [Quantum Prompts Quick Start Guide](QUANTUM_PROMPTS_QUICKSTART.md)
 
@@ -314,7 +314,7 @@ This index organizes all documentation related to the EVA & GUARANI System and i
 
    - For Philosophy: Start with the [Philosophical Integration](PHILOSOPHICAL_INTEGRATION.md)
 
-2. **Experienced Users**: 
+2. **Experienced Users**:
 
    - Advanced concepts: Refer to the [Complete Quantum Prompts Guide](QUANTUM_PROMPTS_GUIDE.md)
 
@@ -324,7 +324,7 @@ This index organizes all documentation related to the EVA & GUARANI System and i
 
    - Moral Dilemmas: Refer to [BALDURS_LEGACY](../RPG/BALDURS_LEGACY.md)
 
-3. **Developers**: 
+3. **Developers**:
 
    - Explore the [RPG Integration Architecture](RPG_INTEGRATION_ARCHITECTURE.md)
 
@@ -334,7 +334,7 @@ This index organizes all documentation related to the EVA & GUARANI System and i
 
    - Implement the [Philosophical Integration](PHILOSOPHICAL_INTEGRATION.md#-technical-implementation-of-philosophical-integration)
 
-4. **Detail Enthusiasts**: 
+4. **Detail Enthusiasts**:
 
    - See the [Master Prompt EVA & GUARANI v7.4](../MASTER/EVA_GUARANI_v7.4.md)
 

@@ -4,22 +4,25 @@
 
 import logging
 from datetime import datetime
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
 
 logger = logging.getLogger(__name__)
+
 
 class MyceliumNode:
     """Represents a single node (subsystem or component) in the Mycelium Network."""
 
-    def __init__(self, node_id: str, node_type: str, version: str = "N/A", capabilities: list = None):
+    def __init__(
+        self, node_id: str, node_type: str, version: str = "N/A", capabilities: list = None
+    ):
         self.node_id: str = node_id
         self.node_type: str = node_type
         self.version: str = version
         self.capabilities: list = capabilities or []
         # Connections will be managed by the MyceliumNetwork class
-        self.data: Dict[str, Any] = {} # Optional local data cache
+        self.data: Dict[str, Any] = {}  # Optional local data cache
         self.last_update: datetime = datetime.now()
-        self.status: str = "initializing" # e.g., initializing, active, degraded, inactive
+        self.status: str = "initializing"  # e.g., initializing, active, degraded, inactive
         self.health_details: Optional[Dict[str, Any]] = None
 
         logger.info(f"Node created: {self.node_id} ({self.node_type} v{self.version})")
@@ -36,25 +39,24 @@ class MyceliumNode:
         msg_type = message.get("header", {}).get("message_type", "UNKNOWN")
         topic = message.get("header", {}).get("topic", "N/A")
         logger.debug(f"Node {self.node_id} received message: Topic={topic}, Type={msg_type}")
-        
+
         # Placeholder: Subclasses or specific node handlers would implement logic here
         if msg_type == "REQUEST":
             # Example: Echo back the payload for testing
             logger.info(f"Node {self.node_id} echoing REQUEST on topic {topic}")
-            return {
-                "status": "SUCCESS",
-                "echo": message.get('payload')
-            }
+            return {"status": "SUCCESS", "echo": message.get("payload")}
         elif msg_type == "EVENT":
             # Base node might just log events it receives
             logger.info(f"Node {self.node_id} received EVENT on topic {topic}")
-            return None # No response needed for events
+            return None  # No response needed for events
         # Add handling for QUERY if defined
         # elif msg_type == "QUERY":
         #     pass
         else:
-            logger.warning(f"Node {self.node_id} received unhandled message type '{msg_type}' on topic {topic}")
-            return None 
+            logger.warning(
+                f"Node {self.node_id} received unhandled message type '{msg_type}' on topic {topic}"
+            )
+            return None
 
     def update_status(self, status: str, details: Optional[Dict[str, Any]] = None):
         """Updates the node's status and health details."""
@@ -72,5 +74,5 @@ class MyceliumNode:
             "status": self.status,
             "capabilities": self.capabilities,
             "last_update": self.last_update.isoformat(),
-            "health_details": self.health_details
-        } 
+            "health_details": self.health_details,
+        }

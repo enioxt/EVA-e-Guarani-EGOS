@@ -10,13 +10,14 @@ from datetime import datetime
 # Configure logging
 logging.basicConfig(
     level=logging.DEBUG,
-    format='%(asctime)s [%(levelname)s] %(message)s',
+    format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler('logs/mcp_debug.log', encoding='utf-8'),
-        logging.StreamHandler(sys.stdout)
-    ]
+        logging.FileHandler("logs/mcp_debug.log", encoding="utf-8"),
+        logging.StreamHandler(sys.stdout),
+    ],
 )
 logger = logging.getLogger()
+
 
 class MCPDebugServer:
     def __init__(self, host="localhost", port=38002):
@@ -30,40 +31,36 @@ class MCPDebugServer:
             client_info = {
                 "remote_address": str(websocket.remote_address),
                 "headers": dict(websocket.request_headers),
-                "time": datetime.now().isoformat()
+                "time": datetime.now().isoformat(),
             }
             logger.info(f"Nova conexão estabelecida: {json.dumps(client_info, indent=2)}")
-            
+
             try:
                 while True:
                     message = await websocket.recv()
                     logger.info(f"Mensagem do cliente: {message}")
-                    
+
                     try:
                         data = json.loads(message)
                         logger.info(f"Dados decodificados: {json.dumps(data, indent=2)}")
-                        
+
                         # Processar a mensagem aqui
-                        response = {
-                            "status": "success",
-                            "message": "Mensagem recebida com sucesso"
-                        }
-                        
+                        response = {"status": "success", "message": "Mensagem recebida com sucesso"}
+
                         await websocket.send(json.dumps(response))
                         logger.info(f"Resposta enviada: {json.dumps(response, indent=2)}")
-                        
+
                     except json.JSONDecodeError:
                         logger.error("Erro ao decodificar JSON da mensagem")
-                        await websocket.send(json.dumps({
-                            "status": "error",
-                            "error": "Invalid JSON format"
-                        }))
-                        
+                        await websocket.send(
+                            json.dumps({"status": "error", "error": "Invalid JSON format"})
+                        )
+
             except websockets.exceptions.ConnectionClosed:
                 logger.warning("Cliente desconectou")
             except Exception as e:
                 logger.error(f"Erro durante comunicação: {e}")
-                
+
         except Exception as e:
             logger.error(f"Erro na conexão: {e}")
         finally:
@@ -79,9 +76,10 @@ class MCPDebugServer:
         except Exception as e:
             logger.error(f"Erro ao iniciar servidor: {e}")
 
+
 if __name__ == "__main__":
-    if not os.path.exists('logs'):
-        os.makedirs('logs')
-    
+    if not os.path.exists("logs"):
+        os.makedirs("logs")
+
     server = MCPDebugServer()
-    asyncio.run(server.start()) 
+    asyncio.run(server.start())

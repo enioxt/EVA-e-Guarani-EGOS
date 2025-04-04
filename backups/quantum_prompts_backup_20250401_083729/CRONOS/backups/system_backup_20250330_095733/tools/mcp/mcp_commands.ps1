@@ -55,4 +55,4 @@ switch ($args[0]) {
         Write-Host "[X] Comando inválido: $($args[0])"
         exit 1
     }
-} 
+}

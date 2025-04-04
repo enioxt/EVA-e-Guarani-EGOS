@@ -37,10 +37,10 @@ Podemos criar uma integração poderosa entre os sistemas:
    ```python
    # Exemplo de código para acessar o índice do Cursor
    from tools.integration import cursor_index
-   
-   # Carregar o índice do Cursor 
+
+   # Carregar o índice do Cursor
    index = cursor_index.load_cursor_index()
-   
+
    # Usar no sistema ATLAS
    from core.atlas import map_from_cursor_index
    system_map = map_from_cursor_index(index)
@@ -57,7 +57,7 @@ Podemos criar uma integração poderosa entre os sistemas:
        # Método existente
        def setup_cursor_context(self):
            # ...código existente...
-           
+
        # Novo método
        def integrate_with_cursor_index(self):
            """Integra ATLAS e NEXUS com o índice do Cursor"""

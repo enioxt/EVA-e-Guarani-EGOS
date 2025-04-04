@@ -45,7 +45,7 @@ METADATA:
  * EVA & GUARANI - Filesystem Module for SLOP Server
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This module provides filesystem operations for the SLOP server.
  */
 
@@ -732,4 +732,4 @@ async function deleteFile(req, res) {
 // Export the initialize function
 module.exports = {
     initialize
-}; 
+};

@@ -48,33 +48,65 @@ The `CronosService` provides a Mycelium-based interface for backup operations:
 
 ## Usage
 
-### Creating a Backup
+CRONOS functionality can be accessed either directly via the `BackupManager` class or through the Mycelium network using `CronosService`.
+
+### Direct Usage (`BackupManager`)
+
+Provides fine-grained control over backup operations. See `docs/procedures.md` for full details.
+
+```python
+# Conceptual Example - Requires proper initialization and async handling
+from pathlib import Path
+from subsystems.CRONOS.core.backup_manager import BackupManager
+
+# Assuming project_root is defined (e.g., Path(".").resolve())
+# BackupManager initialization might require config, logger, etc.
+manager = BackupManager(project_root=project_root)
+
+# List backups (currently synchronous)
+backups = manager.list_backups()
+print("Available Backups:", backups)
+
+# Create a backup (asynchronous)
+# backup_path = await manager.create_backup(name="manual_snapshot")
+# print("Backup created:", backup_path)
+```
+
+### Service Usage (`CronosService` via Mycelium)
+
+Handles requests and responses over the Mycelium network.
+
+#### Creating a Backup
 
 ```python
 from cronos.service import CronosService
 
-service = CronosService()
+service = CronosService() # Assumes Mycelium client is configured/running
+# target_modules limits backup scope (optional)
 await service.create_backup(
     target_modules=["ETHIK", "ATLAS"],
     metadata={"description": "Pre-deployment backup"}
 )
 ```
 
-### Listing Backups
+#### Listing Backups
 
 ```python
 backups = await service.list_backups()
 for backup in backups:
+    # Backup details format depends on service implementation
     print(f"Backup: {backup}")
 ```
 
-### Restoring from Backup
+#### Restoring from Backup
 
 ```python
+# backup_identifier can be filename, timestamp, or name_timestamp
+# strategy controls how restore is applied ('new_location', 'overwrite')
 await service.restore_backup(
-    backup_identifier="backup_20250401_001.zip",
-    restore_target_path="/path/to/restore",
-    strategy="merge"
+    backup_identifier="backup_20250401_001.zip", # Example ID
+    restore_target_path="/path/to/restore", # Often used with 'new_location'
+    strategy="overwrite" # Use 'overwrite' with caution
 )
 ```
 
@@ -169,4 +201,4 @@ When contributing to CRONOS:
 - v1.3.0 - Added backup metadata
 - v2.0.0 - Integrated with Mycelium
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

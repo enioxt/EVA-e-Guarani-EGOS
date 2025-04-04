@@ -73,7 +73,7 @@ METADATA:
 
 ✧༺❀༻∞ API Documentation ∞༺❀༻✧
 
-Version: 7.5  
+Version: 7.5
 Created: 2025-03-26
 
 ## Core Systems

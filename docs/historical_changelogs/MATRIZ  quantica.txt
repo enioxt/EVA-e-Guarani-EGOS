@@ -365,10 +365,10 @@ Write-Host "Verificando integridade do backup..." -ForegroundColor Cyan
 Get-ChildItem -Path $diretorioOrigem -Recurse -File | ForEach-Object {
     $arquivoOrigem = $_.FullName
     $arquivoDestino = $arquivoOrigem.Replace($diretorioOrigem, $diretorioDestino)
-    
+
     $hashOrigem = Get-FileHash -Path $arquivoOrigem -Algorithm MD5
     $hashDestino = Get-FileHash -Path $arquivoDestino -Algorithm MD5
-    
+
     if ($hashOrigem.Hash -ne $hashDestino.Hash) {
         Write-Host "ALERTA: Verificação falhou para $($_.Name)" -ForegroundColor Red
     }

@@ -25,13 +25,13 @@ if [ -z "$1" ]; then
     echo "  ./enrich_cursor_context.sh enrich \"Latest developments in quantum computing\" --persona scientist"
     echo "  ./enrich_cursor_context.sh list"
     echo
-    
+
     read -p "Enter command (enrich/list/get): " COMMAND
-    
+
     if [ "$COMMAND" = "enrich" ]; then
         read -p "Enter your search query: " QUERY
         read -p "Enter persona (optional, press Enter to skip): " PERSONA
-        
+
         if [ -z "$PERSONA" ]; then
             ARGS="enrich \"$QUERY\""
         else
@@ -71,4 +71,4 @@ echo
 echo "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
 echo
 
-read -p "Press Enter to continue..." 
+read -p "Press Enter to continue..."

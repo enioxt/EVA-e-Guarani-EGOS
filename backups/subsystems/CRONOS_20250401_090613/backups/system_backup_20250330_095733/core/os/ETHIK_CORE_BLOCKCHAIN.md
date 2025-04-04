@@ -87,17 +87,17 @@ graph TD
     ETHIK --> C2[Decentralized Core 2]
     ETHIK --> C3[Decentralized Core 3]
     ETHIK --> C4[Decentralized Core N]
-    
+
     C1 --> U1[Users Sharing]
     C2 --> U2[Users Sharing]
     C3 --> U3[Users Sharing]
     C4 --> U4[Users Sharing]
-    
+
     U1 -.-> S[Shared System]
     U2 -.-> S
     U3 -.-> S
     U4 -.-> S
-    
+
     S --> E[Collective Evolution]
 
 

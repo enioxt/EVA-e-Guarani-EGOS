@@ -44,7 +44,7 @@ METADATA:
 /**
  * EVA & GUARANI - Dynamic Roadmap Updater
  * ✧༺❀༻∞ EVA & GUARANI EGOS ∞༺❀༻✧
- * 
+ *
  * Este script atualiza automaticamente o roadmap com base nas alterações
  * detectadas nos arquivos do projeto, mantendo uma documentação viva.
  */
@@ -261,4 +261,4 @@ function main() {
 }
 
 // Executar o script
-main(); 
+main();

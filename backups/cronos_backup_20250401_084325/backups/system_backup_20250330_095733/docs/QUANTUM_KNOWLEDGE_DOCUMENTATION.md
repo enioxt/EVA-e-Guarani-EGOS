@@ -281,19 +281,19 @@ json
 
    bash
    pip install openai
-   
+
 
 2. **Run integration script**:
 
    bash
    python integrate_quantum_knowledge.py
-   
+
 
 3. **Check logs to confirm success**:
 
    bash
    cat logs/quantum_integration.log
-   
+
 
 ### How to Add Knowledge to the System
 
@@ -406,34 +406,34 @@ Logs are stored in separate files to facilitate debugging:
    python
    from quantum_knowledge_hub import QuantumKnowledgeHub
    import asyncio
-   
+
    async def reindex():
        hub = QuantumKnowledgeHub()
        count = await hub.index_quantum_prompts()
        print(f"Reindexed {count} quantum prompts")
-       
+
    asyncio.run(reindex())
-   
+
 
 2. **Check system status**:
 
    python
    from quantum_knowledge_integrator import QuantumKnowledgeIntegrator
    import asyncio
-   
+
    async def check_status():
        integrator = QuantumKnowledgeIntegrator()
        await integrator.initialize_hub()
        print("Quantum knowledge system operational")
-       
+
    asyncio.run(check_status())
-   
+
 
 3. **Clear cache**:
 
    bash
    rm -rf data/quantum_knowledge/cache/*
-   
+
 
 ## 🔗 Integration with Existing Components
 

@@ -101,7 +101,7 @@ Scans the structure of a project and creates a mapping for ATLAS.
 
 Args:
     project_path: Path to the project directory
-    
+
 Returns:
     dict: Project structure in a format compatible with ATLAS
 
@@ -120,7 +120,7 @@ Factory function to create an instance of ATLAS
 Args:
     config: ATLAS configuration
     system_root: System root path
-    
+
 Returns:
     Atlas: Instance of the ATLAS subsystem
 
@@ -150,7 +150,7 @@ Generates a visualization of the current mapping
 
 Args:
     format: Output format (mermaid, json, d3)
-    
+
 Returns:
     str: Visualization in the requested format
 
@@ -162,7 +162,7 @@ Analyzes a specific component and its connections
 
 Args:
     component_path: Path of the component to be analyzed
-    
+
 Returns:
     Dict: Analysis of the component
 
@@ -175,7 +175,7 @@ Exports the system map to a file
 Args:
     format: Export format
     path: Path to save the file (optional)
-    
+
 Returns:
     Path: Path of the exported file
 

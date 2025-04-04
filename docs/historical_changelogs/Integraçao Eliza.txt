@@ -46,17 +46,17 @@ class ClientConfig:
 
 class ClientManager:
     """Gerenciador de clientes de integração inspirado no ElizaOS."""
-    
+
     def __init__(self):
         self.clients = {}
         self.message_handlers = []
         self.logger = logging.getLogger("✨quantum-integration✨")
-    
+
     def register_client(self, client_type: str, config: ClientConfig):
         """Registra um novo cliente de integração."""
         if client_type in self.clients:
             self.logger.warning(f"Cliente {client_type} já registrado, substituindo")
-        
+
         # Importação dinâmica do cliente apropriado
         try:
             if client_type == "telegram":
@@ -74,18 +74,18 @@ class ClientManager:
             else:
                 self.logger.error(f"Tipo de cliente desconhecido: {client_type}")
                 return False
-            
+
             self.logger.info(f"Cliente {client_type} registrado com sucesso")
             return True
         except Exception as e:
             self.logger.error(f"Erro ao registrar cliente {client_type}: {e}")
             return False
-    
+
     def register_message_handler(self, handler: Callable):
         """Registra um manipulador de mensagens."""
         self.message_handlers.append(handler)
         self.logger.info(f"Manipulador de mensagens registrado: {handler.__name__}")
-    
+
     async def start_all_clients(self):
         """Inicia todos os clientes registrados."""
         for client_type, client in self.clients.items():
@@ -94,7 +94,7 @@ class ClientManager:
                 self.logger.info(f"Cliente {client_type} iniciado")
             except Exception as e:
                 self.logger.error(f"Erro ao iniciar cliente {client_type}: {e}")
-    
+
     async def stop_all_clients(self):
         """Para todos os clientes registrados."""
         for client_type, client in self.clients.items():
@@ -124,20 +124,20 @@ class ModelConfig:
     provider: str
     api_key: str = ""
     options: Dict[str, Any] = field(default_factory=dict)
-    
+
 class ModelManager:
     """Gerenciador de modelos de IA inspirado no ElizaOS."""
-    
+
     def __init__(self):
         self.models = {}
         self.default_model = None
         self.logger = logging.getLogger("✨quantum-models✨")
-    
+
     def register_model(self, model_id: str, config: ModelConfig):
         """Registra um novo modelo de IA."""
         if model_id in self.models:
             self.logger.warning(f"Modelo {model_id} já registrado, substituindo")
-        
+
         # Importação dinâmica do modelo apropriado
         try:
             if config.provider == "openai":
@@ -155,35 +155,35 @@ class ModelManager:
             else:
                 self.logger.error(f"Provedor de modelo desconhecido: {config.provider}")
                 return False
-            
+
             # Define como modelo padrão se for o primeiro
             if self.default_model is None:
                 self.default_model = model_id
-                
+
             self.logger.info(f"Modelo {model_id} ({config.provider}) registrado com sucesso")
             return True
         except Exception as e:
             self.logger.error(f"Erro ao registrar modelo {model_id}: {e}")
             return False
-    
+
     def set_default_model(self, model_id: str):
         """Define o modelo padrão."""
         if model_id not in self.models:
             self.logger.error(f"Modelo {model_id} não encontrado")
             return False
-        
+
         self.default_model = model_id
         self.logger.info(f"Modelo padrão definido: {model_id}")
         return True
-    
+
     async def generate_response(self, prompt: str, model_id: Optional[str] = None, **kwargs):
         """Gera uma resposta usando o modelo especificado ou o padrão."""
         model_id = model_id or self.default_model
-        
+
         if model_id not in self.models:
             self.logger.error(f"Modelo {model_id} não encontrado")
             return None
-        
+
         try:
             model = self.models[model_id]
             response = await model.generate(prompt, **kwargs)
@@ -209,13 +209,13 @@ import hashlib
 
 class DocumentProcessor:
     """Processador de documentos inspirado no ElizaOS."""
-    
+
     def __init__(self, storage_dir: str = "data/documents"):
         self.storage_dir = Path(storage_dir)
         self.storage_dir.mkdir(parents=True, exist_ok=True)
         self.documents = {}
         self.logger = logging.getLogger("✨quantum-documents✨")
-    
+
     def ingest_document(self, file_path: str, metadata: Optional[Dict[str, Any]] = None):
         """Ingere um documento no sistema."""
         try:
@@ -223,10 +223,10 @@ class DocumentProcessor:
             if not path.exists():
                 self.logger.error(f"Arquivo não encontrado: {file_path}")
                 return None
-            
+
             # Calcula hash do documento
             doc_hash = self._calculate_hash(path)
-            
+
             # Cria metadados
             meta = metadata or {}
             meta.update({
@@ -236,29 +236,29 @@ class DocumentProcessor:
                 "modified": path.stat().st_mtime,
                 "hash": doc_hash
             })
-            
+
             # Copia para o armazenamento
             dest_path = self.storage_dir / f"{doc_hash}{path.suffix}"
             if not dest_path.exists():
                 import shutil
                 shutil.copy2(path, dest_path)
-            
+
             # Registra documento
             self.documents[doc_hash] = {
                 "path": str(dest_path),
                 "metadata": meta,
                 "chunks": []
             }
-            
+
             # Processa o documento (dividir em chunks, extrair texto, etc.)
             self._process_document(doc_hash)
-            
+
             self.logger.info(f"Documento ingerido com sucesso: {path.name} ({doc_hash})")
             return doc_hash
         except Exception as e:
             self.logger.error(f"Erro ao ingerir documento: {e}")
             return None
-    
+
     def _calculate_hash(self, file_path: Path) -> str:
         """Calcula o hash SHA-256 de um arquivo."""
         hasher = hashlib.sha256()
@@ -266,16 +266,16 @@ class DocumentProcessor:
             while chunk := f.read(8192):
                 hasher.update(chunk)
         return hasher.hexdigest()
-    
+
     def _process_document(self, doc_hash: str):
         """Processa um documento, extraindo texto e dividindo em chunks."""
         if doc_hash not in self.documents:
             self.logger.error(f"Documento não encontrado: {doc_hash}")
             return
-        
+
         doc = self.documents[doc_hash]
         path = Path(doc["path"])
-        
+
         # Extrai texto com base no tipo de arquivo
         text = ""
         try:
@@ -289,15 +289,15 @@ class DocumentProcessor:
                     reader = PyPDF2.PdfReader(f)
                     text = " ".join(page.extract_text() for page in reader.pages)
             # Adicionar mais formatos conforme necessário
-            
+
             # Divide em chunks
             chunks = self._split_into_chunks(text)
             doc["chunks"] = chunks
-            
+
             self.logger.info(f"Documento processado: {doc_hash} ({len(chunks)} chunks)")
         except Exception as e:
             self.logger.error(f"Erro ao processar documento {doc_hash}: {e}")
-    
+
     def _split_into_chunks(self, text: str, chunk_size: int = 1000, overlap: int = 200) -> List[str]:
         """Divide o texto em chunks com sobreposição."""
         chunks = []
@@ -306,7 +306,7 @@ class DocumentProcessor:
             if chunk:
                 chunks.append(chunk)
         return chunks
-    
+
     def search_documents(self, query: str, limit: int = 5) -> List[Dict[str, Any]]:
         """Pesquisa documentos com base em uma consulta."""
         # Implementação básica - em produção, usar embeddings e similaridade semântica
@@ -322,7 +322,7 @@ class DocumentProcessor:
                     })
                     if len(results) >= limit:
                         break
-        
+
         return results
 ```
 

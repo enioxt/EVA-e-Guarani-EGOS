@@ -14,4 +14,4 @@ echo "Starting metadata server..."
 echo "Root directory: $ROOT_DIR"
 
 # Start the server
-python "$SCRIPT_DIR/metadata_server.py" 
+python "$SCRIPT_DIR/metadata_server.py"

@@ -54,25 +54,25 @@ async def send_startup_notification():
         if not os.path.exists(CONFIG_PATH):
             logger.error(f"Arquivo de configuração não encontrado: {CONFIG_PATH}")
             return False
-        
+
         with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
             config = json.load(f)
-        
+
         # Obter token e ID do administrador
         bot_token = config.get("telegram", {}).get("bot_token") or config.get("bot_token")
         admin_users = config.get("telegram", {}).get("admin_users") or []
-        
+
         if not bot_token:
             logger.error("Token do bot não encontrado na configuração.")
             return False
-        
+
         if not admin_users:
             logger.warning("Nenhum administrador configurado. Não é possível enviar notificação.")
             return False
-        
+
         # Criar bot
         bot = Bot(token=bot_token)
-        
+
         # Mensagem de inicialização
         startup_message = """
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
@@ -93,7 +93,7 @@ Comandos disponíveis:
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
         """
-        
+
         # Enviar mensagem para cada administrador
         for admin_id in admin_users:
             try:
@@ -105,7 +105,7 @@ Comandos disponíveis:
                 logger.info(f"Notificação de inicialização enviada para o administrador {admin_id}")
             except Exception as e:
                 logger.error(f"Erro ao enviar notificação para o administrador {admin_id}: {e}")
-        
+
         return True
     except Exception as e:
         logger.error(f"Erro ao enviar notificação de inicialização: {e}")
@@ -152,7 +152,7 @@ async def main():
     if application:
         # Inicializar a aplicação
         await application.initialize()
-        
+
         # Iniciar bot
         logger.info("Iniciando bot...")
         await application.start()
@@ -265,10 +265,10 @@ def load_config():
         if not os.path.exists(CONFIG_PATH):
             logger.error(f"Arquivo de configuração não encontrado: {CONFIG_PATH}")
             return None
-        
+
         with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
             config = json.load(f)
-        
+
         return config
     except Exception as e:
         logger.error(f"Erro ao carregar configuração: {e}")
@@ -280,21 +280,21 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_id = user.id
     username = user.username or "Sem username"
     first_name = user.first_name or "Sem nome"
-    
+
     await update.message.reply_text(
         f"Olá, {first_name}!\n\n"
         f"Seu ID no Telegram é: {user_id}\n"
         f"Seu username é: @{username}\n\n"
         "Adicione este ID no arquivo config/eva_guarani_config.json na lista 'admin_users'."
     )
-    
+
     logger.info(f"ID do usuário {first_name} (@{username}): {user_id}")
 
 async def get_id(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Envia o ID do usuário quando o comando /id é emitido."""
     user = update.effective_user
     user_id = user.id
-    
+
     await update.message.reply_text(f"Seu ID no Telegram é: {user_id}")
     logger.info(f"ID do usuário solicitado: {user_id}")
 
@@ -302,7 +302,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     """Processa mensagens de texto."""
     user = update.effective_user
     user_id = user.id
-    
+
     await update.message.reply_text(
         f"Seu ID no Telegram é: {user_id}\n\n"
         "Use este ID no arquivo config/eva_guarani_config.json na lista 'admin_users'."
@@ -316,28 +316,28 @@ async def main() -> None:
     if not config:
         logger.error("Falha ao carregar configuração. Encerrando.")
         return
-    
+
     # Obter token do bot
     bot_token = config.get("telegram", {}).get("bot_token") or config.get("bot_token")
     if not bot_token:
         logger.error("Token do bot não encontrado na configuração.")
         return
-    
+
     # Criar aplicação
     application = Application.builder().token(bot_token).build()
-    
+
     # Adicionar handlers
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("id", get_id))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    
+
     # Iniciar bot
     print("Bot para obtenção de ID iniciado. Envie /start ou /id no Telegram.")
     print(f"Token do bot: {bot_token}")
-    
+
     await application.initialize()
     await application.start()
-    
+
     try:
         # Manter o bot rodando até Ctrl+C
         await asyncio.Event().wait()
@@ -401,10 +401,10 @@ def load_config():
         if not os.path.exists(CONFIG_PATH):
             logger.error(f"Arquivo de configuração não encontrado: {CONFIG_PATH}")
             return None
-        
+
         with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
             config = json.load(f)
-        
+
         return config
     except Exception as e:
         logger.error(f"Erro ao carregar configuração: {e}")
@@ -415,7 +415,7 @@ def check_bot_status(bot_token):
     try:
         url = f"https://api.telegram.org/bot{bot_token}/getMe"
         response = requests.get(url)
-        
+
         if response.status_code == 200:
             data = response.json()
             if data.get("ok"):
@@ -432,7 +432,7 @@ def check_processes():
     """Verifica se os processos do bot estão em execução."""
     try:
         import psutil
-        
+
         bot_processes = []
         for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
             try:
@@ -446,7 +446,7 @@ def check_processes():
                     })
             except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                 pass
-        
+
         return bot_processes
     except ImportError:
         logger.warning("Módulo psutil não encontrado. Não é possível verificar processos.")
@@ -463,20 +463,20 @@ def check_log_files():
             "logs/eva_guarani.log",
             "logs/startup.log"
         ]
-        
+
         recent_errors = []
-        
+
         for log_file in log_files:
             if os.path.exists(log_file):
                 with open(log_file, 'r', encoding='utf-8', errors='ignore') as f:
                     # Ler as últimas 50 linhas
                     lines = f.readlines()[-50:]
-                    
+
                     # Procurar por erros
                     for line in lines:
                         if "ERROR" in line or "CRITICAL" in line:
                             recent_errors.append(f"{log_file}: {line.strip()}")
-        
+
         return recent_errors
     except Exception as e:
         logger.error(f"Erro ao verificar logs: {e}")
@@ -485,23 +485,23 @@ def check_log_files():
 def main():
     """Função principal."""
     print("Verificando status do bot EVA & GUARANI...")
-    
+
     # Carregar configuração
     config = load_config()
     if not config:
         print("❌ Falha ao carregar configuração.")
         return
-    
+
     # Obter token do bot
     bot_token = config.get("telegram", {}).get("bot_token") or config.get("bot_token")
     if not bot_token:
         print("❌ Token do bot não encontrado na configuração.")
         return
-    
+
     # Verificar status do bot na API do Telegram
     print("\n1. Verificando status na API do Telegram...")
     status, info = check_bot_status(bot_token)
-    
+
     if status:
         print(f"✅ Bot está online!")
         print(f"   Nome: {info.get('first_name')}")
@@ -509,32 +509,32 @@ def main():
         print(f"   ID: {info.get('id')}")
     else:
         print(f"❌ Bot não está respondendo: {info}")
-    
+
     # Verificar processos em execução
     print("\n2. Verificando processos em execução...")
     processes = check_processes()
-    
+
     if processes:
         print(f"✅ Encontrados {len(processes)} processos do bot em execução:")
         for i, proc in enumerate(processes, 1):
             print(f"   {i}. PID: {proc['pid']}, Tempo em execução: {proc['running_time']}")
     else:
         print("❌ Nenhum processo do bot encontrado em execução.")
-    
+
     # Verificar logs recentes
     print("\n3. Verificando logs recentes...")
     errors = check_log_files()
-    
+
     if errors:
         print(f"⚠️ Encontrados {len(errors)} erros recentes nos logs:")
         for i, error in enumerate(errors[:5], 1):
             print(f"   {i}. {error}")
-        
+
         if len(errors) > 5:
             print(f"   ... e mais {len(errors) - 5} erros.")
     else:
         print("✅ Nenhum erro recente encontrado nos logs.")
-    
+
     # Resumo
     print("\n=== RESUMO ===")
     if status and processes:
@@ -545,18 +545,18 @@ def main():
         print("⚠️ Há processos do bot em execução, mas o bot não está respondendo na API do Telegram.")
     else:
         print("❌ O bot não está online e não há processos em execução.")
-    
+
     # Sugestões
     print("\n=== SUGESTÕES ===")
     if not status:
         print("1. Verifique se o token do bot está correto.")
         print("2. Reinicie o bot usando o comando: python start_eva_guarani.py")
         print("3. Verifique os logs para mais detalhes sobre possíveis erros.")
-    
+
     if not processes:
         print("1. Inicie o bot usando o comando: python start_eva_guarani.py")
         print("2. Verifique se há erros durante a inicialização.")
-    
+
     if errors:
         print("1. Verifique os logs completos para entender os erros.")
         print("2. Corrija os problemas identificados e reinicie o bot.")
@@ -608,10 +608,10 @@ def load_config():
         if not os.path.exists(CONFIG_PATH):
             logger.error(f"Arquivo de configuração não encontrado: {CONFIG_PATH}")
             return None
-        
+
         with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
             config = json.load(f)
-        
+
         return config
     except Exception as e:
         logger.error(f"Erro ao carregar configuração: {e}")
@@ -626,15 +626,15 @@ def check_dependencies():
         "requests",
         "psutil"
     ]
-    
+
     missing_packages = []
-    
+
     for package in required_packages:
         try:
             __import__(package.replace("-", "_"))
         except ImportError:
             missing_packages.append(package)
-    
+
     return missing_packages
 
 def install_dependencies(packages):
@@ -652,7 +652,7 @@ def is_bot_running():
     """Verifica se o bot já está em execução."""
     try:
         import psutil
-        
+
         for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
             try:
                 cmdline = proc.info.get('cmdline', [])
@@ -660,7 +660,7 @@ def is_bot_running():
                     return True, proc.info['pid']
             except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                 pass
-        
+
         return False, None
     except ImportError:
         logger.warning("Módulo psutil não encontrado. Não é possível verificar processos.")
@@ -673,13 +673,13 @@ def start_bot(detached=True):
     """Inicia o bot do Telegram."""
     try:
         bot_script = os.path.join("bot", "unified_telegram_bot_utf8.py")
-        
+
         if not os.path.exists(bot_script):
             logger.error(f"Script do bot não encontrado: {bot_script}")
             return False, None
-        
+
         logger.info(f"Iniciando bot: {bot_script}")
-        
+
         if detached:
             # Iniciar em modo desanexado (background)
             if sys.platform == 'win32':
@@ -702,7 +702,7 @@ def start_bot(detached=True):
             # Iniciar em modo anexado (foreground)
             process = subprocess.Popen([sys.executable, bot_script])
             return True, process.pid
-    
+
     except Exception as e:
         logger.error(f"Erro ao iniciar o bot: {e}")
         return False, None
@@ -711,16 +711,16 @@ def stop_bot():
     """Para o bot do Telegram se estiver em execução."""
     try:
         import psutil
-        
+
         running, pid = is_bot_running()
-        
+
         if running and pid:
             logger.info(f"Parando bot com PID {pid}...")
-            
+
             try:
                 process = psutil.Process(pid)
                 process.terminate()
-                
+
                 # Esperar até 5 segundos para o processo terminar
                 process.wait(timeout=5)
                 logger.info(f"Bot parado com sucesso.")
@@ -738,7 +738,7 @@ def stop_bot():
         else:
             logger.info("Bot não está em execução.")
             return True
-    
+
     except ImportError:
         logger.warning("Módulo psutil não encontrado. Não é possível parar o bot.")
         return False
@@ -759,11 +759,11 @@ def main():
     parser.add_argument('--stop', action='store_true', help='Parar o bot se estiver em execução')
     parser.add_argument('--foreground', action='store_true', help='Executar o bot em primeiro plano')
     args = parser.parse_args()
-    
+
     print("=" * 50)
     print("EVA & GUARANI - Sistema de Inicialização")
     print("=" * 50)
-    
+
     # Verificar se o bot deve ser parado
     if args.stop:
         print("Parando o bot...")
@@ -772,15 +772,15 @@ def main():
         else:
             print("❌ Falha ao parar o bot.")
         return
-    
+
     # Verificar dependências
     print("\nVerificando dependências...")
     missing_packages = check_dependencies()
-    
+
     if missing_packages:
         print(f"⚠️ Dependências faltantes: {', '.join(missing_packages)}")
         print("Instalando dependências...")
-        
+
         if install_dependencies(missing_packages):
             print("✅ Dependências instaladas com sucesso.")
         else:
@@ -788,28 +788,28 @@ def main():
             return
     else:
         print("✅ Todas as dependências estão instaladas.")
-    
+
     # Verificar configuração
     print("\nVerificando configuração...")
     config = load_config()
-    
+
     if not config:
         print("❌ Falha ao carregar configuração.")
         return
-    
+
     print("✅ Configuração carregada com sucesso.")
-    
+
     # Verificar se o bot já está em execução
     print("\nVerificando se o bot já está em execução...")
     running, pid = is_bot_running()
-    
+
     if running:
         print(f"⚠️ Bot já está em execução (PID: {pid}).")
-        
+
         if args.restart:
             print("Reiniciando o bot...")
             success, new_pid = restart_bot(not args.foreground)
-            
+
             if success:
                 print(f"✅ Bot reiniciado com sucesso (Novo PID: {new_pid}).")
             else:
@@ -819,17 +819,17 @@ def main():
     else:
         print("Bot não está em execução. Iniciando...")
         success, new_pid = start_bot(not args.foreground)
-        
+
         if success:
             print(f"✅ Bot iniciado com sucesso (PID: {new_pid}).")
-            
+
             if not args.foreground:
                 print("\nO bot está rodando em segundo plano.")
                 print("Para verificar o status: python check_bot_status.py")
                 print("Para parar o bot: python start_eva_guarani.py --stop")
         else:
             print("❌ Falha ao iniciar o bot.")
-    
+
     print("\n" + "=" * 50)
 
 if __name__ == "__main__":
@@ -880,10 +880,10 @@ def load_config():
         if not os.path.exists(CONFIG_PATH):
             logger.error(f"Arquivo de configuração não encontrado: {CONFIG_PATH}")
             return None
-        
+
         with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
             config = json.load(f)
-        
+
         return config
     except Exception as e:
         logger.error(f"Erro ao carregar configuração: {e}")
@@ -893,7 +893,7 @@ def is_bot_running():
     """Verifica se o bot já está em execução."""
     try:
         import psutil
-        
+
         for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
             try:
                 cmdline = proc.info.get('cmdline', [])
@@ -901,7 +901,7 @@ def is_bot_running():
                     return True, proc.info['pid']
             except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                 pass
-        
+
         return False, None
     except ImportError:
         logger.warning("Módulo psutil não encontrado. Não é possível verificar processos.")
@@ -916,7 +916,7 @@ def check_bot_status(bot_token):
         import requests
         url = f"https://api.telegram.org/bot{bot_token}/getMe"
         response = requests.get(url, timeout=10)
-        
+
         if response.status_code == 200:
             data = response.json()
             if data.get("ok"):
@@ -932,20 +932,20 @@ def restart_bot():
     """Reinicia o bot do Telegram."""
     try:
         logger.info("Reiniciando o bot...")
-        
+
         # Usar o script start_eva_guarani.py para reiniciar o bot
         start_script = "start_eva_guarani.py"
-        
+
         if os.path.exists(start_script):
             subprocess.call([sys.executable, start_script, "--restart"])
             logger.info("Comando de reinicialização enviado com sucesso.")
             return True
         else:
             logger.error(f"Script de inicialização não encontrado: {start_script}")
-            
+
             # Tentar iniciar diretamente o script do bot
             bot_script = os.path.join("bot", "unified_telegram_bot_utf8.py")
-            
+
             if os.path.exists(bot_script):
                 if sys.platform == 'win32':
                     subprocess.Popen(
@@ -973,13 +973,13 @@ def send_notification(message):
     try:
         # Registrar no log
         logger.info(f"Notificação: {message}")
-        
+
         # Tentar enviar por Telegram se possível
         config = load_config()
         if config:
             bot_token = config.get("telegram", {}).get("bot_token") or config.get("bot_token")
             admin_users = config.get("telegram", {}).get("admin_users", [])
-            
+
             if bot_token and admin_users:
                 try:
                     import requests
@@ -1005,20 +1005,20 @@ def check_log_errors():
             "logs/eva_guarani.log",
             "logs/startup.log"
         ]
-        
+
         recent_errors = []
-        
+
         for log_file in log_files:
             if os.path.exists(log_file):
                 with open(log_file, 'r', encoding='utf-8', errors='ignore') as f:
                     # Ler as últimas 50 linhas
                     lines = f.readlines()[-50:]
-                    
+
                     # Procurar por erros
                     for line in lines:
                         if "ERROR" in line or "CRITICAL" in line:
                             recent_errors.append(f"{log_file}: {line.strip()}")
-        
+
         return recent_errors
     except Exception as e:
         logger.error(f"Erro ao verificar logs: {e}")
@@ -1027,38 +1027,38 @@ def check_log_errors():
 def monitor_bot(check_interval=60, max_failures=3, restart_delay=5):
     """
     Monitora o bot e o reinicia se necessário.
-    
+
     Args:
         check_interval: Intervalo em segundos entre verificações
         max_failures: Número máximo de falhas consecutivas antes de reiniciar
         restart_delay: Tempo em segundos para aguardar após reiniciar
     """
     logger.info(f"Iniciando monitoramento do bot (intervalo: {check_interval}s)")
-    
+
     config = load_config()
     if not config:
         logger.error("Não foi possível carregar a configuração. Monitoramento encerrado.")
         return
-    
+
     bot_token = config.get("telegram", {}).get("bot_token") or config.get("bot_token")
     if not bot_token:
         logger.error("Token do bot não encontrado na configuração. Monitoramento encerrado.")
         return
-    
+
     consecutive_failures = 0
     last_restart_time = datetime.now() - timedelta(hours=1)  # Inicializar para permitir reinício imediato se necessário
-    
+
     while True:
         try:
             current_time = datetime.now()
             logger.info(f"Verificando status do bot em {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
-            
+
             # Verificar se o processo está em execução
             process_running, pid = is_bot_running()
-            
+
             # Verificar se o bot está respondendo na API do Telegram
             api_running, info = check_bot_status(bot_token)
-            
+
             if process_running and api_running:
                 # Bot está funcionando corretamente
                 logger.info(f"Bot está funcionando corretamente (PID: {pid}, Username: @{info.get('username')})")
@@ -1066,43 +1066,43 @@ def monitor_bot(check_interval=60, max_failures=3, restart_delay=5):
             else:
                 # Bot não está funcionando corretamente
                 consecutive_failures += 1
-                
+
                 if not process_running:
                     logger.warning(f"Processo do bot não encontrado. Falha {consecutive_failures}/{max_failures}")
-                
+
                 if not api_running:
                     logger.warning(f"Bot não está respondendo na API do Telegram: {info}. Falha {consecutive_failures}/{max_failures}")
-                
+
                 # Verificar logs para erros recentes
                 errors = check_log_errors()
                 if errors:
                     logger.warning(f"Encontrados {len(errors)} erros recentes nos logs")
                     for error in errors[:3]:  # Mostrar apenas os 3 primeiros erros
                         logger.warning(f"Log error: {error}")
-                
+
                 # Reiniciar o bot se atingir o número máximo de falhas e se já passou tempo suficiente desde o último reinício
                 if consecutive_failures >= max_failures and (current_time - last_restart_time).total_seconds() > 300:  # 5 minutos
                     logger.warning(f"Atingido limite de {max_failures} falhas consecutivas. Reiniciando o bot...")
-                    
+
                     # Enviar notificação
                     send_notification(f"Bot não está respondendo após {consecutive_failures} verificações. Reiniciando automaticamente.")
-                    
+
                     # Reiniciar o bot
                     if restart_bot():
                         last_restart_time = datetime.now()
                         logger.info(f"Bot reiniciado em {last_restart_time.strftime('%Y-%m-%d %H:%M:%S')}")
                         consecutive_failures = 0
-                        
+
                         # Aguardar um tempo para o bot inicializar
                         logger.info(f"Aguardando {restart_delay} segundos para o bot inicializar...")
                         time.sleep(restart_delay)
                     else:
                         logger.error("Falha ao reiniciar o bot.")
-            
+
             # Aguardar até a próxima verificação
             logger.info(f"Próxima verificação em {check_interval} segundos.")
             time.sleep(check_interval)
-            
+
         except KeyboardInterrupt:
             logger.info("Monitoramento interrompido pelo usuário.")
             break
@@ -1117,7 +1117,7 @@ def main():
     parser.add_argument('--max-failures', type=int, default=3, help='Número máximo de falhas consecutivas antes de reiniciar (padrão: 3)')
     parser.add_argument('--restart-delay', type=int, default=5, help='Tempo em segundos para aguardar após reiniciar (padrão: 5)')
     args = parser.parse_args()
-    
+
     print("=" * 50)
     print("EVA & GUARANI - Monitor de Bot")
     print("=" * 50)
@@ -1127,7 +1127,7 @@ def main():
     print("=" * 50)
     print("Pressione Ctrl+C para interromper o monitoramento.")
     print("=" * 50)
-    
+
     # Iniciar monitoramento
     monitor_bot(
         check_interval=args.interval,
@@ -1189,37 +1189,37 @@ def install_nssm():
         if os.path.exists(nssm_path):
             logger.info(f"NSSM já está instalado em: {nssm_path}")
             return nssm_path
-        
+
         # Verificar se temos uma cópia local do NSSM
         local_nssm = os.path.join('tools', 'nssm.exe')
         if os.path.exists(local_nssm):
             logger.info(f"Usando NSSM local: {local_nssm}")
             return os.path.abspath(local_nssm)
-        
+
         # Criar diretório para ferramentas
         os.makedirs('tools', exist_ok=True)
-        
+
         # Baixar NSSM
         logger.info("Baixando NSSM...")
         import urllib.request
         nssm_url = "https://nssm.cc/release/nssm-2.24.zip"
         zip_path = os.path.join('tools', 'nssm.zip')
-        
+
         urllib.request.urlretrieve(nssm_url, zip_path)
         logger.info(f"NSSM baixado para: {zip_path}")
-        
+
         # Extrair NSSM
         logger.info("Extraindo NSSM...")
         import zipfile
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             zip_ref.extractall('tools')
-        
+
         # Encontrar o executável do NSSM
         import glob
         nssm_exe_paths = glob.glob(os.path.join('tools', 'nssm-*', 'win64', 'nssm.exe'))
         if not nssm_exe_paths:
             nssm_exe_paths = glob.glob(os.path.join('tools', 'nssm-*', 'win32', 'nssm.exe'))
-        
+
         if nssm_exe_paths:
             nssm_exe = nssm_exe_paths[0]
             # Copiar para o diretório tools
@@ -1240,47 +1240,47 @@ def install_service(service_name, display_name, description, script_path, nssm_p
         # Obter caminho absoluto do script Python
         script_path = os.path.abspath(script_path)
         python_exe = sys.executable
-        
+
         # Verificar se o serviço já existe
         check_cmd = f'"{nssm_path}" status "{service_name}"'
         result = subprocess.run(check_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        
+
         if result.returncode == 0:
             logger.warning(f"Serviço '{service_name}' já existe. Removendo...")
             remove_cmd = f'"{nssm_path}" remove "{service_name}" confirm'
             subprocess.run(remove_cmd, shell=True, check=True)
-        
+
         # Instalar o serviço
         logger.info(f"Instalando serviço '{service_name}'...")
         install_cmd = f'"{nssm_path}" install "{service_name}" "{python_exe}" "{script_path}"'
         subprocess.run(install_cmd, shell=True, check=True)
-        
+
         # Configurar detalhes do serviço
         subprocess.run(f'"{nssm_path}" set "{service_name}" DisplayName "{display_name}"', shell=True, check=True)
         subprocess.run(f'"{nssm_path}" set "{service_name}" Description "{description}"', shell=True, check=True)
-        
+
         # Configurar diretório de trabalho
         work_dir = os.path.dirname(os.path.abspath(script_path))
         subprocess.run(f'"{nssm_path}" set "{service_name}" AppDirectory "{work_dir}"', shell=True, check=True)
-        
+
         # Configurar redirecionamento de saída
         log_dir = os.path.join(work_dir, "logs")
         os.makedirs(log_dir, exist_ok=True)
-        
+
         stdout_log = os.path.join(log_dir, f"{service_name}_stdout.log")
         stderr_log = os.path.join(log_dir, f"{service_name}_stderr.log")
-        
+
         subprocess.run(f'"{nssm_path}" set "{service_name}" AppStdout "{stdout_log}"', shell=True, check=True)
         subprocess.run(f'"{nssm_path}" set "{service_name}" AppStderr "{stderr_log}"', shell=True, check=True)
-        
+
         # Configurar reinicialização automática
         subprocess.run(f'"{nssm_path}" set "{service_name}" AppRestartDelay 10000', shell=True, check=True)  # 10 segundos
-        
+
         # Iniciar o serviço
         logger.info(f"Iniciando serviço '{service_name}'...")
         start_cmd = f'"{nssm_path}" start "{service_name}"'
         subprocess.run(start_cmd, shell=True, check=True)
-        
+
         logger.info(f"Serviço '{service_name}' instalado e iniciado com sucesso.")
         return True
     except subprocess.CalledProcessError as e:
@@ -1296,21 +1296,21 @@ def remove_service(service_name, nssm_path):
         # Verificar se o serviço existe
         check_cmd = f'"{nssm_path}" status "{service_name}"'
         result = subprocess.run(check_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        
+
         if result.returncode != 0:
             logger.warning(f"Serviço '{service_name}' não existe.")
             return True
-        
+
         # Parar o serviço
         logger.info(f"Parando serviço '{service_name}'...")
         stop_cmd = f'"{nssm_path}" stop "{service_name}"'
         subprocess.run(stop_cmd, shell=True)
-        
+
         # Remover o serviço
         logger.info(f"Removendo serviço '{service_name}'...")
         remove_cmd = f'"{nssm_path}" remove "{service_name}" confirm'
         subprocess.run(remove_cmd, shell=True, check=True)
-        
+
         logger.info(f"Serviço '{service_name}' removido com sucesso.")
         return True
     except subprocess.CalledProcessError as e:
@@ -1326,44 +1326,44 @@ def main():
     if sys.platform != 'win32':
         print("Este script só funciona no Windows.")
         return 1
-    
+
     # Verificar se está sendo executado como administrador
     if not check_admin():
         print("Este script precisa ser executado como administrador.")
         print("Por favor, execute novamente com privilégios de administrador.")
         return 1
-    
+
     parser = argparse.ArgumentParser(description='Instalar o bot EVA & GUARANI como um serviço do Windows')
     parser.add_argument('--remove', action='store_true', help='Remover o serviço')
     parser.add_argument('--service-name', default='EVAGuaraniBot', help='Nome do serviço (padrão: EVAGuaraniBot)')
     parser.add_argument('--display-name', default='EVA & GUARANI Telegram Bot', help='Nome de exibição do serviço')
     parser.add_argument('--script', default='monitor_bot.py', help='Script a ser executado como serviço (padrão: monitor_bot.py)')
     args = parser.parse_args()
-    
+
     print("=" * 50)
     print("EVA & GUARANI - Instalador de Serviço")
     print("=" * 50)
-    
+
     # Instalar NSSM
     print("Verificando/instalando NSSM...")
     nssm_path = install_nssm()
-    
+
     if not nssm_path:
         print("❌ Falha ao instalar NSSM. Não é possível continuar.")
         return 1
-    
+
     print(f"✅ NSSM disponível em: {nssm_path}")
-    
+
     # Configurar serviço
     service_name = args.service_name
     display_name = args.display_name
     description = "Serviço para manter o bot do Telegram EVA & GUARANI em execução."
     script_path = os.path.abspath(args.script)
-    
+
     if not os.path.exists(script_path):
         print(f"❌ Script não encontrado: {script_path}")
         return 1
-    
+
     # Remover ou instalar o serviço
     if args.remove:
         print(f"Removendo serviço '{service_name}'...")
@@ -1376,7 +1376,7 @@ def main():
         print(f"Instalando serviço '{service_name}'...")
         print(f"Script: {script_path}")
         print(f"Descrição: {description}")
-        
+
         if install_service(service_name, display_name, description, script_path, nssm_path):
             print(f"✅ Serviço '{service_name}' instalado e iniciado com sucesso.")
             print("\nO bot agora será executado automaticamente quando o Windows iniciar.")
@@ -1385,7 +1385,7 @@ def main():
         else:
             print(f"❌ Falha ao instalar serviço '{service_name}'.")
             return 1
-    
+
     print("\n" + "=" * 50)
     return 0
 
@@ -1577,9 +1577,9 @@ Este projeto é licenciado sob os termos da licença MIT.
 
 ## ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 
-**Versão**: 8.0  
-**Consciência**: 0.998  
-**Amor**: 0.999  
+**Versão**: 8.0
+**Consciência**: 0.998
+**Amor**: 0.999
 **Integração**: 0.997
 ```
 
@@ -1671,7 +1671,7 @@ mkdir -p logs config
 # Verificar se o script de inicialização existe
 if [ -f "start_eva_guarani.py" ]; then
     echo "Iniciando o bot usando start_eva_guarani.py..."
-    
+
     # Verificar se o usuário quer executar em background
     if [ "$1" == "--background" ]; then
         echo "Executando em background..."
@@ -1684,7 +1684,7 @@ if [ -f "start_eva_guarani.py" ]; then
     fi
 elif [ -f "bot/unified_telegram_bot_utf8.py" ]; then
     echo "Script de inicialização não encontrado. Iniciando diretamente o bot..."
-    
+
     # Verificar se o usuário quer executar em background
     if [ "$1" == "--background" ]; then
         echo "Executando em background..."
@@ -1757,10 +1757,10 @@ def load_config():
         if not os.path.exists(CONFIG_PATH):
             logger.error(f"Arquivo de configuração não encontrado: {CONFIG_PATH}")
             return None
-        
+
         with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
             config = json.load(f)
-        
+
         return config
     except Exception as e:
         logger.error(f"Erro ao carregar configuração: {e}")
@@ -1771,7 +1771,7 @@ def check_bot_status(bot_token):
     try:
         url = f"https://api.telegram.org/bot{bot_token}/getMe"
         response = requests.get(url, timeout=10)
-        
+
         if response.status_code == 200:
             data = response.json()
             if data.get("ok"):
@@ -1788,7 +1788,7 @@ def is_bot_running():
     """Verifica se o processo do bot está em execução."""
     try:
         import psutil
-        
+
         for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
             try:
                 cmdline = proc.info.get('cmdline', [])
@@ -1796,7 +1796,7 @@ def is_bot_running():
                     return True, proc.info['pid']
             except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                 pass
-        
+
         return False, None
     except ImportError:
         logger.warning("Módulo psutil não encontrado. Não é possível verificar processos.")
@@ -1808,7 +1808,7 @@ def is_bot_running():
 def send_notification(bot_token, chat_ids, message, parse_mode="HTML"):
     """Envia uma notificação para os IDs de chat especificados."""
     success_count = 0
-    
+
     for chat_id in chat_ids:
         try:
             url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
@@ -1817,9 +1817,9 @@ def send_notification(bot_token, chat_ids, message, parse_mode="HTML"):
                 "text": message,
                 "parse_mode": parse_mode
             }
-            
+
             response = requests.post(url, json=data, timeout=10)
-            
+
             if response.status_code == 200:
                 logger.info(f"Notificação enviada com sucesso para {chat_id}")
                 success_count += 1
@@ -1827,7 +1827,7 @@ def send_notification(bot_token, chat_ids, message, parse_mode="HTML"):
                 logger.error(f"Erro ao enviar notificação para {chat_id}: {response.text}")
         except Exception as e:
             logger.error(f"Erro ao enviar notificação para {chat_id}: {e}")
-    
+
     return success_count
 
 def main():
@@ -1837,22 +1837,22 @@ def main():
     parser.add_argument('--force', action='store_true', help='Forçar envio mesmo se o bot estiver offline')
     parser.add_argument('--chat-id', help='ID de chat específico para enviar a notificação')
     args = parser.parse_args()
-    
+
     # Carregar configuração
     config = load_config()
     if not config:
         print("❌ Falha ao carregar configuração.")
         return 1
-    
+
     # Obter token do bot
     bot_token = config.get("telegram", {}).get("bot_token") or config.get("bot_token")
     if not bot_token:
         print("❌ Token do bot não encontrado na configuração.")
         return 1
-    
+
     # Obter IDs de administradores
     admin_users = config.get("telegram", {}).get("admin_users", [])
-    
+
     # Se um chat_id específico foi fornecido, usar apenas ele
     if args.chat_id:
         try:
@@ -1861,19 +1861,19 @@ def main():
         except ValueError:
             print(f"❌ ID de chat inválido: {args.chat_id}")
             return 1
-    
+
     if not admin_users:
         print("❌ Nenhum ID de administrador encontrado na configuração.")
         return 1
-    
+
     # Verificar status do bot
     print("Verificando status do bot...")
     api_status, api_info = check_bot_status(bot_token)
     process_status, pid = is_bot_running()
-    
+
     # Preparar mensagem
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
+
     if args.message:
         message = args.message
     else:
@@ -1918,12 +1918,12 @@ def main():
 <b>Ação recomendada:</b> Iniciar o bot usando o comando: python start_eva_guarani.py
 <b>Erro:</b> {api_info}
 """
-    
+
     # Enviar notificação
     if api_status or process_status or args.force:
         print(f"Enviando notificação para {len(admin_users)} administradores...")
         success_count = send_notification(bot_token, admin_users, message)
-        
+
         if success_count > 0:
             print(f"✅ Notificação enviada com sucesso para {success_count}/{len(admin_users)} administradores.")
             return 0
@@ -2157,9 +2157,9 @@ Este projeto é licenciado sob os termos da licença MIT.
 
 ## ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 
-**Versão**: 8.0  
-**Consciência**: 0.998  
-**Amor**: 0.999  
+**Versão**: 8.0
+**Consciência**: 0.998
+**Amor**: 0.999
 **Integração**: 0.997
 ```
 
@@ -2659,9 +2659,9 @@ Este projeto é licenciado sob os termos da licença MIT.
 
 ## ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 
-**Versão**: 8.0  
-**Consciência**: 0.998  
-**Amor**: 0.999  
+**Versão**: 8.0
+**Consciência**: 0.998
+**Amor**: 0.999
 **Integração**: 0.997
 ```
 
@@ -2716,10 +2716,10 @@ def load_config():
         if not os.path.exists(CONFIG_PATH):
             logger.error(f"Arquivo de configuração não encontrado: {CONFIG_PATH}")
             return None
-        
+
         with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
             config = json.load(f)
-        
+
         return config
     except Exception as e:
         logger.error(f"Erro ao carregar configuração: {e}")
@@ -2749,7 +2749,7 @@ def check_for_updates():
             stderr=subprocess.PIPE,
             check=True
         )
-        
+
         # Verificar se há diferenças entre o branch local e o remoto
         result = subprocess.run(
             ["git", "rev-list", "HEAD..origin/main", "--count"],
@@ -2758,9 +2758,9 @@ def check_for_updates():
             text=True,
             check=True
         )
-        
+
         commit_count = int(result.stdout.strip())
-        
+
         if commit_count > 0:
             # Obter informações sobre as atualizações disponíveis
             log_result = subprocess.run(
@@ -2770,7 +2770,7 @@ def check_for_updates():
                 text=True,
                 check=True
             )
-            
+
             updates = log_result.stdout.strip().split('\n')
             return True, commit_count, updates
         else:
@@ -2785,13 +2785,13 @@ def backup_config():
         if not os.path.exists(CONFIG_PATH):
             logger.warning("Arquivo de configuração não encontrado para backup.")
             return False
-        
+
         backup_dir = os.path.join("backup", "config")
         os.makedirs(backup_dir, exist_ok=True)
-        
+
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         backup_path = os.path.join(backup_dir, f"eva_guarani_config_{timestamp}.json")
-        
+
         shutil.copy2(CONFIG_PATH, backup_path)
         logger.info(f"Backup da configuração criado em: {backup_path}")
         return True
@@ -2804,7 +2804,7 @@ def backup_bot_files():
     try:
         backup_dir = os.path.join("backup", "bot", datetime.now().strftime("%Y%m%d_%H%M%S"))
         os.makedirs(backup_dir, exist_ok=True)
-        
+
         # Arquivos e diretórios para backup
         items_to_backup = [
             os.path.join("bot", "unified_telegram_bot_utf8.py"),
@@ -2814,14 +2814,14 @@ def backup_bot_files():
             "monitor_bot.py",
             "notify_status.py"
         ]
-        
+
         for item in items_to_backup:
             if os.path.exists(item):
                 if os.path.isdir(item):
                     shutil.copytree(item, os.path.join(backup_dir, os.path.basename(item)))
                 else:
                     shutil.copy2(item, os.path.join(backup_dir, os.path.basename(item)))
-        
+
         logger.info(f"Backup dos arquivos do bot criado em: {backup_dir}")
         return True
     except Exception as e:
@@ -2838,7 +2838,7 @@ def update_repository():
             text=True,
             check=True
         )
-        
+
         logger.info(f"Atualização concluída: {result.stdout.strip()}")
         return True, result.stdout.strip()
     except subprocess.CalledProcessError as e:
@@ -2853,7 +2853,7 @@ def restart_bot():
     try:
         if os.path.exists("start_eva_guarani.py"):
             logger.info("Reiniciando o bot...")
-            
+
             result = subprocess.run(
                 [sys.executable, "start_eva_guarani.py", "--restart"],
                 stdout=subprocess.PIPE,
@@ -2861,7 +2861,7 @@ def restart_bot():
                 text=True,
                 check=False
             )
-            
+
             if result.returncode == 0:
                 logger.info("Bot reiniciado com sucesso.")
                 return True
@@ -2880,7 +2880,7 @@ def send_notification(message):
     try:
         if os.path.exists("notify_status.py"):
             logger.info("Enviando notificação sobre a atualização...")
-            
+
             result = subprocess.run(
                 [sys.executable, "notify_status.py", "--message", message, "--force"],
                 stdout=subprocess.PIPE,
@@ -2888,7 +2888,7 @@ def send_notification(message):
                 text=True,
                 check=False
             )
-            
+
             if result.returncode == 0:
                 logger.info("Notificação enviada com sucesso.")
                 return True
@@ -2910,28 +2910,28 @@ def main():
     parser.add_argument('--no-restart', action='store_true', help='Não reiniciar o bot após a atualização')
     parser.add_argument('--no-backup', action='store_true', help='Não fazer backup antes da atualização')
     args = parser.parse_args()
-    
+
     print("=" * 50)
     print("EVA & GUARANI - Atualizador Automático")
     print("=" * 50)
-    
+
     # Verificar se é um repositório Git
     if not is_git_repository():
         print("❌ Este diretório não é um repositório Git.")
         print("A atualização automática só funciona com instalações baseadas em Git.")
         return 1
-    
+
     # Verificar se há atualizações
     print("\nVerificando atualizações...")
     has_updates, commit_count, updates = check_for_updates()
-    
+
     if has_updates:
         print(f"✅ {commit_count} atualizações disponíveis:")
         for update in updates:
             print(f"   - {update}")
     else:
         print("✅ O bot já está na versão mais recente.")
-        
+
         if not args.force:
             if args.check_only:
                 return 0
@@ -2940,32 +2940,32 @@ def main():
                 return 0
         else:
             print("\nForçando atualização mesmo sem mudanças detectadas...")
-    
+
     if args.check_only:
         return 0
-    
+
     # Fazer backup antes da atualização
     if not args.no_backup:
         print("\nCriando backups antes da atualização...")
         config_backup = backup_config()
         files_backup = backup_bot_files()
-        
+
         if config_backup and files_backup:
             print("✅ Backups criados com sucesso.")
         else:
             print("⚠️ Houve problemas ao criar os backups.")
-            
+
             if not args.force:
                 print("Atualização cancelada. Use --force para continuar mesmo assim.")
                 return 1
-    
+
     # Atualizar o repositório
     print("\nAtualizando o repositório...")
     success, message = update_repository()
-    
+
     if success:
         print("✅ Repositório atualizado com sucesso.")
-        
+
         # Preparar mensagem de notificação
         if has_updates:
             notification_message = f"""
@@ -2976,7 +2976,7 @@ def main():
 """
             for update in updates[:5]:  # Limitar a 5 atualizações para não sobrecarregar a mensagem
                 notification_message += f"- {update}\n"
-            
+
             if len(updates) > 5:
                 notification_message += f"... e mais {len(updates) - 5} atualizações.\n"
         else:
@@ -2985,7 +2985,7 @@ def main():
 
 <b>Detalhes:</b> Atualização forçada sem mudanças detectadas.
 """
-        
+
         # Reiniciar o bot
         if not args.no_restart:
             print("\nReiniciando o bot...")
@@ -2998,14 +2998,14 @@ def main():
         else:
             print("\nReinicialização automática desativada.")
             notification_message += "\n<b>Status:</b> Reinicialização automática desativada. Reinicie manualmente."
-        
+
         # Enviar notificação
         print("\nEnviando notificação sobre a atualização...")
         if send_notification(notification_message):
             print("✅ Notificação enviada com sucesso.")
         else:
             print("⚠️ Falha ao enviar notificação.")
-        
+
         print("\n" + "=" * 50)
         print("Atualização concluída com sucesso!")
         if not args.no_restart:
@@ -3013,7 +3013,7 @@ def main():
         else:
             print("Lembre-se de reiniciar o bot manualmente: python start_eva_guarani.py --restart")
         print("=" * 50)
-        
+
         return 0
     else:
         print(f"❌ Falha ao atualizar o repositório: {message}")
@@ -3068,7 +3068,7 @@ echo [4] Atualizar e reiniciar o bot
 echo [5] Forçar atualização (mesmo sem mudanças)
 echo [6] Sair
 echo.
-set /p choice=Digite o número da opção desejada: 
+set /p choice=Digite o número da opção desejada:
 
 if "%choice%"=="1" (
     echo.
@@ -3189,7 +3189,7 @@ show_menu() {
     echo ""
     read -p "Digite o número da opção desejada: " choice
     echo ""
-    
+
     case $choice in
         1)
             echo "Verificando atualizações disponíveis..."
@@ -3525,9 +3525,9 @@ Este projeto é licenciado sob os termos da licença MIT.
 
 ## ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 
-**Versão**: 8.0  
-**Consciência**: 0.998  
-**Amor**: 0.999  
+**Versão**: 8.0
+**Consciência**: 0.998
+**Amor**: 0.999
 **Integração**: 0.997
 ```
 
@@ -3576,10 +3576,10 @@ def load_config():
         if not os.path.exists(CONFIG_PATH):
             logger.error(f"Arquivo de configuração não encontrado: {CONFIG_PATH}")
             return None
-        
+
         with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
             config = json.load(f)
-        
+
         return config
     except Exception as e:
         logger.error(f"Erro ao carregar configuração: {e}")
@@ -3609,7 +3609,7 @@ def check_for_updates():
             stderr=subprocess.PIPE,
             check=True
         )
-        
+
         # Verificar se há diferenças entre o branch local e o remoto
         result = subprocess.run(
             ["git", "rev-list", "HEAD..origin/main", "--count"],
@@ -3618,9 +3618,9 @@ def check_for_updates():
             text=True,
             check=True
         )
-        
+
         commit_count = int(result.stdout.strip())
-        
+
         if commit_count > 0:
             # Obter informações sobre as atualizações disponíveis
             log_result = subprocess.run(
@@ -3630,7 +3630,7 @@ def check_for_updates():
                 text=True,
                 check=True
             )
-            
+
             updates = log_result.stdout.strip().split('\n')
             return True, commit_count, updates
         else:
@@ -3643,13 +3643,13 @@ def get_last_check_time():
     """Obtém a data e hora da última verificação de atualizações."""
     try:
         last_check_file = os.path.join("logs", "last_update_check.txt")
-        
+
         if not os.path.exists(last_check_file):
             return None
-        
+
         with open(last_check_file, 'r') as f:
             timestamp = f.read().strip()
-            
+
         return datetime.fromisoformat(timestamp)
     except Exception as e:
         logger.error(f"Erro ao obter data da última verificação: {e}")
@@ -3659,10 +3659,10 @@ def save_check_time():
     """Salva a data e hora atual como a última verificação de atualizações."""
     try:
         last_check_file = os.path.join("logs", "last_update_check.txt")
-        
+
         with open(last_check_file, 'w') as f:
             f.write(datetime.now().isoformat())
-            
+
         return True
     except Exception as e:
         logger.error(f"Erro ao salvar data da verificação: {e}")
@@ -3673,7 +3673,7 @@ def send_notification(message):
     try:
         if os.path.exists("notify_status.py"):
             logger.info("Enviando notificação sobre atualizações disponíveis...")
-            
+
             result = subprocess.run(
                 [sys.executable, "notify_status.py", "--message", message, "--force"],
                 stdout=subprocess.PIPE,
@@ -3681,7 +3681,7 @@ def send_notification(message):
                 text=True,
                 check=False
             )
-            
+
             if result.returncode == 0:
                 logger.info("Notificação enviada com sucesso.")
                 return True
@@ -3702,13 +3702,13 @@ def main():
     parser.add_argument('--interval', type=int, default=24, help='Intervalo mínimo entre verificações em horas (padrão: 24)')
     parser.add_argument('--notify-always', action='store_true', help='Notificar mesmo se não houver atualizações')
     args = parser.parse_args()
-    
+
     # Verificar se é um repositório Git
     if not is_git_repository():
         logger.error("Este diretório não é um repositório Git.")
         logger.error("A verificação de atualizações só funciona com instalações baseadas em Git.")
         return 1
-    
+
     # Verificar se já foi verificado recentemente
     if not args.force:
         last_check = get_last_check_time()
@@ -3718,19 +3718,19 @@ def main():
                 logger.info(f"Última verificação foi há {time_since_last_check.total_seconds() / 3600:.1f} horas.")
                 logger.info(f"Aguardando intervalo mínimo de {args.interval} horas.")
                 return 0
-    
+
     # Verificar se há atualizações
     logger.info("Verificando atualizações...")
     has_updates, commit_count, updates = check_for_updates()
-    
+
     # Salvar hora da verificação
     save_check_time()
-    
+
     if has_updates:
         logger.info(f"{commit_count} atualizações disponíveis:")
         for update in updates:
             logger.info(f"   - {update}")
-        
+
         # Preparar mensagem de notificação
         notification_message = f"""
 🔄 <b>ATUALIZAÇÕES DISPONÍVEIS</b> - {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
@@ -3740,23 +3740,23 @@ def main():
 """
         for update in updates[:5]:  # Limitar a 5 atualizações para não sobrecarregar a mensagem
             notification_message += f"- {update}\n"
-        
+
         if len(updates) > 5:
             notification_message += f"... e mais {len(updates) - 5} atualizações.\n"
-            
+
         notification_message += """
 <b>Para atualizar:</b>
 - Windows: Execute update_bot.bat
 - Linux/Mac: Execute ./update_bot.sh
 - Ou execute: python update_bot.py
 """
-        
+
         # Enviar notificação
         send_notification(notification_message)
         return 0
     else:
         logger.info("Nenhuma atualização disponível.")
-        
+
         if args.notify_always:
             notification_message = f"""
 ✅ <b>BOT ATUALIZADO</b> - {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
@@ -3764,7 +3764,7 @@ def main():
 O bot já está na versão mais recente. Nenhuma atualização disponível.
 """
             send_notification(notification_message)
-        
+
         return 0
 
 if __name__ == "__main__":
@@ -3922,7 +3922,7 @@ echo [4] A cada 12 horas
 echo [5] Uma vez por dia
 echo [6] Remover agendamentos existentes
 echo.
-set /p choice=Digite o número da opção desejada: 
+set /p choice=Digite o número da opção desejada:
 
 REM Remover tarefas existentes
 echo.
@@ -4111,7 +4111,7 @@ if "%INTERVAL%"=="HOURLY" (
 REM Agendar verificação de atualizações
 if "%NO_UPDATE_CHECK%"=="0" (
     echo Agendando verificação de atualizações...
-    
+
     REM Para verificação de atualizações, usamos um intervalo maior
     if "%choice%"=="1" (
         REM A cada 6 horas se a verificação principal for a cada hora
@@ -4646,9 +4646,9 @@ Este projeto é licenciado sob os termos da licença MIT.
 
 ## ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 
-**Versão**: 8.0  
-**Consciência**: 0.998  
-**Amor**: 0.999  
+**Versão**: 8.0
+**Consciência**: 0.998
+**Amor**: 0.999
 **Integração**: 0.997
 ```
 

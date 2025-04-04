@@ -45,7 +45,7 @@ METADATA:
  * EVA & GUARANI - Filesystem Module Integration for SLOP Server
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This file integrates the Filesystem Module with the main SLOP server.
  */
 
@@ -122,4 +122,4 @@ function registerFilesystemModule(slopServer) {
 // Export the registration function
 module.exports = {
     register: registerFilesystemModule
-}; 
+};

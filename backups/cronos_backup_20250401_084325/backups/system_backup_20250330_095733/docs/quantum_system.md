@@ -343,7 +343,7 @@ The quantum system implements an advanced logging and monitoring system:
 ### Universal Log Structure
 
 
-[DATE][TIME][SUBSYSTEM][OPERATION] 
+[DATE][TIME][SUBSYSTEM][OPERATION]
 
 STATUS: Started/In Progress/Completed/Failed
 

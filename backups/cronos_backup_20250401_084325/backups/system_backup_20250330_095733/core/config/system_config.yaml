@@ -124,4 +124,4 @@ quantum:
   coherence_time: 1000   # Coherence time in milliseconds
   qubit_count: 64       # Number of qubits
   error_correction: true
-  quantum_memory: "4QB"  # Quantum memory size 
+  quantum_memory: "4QB"  # Quantum memory size

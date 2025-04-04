@@ -200,7 +200,7 @@ cat logs/metadata_manager.log
    ```bash
    # Backup database
    cp .metadata/metadata_db.json .metadata/metadata_db.backup.json
-   
+
    # Reprocess files
    python tools/scripts/metadata_manager.py
    ```
@@ -209,7 +209,7 @@ cat logs/metadata_manager.log
    ```bash
    # Verify file hash
    python tools/scripts/get_metadata.py file.py --json | grep file_hash
-   
+
    # Update metadata
    python tools/scripts/update_metadata.py file.py --update "key=value"
    ```
@@ -274,4 +274,4 @@ cat logs/metadata_manager.log
 - [2025-04-01] Implemented core tools
 - [2025-04-01] Created documentation
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

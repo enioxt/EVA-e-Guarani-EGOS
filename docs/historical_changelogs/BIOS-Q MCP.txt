@@ -125,7 +125,7 @@ class BIOSQMCP:
             self.quantum_prompts_dir / "NEXUS",
             self.quantum_prompts_dir / "MASTER"
         ]
-        
+
         for directory in required_dirs:
             if not directory.exists():
                 self.logger.error(f"Missing required directory: {directory}")
@@ -140,9 +140,9 @@ class BIOSQMCP:
             if not quantum_files:
                 self.logger.error("No quantum prompt file found")
                 return None
-                
+
             latest_quantum_file = max(quantum_files, key=lambda x: x.stat().st_mtime)
-            
+
             # Create new context
             context = QuantumContext(
                 timestamp=datetime.now().isoformat(),
@@ -159,11 +159,11 @@ class BIOSQMCP:
                 quantum_state_file=str(latest_quantum_file),
                 ethical_framework_loaded=True
             )
-            
+
             self.context = context
             self.logger.info(f"Quantum context loaded: {context.session_id}")
             return context
-            
+
         except Exception as e:
             self.logger.error(f"Failed to load quantum context: {e}")
             return None
@@ -174,7 +174,7 @@ class BIOSQMCP:
         if not requirements_file.exists():
             self.logger.error("requirements.txt not found")
             return False
-            
+
         try:
             import pkg_resources
             with open(requirements_file) as f:
@@ -188,23 +188,23 @@ class BIOSQMCP:
     def initialize_session(self) -> bool:
         """Initialize a new development session"""
         self.logger.info("✧༺❀༻∞ Initializing EVA & GUARANI Session ∞༺❀༻✧")
-        
+
         # Verify structure
         if not self.verify_directory_structure():
             return False
-            
+
         # Load context
         if not self.load_quantum_context():
             return False
-            
+
         # Verify dependencies
         if not self.verify_dependencies():
             return False
-            
+
         # Mark environment as ready
         if self.context:
             self.context.environment_ready = True
-            
+
         self.logger.info("Session initialized successfully ✨")
         return True
 
@@ -212,7 +212,7 @@ class BIOSQMCP:
         """Get current session status"""
         if not self.context:
             return {"status": "not_initialized"}
-            
+
         return {
             "session_id": self.context.session_id,
             "timestamp": self.context.timestamp,
@@ -257,36 +257,36 @@ class CursorIntegration:
         self.logger = logging.getLogger(__name__)
         self.root_dir = Path("/c/Eva Guarani EGOS")
         self.setup_paths()
-        
+
     def setup_paths(self):
         """Add necessary paths to Python path"""
         bios_q_path = str(self.root_dir / "BIOS-Q_backup")
         quantum_prompts_path = str(self.root_dir / "QUANTUM_PROMPTS")
-        
+
         if bios_q_path not in sys.path:
             sys.path.append(bios_q_path)
         if quantum_prompts_path not in sys.path:
             sys.path.append(quantum_prompts_path)
-            
+
     def initialize_quantum_environment(self) -> bool:
         """Initialize the quantum environment in Cursor IDE"""
         try:
             from mcp.bios_q_mcp import BIOSQMCP
-            
+
             self.logger.info("✧༺❀༻∞ Initializing Quantum Environment ∞༺❀༻✧")
             mcp = BIOSQMCP()
-            
+
             if mcp.initialize_session():
                 self.logger.info("Quantum environment initialized successfully")
                 return True
             else:
                 self.logger.error("Failed to initialize quantum environment")
                 return False
-                
+
         except Exception as e:
             self.logger.error(f"Failed to initialize quantum environment: {e}")
             return False
-            
+
     def load_setup_instructions(self) -> Optional[str]:
         """Load setup instructions from setup_session.txt"""
         setup_file = self.root_dir / "QUANTUM_PROMPTS" / "setup_session.txt"
@@ -297,12 +297,12 @@ class CursorIntegration:
         except Exception as e:
             self.logger.error(f"Failed to load setup instructions: {e}")
             return None
-            
+
     def display_quantum_banner(self):
         """Display the EVA & GUARANI banner"""
         banner = """
 ✧༺❀༻∞ EVA & GUARANI Quantum System ∞༺❀༻✧
-        
+
 Initializing Quantum Environment...
 • Sequential Thinking MCP: Active
 • Perplexity MCP: Active
@@ -312,12 +312,12 @@ Type 'quantum-help' for setup instructions
 ✧༺❀༻∞ Welcome to the Quantum Realm ∞༺❀༻✧
         """
         print(banner)
-        
+
 def initialize_cursor_environment():
     """Main entry point for Cursor IDE initialization"""
     integration = CursorIntegration()
     integration.display_quantum_banner()
-    
+
     if integration.initialize_quantum_environment():
         setup_instructions = integration.load_setup_instructions()
         if setup_instructions:
@@ -326,7 +326,7 @@ def initialize_cursor_environment():
     else:
         print("\nWarning: Quantum environment initialization failed.")
         print("Please check the logs and try again.")
-        
+
 if __name__ == "__main__":
     initialize_cursor_environment()
 ```

@@ -13,12 +13,12 @@
 ├── 🔍 PROBLEMA
 │   ├── Contexto: Necessidade de migrar subsistemas entre diferentes estruturas do sistema EVA & GUARANI,
 │   │            mantendo funcionalidade, integridade e documentação.
-│   ├── Sintomas: 
+│   ├── Sintomas:
 │   │   - Duplicação de implementações
 │   │   - Inconsistência entre versões
 │   │   - Dificuldade de manutenção
 │   │   - Problemas de integração
-│   └── Impacto: 
+│   └── Impacto:
 │       - Risco de perda de funcionalidade
 │       - Possível interrupção de serviços
 │       - Complexidade de manutenção aumentada
@@ -158,4 +158,4 @@
         - Manter cobertura de testes alta
         - Usar nomenclatura padronizada em testes
 
-# ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+# ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

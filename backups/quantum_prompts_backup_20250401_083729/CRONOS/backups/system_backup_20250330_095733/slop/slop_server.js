@@ -201,7 +201,7 @@ if (config.security.rateLimit.enabled) {
 // Parse JSON bodies
 app.use(express.json());
 
-// Maps para os subsistemas 
+// Maps para os subsistemas
 const atlasVisualizations = new Map();
 const cronosTimeline = new Map();
 const nexusAnalysis = new Map();
@@ -1490,7 +1490,7 @@ const schemas = {
  *           items:
  *             type: string
  *           description: Array of connected node IDs
- * 
+ *
  *     EthikValidation:
  *       type: object
  *       required:
@@ -1513,7 +1513,7 @@ const schemas = {
  *               type: string
  *               enum: [low, medium, high]
  *               description: Impact level of the action
- * 
+ *
  *     FileSync:
  *       type: object
  *       required:
@@ -2032,4 +2032,4 @@ server.listen(port, config.server.host, () => {
     } else {
         logger.error('Failed to register filesystem module');
     }
-}); 
+});

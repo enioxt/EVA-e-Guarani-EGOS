@@ -112,4 +112,4 @@ if exist "venv\Scripts\deactivate.bat" (
     call venv\Scripts\deactivate.bat
 )
 
-pause 
+pause

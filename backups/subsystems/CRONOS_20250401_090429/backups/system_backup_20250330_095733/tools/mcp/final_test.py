@@ -37,11 +37,11 @@ print(f"- Capacidade: {final_status['capacity_used']*100:.1f}%")
 print(f"- Mensagens: {final_status['message_count']}")
 print(f"- Último salvamento: {time.ctime(final_status['last_save_time'])}")
 
-if final_status['last_save_time'] > status['last_save_time']:
+if final_status["last_save_time"] > status["last_save_time"]:
     print("\n✅ SUCESSO: Salvamento automático a 80% funcionou!")
 else:
     print("\n❌ FALHA: Salvamento automático não ocorreu como esperado")
     print("Forçando salvamento manualmente...")
     force_save()
 
-print("\nTeste concluído!") 
+print("\nTeste concluído!")

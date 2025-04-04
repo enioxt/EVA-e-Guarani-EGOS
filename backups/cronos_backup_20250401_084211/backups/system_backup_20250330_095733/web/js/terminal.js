@@ -204,4 +204,4 @@ ${analysis.recommendations.join('\n')}
 }
 
 // Initialize terminal
-const terminal = new QuantumTerminal(); 
+const terminal = new QuantumTerminal();

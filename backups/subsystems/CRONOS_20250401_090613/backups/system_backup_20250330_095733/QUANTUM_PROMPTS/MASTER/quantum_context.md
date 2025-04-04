@@ -82,50 +82,50 @@ System:
   Version: "7.5"
   Type: "Master"
   Priority: 1
-  
+
 Integration:
   Subsystems:
     - Name: "CRONOS"
       Path: "../CRONOS/config/quantum_prompt.md"
       Priority: 2
       Dependencies: []
-      
+
     - Name: "ATLAS"
-      Path: "../ATLAS/config/quantum_prompt.md" 
+      Path: "../ATLAS/config/quantum_prompt.md"
       Priority: 3
       Dependencies: ["CRONOS"]
-      
+
     - Name: "NEXUS"
       Path: "../NEXUS/config/quantum_prompt.md"
       Priority: 4
       Dependencies: ["ATLAS"]
-      
+
     - Name: "ETHIK"
       Path: "../ETHIK/config/quantum_prompt.md"
       Priority: 5
       Dependencies: ["NEXUS"]
-  
+
   Platforms:
     - Name: "Web"
       Type: "Primary"
       Priority: 1
-      Technology: 
+      Technology:
         Backend: "FastAPI"
         Frontend: "React"
         Visualization: "D3.js"
-      
+
     - Name: "TelegramBot"
       Type: "Primary"
       Priority: 2
       Technology:
         Framework: "python-telegram-bot"
-        
+
     - Name: "Desktop"
       Type: "Future"
       Priority: 3
       Technology:
         Framework: "Electron"
-        
+
     - Name: "Mobile"
       Type: "Future"
       Priority: 4

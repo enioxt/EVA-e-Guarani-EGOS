@@ -14,10 +14,12 @@ from pathlib import Path
 SAVE_DIR = Path(__file__).parent.parent / "saves"
 SAVE_DIR.mkdir(parents=True, exist_ok=True)
 
+
 def generate_save_name():
     """Gera um nome único para o arquivo de save"""
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     return f"context_{timestamp}.json"
+
 
 def save_context(context_data=None):
     """Salva o contexto atual em um arquivo"""
@@ -27,24 +29,22 @@ def save_context(context_data=None):
             context_data = {
                 "timestamp": datetime.datetime.now().isoformat(),
                 "messages": [],
-                "metadata": {
-                    "source": "cursor",
-                    "version": "1.0"
-                }
+                "metadata": {"source": "cursor", "version": "1.0"},
             }
-        
+
         # Gera caminho do arquivo de save
         save_path = SAVE_DIR / generate_save_name()
-        
+
         # Salva contexto
-        with open(save_path, 'w', encoding='utf-8') as f:
+        with open(save_path, "w", encoding="utf-8") as f:
             json.dump(context_data, f, indent=2)
-            
+
         print(f"Contexto salvo em: {save_path}")
         return str(save_path)
     except Exception as e:
         print(f"Erro ao salvar contexto: {e}")
         return None
+
 
 def get_latest_save():
     """Obtém o caminho do arquivo de save mais recente"""
@@ -57,6 +57,7 @@ def get_latest_save():
         print(f"Erro ao obter save mais recente: {e}")
         return None
 
+
 def get_save_list():
     """Obtém lista de todos os arquivos de save"""
     try:
@@ -64,7 +65,7 @@ def get_save_list():
         return [
             {
                 "path": str(save),
-                "timestamp": datetime.datetime.fromtimestamp(save.stat().st_ctime).isoformat()
+                "timestamp": datetime.datetime.fromtimestamp(save.stat().st_ctime).isoformat(),
             }
             for save in saves
         ]
@@ -72,18 +73,19 @@ def get_save_list():
         print(f"Erro ao listar saves: {e}")
         return []
 
+
 if __name__ == "__main__":
     # Teste de save
     test_context = {
         "timestamp": datetime.datetime.now().isoformat(),
         "messages": ["Mensagem de teste"],
-        "metadata": {"test": True}
+        "metadata": {"test": True},
     }
-    
+
     save_path = save_context(test_context)
     if save_path:
         print(f"Save de teste bem sucedido: {save_path}")
-        
+
     # Lista saves
     saves = get_save_list()
-    print(f"\nEncontrados {len(saves)} arquivos de save:") 
+    print(f"\nEncontrados {len(saves)} arquivos de save:")

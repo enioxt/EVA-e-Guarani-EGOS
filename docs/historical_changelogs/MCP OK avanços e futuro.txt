@@ -1,7 +1,7 @@
 Excelente questionamento! Vou dividir a resposta em partes:
 
 1. **Sobre os múltiplos terminais e recursos:**
-Sim, segundo o [fórum do Cursor](https://forum.cursor.com/t/mcp-server-creates-additional-window-in-win10/53340), cada MCP no Windows abre uma nova janela de terminal. Isso é um comportamento conhecido que pode impactar o desempenho, especialmente com muitos MCPs. 
+Sim, segundo o [fórum do Cursor](https://forum.cursor.com/t/mcp-server-creates-additional-window-in-win10/53340), cada MCP no Windows abre uma nova janela de terminal. Isso é um comportamento conhecido que pode impactar o desempenho, especialmente com muitos MCPs.
 
 Algumas soluções possíveis:
 - Usar Docker para containerizar os MCPs

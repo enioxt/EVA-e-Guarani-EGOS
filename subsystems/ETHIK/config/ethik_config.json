@@ -12,7 +12,7 @@
     "version": "1.0.0",
     "last_updated": "2025-04-02",
     "principles": [
-        "redemption", "compassion", "privacy", "accessibility", "love", 
+        "redemption", "compassion", "privacy", "accessibility", "love",
         "trust", "integrity", "awareness", "connection", "preservation"
     ],
     "security_level": "standard",
@@ -25,10 +25,10 @@
     "translation_status": "completed",
     "api_endpoints": [],
     "related_files": [
-        "core/validator.py", 
-        "core/sanitizer.py", 
+        "core/validator.py",
+        "core/sanitizer.py",
         "config/validation_rules.json",
-        "config/sanitization_rules.json" 
+        "config/sanitization_rules.json"
     ],
     "changelog": "Migrated from backup, cleaned up structure, added component configs.",
     "review_status": "pending"
@@ -50,7 +50,7 @@
   "validator_config": {
       "monitoring_interval": 15,
       "validation_retention_days": 30,
-      "rules_file": "../config/validation_rules.json" 
+      "rules_file": "../config/validation_rules.json"
   },
   "sanitizer_config": {
       "cache_retention_hours": 1,
@@ -199,4 +199,4 @@
           "max_latency_ms": 1000
       }
   }
-} 
+}

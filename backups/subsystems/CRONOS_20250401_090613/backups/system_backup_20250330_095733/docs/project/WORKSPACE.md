@@ -82,7 +82,7 @@ This guide explains how to work efficiently with the EVA & GUARANI project, espe
    ```
    # Windows
    start_project.bat
-   
+
    # Unix/macOS
    python start_project.py
    ```
@@ -117,10 +117,10 @@ We've created tools to help you work with these directories without slowing down
    ```bash
    # Setup reference directories
    python tools/manage_references.py setup
-   
+
    # Move the docs folder (this will create a symlink)
    python tools/manage_references.py move docs ../EVA_REFS/docs
-   
+
    # Move the eva-atendimento folder
    python tools/manage_references.py move eva-atendimento ../EVA_REFS/apps
    ```
@@ -138,21 +138,21 @@ We've created tools to help you work with these directories without slowing down
    ```bash
    # List all modules and their sizes
    python tools/manage_modules.py list --details
-   
+
    # Disable modules you don't need right now
    python tools/manage_modules.py disable blockchain
-   
+
    # Enable a module when you need to work with it
    python tools/manage_modules.py enable blockchain
-   
+
    # Work with module groups
    python tools/manage_modules.py group list
    python tools/manage_modules.py group disable specialized
    python tools/manage_modules.py group enable core
-   
+
    # Save your current module configuration as a profile
    python tools/manage_modules.py profile save minimal
-   
+
    # Load a saved profile later
    python tools/manage_modules.py profile load minimal
    ```

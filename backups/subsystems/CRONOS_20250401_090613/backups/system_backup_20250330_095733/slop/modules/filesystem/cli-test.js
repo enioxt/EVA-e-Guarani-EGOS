@@ -47,7 +47,7 @@ METADATA:
  * EVA & GUARANI - Filesystem Module CLI Test
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This utility allows testing the filesystem module from the command line.
  */
 
@@ -166,7 +166,7 @@ function startServer() {
                 </head>
                 <body>
                     <h1>EVA & GUARANI Filesystem Module Test</h1>
-                    
+
                     <div class="operation">
                         <h2>Read File</h2>
                         <form id="readForm">
@@ -176,7 +176,7 @@ function startServer() {
                         </form>
                         <div id="readResult" class="result"></div>
                     </div>
-                    
+
                     <div class="operation">
                         <h2>Write File</h2>
                         <form id="writeForm">
@@ -192,7 +192,7 @@ function startServer() {
                         </form>
                         <div id="writeResult" class="result"></div>
                     </div>
-                    
+
                     <div class="operation">
                         <h2>List Directory</h2>
                         <form id="listForm">
@@ -208,7 +208,7 @@ function startServer() {
                         </form>
                         <div id="listResult" class="result"></div>
                     </div>
-                    
+
                     <div class="operation">
                         <h2>Search Files</h2>
                         <form id="searchForm">
@@ -226,7 +226,7 @@ function startServer() {
                         </form>
                         <div id="searchResult" class="result"></div>
                     </div>
-                    
+
                     <div class="operation">
                         <h2>Delete File/Directory</h2>
                         <form id="deleteForm">
@@ -240,25 +240,25 @@ function startServer() {
                         </form>
                         <div id="deleteResult" class="result"></div>
                     </div>
-                    
+
                     <div class="operation">
                         <h2>Module Info</h2>
                         <button id="infoButton">Get Info</button>
                         <div id="infoResult" class="result"></div>
                     </div>
-                    
+
                     <script>
                         // Helper function to display results
                         function displayResult(elementId, data) {
                             const element = document.getElementById(elementId);
                             element.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
                         }
-                        
+
                         // Read File
                         document.getElementById('readForm').addEventListener('submit', async (e) => {
                             e.preventDefault();
                             const path = document.getElementById('readPath').value;
-                            
+
                             try {
                                 const response = await fetch(`/ filesystem / read ? path = ${ encodeURIComponent(path) }`);
                                 const result = await response.json();
@@ -267,14 +267,14 @@ function startServer() {
                                 displayResult('readResult', { error: error.message });
                             }
                         });
-                        
+
                         // Write File
                         document.getElementById('writeForm').addEventListener('submit', async (e) => {
                             e.preventDefault();
                             const path = document.getElementById('writePath').value;
                             const content = document.getElementById('writeContent').value;
                             const createDirectories = document.getElementById('createDirectories').checked;
-                            
+
                             try {
                                 const response = await fetch('/filesystem/write', {
                                     method: 'POST',
@@ -287,20 +287,20 @@ function startServer() {
                                 displayResult('writeResult', { error: error.message });
                             }
                         });
-                        
+
                         // List Directory
                         document.getElementById('listForm').addEventListener('submit', async (e) => {
                             e.preventDefault();
                             const path = document.getElementById('listPath').value;
                             const recursive = document.getElementById('listRecursive').checked;
                             const pattern = document.getElementById('listPattern').value;
-                            
+
                             try {
                                 const url = new URL('/filesystem/list', window.location.origin);
                                 url.searchParams.append('path', path);
                                 url.searchParams.append('recursive', recursive);
                                 if (pattern) url.searchParams.append('pattern', pattern);
-                                
+
                                 const response = await fetch(url);
                                 const result = await response.json();
                                 displayResult('listResult', result);
@@ -308,7 +308,7 @@ function startServer() {
                                 displayResult('listResult', { error: error.message });
                             }
                         });
-                        
+
                         // Search Files
                         document.getElementById('searchForm').addEventListener('submit', async (e) => {
                             e.preventDefault();
@@ -316,14 +316,14 @@ function startServer() {
                             const query = document.getElementById('searchQuery').value;
                             const recursive = document.getElementById('searchRecursive').checked;
                             const limit = document.getElementById('searchLimit').value;
-                            
+
                             try {
                                 const url = new URL('/filesystem/search', window.location.origin);
                                 url.searchParams.append('path', path);
                                 url.searchParams.append('query', query);
                                 url.searchParams.append('recursive', recursive);
                                 url.searchParams.append('limit', limit);
-                                
+
                                 const response = await fetch(url);
                                 const result = await response.json();
                                 displayResult('searchResult', result);
@@ -331,22 +331,22 @@ function startServer() {
                                 displayResult('searchResult', { error: error.message });
                             }
                         });
-                        
+
                         // Delete File/Directory
                         document.getElementById('deleteForm').addEventListener('submit', async (e) => {
                             e.preventDefault();
                             const path = document.getElementById('deletePath').value;
                             const recursive = document.getElementById('deleteRecursive').checked;
-                            
+
                             if (!confirm(`Are you sure you want to delete ${ path } ? `)) {
                                 return;
                             }
-                            
+
                             try {
                                 const url = new URL('/filesystem/delete', window.location.origin);
                                 url.searchParams.append('path', path);
                                 url.searchParams.append('recursive', recursive);
-                                
+
                                 const response = await fetch(url, { method: 'DELETE' });
                                 const result = await response.json();
                                 displayResult('deleteResult', result);
@@ -354,7 +354,7 @@ function startServer() {
                                 displayResult('deleteResult', { error: error.message });
                             }
                         });
-                        
+
                         // Module Info
                         document.getElementById('infoButton').addEventListener('click', async () => {
                             try {
@@ -591,4 +591,4 @@ async function processCommand() {
 processCommand().catch(error => {
     logger.error('Error:', error.message);
     process.exit(1);
-}); 
+});

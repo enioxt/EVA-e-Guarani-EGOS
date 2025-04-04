@@ -30,4 +30,4 @@ This document describes the high-level architecture of the EVA & GUARANI Operati
 
 *(Placeholder: Document significant architectural choices and their rationale.)*
 
-✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧ 
+✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧

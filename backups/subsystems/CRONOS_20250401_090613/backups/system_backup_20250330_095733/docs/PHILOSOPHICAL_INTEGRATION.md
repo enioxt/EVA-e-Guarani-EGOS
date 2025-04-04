@@ -89,31 +89,31 @@ graph TD
 
     EVA --> BALDURS[MORAL: BALDURS_LEGACY]
 
-    
+
 
     ARCANUM --> Logic[Logic & Metaphysics]
 
     ARCANUM --> Coherence[Coherence & Possibility]
 
-    
+
 
     MYTHIC --> Meaning[Meaning & Symbolism]
 
     MYTHIC --> Universal[Universal & Particular]
 
-    
+
 
     STRATEGOS --> Power[Power & Politics]
 
     STRATEGOS --> Conflict[Conflict & Cooperation]
 
-    
+
 
     BALDURS --> Ethics[Ethics & Morality]
 
     BALDURS --> Freedom[Freedom & Determinism]
 
-    
+
 
     Logic -.-> Meaning
 

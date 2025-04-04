@@ -28,4 +28,4 @@ metadata:
 ---
 PyYAML==6.0.1
 pathlib==1.0.1
-typing-extensions==4.5.0 
+typing-extensions==4.5.0

@@ -5,7 +5,7 @@
 EVA & GUARANI - Telegram Bot (avatechartbot)
 ============================================
 
-Telegram bot for EVA & GUARANI that combines AI capabilities with image/video 
+Telegram bot for EVA & GUARANI that combines AI capabilities with image/video
 generation, knowledge base access, and more. The bot provides a user-friendly
 interface to the powerful EVA & GUARANI system.
 
@@ -53,7 +53,7 @@ logger = logging.getLogger("eva_guarani_bot")
 try:
     from telegram import Update, ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
     from telegram.ext import (
-        Updater, CommandHandler, MessageHandler, Filters, 
+        Updater, CommandHandler, MessageHandler, Filters,
         CallbackContext, ConversationHandler, CallbackQueryHandler
     )
     TELEGRAM_AVAILABLE = True
@@ -84,7 +84,7 @@ try:
     sys.path.append(os.path.join(project_root, "modules", "quantum"))
     # Import conditionally to avoid errors
     QuantumKnowledgeHub = None
-    
+
     # Try to dynamically load the class
     def get_quantum_class():
         try:
@@ -97,7 +97,7 @@ try:
                 return QKH
             except ImportError:
                 return None
-    
+
     QuantumKnowledgeHub = get_quantum_class()
     if QuantumKnowledgeHub is not None:
         QUANTUM_KNOWLEDGE_AVAILABLE = True
@@ -125,29 +125,29 @@ class EvaTelegramBot:
     """
     Enhanced Telegram Bot for EVA & GUARANI with media generation and knowledge access.
     """
-    
+
     def __init__(self, config_path: str = os.path.join(current_dir, "telegram_config.json")):
         """Initialize the bot"""
         self.logger = logger
         self.logger.info("Initializing EVA & GUARANI Telegram Bot")
-        
+
         # Load configuration
         self.config_path = Path(config_path)
         self.config = self._load_config()
-        
+
         # Initialize state
         self.conversations = {}  # {chat_id: [messages]}
         self.user_states = {}    # {user_id: state}
         self.started = False
         self.start_time = datetime.datetime.now()
-        
+
         # Initialize token from config
         self.token = self.config.get("token", "")
         self.bot_name = self.config.get("bot_name", "avatechartbot")
         if not self.token:
             self.logger.error("Bot token not configured in telegram_config.json")
             raise ValueError("Bot token not configured")
-        
+
         # Initialize knowledge hub if available
         self.knowledge_hub = None
         if QUANTUM_KNOWLEDGE_AVAILABLE and self.config.get("knowledge", {}).get("enabled", True):
@@ -158,7 +158,7 @@ class EvaTelegramBot:
                     self.logger.info("Quantum Knowledge Hub initialized")
             except Exception as e:
                 self.logger.error(f"Error initializing Knowledge Hub: {e}")
-            
+
         # Initialize payment gateway if available
         self.payment_gateway = None
         if PAYMENT_AVAILABLE and self.config.get("payment", {}).get("enabled", True):
@@ -169,9 +169,9 @@ class EvaTelegramBot:
                     self.logger.info("Payment Gateway initialized")
             except Exception as e:
                 self.logger.error(f"Error initializing payment gateway: {e}")
-            
+
         self.logger.info(f"EVA & GUARANI Telegram Bot '{self.bot_name}' initialized")
-    
+
     def _load_config(self):
         """Load configuration from file"""
         default_config = {
@@ -182,7 +182,7 @@ class EvaTelegramBot:
             "max_conversation_history": 10,
             "startup_notification": True
         }
-        
+
         try:
             if self.config_path.exists():
                 with open(self.config_path, 'r', encoding='utf-8') as f:
@@ -194,31 +194,31 @@ class EvaTelegramBot:
         except Exception as e:
             self.logger.error(f"Error loading config: {e}")
             return default_config
-    
+
     def start(self):
         """Start the bot"""
         self.logger.info("Starting EVA & GUARANI Telegram Bot")
-        
+
         # Initialize the updater with bot token
         updater = Updater(self.token, use_context=True)
         dp = updater.dispatcher
-        
+
         # Add handlers for commands
         dp.add_handler(CommandHandler("start", self._handle_start))
         dp.add_handler(CommandHandler("help", self._handle_help))
         dp.add_handler(CommandHandler("status", self._handle_status))
         dp.add_handler(CommandHandler("credits", self._handle_credits))
-        
+
         # Add callback query handler for inline keyboards
         dp.add_handler(CallbackQueryHandler(self._handle_callback))
-        
+
         # Payment handlers
         payment_conv_handler = ConversationHandler(
             entry_points=[CommandHandler('payment', self._handle_payment)],
             states={
                 PAYMENT: [
                     MessageHandler(
-                        Filters.text & ~Filters.command, 
+                        Filters.text & ~Filters.command,
                         self._handle_payment_confirmation
                     )
                 ],
@@ -226,7 +226,7 @@ class EvaTelegramBot:
             fallbacks=[CommandHandler('cancel', self._handle_cancel)]
         )
         dp.add_handler(payment_conv_handler)
-            
+
             # Create simple conversation handler for image command
             image_conv_handler = ConversationHandler(
                 entry_points=[CommandHandler('image', self._handle_image_command)],
@@ -236,25 +236,25 @@ class EvaTelegramBot:
                 fallbacks=[CommandHandler('cancel', self._handle_cancel)],
             )
         dp.add_handler(image_conv_handler)
-            
+
             # Register basic message handler
         dp.add_handler(MessageHandler(Filters.text & ~Filters.command, self._handle_message))
-            
+
             # Register error handler
         dp.add_error_handler(self._handle_error)
-            
+
             # Start the bot
             updater.start_polling()
             self.started = True
             self.logger.info(f"Bot '{self.bot_name}' started successfully")
-            
+
             # Send startup notification to admin users
             if self.config.get("startup_notification", True):
                 self._send_startup_notification(updater.bot)
-            
+
             # Keep the bot running
             updater.idle()
-    
+
     def _send_startup_notification(self, bot):
         """Send notification to admin users when the bot starts"""
         try:
@@ -278,24 +278,24 @@ class EvaTelegramBot:
                 self.logger.info(f"Startup notification sent to admin {admin_id}")
         except Exception as e:
             self.logger.error(f"Error sending startup notification: {e}")
-    
+
     def _handle_start(self, update: Update, context: CallbackContext):
         """Handle the /start command"""
         if update is None or update.effective_user is None:
             return
-            
+
         user_id = update.effective_user.id
         chat_id = update.effective_chat.id if update.effective_chat else None
-        
+
         # Check if user is allowed
         if not self._is_user_allowed(user_id):
             update.message.reply_text("Sorry, you are not authorized to use this bot.")
             return
-        
+
         # Reset conversation history
         if chat_id:
             self.conversations[chat_id] = []
-        
+
         # Send welcome message
         welcome_message = (
             f"Hello! I'm *{self.bot_name}*, the EVA & GUARANI AI assistant.\n\n"
@@ -305,31 +305,31 @@ class EvaTelegramBot:
             "• Knowledge base access\n\n"
             "Use /help to see all available commands."
         )
-        
+
         # Create quick access buttons
         keyboard = [
             [InlineKeyboardButton("🖼️ Generate Image", callback_data="cmd_image")],
             [InlineKeyboardButton("🔍 Access Knowledge", callback_data="cmd_knowledge")]
         ]
-        
+
         update.message.reply_text(
-            welcome_message, 
+            welcome_message,
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(keyboard)
         )
-    
+
     def _handle_help(self, update: Update, context: CallbackContext):
         """Handle the /help command"""
         if update is None or update.effective_user is None:
             return
-            
+
         user_id = update.effective_user.id
-        
+
         # Check if user is allowed
         if not self._is_user_allowed(user_id):
             update.message.reply_text("Sorry, you are not authorized to use this bot.")
             return
-        
+
         help_message = (
             "🌟 *EVA & GUARANI Commands* 🌟\n\n"
             "Basic Commands:\n"
@@ -342,21 +342,21 @@ class EvaTelegramBot:
             "You can also simply chat with me by typing a message!\n\n"
             "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
         )
-        
+
         update.message.reply_text(help_message, parse_mode=ParseMode.MARKDOWN)
-    
+
     def _handle_credits(self, update: Update, context: CallbackContext):
         """Handle the /credits command"""
         if update is None or update.effective_user is None:
             return
-            
+
         user_id = update.effective_user.id
-        
+
         # Check if user is allowed
         if not self._is_user_allowed(user_id):
             update.message.reply_text("Sorry, you are not authorized to use this bot.")
             return
-        
+
         # Check if payment system is available
         if not self.payment_gateway or not PAYMENT_AVAILABLE:
             update.message.reply_text(
@@ -364,24 +364,24 @@ class EvaTelegramBot:
             "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
         )
             return
-        
+
         try:
             # Get user tier
             user_tier = self.payment_gateway.get_user_tier(user_id)
-            
+
             # Get user credits
             user_credits = self.payment_gateway.get_user_credits(user_id)
-            
+
             # Get user limits
             user_limits = self.payment_gateway.get_user_limits(user_id)
-            
+
             # Format tier name for display
             tier_display = {
                 "free_tier": "🔹 Free Tier",
                 "supporter_tier": "🔶 Supporter Tier",
                 "premium_tier": "💎 Premium Tier"
             }.get(user_tier, "Unknown Tier")
-            
+
             # Format message
             message = (
                 f"💰 *Credits & Usage Information* 💰\n\n"
@@ -396,12 +396,12 @@ class EvaTelegramBot:
                 f"To add more credits, use the /payment command.\n\n"
                 f"✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
             )
-            
+
             # Create keyboard
             keyboard = [
                 [InlineKeyboardButton("💰 Add Credits", callback_data="payment")]
             ]
-            
+
             update.message.reply_text(
                 message,
                 parse_mode=ParseMode.MARKDOWN,
@@ -413,19 +413,19 @@ class EvaTelegramBot:
                 "Sorry, there was an error retrieving your credit information.\n\n"
                 "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
             )
-    
+
     def _handle_status(self, update: Update, context: CallbackContext):
         """Handle the /status command"""
         if update is None or update.effective_user is None:
             return
-            
+
         user_id = update.effective_user.id
-        
+
         # Check if user is allowed
         if not self._is_user_allowed(user_id):
             update.message.reply_text("Sorry, you are not authorized to use this bot.")
             return
-        
+
         # Calculate uptime
         uptime = datetime.datetime.now() - self.start_time
         days, seconds = uptime.days, uptime.seconds
@@ -433,7 +433,7 @@ class EvaTelegramBot:
         minutes = (seconds % 3600) // 60
         seconds = seconds % 60
         uptime_str = f"{days}d {hours}h {minutes}m {seconds}s"
-        
+
         status_message = (
             f"🤖 *{self.bot_name} Status* 🤖\n\n"
             f"Bot version: 1.1.0\n"
@@ -447,21 +447,21 @@ class EvaTelegramBot:
             "*Your Account:*\n"
             f"• User ID: `{user_id}`\n"
         )
-        
+
         update.message.reply_text(status_message, parse_mode=ParseMode.MARKDOWN)
-    
+
     def _handle_image_command(self, update: Update, context: CallbackContext):
         """Handle the /image command"""
         if update is None or update.effective_user is None:
             return ConversationHandler.END
-            
+
         user_id = update.effective_user.id
-        
+
         # Check if user is allowed
         if not self._is_user_allowed(user_id):
             update.message.reply_text("Sorry, you are not authorized to use this bot.")
             return ConversationHandler.END
-        
+
         # Check if image generation is enabled
         if not self.config.get("media_generation", {}).get("enabled", False):
             update.message.reply_text(
@@ -469,7 +469,7 @@ class EvaTelegramBot:
                 "Please try again later or contact the administrator."
             )
             return ConversationHandler.END
-        
+
         # Send instructions
         update.message.reply_text(
             "🖼️ *Image Generation* 🖼️\n\n"
@@ -481,26 +481,26 @@ class EvaTelegramBot:
             "Send /cancel to cancel this operation.",
             parse_mode=ParseMode.MARKDOWN
         )
-        
+
         # Set user state
         self.user_states[user_id] = IMAGE_GEN
-        
+
         return IMAGE_GEN
-    
+
     def _handle_image_prompt(self, update: Update, context: CallbackContext):
         """Handle image generation prompt"""
         if update is None or update.effective_user is None:
             return ConversationHandler.END
-            
+
         user_id = update.effective_user.id
         chat_id = update.effective_chat.id if update.effective_chat else None
         prompt = update.message.text.strip()
-        
+
         # Set processing message
         processing_message = update.message.reply_text(
             "🔄 Processing your image request... This may take a moment."
         )
-        
+
         try:
             # Check if the user has enough credits for image generation
             if PAYMENT_AVAILABLE and self.payment_gateway:
@@ -512,14 +512,14 @@ class EvaTelegramBot:
                         "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
                     )
                     return ConversationHandler.END
-            
+
             # Get available image APIs
             image_apis = self.config.get("media_generation", {}).get("image_apis", {})
-            
+
             # Try to generate image with any available API
             image_generated = False
             error_message = ""
-            
+
             # Try Stable Diffusion API first
             if "stable_diffusion" in image_apis and image_apis["stable_diffusion"].get("key") not in ["", "YOUR_KEY_HERE"]:
                 try:
@@ -527,7 +527,7 @@ class EvaTelegramBot:
                     sd_api = image_apis["stable_diffusion"]
                     sd_url = sd_api.get("url", "https://stablediffusionapi.com/api/v3/text2img")
                     sd_key = sd_api.get("key", "")
-                    
+
                     payload = {
                         "key": sd_key,
                         "prompt": prompt,
@@ -540,24 +540,24 @@ class EvaTelegramBot:
                         "enhance_prompt": "yes",
                         "guidance_scale": 7.5
                     }
-                    
+
                     response = requests.post(sd_url, json=payload)
                     response_data = response.json()
-                    
+
                     if response.status_code == 200 and response_data.get("status") == "success":
                         # Get image URL
                         image_url = response_data.get("output", [])[0]
-                        
+
                         # Send image to user
                         context.bot.send_photo(
                             chat_id=chat_id,
                             photo=image_url,
                             caption=f"🖼️ Image generated based on your prompt:\n\n\"{prompt}\"\n\n✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
                         )
-                        
+
                         # Mark as successful
                         image_generated = True
-                        
+
                         # Deduct credits if payment system is available
                         if PAYMENT_AVAILABLE and self.payment_gateway:
                             self.payment_gateway._check_credits(user_id, "special_calls")
@@ -567,7 +567,7 @@ class EvaTelegramBot:
                 except Exception as e:
                     error_message = f"Error with Stable Diffusion API: {str(e)}"
                     self.logger.error(f"Error with Stable Diffusion API: {e}")
-            
+
             # If Stable Diffusion failed, try Unsplash for real photos
             if not image_generated and "unsplash" in image_apis and image_apis["unsplash"].get("key") not in ["", "YOUR_KEY_HERE"]:
                 try:
@@ -575,23 +575,23 @@ class EvaTelegramBot:
                     unsplash_api = image_apis["unsplash"]
                     unsplash_url = unsplash_api.get("url", "https://api.unsplash.com/photos/random")
                     unsplash_key = unsplash_api.get("key", "")
-                    
+
                     # Prepare parameters
                     params = {
                         "query": prompt,
                         "count": 1,
                         "client_id": unsplash_key
                     }
-                    
+
                     response = requests.get(unsplash_url, params=params)
-                    
+
                     if response.status_code == 200:
                         response_data = response.json()
                         if isinstance(response_data, list) and len(response_data) > 0:
                             # Get image URL
                             image_data = response_data[0]
                             image_url = image_data.get("urls", {}).get("regular", "")
-                            
+
                             if image_url:
                                 # Send image to user
                                 context.bot.send_photo(
@@ -604,10 +604,10 @@ class EvaTelegramBot:
                                         f"✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
                                     )
                                 )
-                                
+
                                 # Mark as successful
                                 image_generated = True
-                                
+
                                 # Deduct credits if payment system is available
                                 if PAYMENT_AVAILABLE and self.payment_gateway:
                                     self.payment_gateway._check_credits(user_id, "special_calls")
@@ -617,7 +617,7 @@ class EvaTelegramBot:
                 except Exception as e:
                     error_message += f"\nError with Unsplash API: {str(e)}"
                     self.logger.error(f"Error with Unsplash API: {e}")
-            
+
             # If nothing worked, try Pexels as last resort
             if not image_generated and "pexels" in image_apis and image_apis["pexels"].get("key") not in ["", "YOUR_KEY_HERE"]:
                 try:
@@ -625,28 +625,28 @@ class EvaTelegramBot:
                     pexels_api = image_apis["pexels"]
                     pexels_url = pexels_api.get("url", "https://api.pexels.com/v1/search")
                     pexels_key = pexels_api.get("key", "")
-                    
+
                     # Prepare headers and parameters
                     headers = {
                         "Authorization": pexels_key
                     }
-                    
+
                     params = {
                         "query": prompt,
                         "per_page": 1
                     }
-                    
+
                     response = requests.get(pexels_url, headers=headers, params=params)
-                    
+
                     if response.status_code == 200:
                         response_data = response.json()
                         photos = response_data.get("photos", [])
-                        
+
                         if photos and len(photos) > 0:
                             # Get image URL
                             photo = photos[0]
                             image_url = photo.get("src", {}).get("original", "")
-                            
+
                             if image_url:
                                 # Send image to user
                                 context.bot.send_photo(
@@ -659,10 +659,10 @@ class EvaTelegramBot:
                                         f"✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
                                     )
                                 )
-                                
+
                                 # Mark as successful
                                 image_generated = True
-                                
+
                                 # Deduct credits if payment system is available
                                 if PAYMENT_AVAILABLE and self.payment_gateway:
                                     self.payment_gateway._check_credits(user_id, "special_calls")
@@ -672,7 +672,7 @@ class EvaTelegramBot:
                 except Exception as e:
                     error_message += f"\nError with Pexels API: {str(e)}"
                     self.logger.error(f"Error with Pexels API: {e}")
-            
+
             # If all APIs failed, send error message
             if not image_generated:
                 # Check if keys are just placeholders
@@ -681,7 +681,7 @@ class EvaTelegramBot:
                     if api_config.get("key") not in ["", "YOUR_KEY_HERE"]:
                         all_keys_placeholder = False
                         break
-                
+
                 if all_keys_placeholder:
             processing_message.edit_text(
                 "🖼️ *Image Generation* 🖼️\n\n"
@@ -703,7 +703,7 @@ class EvaTelegramBot:
                     "✅ Image generation successful!\n\n"
                     "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
                 )
-                
+
             # Add the prompt to conversation history
             if chat_id:
                 self._add_to_conversation(chat_id, "user", f"/image {prompt}")
@@ -711,59 +711,59 @@ class EvaTelegramBot:
                     self._add_to_conversation(chat_id, "assistant", "Image generated successfully based on your prompt.")
                 else:
                     self._add_to_conversation(chat_id, "assistant", "Failed to generate image based on your prompt.")
-                
+
         except Exception as e:
             self.logger.error(f"Error generating image: {e}")
             processing_message.edit_text(
                 "❌ Sorry, there was an error processing your image request. Please try again later.\n\n"
                 "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
             )
-        
+
         # Reset user state
         self.user_states[user_id] = STANDARD
-        
+
         return ConversationHandler.END
-    
+
     def _handle_cancel(self, update: Update, context: CallbackContext):
         """Handle the /cancel command"""
         if update is None or update.effective_user is None:
             return ConversationHandler.END
-            
+
         user_id = update.effective_user.id
-        
+
         # Reset user state
         self.user_states[user_id] = STANDARD
-        
+
         update.message.reply_text(
             "✅ Operation cancelled."
         )
-        
+
         return ConversationHandler.END
-    
+
     def _handle_message(self, update: Update, context: CallbackContext):
         """Handle general messages"""
         if update is None or update.effective_user is None or update.effective_chat is None:
             return
-            
+
         user_id = update.effective_user.id
         chat_id = update.effective_chat.id
         message_text = update.message.text
-        
+
         # Check if user is allowed
         if not self._is_user_allowed(user_id):
             update.message.reply_text("Sorry, you are not authorized to use this bot.")
             return
-        
+
         # Add message to conversation history
         self._add_to_conversation(chat_id, "user", message_text)
-        
+
         # Show typing indicator
         context.bot.send_chat_action(chat_id=chat_id, action="typing")
-        
+
         try:
             # Generate response
             response = self._generate_response(chat_id, message_text)
-            
+
             # Send response (ensuring it's not None)
             if response:
                 update.message.reply_text(response, parse_mode=ParseMode.MARKDOWN)
@@ -774,13 +774,13 @@ class EvaTelegramBot:
                     "I'm sorry, I couldn't generate a response at this time. Please try again later.\n\n"
                     "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
                 )
-            
+
         except Exception as e:
             self.logger.error(f"Error handling message: {e}")
             update.message.reply_text(
                 "Sorry, I encountered an error processing your message. Please try again."
             )
-    
+
     def _handle_error(self, update, context):
         """Handle errors"""
         self.logger.error(f"Update {update} caused error {context.error}")
@@ -792,7 +792,7 @@ class EvaTelegramBot:
                 )
         except Exception as e:
             self.logger.error(f"Error sending error message: {e}")
-    
+
     def _generate_response(self, chat_id, message):
         """Generate a response to a message"""
         if OPENAI_AVAILABLE:
@@ -800,7 +800,7 @@ class EvaTelegramBot:
                 # Format history for OpenAI
                 history = self._get_conversation_history(chat_id)
                 formatted_history = []
-                
+
                 # Add system message
                 formatted_history.append({
                     "role": "system",
@@ -812,25 +812,25 @@ class EvaTelegramBot:
                         "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
                     )
                 })
-                
+
                 # Add conversation history
                 formatted_history.extend(history)
-                
+
                 # Call OpenAI API (using v1 client)
                 client = openai.OpenAI()
                 response = client.chat.completions.create(
                     model="gpt-3.5-turbo",
                     messages=formatted_history
                 )
-                
+
                 if response and response.choices and len(response.choices) > 0:
                     return response.choices[0].message.content
                 else:
                     return None
-                
+
             except Exception as e:
                 self.logger.error(f"Error generating response with OpenAI: {e}")
-        
+
         # Fallback response
         return (
             "Thank you for your message. I'm currently operating in simple mode without external AI services.\n\n"
@@ -838,75 +838,75 @@ class EvaTelegramBot:
             "the administrator needs to set up OpenAI integration.\n\n"
             "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
         )
-    
+
     def _get_conversation_history(self, chat_id):
         """Get conversation history for a chat"""
         if chat_id not in self.conversations:
             self.conversations[chat_id] = []
         return self.conversations[chat_id]
-    
+
     def _add_to_conversation(self, chat_id, role, content):
         """Add a message to the conversation history"""
         if chat_id not in self.conversations:
             self.conversations[chat_id] = []
-        
+
         # Add message to history
         self.conversations[chat_id].append({
             "role": role,
             "content": content
         })
-        
+
         # Limit history size
         max_history = self.config.get("max_conversation_history", 10)
         if len(self.conversations[chat_id]) > max_history:
             self.conversations[chat_id] = self.conversations[chat_id][-max_history:]
-    
+
     def _is_user_allowed(self, user_id):
         """Check if a user is allowed to use the bot"""
         allowed_users = self.config.get("allowed_users", [])
         admin_users = self.config.get("admin_users", [])
-        
+
         # If no restrictions are set, allow everyone
         if not allowed_users and not admin_users:
             return True
-        
+
         return user_id in allowed_users or user_id in admin_users
 
     def _handle_payment(self, update: Update, context: CallbackContext):
         """Handle the /payment command"""
         if update is None or update.effective_user is None:
             return ConversationHandler.END
-            
+
         user_id = update.effective_user.id
-        
+
         # Check if user is allowed
         if not self._is_user_allowed(user_id):
             update.message.reply_text("Sorry, you are not authorized to use this bot.")
             return ConversationHandler.END
-        
+
         # Check if payment system is available
         if not self.payment_gateway or not PAYMENT_AVAILABLE:
             update.message.reply_text(
                 "Payment system is not enabled. All features are freely available."
             )
             return ConversationHandler.END
-        
+
         # Load payment config
         payment_config = self.payment_gateway.config
-        
+
         # Format payment methods
         pix_info = payment_config.get("pix", {})
         crypto_info = payment_config.get("crypto", {})
-        
+
         # Create message
         payment_amount = payment_config.get("pricing", {}).get("recharge_amount", 2.0)
         credits = payment_config.get("pricing", {}).get("credits_per_recharge", 10)
-        
+
         payment_message = (
             f"💰 *Add Credits - R$ {payment_amount:.2f} for {credits} credits* 💰\n\n"
             f"Please choose one of the payment methods below:\n\n"
         )
-        
+
         # Add PIX info if available
         if pix_info.get("enabled", False):
             payment_message += (
@@ -914,57 +914,57 @@ class EvaTelegramBot:
                 f"Key: `{pix_info.get('key', '')}`\n"
                 f"Name: {pix_info.get('name', '')}\n\n"
             )
-            
+
         # Add crypto info if available
         if crypto_info:
             payment_message += "*💎 Cryptocurrency:*\n"
-            
+
             for crypto, info in crypto_info.items():
                 if info.get("enabled", False):
                     payment_message += (
                         f"\n*{crypto.upper()}* ({info.get('network', '')})\n"
                         f"`{info.get('address', '')}`\n"
                     )
-        
+
         payment_message += (
             f"\n\nAfter making the payment, please respond with the transaction ID or hash.\n\n"
             f"Send /cancel to cancel this operation."
         )
-        
+
         # Send payment message
         update.message.reply_text(
             payment_message,
             parse_mode=ParseMode.MARKDOWN
         )
-        
+
         return PAYMENT
-    
+
     def _handle_payment_confirmation(self, update: Update, context: CallbackContext):
         """Handle payment confirmation"""
         if update is None or update.effective_user is None:
             return ConversationHandler.END
-            
+
         user_id = update.effective_user.id
         payment_reference = update.message.text.strip()
-        
+
         # Check if payment system is available
         if not self.payment_gateway or not PAYMENT_AVAILABLE:
             update.message.reply_text(
                 "Payment system is not enabled. All features are freely available."
             )
             return ConversationHandler.END
-        
+
         # Check if the payment reference is valid
         if not payment_reference or len(payment_reference) < 5:
             update.message.reply_text(
                 "❌ Invalid payment reference. Please provide a valid transaction ID, receipt number, or hash."
             )
             return PAYMENT
-        
+
         # Register payment
         payment_amount = self.config.get("payment", {}).get("payment_amount", 2.0)
         credits_per_payment = self.config.get("payment", {}).get("credits_per_payment", 10)
-        
+
         # Determine payment method (simple detection)
         payment_method = "pix"
         currency = "BRL"
@@ -976,7 +976,7 @@ class EvaTelegramBot:
                 currency = "BTC"
             elif "solscan" in payment_reference:
                 currency = "SOL"
-        
+
         # Register payment in the gateway
         success = self.payment_gateway.register_payment(
             user_id=user_id,
@@ -985,7 +985,7 @@ class EvaTelegramBot:
             payment_method=payment_method,
             transaction_id=payment_reference
         )
-        
+
         if success:
             # Send confirmation
             update.message.reply_text(
@@ -998,7 +998,7 @@ class EvaTelegramBot:
                 f"✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧",
                 parse_mode=ParseMode.MARKDOWN
             )
-            
+
             # Notify admin
             for admin_id in self.config.get("admin_users", []):
                 try:
@@ -1024,52 +1024,52 @@ class EvaTelegramBot:
                 "❌ Error registering payment. Please try again or contact the administrator.\n\n"
                 "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
             )
-            
+
         return ConversationHandler.END
 
     def _handle_callback(self, update: Update, context: CallbackContext):
         """Handle callback queries from inline keyboards"""
         if update is None or update.callback_query is None:
             return
-            
+
         query = update.callback_query
         user_id = query.from_user.id
         data = query.data
-        
+
         # Check if user is allowed
         if not self._is_user_allowed(user_id):
             query.answer("Sorry, you are not authorized to use this bot.")
             return
-        
+
         try:
             # Handle different callback data
             if data == "payment":
                 # Answer the callback query
                 query.answer("Opening payment options...")
-                
+
                 # Forward to payment command
                 self._handle_payment(update, context)
             elif data == "help":
                 # Answer the callback query
                 query.answer("Opening help...")
-                
+
                 # Forward to help command
                 self._handle_help(update, context)
             elif data == "status":
                 # Answer the callback query
                 query.answer("Checking status...")
-                
+
                 # Forward to status command
                 self._handle_status(update, context)
             elif data == "credits":
                 # Answer the callback query
                 query.answer("Checking credits...")
-                
+
                 # Forward to credits command
                 self._handle_credits(update, context)
             else:
                 query.answer("Unknown command")
-                
+
         except Exception as e:
             self.logger.error(f"Error handling callback: {e}")
             query.answer("Error processing request")
@@ -1079,7 +1079,7 @@ def main():
     """Main function"""
     print(f"✧༺❀༻∞ EVA & GUARANI - Telegram Bot (avatechartbot) ∞༺❀༻✧")
     print("Starting...")
-    
+
     try:
         bot = EvaTelegramBot()
         bot.start()
@@ -1089,4 +1089,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main() 
+    main()

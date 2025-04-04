@@ -139,10 +139,10 @@ class ToolAwareSequentialThinkingServer {
 	private formatRecommendation(step: StepRecommendation): string {
 		const tools = step.recommended_tools
 			.map((tool) => {
-				const alternatives = tool.alternatives?.length 
+				const alternatives = tool.alternatives?.length
 					? ` (alternatives: ${tool.alternatives.join(', ')})`
 					: '';
-				const inputs = tool.suggested_inputs 
+				const inputs = tool.suggested_inputs
 					? `\n    Suggested inputs: ${JSON.stringify(tool.suggested_inputs)}`
 					: '';
 				return `  - ${tool.tool_name} (priority: ${tool.priority})${alternatives}

@@ -9,4 +9,4 @@ from . import mcp_capture
 from . import mcp_restore
 from . import cursor_commands
 
-__version__ = "1.0.0" 
+__version__ = "1.0.0"

@@ -144,7 +144,7 @@ quantum_prompt:
 
   version: "[VERSION_NUMBER]"
 
-  
+
 
   conceptual_core:
 
@@ -152,7 +152,7 @@ quantum_prompt:
 
     condensed_definition: "[ESSENTIAL_DEFINITION_IN_50_WORDS]"
 
-  
+
 
   structure:
 
@@ -170,19 +170,19 @@ quantum_prompt:
 
         relations: ["[RELATED_CONCEPT_1]", "[RELATED_CONCEPT_3]"]
 
-    
+
 
     level_2:
 
       # Details and expansions of fundamental concepts
 
-      
+
 
     level_3:
 
       # Specific applications and use cases
 
-  
+
 
   interdisciplinary_connections:
 
@@ -194,7 +194,7 @@ quantum_prompt:
 
       connection_points: ["[BRIDGE_CONCEPT_3]", "[BRIDGE_CONCEPT_4]"]
 
-  
+
 
   activation_triggers:
 
@@ -204,7 +204,7 @@ quantum_prompt:
 
     - "[ACTIVATION_CONTEXT_1]"
 
-  
+
 
   metadata:
 
@@ -260,7 +260,7 @@ quantum_prompt:
 
   version: "1.2"
 
-  
+
 
   conceptual_core:
 
@@ -268,7 +268,7 @@ quantum_prompt:
 
     condensed_definition: "The Republic presents a dialogue on the nature of justice and its manifestation both in the individual and in the ideal society, exploring the relationship between personal ethics and political order through metaphors like the cave."
 
-  
+
 
   structure:
 
@@ -286,11 +286,11 @@ quantum_prompt:
 
         relations: ["Justice", "Education", "Meritocracy"]
 
-    
+
 
     # Additional levels omitted for brevity
 
-  
+
 
   activation_triggers:
 
@@ -330,7 +330,7 @@ quantum_prompt:
 
   version: "1.0"
 
-  
+
 
   conceptual_core:
 
@@ -338,7 +338,7 @@ quantum_prompt:
 
     condensed_definition: "Machine learning enables computational systems to improve their performance on specific tasks based on data and experience, without explicit programming of rules."
 
-  
+
 
   structure:
 
@@ -356,11 +356,11 @@ quantum_prompt:
 
         relations: ["Clustering", "Dimensionality Reduction", "Anomaly Detection"]
 
-    
+
 
     # Additional levels omitted for brevity
 
-  
+
 
   activation_triggers:
 

@@ -10,4 +10,4 @@ function prompt {
     $adminMark = if ($isAdmin) { "[ADMIN]" } else { "[USER]" }
     Write-Host "`n$adminMark $location" -NoNewline -ForegroundColor Cyan
     return "> "
-} 
+}

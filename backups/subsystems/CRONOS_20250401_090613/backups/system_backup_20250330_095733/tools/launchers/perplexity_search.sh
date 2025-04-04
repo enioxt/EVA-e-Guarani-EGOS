@@ -51,4 +51,4 @@ echo
 echo "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
 echo
 
-read -p "Press Enter to continue..." 
+read -p "Press Enter to continue..."

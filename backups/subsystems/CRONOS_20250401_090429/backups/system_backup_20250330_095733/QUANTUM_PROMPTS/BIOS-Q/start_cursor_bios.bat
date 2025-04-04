@@ -79,4 +79,4 @@ if "%1"=="" (
 )
 
 python start_cursor_bios.py %1
-pause 
+pause

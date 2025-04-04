@@ -37,4 +37,4 @@ if [ ${#commit_msg} -gt 50 ]; then
   exit 1
 fi
 
-echo "${GREEN}✅ Mensagem de commit válida!${NC}" 
+echo "${GREEN}✅ Mensagem de commit válida!${NC}"

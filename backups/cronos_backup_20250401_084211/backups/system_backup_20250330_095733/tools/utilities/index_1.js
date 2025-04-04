@@ -45,11 +45,11 @@ javascript
 /**
  * EVA & GUARANI - ATLAS (Systemic Cartography)
  * ===========================================
- * 
+ *
  * This module exports the functionality of systemic cartography (ATLAS)
  * for the VSCode extension, enabling the visualization and analysis
  * of relationships between code components with ethical awareness.
- * 
+ *
  * @context EVA_GUARANI_ATLAS
  * @version 1.0.0
  * @author EVA & GUARANI Team
@@ -66,15 +66,15 @@ const AtlasAnalyzer = require('./atlas_analyzer');
 function activate(context, config) {
     // Instantiate the cartography analyzer
     const atlasAnalyzer = new AtlasAnalyzer(context, config);
-    
+
     // Register commands
     const commands = registerCommands(context, atlasAnalyzer);
-    
+
     // Return public interface of the subsystem
     return {
         analyzer: atlasAnalyzer,
         commands: commands,
-        
+
         // Direct access methods
         startCartography: (targetPath, options) => atlasAnalyzer.startCartography(targetPath, options),
         cancelCartography: () => atlasAnalyzer.cancelCartography(),
@@ -86,14 +86,14 @@ function activate(context, config) {
 
 /**
  * Registers commands for the ATLAS subsystem
- * @param {vscode.ExtensionContext} context - Extension context 
+ * @param {vscode.ExtensionContext} context - Extension context
  * @param {AtlasAnalyzer} analyzer - Analyzer instance
  * @returns {Object} Registered commands
  */
 function registerCommands(context, analyzer) {
     const vscode = require('vscode');
     const commands = {};
-    
+
     // Command: Start cartography
     commands.startCartography = vscode.commands.registerCommand(
         'evaguarani.atlas.startCartography',
@@ -101,19 +101,19 @@ function registerCommands(context, analyzer) {
             try {
                 // Obtain analysis target
                 let targetPath = "";
-                
+
                 // If there is an open file, use it as target
                 const activeEditor = vscode.window.activeTextEditor;
                 if (activeEditor) {
                     targetPath = activeEditor.document.uri.fsPath;
-                } 
+                }
                 // Otherwise, use root folder of the workspace
                 else if (vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
                     targetPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
                 } else {
                     throw new Error("No open file or available workspace for analysis");
                 }
-                
+
                 // Choose visualization type
                 const visualizationType = await vscode.window.showQuickPick(
                     [
@@ -125,11 +125,11 @@ function registerCommands(context, analyzer) {
                     ],
                     { placeHolder: "Choose the type of cartographic visualization" }
                 );
-                
+
                 if (!visualizationType) {
                     return; // User canceled
                 }
-                
+
                 // Choose scope
                 const scope = await vscode.window.showQuickPick(
                     [
@@ -140,11 +140,11 @@ function registerCommands(context, analyzer) {
                     ],
                     { placeHolder: "Choose the scope of the analysis" }
                 );
-                
+
                 if (!scope) {
                     return; // User canceled
                 }
-                
+
                 // Show progress
                 vscode.window.withProgress(
                     {
@@ -155,17 +155,17 @@ function registerCommands(context, analyzer) {
                     async (progress, token) => {
                         // Progress callback
                         const progressCallback = (percent) => {
-                            progress.report({ 
+                            progress.report({
                                 message: `Analyzing... ${percent}%`,
-                                increment: null 
+                                increment: null
                             });
                         };
-                        
+
                         // Cancellation
                         token.onCancellationRequested(() => {
                             analyzer.cancelCartography();
                         });
-                        
+
                         try {
                             // Start analysis
                             const result = await analyzer.startCartography(targetPath, {
@@ -173,22 +173,22 @@ function registerCommands(context, analyzer) {
                                 scope: scope.value,
                                 progressCallback: progressCallback
                             });
-                            
+
                             // Ask if should show visualization
                             const showVisualization = await vscode.window.showInformationMessage(
                                 "Cartography completed. Do you want to view the result?",
                                 "Yes", "No"
                             );
-                            
+
                             if (showVisualization === "Yes") {
                                 // Find ID of the most recent result
                                 const resultIds = Array.from(analyzer.cartographyResults.keys());
                                 const resultId = resultIds[resultIds.length - 1];
-                                
+
                                 // Show visualization
                                 analyzer.createVisualizationPanel(resultId);
                             }
-                            
+
                             return result;
                         } catch (error) {
                             vscode.window.showErrorMessage(`Cartography error: ${error.message}`);
@@ -201,23 +201,23 @@ function registerCommands(context, analyzer) {
             }
         }
     );
-    
+
     // Command: Visualize latest result
     commands.visualizeLatestResult = vscode.commands.registerCommand(
         'evaguarani.atlas.visualizeLatestResult',
         () => {
             try {
                 const latestResult = analyzer.getLatestCartographyResult();
-                
+
                 if (!latestResult) {
                     vscode.window.showInformationMessage("No cartography result available. Perform an analysis first.");
                     return;
                 }
-                
+
                 // Find ID of the most recent result
                 const resultIds = Array.from(analyzer.cartographyResults.keys());
                 const resultId = resultIds[resultIds.length - 1];
-                
+
                 // Show visualization
                 analyzer.createVisualizationPanel(resultId);
             } catch (error) {
@@ -225,23 +225,23 @@ function registerCommands(context, analyzer) {
             }
         }
     );
-    
+
     // Command: Export result
     commands.exportResult = vscode.commands.registerCommand(
         'evaguarani.atlas.exportResult',
         async () => {
             try {
                 const latestResult = analyzer.getLatestCartographyResult();
-                
+
                 if (!latestResult) {
                     vscode.window.showInformationMessage("No cartography result available. Perform an analysis first.");
                     return;
                 }
-                
+
                 // Find ID of the most recent result
                 const resultIds = Array.from(analyzer.cartographyResults.keys());
                 const resultId = resultIds[resultIds.length - 1];
-                
+
                 // Request save path
                 const uri = await vscode.window.showSaveDialog({
                     defaultUri: vscode.Uri.file('cartography_result.json'),
@@ -249,7 +249,7 @@ function registerCommands(context, analyzer) {
                         'JSON': ['json']
                     }
                 });
-                
+
                 if (uri) {
                     // Export result
                     const outputPath = await analyzer.exportCartographyResult(resultId, uri.fsPath);
@@ -260,12 +260,12 @@ function registerCommands(context, analyzer) {
             }
         }
     );
-    
+
     // Register the commands in the context
     context.subscriptions.push(commands.startCartography);
     context.subscriptions.push(commands.visualizeLatestResult);
     context.subscriptions.push(commands.exportResult);
-    
+
     return commands;
 }
 

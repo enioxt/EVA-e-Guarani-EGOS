@@ -9,5 +9,5 @@ Author: EVA & GUARANI
 Version: 1.0
 """
 
-__version__ = '1.0'
-__author__ = 'EVA & GUARANI' 
+__version__ = "1.0"
+__author__ = "EVA & GUARANI"

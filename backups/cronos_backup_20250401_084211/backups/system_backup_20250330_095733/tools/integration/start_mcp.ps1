@@ -24,13 +24,13 @@ function Write-Log {
         [string]$Message,
         [string]$Level = "INFO"
     )
-    
+
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $logMessage = "[$timestamp] [$Level] $Message"
-    
+
     # Escrever no arquivo de log
     Add-Content -Path $logFile -Value $logMessage -Encoding UTF8
-    
+
     # Escrever no console com cores
     switch ($Level) {
         "ERROR" { Write-Host $logMessage -ForegroundColor Red }
@@ -52,7 +52,7 @@ function Test-ServerRunning {
                 if (Test-Path $heartbeatFile) {
                     $lastHeartbeat = Get-Item $heartbeatFile
                     $timeSinceLastHeartbeat = (Get-Date) - $lastHeartbeat.LastWriteTime
-                    
+
                     if ($timeSinceLastHeartbeat.TotalMinutes -lt 2) {
                         Write-Log "Processo MCP encontrado com PID: $processId e heartbeat recente" -Level "DEBUG"
                         return $true
@@ -62,7 +62,7 @@ function Test-ServerRunning {
                         return $false
                     }
                 }
-                
+
                 Write-Log "Processo MCP encontrado com PID: $processId" -Level "DEBUG"
                 return $true
             }
@@ -78,12 +78,12 @@ function Test-ServerRunning {
 # Função para matar processos anteriores do MCP
 function Stop-MCPProcesses {
     Write-Log "Procurando por processos MCP anteriores..." -Level "INFO"
-    
+
     # Procurar por processos Python rodando o mcp_server
     $mcpProcesses = Get-WmiObject Win32_Process | Where-Object {
         $_.CommandLine -like "*python*" -and $_.CommandLine -like "*mcp_server*"
     }
-    
+
     if ($mcpProcesses) {
         Write-Log "Encontrados $($mcpProcesses.Count) processos MCP anteriores" -Level "WARN"
         foreach ($proc in $mcpProcesses) {
@@ -100,13 +100,13 @@ function Stop-MCPProcesses {
     else {
         Write-Log "Nenhum processo MCP anterior encontrado" -Level "INFO"
     }
-    
+
     # Limpar arquivo PID se existir
     if (Test-Path $pidFile) {
         Remove-Item $pidFile -Force
         Write-Log "Arquivo PID removido" -Level "INFO"
     }
-    
+
     # Limpar arquivo de heartbeat se existir
     if (Test-Path $heartbeatFile) {
         Remove-Item $heartbeatFile -Force -ErrorAction SilentlyContinue
@@ -119,7 +119,7 @@ function Check-ServerLogs {
     param (
         [int]$Lines = 10
     )
-    
+
     if (Test-Path $serverLogFile) {
         $lastLines = Get-Content $serverLogFile -Tail $Lines -ErrorAction SilentlyContinue
         if ($lastLines) {
@@ -142,14 +142,14 @@ function Test-Dependencies {
     try {
         $pythonVersion = python --version
         Write-Log "Python encontrado: $pythonVersion" -Level "INFO"
-        
+
         # Verificar se o websockets está instalado
         $hasWebsockets = python -c "import websockets; print('OK')" 2>$null
         if ($hasWebsockets -ne "OK") {
             Write-Log "Módulo websockets não encontrado. Será instalado." -Level "WARN"
             return $false
         }
-        
+
         Write-Log "Todas as dependências Python encontradas" -Level "INFO"
         return $true
     }
@@ -162,14 +162,14 @@ function Test-Dependencies {
 # Função para instalar dependências Python
 function Install-PythonDependencies {
     Write-Log "Instalando dependências Python..." -Level "INFO"
-    
+
     $required_packages = @(
         "websockets",
         "python-dotenv",
         "aiohttp",
         "psutil"
     )
-    
+
     foreach ($package in $required_packages) {
         Write-Log "Instalando $package..." -Level "DEBUG"
         # Usar o pip do ambiente virtual
@@ -180,7 +180,7 @@ function Install-PythonDependencies {
         }
         Write-Log "Pacote $package instalado com sucesso" -Level "DEBUG"
     }
-    
+
     Write-Log "Todas as dependências instaladas com sucesso" -Level "INFO"
     return $true
 }
@@ -191,7 +191,7 @@ function Update-ServerHeartbeat {
         [Parameter(Mandatory = $true)]
         [int]$ProcessId
     )
-    
+
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $heartbeatContent = "$timestamp|$ProcessId"
     $heartbeatContent | Out-File -FilePath $heartbeatFile -Force -Encoding UTF8
@@ -200,10 +200,10 @@ function Update-ServerHeartbeat {
 try {
     # Parar processos anteriores
     Stop-MCPProcesses
-    
+
     Write-Log "Iniciando processo de setup do MCP Server..." -Level "INFO"
     Write-Log "Diretório do projeto: $projectRoot" -Level "INFO"
-    
+
     # Verificar se Python está instalado
     try {
         $pythonVersion = python --version
@@ -213,12 +213,12 @@ try {
         Write-Log "Python não encontrado no PATH" -Level "ERROR"
         throw "Python não está instalado ou não está no PATH"
     }
-    
+
     # Verificar ambiente virtual
     $venvPath = Join-Path $projectRoot "venv"
     $venvScripts = Join-Path $venvPath "Scripts"
     $venvActivate = Join-Path $venvScripts "Activate.ps1"
-    
+
     if (Test-Path $venvActivate) {
         Write-Log "Ativando ambiente virtual em $venvPath" -Level "INFO"
         & $venvActivate
@@ -228,7 +228,7 @@ try {
         python -m venv $venvPath
         & $venvActivate
     }
-    
+
     # Verificar e instalar dependências
     if (-not (Test-Dependencies)) {
         Write-Log "Instalando dependências faltantes..." -Level "INFO"
@@ -237,10 +237,10 @@ try {
             throw "Falha ao instalar dependências Python"
         }
     }
-    
+
     # Iniciar o servidor MCP
     Write-Log "Iniciando MCP Server..." -Level "INFO"
-    
+
     # Limpar arquivos de log antigos se muito grandes
     if ((Test-Path $serverLogFile) -and ((Get-Item $serverLogFile).Length -gt 10MB)) {
         Write-Log "Arquivo de log do servidor muito grande. Criando backup e iniciando novo." -Level "WARN"
@@ -248,17 +248,17 @@ try {
         Move-Item -Path $serverLogFile -Destination $backupFile -Force
         Write-Log "Backup do log salvo em: $backupFile" -Level "INFO"
     }
-    
+
     # Iniciar o servidor em uma nova janela do PowerShell para melhor isolamento
     # e evitar problemas com o redirecionamento de saída
     $pythonPath = (Get-Command python).Path
     $serverScript = "tools.integration.mcp_server"
-    
+
     Write-Log "Configuração do processo:" -Level "DEBUG"
     Write-Log "  Python: $pythonPath" -Level "DEBUG"
     Write-Log "  Script: $serverScript" -Level "DEBUG"
     Write-Log "  WorkingDirectory: $projectRoot" -Level "DEBUG"
-    
+
     # Iniciar o processo Python
     $psi = New-Object System.Diagnostics.ProcessStartInfo
     $psi.FileName = $pythonPath
@@ -345,55 +345,55 @@ try {
 
     while ($true) {
         Start-Sleep -Seconds 5
-        
+
         # Atualizar heartbeat
         if (-not $process.HasExited) {
             Update-ServerHeartbeat -ProcessId $process.Id
         }
-        
+
         # Verificar se o processo está vivo
         if ($process.HasExited) {
             $failureCount++
             $exitCode = $process.ExitCode
             $runTime = (Get-Date) - $startTime
-            
+
             Write-Log "Processo MCP finalizou após $($runTime.TotalMinutes.ToString('0.0')) minutos com código $exitCode. Tentativa $failureCount de $maxFailures." -Level "WARN"
-            
+
             if ($failureCount -ge $maxFailures) {
                 Write-Log "Número máximo de falhas atingido. Desistindo." -Level "ERROR"
                 Check-ServerLogs -Lines 30
                 throw "O servidor MCP falhou $failureCount vezes consecutivas. Verifique os logs."
             }
-            
+
             # Esperar um pouco antes de reiniciar
             Write-Log "Aguardando 3 segundos antes de reiniciar..." -Level "INFO"
             Start-Sleep -Seconds 3
-            
+
             # Check logs for clues
             Check-ServerLogs -Lines 10
-            
+
             # Reiniciar o processo
             Write-Log "Reiniciando o servidor MCP..." -Level "INFO"
-            
+
             # Criar novo processo
             $process = New-Object System.Diagnostics.Process
             $process.StartInfo = $psi
             $process.EnableRaisingEvents = $true
-            
+
             # Iniciar novo processo
             $result = $process.Start()
-            
+
             if (-not $result) {
                 Write-Log "Falha ao reiniciar o processo MCP" -Level "ERROR"
                 throw "Não foi possível reiniciar o processo MCP"
             }
-            
+
             # Atualizar PID
             $process.Id | Set-Content $pidFile -Encoding UTF8
-            
+
             # Criar heartbeat
             Update-ServerHeartbeat -ProcessId $process.Id
-            
+
             Write-Log "Servidor reiniciado com PID: $($process.Id)" -Level "INFO"
             $startTime = Get-Date
         }
@@ -404,7 +404,7 @@ try {
                 Write-Log "Servidor estável por 30 segundos, resetando contador de falhas." -Level "INFO"
                 $failureCount = 0
             }
-            
+
             # Logar status a cada minuto
             if ($runTime.TotalSeconds % 60 -lt 5) {
                 Write-Log "Servidor MCP rodando há $($runTime.TotalMinutes.ToString('0.0')) minutos com PID: $($process.Id)" -Level "INFO"
@@ -422,4 +422,4 @@ catch {
 }
 finally {
     Write-Log "Script de inicialização finalizado" -Level "INFO"
-} 
+}

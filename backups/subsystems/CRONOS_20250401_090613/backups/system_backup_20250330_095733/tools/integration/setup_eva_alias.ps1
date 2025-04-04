@@ -23,4 +23,4 @@ else {
 }
 
 # Recarregar o perfil
-. $PROFILE 
+. $PROFILE

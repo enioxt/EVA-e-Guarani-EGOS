@@ -56,4 +56,4 @@ if (!fs.existsSync(logDir)) {
 fs.writeFileSync(logFile, `Test log created at ${new Date().toISOString()}\n`);
 
 console.log('Test successful - log file created');
-process.exit(0); 
+process.exit(0);

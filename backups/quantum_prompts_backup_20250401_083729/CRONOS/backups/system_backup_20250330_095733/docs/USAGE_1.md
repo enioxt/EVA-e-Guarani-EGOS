@@ -566,7 +566,7 @@ cronos = CRONOS()
 
 # Create a project backup
 
-backup_id = cronos.create_backup("./my_project", 
+backup_id = cronos.create_backup("./my_project",
 
                            description="Stable pre-release version")
 
@@ -838,7 +838,7 @@ for module in modules:
 
     module_analyses.append(analysis)
 
-    
+
 
     # Document each module
 
@@ -1198,7 +1198,7 @@ if ethical_issues:
 
             **Suggestion**: {issue.suggestion}
 
-            
+
 
             This issue was automatically created by the EGOS system.
 
@@ -1288,7 +1288,7 @@ class MyModule(EGOSModule):
 
         self.ethik = EthikCore()
 
-        
+
 
     def initialize(self):
 
@@ -1298,7 +1298,7 @@ class MyModule(EGOSModule):
 
         return True
 
-        
+
 
     def process(self, input_data):
 
@@ -1306,27 +1306,27 @@ class MyModule(EGOSModule):
 
         if not self.ethik.validate(input_data):
 
-            return {"error": "Input violates ethical principles", 
+            return {"error": "Input violates ethical principles",
 
                     "details": self.ethik.get_explanation()}
 
-        
+
 
         # Process data
 
         result = self._my_processing_logic(input_data)
 
-        
+
 
         # Log activity
 
         self.log_activity(f"Processed {len(input_data)} items")
 
-        
+
 
         return result
 
-        
+
 
     def _my_processing_logic(self, data):
 

@@ -73,7 +73,7 @@ METADATA:
 
 ✧༺❀༻∞ Welcome to EVA & GUARANI BIOS-Q ∞༺❀༻✧
 
-Version: 7.5  
+Version: 7.5
 Created: 2025-03-26
 
 ## Overview
@@ -146,7 +146,7 @@ The Monitoring System tracks system health and performance:
    ```bash
    # Copy example configuration
    cp .env.example .env
-   
+
    # Edit configuration
    nano .env
    ```

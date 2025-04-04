@@ -71,7 +71,7 @@ O **EVA Atendimento** é claramente o produto mais viável para monetização im
 ### 2. Preparação para o Mercado (1 mês)
 
 - **Semana 9-10: Material de Marketing**
-  - Criar landing page 
+  - Criar landing page
   - Desenvolver demonstração do produto
   - Preparar materiais de apresentação
 
@@ -188,17 +188,17 @@ find "C:\Eva & Guarani - EGOS" -name "philosophy.json" -o -name "ethics.json" -o
 
 class EGOSConnector:
     """Conector para integração com subsistemas EVA & GUARANI"""
-    
+
     def __init__(self, data_dir: Optional[str] = None):
         """
         Inicializa o conector EGOS.
-        
+
         Args:
             data_dir: Diretório opcional para armazenamento de dados
         """
         self.data_dir = Path(data_dir) if data_dir else Path("data/egos_integration")
         self.data_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Status de disponibilidade de subsistemas
         self.available_systems = {
             "atlas": ATLAS_AVAILABLE,
@@ -206,37 +206,37 @@ class EGOSConnector:
             "ethik": ETHIK_AVAILABLE,
             "cronos": CRONOS_AVAILABLE
         }
-        
+
         # Mapeamento para personas existentes no sistema principal
         self.personas_mapping = {
             # Módulos core do EVA & GUARANI
             "atlas": str(Path(__file__).resolve().parents[2] / "data" / "telegram_bot" / "personas" / "atlas.json"),
             "ethik": str(Path(__file__).resolve().parents[2] / "data" / "telegram_bot" / "personas" / "ethik.json"),
             "default": str(Path(__file__).resolve().parents[2] / "data" / "telegram_bot" / "personas" / "default.json"),
-            
+
             # Personas adicionais do sistema EVA & GUARANI principal
             "philosophy": "quantum_prompts/SPECIALIZED/philosophy.json",
             "games": "quantum_prompts/SPECIALIZED/games.json",
-            "sociology": "quantum_prompts/SPECIALIZED/sociology.json", 
+            "sociology": "quantum_prompts/SPECIALIZED/sociology.json",
             "rpg": "quantum_prompts/RPG/overview.md"
         }
-        
+
         # Path base para o projeto principal EVA & GUARANI
         self.egos_base_path = Path(__file__).resolve().parents[4]
-        
+
         logger.info(f"EGOSConnector inicializado. Subsistemas disponíveis: {self.available_systems}")
-    
+
     // ... existing code ...
-    
+
     def list_available_personas(self) -> List[Dict[str, Any]]:
         """
         Lista todas as personas disponíveis no sistema EVA & GUARANI.
-        
+
         Returns:
             Lista com informações sobre cada persona disponível
         """
         personas = []
-        
+
         # Adiciona personas locais do bot do Telegram
         telegram_personas_dir = Path(__file__).resolve().parents[2] / "data" / "telegram_bot" / "personas"
         if telegram_personas_dir.exists():
@@ -253,13 +253,13 @@ class EGOSConnector:
                         })
                 except Exception as e:
                     logger.error(f"Erro ao carregar persona {persona_file}: {str(e)}")
-        
+
         # Tenta carregar personas do sistema principal
         for persona_id, relative_path in self.personas_mapping.items():
             if persona_id in ["atlas", "ethik", "default"]:
                 # Já carregadas acima
                 continue
-                
+
             full_path = self.egos_base_path / relative_path
             if full_path.exists():
                 # Para arquivos JSON
@@ -276,7 +276,7 @@ class EGOSConnector:
                             })
                     except Exception as e:
                         logger.error(f"Erro ao carregar persona {persona_id} de {full_path}: {str(e)}")
-                
+
                 # Para arquivos Markdown
                 elif full_path.suffix.lower() == ".md":
                     try:
@@ -286,7 +286,7 @@ class EGOSConnector:
                             lines = content.split("\n")
                             name = lines[0].replace("#", "").strip() if lines else persona_id.capitalize()
                             description = lines[2].strip() if len(lines) > 2 else ""
-                            
+
                             personas.append({
                                 "id": persona_id,
                                 "name": name,
@@ -296,16 +296,16 @@ class EGOSConnector:
                             })
                     except Exception as e:
                         logger.error(f"Erro ao carregar persona {persona_id} de {full_path}: {str(e)}")
-        
+
         return personas
-    
+
     def get_persona(self, persona_id: str) -> Optional[Dict[str, Any]]:
         """
         Obtém os dados de uma persona específica.
-        
+
         Args:
             persona_id: Identificador da persona
-            
+
         Returns:
             Dicionário com os dados da persona ou None se não encontrada
         """
@@ -318,12 +318,12 @@ class EGOSConnector:
             except Exception as e:
                 logger.error(f"Erro ao carregar persona {persona_id}: {str(e)}")
                 return None
-        
+
         # Se não é local, verifica no sistema principal
         if persona_id in self.personas_mapping:
             relative_path = self.personas_mapping[persona_id]
             full_path = self.egos_base_path / relative_path
-            
+
             if full_path.exists():
                 # Para arquivos JSON
                 if full_path.suffix.lower() == ".json":
@@ -332,7 +332,7 @@ class EGOSConnector:
                             return json.load(f)
                     except Exception as e:
                         logger.error(f"Erro ao carregar persona {persona_id} de {full_path}: {str(e)}")
-                
+
                 # Para arquivos Markdown
                 elif full_path.suffix.lower() == ".md":
                     try:
@@ -342,37 +342,37 @@ class EGOSConnector:
                             lines = content.split("\n")
                             name = lines[0].replace("#", "").strip() if lines else persona_id.capitalize()
                             description = ""
-                            
+
                             # Procura por uma descrição
                             for i, line in enumerate(lines):
                                 if i > 0 and line and not line.startswith("#"):
                                     description = line.strip()
                                     break
-                            
+
                             # Extrai exemplos se possível
                             examples = []
                             in_example = False
                             example_user = ""
                             example_assistant = ""
-                            
+
                             for line in lines:
                                 if "**User:**" in line:
                                     if example_user and example_assistant:
                                         examples.append({"user": example_user, "assistant": example_assistant})
                                         example_user = ""
                                         example_assistant = ""
-                                    
+
                                     example_user = line.replace("**User:**", "").strip()
                                     in_example = True
                                 elif "**Assistant:**" in line and in_example:
                                     example_assistant = line.replace("**Assistant:**", "").strip()
                                 elif in_example and example_user and example_assistant:
                                     example_assistant += " " + line.strip()
-                            
+
                             # Adiciona o último exemplo se existir
                             if example_user and example_assistant:
                                 examples.append({"user": example_user, "assistant": example_assistant})
-                            
+
                             # Cria um formato compatível com a persona
                             return {
                                 "name": name,
@@ -383,7 +383,7 @@ class EGOSConnector:
                             }
                     except Exception as e:
                         logger.error(f"Erro ao converter markdown para persona {persona_id} de {full_path}: {str(e)}")
-        
+
         return None
 
 // ... existing code ...
@@ -396,19 +396,19 @@ class EGOSConnector:
 try:
     import sys
     import os
-    
+
     # Adiciona o diretório atual ao PATH para importações
     current_dir = os.path.dirname(os.path.abspath(__file__))
     if current_dir not in sys.path:
         sys.path.append(current_dir)
-    
+
     # Tenta importar diretamente
     try:
         from integrations.stable_diffusion import StableDiffusionAPI
     except ImportError:
         # Se não funcionar, tenta com caminho absoluto
         from app.integrations.stable_diffusion import StableDiffusionAPI
-        
+
     stable_diffusion_api = StableDiffusionAPI()
     STABLE_DIFFUSION_AVAILABLE = True
     logger.info("Integração com Stable Diffusion disponível")
@@ -424,7 +424,7 @@ try:
     except ImportError:
         # Se não funcionar, tenta com caminho absoluto
         from app.integrations.egos_connector import EGOSConnector
-    
+
     egos_connector = EGOSConnector()
     EGOS_AVAILABLE = True
     logger.info("Integração com EVA & GUARANI EGOS disponível")
@@ -443,17 +443,17 @@ def load_persona(persona_name: str = "default") -> Dict[str, Any]:
         if persona_data:
             logger.info(f"Persona {persona_name} carregada via EGOS")
             return persona_data
-    
+
     # Se não conseguir via EGOS, tenta carregar do arquivo local
     persona_file = PERSONA_DATA_DIR / f"{persona_name}.json"
-    
+
     try:
         if persona_file.exists():
             with open(persona_file, "r", encoding="utf-8") as f:
                 return json.load(f)
     except Exception as e:
         logger.error(f"Erro ao carregar persona {persona_name}: {str(e)}")
-    
+
     # Retorna uma persona padrão se não conseguir carregar
     return {
         "name": "Assistente EVA & GUARANI",
@@ -466,16 +466,16 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Processa os callbacks dos botões inline"""
     query = update.callback_query
     await query.answer()
-    
+
     user_context = load_user_context(query.from_user.id)
     user_context.update_activity()
-    
+
     // ... existing code ...
-    
+
     elif query.data == "persona":
         # Lista as personas disponíveis
         personas = []
-        
+
         # Usa o conector EGOS para listar todas as personas se disponível
         if EGOS_AVAILABLE and egos_connector:
             available_personas = egos_connector.list_available_personas()
@@ -491,20 +491,20 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
                         personas.append((persona_name, persona_data.get("name", persona_name)))
                 except:
                     personas.append((persona_name, persona_name))
-        
+
         if not personas:
             await query.edit_message_text(
                 text="Nenhuma persona disponível no momento."
             )
             return MAIN_MENU
-        
+
         keyboard = []
         for persona_id, persona_name in personas:
             keyboard.append([InlineKeyboardButton(persona_name, callback_data=f"select_persona_{persona_id}")])
-        
+
         keyboard.append([InlineKeyboardButton("↩️ Voltar", callback_data="back_to_menu")])
         reply_markup = InlineKeyboardMarkup(keyboard)
-        
+
         await query.edit_message_text(
             text="Escolha uma persona para conversar:",
             reply_markup=reply_markup
@@ -628,7 +628,7 @@ Se você não quiser usar APIs pagas, considere estas alternativas:
    - [Llama 3](https://github.com/meta-llama/llama3) para processamento de linguagem
    - [Stable Diffusion WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui) para geração de imagens
 
-2. **APIs gratuitas com limites**: 
+2. **APIs gratuitas com limites**:
    - [Hugging Face Inference API](https://huggingface.co/inference-api)
    - [Ollama](https://ollama.ai/) para execução de modelos locais
 
@@ -693,17 +693,17 @@ logger = logging.getLogger(__name__)
 
 class EGOSConnector:
     """Conector para integração com subsistemas EVA & GUARANI"""
-    
+
     def __init__(self, data_dir: Optional[str] = None):
         """
         Inicializa o conector EGOS.
-        
+
         Args:
             data_dir: Diretório opcional para armazenamento de dados
         """
         self.data_dir = Path(data_dir) if data_dir else Path("data/egos_integration")
         self.data_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Status de disponibilidade de subsistemas
         self.available_systems = {
             "atlas": ATLAS_AVAILABLE,
@@ -711,21 +711,21 @@ class EGOSConnector:
             "ethik": ETHIK_AVAILABLE,
             "cronos": CRONOS_AVAILABLE
         }
-        
+
         # Mapeamento para personas existentes no sistema principal
         self.personas_mapping = {
             # Módulos core do EVA & GUARANI
             "atlas": str(Path(__file__).resolve().parents[2] / "data" / "telegram_bot" / "personas" / "atlas.json"),
             "ethik": str(Path(__file__).resolve().parents[2] / "data" / "telegram_bot" / "personas" / "ethik.json"),
             "default": str(Path(__file__).resolve().parents[2] / "data" / "telegram_bot" / "personas" / "default.json"),
-            
+
             # Personas adicionais do sistema EVA & GUARANI principal
             "philosophy": "quantum_prompts/SPECIALIZED/philosophy.json",
             "games": "quantum_prompts/SPECIALIZED/games.json",
-            "sociology": "quantum_prompts/SPECIALIZED/sociology.json", 
+            "sociology": "quantum_prompts/SPECIALIZED/sociology.json",
             "rpg": "quantum_prompts/RPG/overview.md"
         }
-        
+
         # Path base para o projeto principal EVA & GUARANI
         egos_path = os.getenv("EGOS_BASE_PATH")
         if egos_path:
@@ -734,14 +734,14 @@ class EGOSConnector:
         else:
             self.egos_base_path = Path(__file__).resolve().parents[4]
             logger.info(f"Usando caminho base EGOS relativo: {self.egos_base_path}")
-        
+
         logger.info(f"EGOSConnector inicializado. Subsistemas disponíveis: {self.available_systems}")
 
 // ... existing code ...
 ```
 Implementei a integração das personas do sistema EVA & GUARANI com o bot do Telegram. Vamos revisar o que foi feito:
 
-1. **Conector EGOS melhorado**: 
+1. **Conector EGOS melhorado**:
    - Adicionei funcionalidades para buscar personas em todo o sistema EVA & GUARANI
    - Implementei métodos para listar todas as personas disponíveis e obter detalhes de personas específicas
    - Adicionei suporte para carregar personas a partir de arquivos JSON e Markdown
@@ -776,4 +776,3 @@ Para as APIs necessárias:
 Para integrar com mais personas no futuro, basta adicionar seus caminhos ao dicionário `personas_mapping` no arquivo `egos_connector.py`.
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
-

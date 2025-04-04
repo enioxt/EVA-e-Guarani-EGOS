@@ -100,7 +100,7 @@ Retrieves a specific configuration value using a path notation.
 Args:
     path: Path to the value, in the format "section.subsection.key"
     default: Default value if the path does not exist
-    
+
 Returns:
     The configuration value or the default value
 
@@ -114,7 +114,7 @@ Args:
     path: Path to the value, in the format "section.subsection.key"
     value: New value
     save: If True, saves the changes to the configuration file
-    
+
 Returns:
     True if the update was successful, False otherwise
 

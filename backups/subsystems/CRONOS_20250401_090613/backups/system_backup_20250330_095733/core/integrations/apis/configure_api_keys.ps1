@@ -13,10 +13,10 @@ function Write-LogMessage {
         [string]$Message,
         [string]$Type = "INFO"
     )
-    
+
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $color = "White"
-    
+
     switch ($Type) {
         "SUCCESS" { $prefix = "[OK]"; $color = "Green" }
         "ERROR" { $prefix = "[ERROR]"; $color = "Red" }
@@ -24,15 +24,15 @@ function Write-LogMessage {
         "INFO" { $prefix = "[INFO]"; $color = "Cyan" }
         "INPUT" { $prefix = "[INPUT]"; $color = "Magenta" }
     }
-    
+
     Write-Host "$timestamp $prefix $Message" -ForegroundColor $color
-    
+
     # Also log to the log file
     $logDir = "logs"
     if (-not (Test-Path $logDir)) {
         New-Item -ItemType Directory -Path $logDir | Out-Null
     }
-    
+
     Add-Content -Path "$logDir\api_config.log" -Value "$timestamp $prefix $Message"
 }
 
@@ -43,9 +43,9 @@ function Read-APIKey {
         [string]$Default = "",
         [bool]$IsMasked = $true
     )
-    
+
     Write-LogMessage "Configuring $KeyName..." -Type "INPUT"
-    
+
     if ($Default -ne "") {
         Write-Host "  Current: " -NoNewline
         if ($IsMasked -and $Default.Length -gt 8) {
@@ -54,14 +54,14 @@ function Read-APIKey {
             Write-Host $Default -ForegroundColor DarkGray
         }
     }
-    
+
     Write-Host "  Enter the API key for $KeyName (leave blank to keep the current value):" -ForegroundColor White
     $apiKey = Read-Host
-    
+
     if ([string]::IsNullOrWhiteSpace($apiKey)) {
         return $Default
     }
-    
+
     Write-LogMessage "$KeyName configured successfully" -Type "SUCCESS"
     return $apiKey
 }
@@ -143,7 +143,7 @@ if (-not $telegramConfig.admin_users -or $telegramConfig.admin_users.Count -eq 0
     Write-LogMessage "Configuring admin users..." -Type "INPUT"
     Write-Host "  Enter admin user IDs separated by commas (e.g., 123456789,987654321):" -ForegroundColor White
     $adminUsers = Read-Host
-    
+
     if (-not [string]::IsNullOrWhiteSpace($adminUsers)) {
         $telegramConfig.admin_users = $adminUsers.Split(',') | ForEach-Object { [int]$_.Trim() }
         Write-LogMessage "Admin users configured" -Type "SUCCESS"

@@ -10,14 +10,14 @@ function Write-LogMessage {
     param (
         [Parameter(Mandatory = $true)]
         [string]$Message,
-        
+
         [Parameter(Mandatory = $false)]
         [ValidateSet("INFO", "SUCCESS", "ERROR", "WARNING", "UPDATE")]
         [string]$Type = "INFO"
     )
-    
+
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    
+
     # Define colors for different message types
     switch ($Type) {
         "INFO"    { $color = "Cyan"; $prefix = "i" }
@@ -26,7 +26,7 @@ function Write-LogMessage {
         "WARNING" { $color = "Yellow"; $prefix = "!" }
         "UPDATE"  { $color = "Magenta"; $prefix = "*" }
     }
-    
+
     # Display formatted message
     Write-Host "[$timestamp] " -NoNewline
     Write-Host "[$Type] " -ForegroundColor $color -NoNewline
@@ -36,14 +36,14 @@ function Write-LogMessage {
 # Function to create backup of configuration files
 function Backup-ConfigFiles {
     $backupDir = "backup_$(Get-Date -Format 'yyyyMMdd_HHmmss')"
-    
+
     Write-LogMessage "Creating backup directory: $backupDir" -Type "INFO"
-    
+
     if (-not (Test-Path $backupDir)) {
         New-Item -ItemType Directory -Path $backupDir | Out-Null
         Write-LogMessage "Backup directory created successfully" -Type "SUCCESS"
     }
-    
+
     # Backup configuration files
     if (Test-Path "config") {
         Write-LogMessage "Backing up configuration files" -Type "INFO"
@@ -52,21 +52,21 @@ function Backup-ConfigFiles {
     } else {
         Write-LogMessage "Configuration directory not found. No backup necessary." -Type "WARNING"
     }
-    
+
     # Backup logs
     if (Test-Path "logs") {
         Write-LogMessage "Backing up logs" -Type "INFO"
         Copy-Item -Path "logs" -Destination "$backupDir\logs" -Recurse -Force
         Write-LogMessage "Logs backup completed" -Type "SUCCESS"
     }
-    
+
     # Backup data
     if (Test-Path "data") {
         Write-LogMessage "Backing up data" -Type "INFO"
         Copy-Item -Path "data" -Destination "$backupDir\data" -Recurse -Force
         Write-LogMessage "Data backup completed" -Type "SUCCESS"
     }
-    
+
     return $backupDir
 }
 
@@ -99,58 +99,58 @@ function Test-PythonInstalled {
 # Function to update the repository
 function Update-Repository {
     Write-LogMessage "Checking repository updates" -Type "UPDATE"
-    
+
     # Check if .git directory exists
     if (-not (Test-Path ".git")) {
         Write-LogMessage "This does not appear to be a valid Git repository." -Type "ERROR"
         Write-LogMessage "Automatic update is not possible. Please download the latest version manually." -Type "INFO"
         return $false
     }
-    
+
     # Save the current version before updating
     $currentVersion = git rev-parse HEAD
     Write-LogMessage "Current version: $currentVersion" -Type "INFO"
-    
+
     # Check for uncommitted local changes
     $status = git status --porcelain
     if ($status) {
         Write-LogMessage "There are uncommitted local changes:" -Type "WARNING"
         git status
-        
+
         $confirmation = Read-Host "Do you want to continue anyway? Local changes will be preserved. (Y/N)"
         if ($confirmation -ne "Y") {
             Write-LogMessage "Update canceled by user." -Type "INFO"
             return $false
         }
     }
-    
+
     # Update the repository
     try {
         Write-LogMessage "Fetching remote updates..." -Type "UPDATE"
         git fetch
-        
+
         # Check if updates are available
         $localRef = git rev-parse HEAD
         $remoteRef = git rev-parse origin/main
-        
+
         if ($localRef -eq $remoteRef) {
             Write-LogMessage "The bot is already at the latest version." -Type "SUCCESS"
             return $true
         }
-        
+
         Write-LogMessage "Updating to the latest version..." -Type "UPDATE"
         git pull
-        
+
         # Check if the update was successful
         if ($LASTEXITCODE -eq 0) {
             $newVersion = git rev-parse HEAD
             Write-LogMessage "Update completed successfully!" -Type "SUCCESS"
             Write-LogMessage "New version: $newVersion" -Type "INFO"
-            
+
             # Display change log
             Write-LogMessage "Changes since the previous version:" -Type "INFO"
             git log --pretty=format:"%h - %s (%cr)" $currentVersion..$newVersion
-            
+
             return $true
         } else {
             Write-LogMessage "Failed to update the repository." -Type "ERROR"
@@ -165,7 +165,7 @@ function Update-Repository {
 # Function to update dependencies
 function Update-Dependencies {
     Write-LogMessage "Updating dependencies..." -Type "UPDATE"
-    
+
     if (Test-Path "requirements.txt") {
         try {
             python -m pip install --upgrade pip
@@ -188,34 +188,34 @@ function Restore-Backup {
         [Parameter(Mandatory = $true)]
         [string]$BackupDir
     )
-    
+
     Write-LogMessage "Restoring backup from $BackupDir..." -Type "WARNING"
-    
+
     # Restore configurations
     if (Test-Path "$BackupDir\config") {
         Copy-Item -Path "$BackupDir\config" -Destination "." -Recurse -Force
         Write-LogMessage "Configurations restored successfully" -Type "SUCCESS"
     }
-    
+
     # Restore logs
     if (Test-Path "$BackupDir\logs") {
         Copy-Item -Path "$BackupDir\logs" -Destination "." -Recurse -Force
         Write-LogMessage "Logs restored successfully" -Type "SUCCESS"
     }
-    
+
     # Restore data
     if (Test-Path "$BackupDir\data") {
         Copy-Item -Path "$BackupDir\data" -Destination "." -Recurse -Force
         Write-LogMessage "Data restored successfully" -Type "SUCCESS"
     }
-    
+
     Write-LogMessage "Restoration completed" -Type "SUCCESS"
 }
 
 # Function to check bot health after update
 function Test-BotHealth {
     Write-LogMessage "Checking bot health after update..." -Type "INFO"
-    
+
     if (Test-Path "check_bot_health.ps1") {
         try {
             & .\check_bot_health.ps1
@@ -241,33 +241,33 @@ function Update-Bot {
     Write-Host "|                                                              |" -ForegroundColor Cyan
     Write-Host "+--------------------------------------------------------------+" -ForegroundColor Cyan
     Write-Host ""
-    
+
     Write-LogMessage "Starting EVA & GUARANI bot update process..." -Type "INFO"
-    
+
     # Check prerequisites
     $gitInstalled = Test-GitInstalled
     $pythonInstalled = Test-PythonInstalled
-    
+
     if (-not $gitInstalled -or -not $pythonInstalled) {
         Write-LogMessage "Prerequisites not met. Update canceled." -Type "ERROR"
         return
     }
-    
+
     # Create backup
     $backupDir = Backup-ConfigFiles
     Write-LogMessage "Backup created at: $backupDir" -Type "SUCCESS"
-    
+
     # Update repository
     $repoUpdated = Update-Repository
-    
+
     if ($repoUpdated) {
         # Update dependencies
         $depsUpdated = Update-Dependencies
-        
+
         if ($depsUpdated) {
             # Check bot health
             $healthOk = Test-BotHealth
-            
+
             if ($healthOk) {
                 Write-LogMessage "Update completed successfully!" -Type "SUCCESS"
                 Write-LogMessage "The EVA & GUARANI bot has been updated to the latest version." -Type "SUCCESS"
@@ -275,7 +275,7 @@ function Update-Bot {
             } else {
                 Write-LogMessage "Problems detected after the update." -Type "WARNING"
                 $restore = Read-Host "Do you want to restore the backup? (Y/N)"
-                
+
                 if ($restore -eq "Y") {
                     Restore-Backup -BackupDir $backupDir
                 }
@@ -283,7 +283,7 @@ function Update-Bot {
         } else {
             Write-LogMessage "Failed to update dependencies." -Type "ERROR"
             $restore = Read-Host "Do you want to restore the backup? (Y/N)"
-            
+
             if ($restore -eq "Y") {
                 Restore-Backup -BackupDir $backupDir
             }
@@ -291,7 +291,7 @@ function Update-Bot {
     } else {
         Write-LogMessage "Update canceled or failed." -Type "WARNING"
     }
-    
+
     # Footer
     Write-Host ""
     Write-Host "+--------------------------------------------------------------+" -ForegroundColor Cyan
@@ -300,7 +300,7 @@ function Update-Bot {
     Write-Host "|                                                              |" -ForegroundColor Cyan
     Write-Host "+--------------------------------------------------------------+" -ForegroundColor Cyan
     Write-Host ""
-    
+
     Write-Host "*** EVA & GUARANI ***" -ForegroundColor Magenta
     Write-Host ""
 }

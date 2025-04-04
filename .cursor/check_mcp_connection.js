@@ -3,7 +3,7 @@ const WebSocket = require('ws');
 // MCP Configuration
 const MCP_CONFIG = {
     host: 'localhost',
-    port: 38002,
+    port: 38001,
     timeout: 5000
 };
 
@@ -47,11 +47,11 @@ async function main() {
         console.error('❌ Erro ao conectar com o servidor MCP:', error.message);
         console.log('\nSugestões de solução:');
         console.log('1. Verifique se o servidor MCP está em execução');
-        console.log('2. Verifique se a porta 38002 está disponível');
+        console.log('2. Verifique se a porta 38001 está disponível');
         console.log('3. Verifique se há bloqueio de firewall');
         console.log('4. Tente reiniciar o servidor MCP');
         process.exit(1);
     }
 }
 
-main(); 
+main();

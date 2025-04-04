@@ -149,7 +149,7 @@ class Component:
 
 class NEXUSCore:
     """Core class for NEXUS analysis and cartography."""
-    
+
     def __init__(self, config_path: str = "config/nexus_config.json"):
         """Initialize NEXUS core with configuration."""
         self.config = self._load_config(config_path)
@@ -157,7 +157,7 @@ class NEXUSCore:
         self.cursor = CursorAPI()
         self.vectorizer = TfidfVectorizer()
         self.logger = logging.getLogger("NEXUS")
-        
+
     def _load_config(self, config_path: str) -> Dict:
         """Load configuration from JSON file."""
         try:
@@ -165,7 +165,7 @@ class NEXUSCore:
                 return json.load(f)
         except Exception as e:
             raise Exception(f"Failed to load config: {str(e)}")
-            
+
     def _setup_logging(self):
         """Configure logging based on config settings."""
         log_config = self.config.get('logging', {})
@@ -174,13 +174,13 @@ class NEXUSCore:
             format=log_config.get('format', '%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
             filename=log_config.get('file', 'logs/nexus.log')
         )
-        
+
     def analyze_code(self, file_path: str) -> Dict:
         """Analyze code file and generate metrics."""
         try:
             with open(file_path, 'r') as f:
                 content = f.read()
-                
+
             metrics = {
                 'lines': len(content.splitlines()),
                 'chars': len(content),
@@ -189,26 +189,26 @@ class NEXUSCore:
                 'functions': self._extract_functions(content),
                 'classes': self._extract_classes(content)
             }
-            
+
             self.logger.info(f"Analyzed file: {file_path}")
             return metrics
         except Exception as e:
             self.logger.error(f"Error analyzing file {file_path}: {str(e)}")
             raise
-            
+
     def _calculate_complexity(self, content: str) -> float:
         """Calculate code complexity metrics."""
         lines = content.splitlines()
         indentation_levels = [len(line) - len(line.lstrip()) for line in lines if line.strip()]
         max_indent = max(indentation_levels) if indentation_levels else 0
         avg_indent = np.mean(indentation_levels) if indentation_levels else 0
-        
+
         return {
             'max_depth': max_indent // 4,
             'avg_depth': avg_indent // 4,
             'cognitive_load': self._estimate_cognitive_load(content)
         }
-        
+
     def _estimate_cognitive_load(self, content: str) -> float:
         """Estimate cognitive load based on code patterns."""
         patterns = {
@@ -221,13 +221,13 @@ class NEXUSCore:
             'def ': 1,
             'lambda': 1.5
         }
-        
+
         load = 0
         for pattern, weight in patterns.items():
             load += content.count(pattern) * weight
-            
+
         return load
-        
+
     def _extract_imports(self, content: str) -> List[str]:
         """Extract import statements from code."""
         imports = []
@@ -236,38 +236,38 @@ class NEXUSCore:
             if line.startswith('import ') or line.startswith('from '):
                 imports.append(line)
         return imports
-        
+
     def _extract_functions(self, content: str) -> List[Dict]:
         """Extract function definitions and metadata."""
         functions = []
         lines = content.splitlines()
-        
+
         for i, line in enumerate(lines):
             if line.strip().startswith('def '):
                 name = line.split('def ')[1].split('(')[0].strip()
                 params = line.split('(')[1].split(')')[0].strip()
                 doc = self._extract_docstring(lines[i+1:])
-                
+
                 functions.append({
                     'name': name,
                     'params': params,
                     'doc': doc,
                     'line': i + 1
                 })
-                
+
         return functions
-        
+
     def _extract_classes(self, content: str) -> List[Dict]:
         """Extract class definitions and metadata."""
         classes = []
         lines = content.splitlines()
-        
+
         for i, line in enumerate(lines):
             if line.strip().startswith('class '):
                 name = line.split('class ')[1].split('(')[0].strip()
                 inheritance = line.split('(')[1].split(')')[0].strip()
                 doc = self._extract_docstring(lines[i+1:])
-                
+
                 classes.append({
                     'name': name,
                     'inheritance': inheritance,
@@ -275,14 +275,14 @@ class NEXUSCore:
                     'line': i + 1,
                     'methods': self._extract_methods(lines[i+1:])
                 })
-                
+
         return classes
-        
+
     def _extract_docstring(self, lines: List[str]) -> str:
         """Extract docstring from code lines."""
         doc = []
         started = False
-        
+
         for line in lines:
             line = line.strip()
             if line.startswith('"""') or line.startswith("'''"):
@@ -294,14 +294,14 @@ class NEXUSCore:
                     return '\n'.join(doc)
             elif started:
                 doc.append(line)
-                
+
         return ''
-        
+
     def _extract_methods(self, lines: List[str]) -> List[Dict]:
         """Extract method definitions from class body."""
         methods = []
         current_indent = None
-        
+
         for i, line in enumerate(lines):
             if current_indent is None:
                 if line.strip():
@@ -309,23 +309,23 @@ class NEXUSCore:
             else:
                 if line.strip() and (len(line) - len(line.lstrip())) <= current_indent:
                     break
-                    
+
             if line.strip().startswith('def '):
                 indent = len(line) - len(line.lstrip())
                 if current_indent is not None and indent > current_indent:
                     name = line.split('def ')[1].split('(')[0].strip()
                     params = line.split('(')[1].split(')')[0].strip()
                     doc = self._extract_docstring(lines[i+1:])
-                    
+
                     methods.append({
                         'name': name,
                         'params': params,
                         'doc': doc,
                         'line': i + 1
                     })
-                    
+
         return methods
-        
+
     def analyze_dependencies(self, file_paths: List[str]) -> Dict:
         """Analyze dependencies between files."""
         try:
@@ -338,7 +338,7 @@ class NEXUSCore:
                         'imports': imports,
                         'imported_by': []
                     }
-                    
+
             # Build reverse dependencies
             for file_path, data in dependencies.items():
                 for other_path, other_data in dependencies.items():
@@ -346,12 +346,12 @@ class NEXUSCore:
                         for imp in other_data['imports']:
                             if self._is_importing_file(imp, file_path):
                                 dependencies[file_path]['imported_by'].append(other_path)
-                                
+
             return dependencies
         except Exception as e:
             self.logger.error(f"Error analyzing dependencies: {str(e)}")
             raise
-            
+
     def _is_importing_file(self, import_stmt: str, file_path: str) -> bool:
         """Check if import statement references file."""
         module_path = file_path.replace('/', '.').replace('\\', '.').replace('.py', '')
@@ -359,7 +359,7 @@ class NEXUSCore:
             return module_path in import_stmt
         else:
             return module_path == import_stmt.split(' ')[1]
-            
+
     def generate_visualization(self, data: Dict, output_path: str):
         """Generate visualization of analysis results."""
         try:
@@ -368,7 +368,7 @@ class NEXUSCore:
         except Exception as e:
             self.logger.error(f"Error generating visualization: {str(e)}")
             raise
-            
+
     def export_analysis(self, data: Dict, format: str = 'json') -> str:
         """Export analysis results in specified format."""
         try:
@@ -381,17 +381,17 @@ class NEXUSCore:
         except Exception as e:
             self.logger.error(f"Error exporting analysis: {str(e)}")
             raise
-            
+
     def _convert_to_markdown(self, data: Dict) -> str:
         """Convert analysis data to markdown format."""
         md = ["# NEXUS Analysis Report\n"]
-        
+
         # Add sections based on data structure
         if 'metrics' in data:
             md.append("## Code Metrics\n")
             for key, value in data['metrics'].items():
                 md.append(f"- **{key}**: {value}\n")
-                
+
         if 'dependencies' in data:
             md.append("\n## Dependencies\n")
             for file, deps in data['dependencies'].items():
@@ -399,9 +399,9 @@ class NEXUSCore:
                 md.append("\nImports:\n")
                 for imp in deps['imports']:
                     md.append(f"- {imp}\n")
-                    
+
         return '\n'.join(md)
-        
+
     def analyze_workspace(self) -> Dict:
         """Analyze entire workspace using Cursor API."""
         try:
@@ -415,26 +415,26 @@ class NEXUSCore:
                     'total_complexity': 0
                 }
             }
-            
+
             for file_path in workspace_files:
                 if file_path.endswith('.py'):
                     file_analysis = self.analyze_code(file_path)
                     analysis['files'][file_path] = file_analysis
                     analysis['metrics']['total_lines'] += file_analysis['lines']
                     analysis['metrics']['total_complexity'] += sum(file_analysis['complexity'].values())
-                    
+
             analysis['dependencies'] = self.analyze_dependencies(workspace_files)
-            
+
             self.logger.info("Completed workspace analysis")
             return analysis
         except Exception as e:
             self.logger.error(f"Error analyzing workspace: {str(e)}")
             raise
-            
+
     def suggest_improvements(self, analysis: Dict) -> List[Dict]:
         """Generate improvement suggestions based on analysis."""
         suggestions = []
-        
+
         # Complexity-based suggestions
         for file_path, data in analysis['files'].items():
             complexity = data['complexity']
@@ -445,7 +445,7 @@ class NEXUSCore:
                     'severity': 'high',
                     'message': 'High cognitive load detected. Consider breaking down into smaller functions.'
                 })
-                
+
             if complexity['max_depth'] > 5:
                 suggestions.append({
                     'file': file_path,
@@ -453,7 +453,7 @@ class NEXUSCore:
                     'severity': 'medium',
                     'message': 'Deep nesting detected. Consider restructuring to reduce nesting levels.'
                 })
-                
+
         # Dependency-based suggestions
         for file_path, deps in analysis['dependencies'].items():
             if len(deps['imports']) > 15:
@@ -463,7 +463,7 @@ class NEXUSCore:
                     'severity': 'medium',
                     'message': 'High number of imports. Consider modularizing or using dependency injection.'
                 })
-                
+
             if len(deps['imported_by']) > 10:
                 suggestions.append({
                     'file': file_path,
@@ -471,13 +471,13 @@ class NEXUSCore:
                     'severity': 'medium',
                     'message': 'File is imported by many modules. Consider if it should be split into smaller, more focused modules.'
                 })
-                
+
         return suggestions
 
 if __name__ == "__main__":
     # Example usage
     nexus = NEXUSCore()
-    
+
     # Create test component metrics
     metrics = ComponentMetrics(
         complexity=0.7,
@@ -489,7 +489,7 @@ if __name__ == "__main__":
         performance_score=0.88,
         last_updated=datetime.now()
     )
-    
+
     # Create test component
     test_component = Component(
         id="comp1",
@@ -502,10 +502,10 @@ if __name__ == "__main__":
         created_at=datetime.now(),
         updated_at=datetime.now()
     )
-    
+
     # Register component
     nexus.register_component(test_component)
-    
+
     # Analyze component
     analysis = nexus.analyze_component("comp1", AnalysisLevel.QUANTUM)
-    print("Component Analysis:", analysis) 
+    print("Component Analysis:", analysis)

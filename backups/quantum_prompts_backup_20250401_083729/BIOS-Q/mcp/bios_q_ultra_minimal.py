@@ -2,6 +2,7 @@
 import sys
 import json
 
+
 def read_message():
     try:
         line = sys.stdin.readline()
@@ -11,12 +12,14 @@ def read_message():
     except:
         return None
 
+
 def write_message(message):
     try:
         sys.stdout.write(json.dumps(message) + "\n")
         sys.stdout.flush()
     except:
         pass
+
 
 def main():
     while True:
@@ -31,20 +34,25 @@ def main():
             write_message({"type": "response", "id": msg_id, "status": "success"})
             break
         elif msg_type == "list_tools":
-            write_message({
-                "type": "response",
-                "id": msg_id,
-                "status": "success",
-                "data": {
-                    "tools": [{
-                        "name": "bios_q_status",
-                        "description": "Get BIOS-Q status",
-                        "schema": {"type": "object", "properties": {}}
-                    }]
+            write_message(
+                {
+                    "type": "response",
+                    "id": msg_id,
+                    "status": "success",
+                    "data": {
+                        "tools": [
+                            {
+                                "name": "bios_q_status",
+                                "description": "Get BIOS-Q status",
+                                "schema": {"type": "object", "properties": {}},
+                            }
+                        ]
+                    },
                 }
-            })
+            )
         else:
             write_message({"type": "response", "id": msg_id, "status": "success"})
 
+
 if __name__ == "__main__":
-    main() 
+    main()

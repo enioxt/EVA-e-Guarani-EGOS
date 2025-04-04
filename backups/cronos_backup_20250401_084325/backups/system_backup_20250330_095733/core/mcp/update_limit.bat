@@ -74,7 +74,7 @@ ECHO ===================================
 ECHO EVA ^& GUARANI - ATUALIZAR LIMITE
 ECHO ===================================
 ECHO.
-ECHO Este script deve ser executado quando o Cursor 
+ECHO Este script deve ser executado quando o Cursor
 ECHO solicitar iniciar um novo chat.
 ECHO.
 ECHO O limite atual será registrado como o limite real
@@ -90,4 +90,4 @@ ECHO 1. Feche o Cursor se necessário
 ECHO 2. Execute start_monitor.bat para iniciar novamente
 ECHO.
 ECHO Pressione qualquer tecla para continuar...
-pause > nul 
+pause > nul

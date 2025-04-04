@@ -26,18 +26,18 @@ print(f"- Tamanho: {status['current_size']} caracteres")
 # Adiciona mensagens até se aproximar de 80%
 print("\nAdicionando mensagens...")
 count = 0
-while status['capacity_used'] < 0.79:
+while status["capacity_used"] < 0.79:
     # Adiciona uma mensagem
     add_message(f"[Mensagem {count}] {TEST_MESSAGE}")
     count += 1
-    
+
     # Verifica status atual
     status = get_status()
-    
+
     # Mostra progresso a cada 10 mensagens
     if count % 10 == 0:
         print(f"- Adicionadas {count} mensagens - Capacidade: {status['capacity_used']*100:.1f}%")
-    
+
     # Pequena pausa para não sobrecarregar
     time.sleep(0.1)
 
@@ -59,11 +59,11 @@ print(f"- Mensagens: {final_status['message_count']}")
 print(f"- Último salvamento: {time.ctime(final_status['last_save_time'])}")
 
 # Verifica se o salvamento foi acionado
-if final_status['last_save_time'] > status['last_save_time']:
+if final_status["last_save_time"] > status["last_save_time"]:
     print("\n✅ Salvamento automático realizado com sucesso!")
 else:
     print("\n❌ Salvamento automático não foi acionado como esperado.")
     print("Forçando salvamento manualmente...")
     force_save()
 
-print("\nTeste concluído!") 
+print("\nTeste concluído!")

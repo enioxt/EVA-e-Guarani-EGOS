@@ -56,4 +56,4 @@ whitenoise>=6.0.0  # For serving static files
 
 # Development
 pytest>=7.0.0
-black>=22.1.0 
+black>=22.1.0

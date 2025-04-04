@@ -37,4 +37,4 @@ python3 -m tools.integration.mcp_server "$@"
 # Deactivate virtual environment before exiting
 if [ -f "venv/bin/activate" ]; then
     deactivate
-fi 
+fi

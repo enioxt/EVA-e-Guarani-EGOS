@@ -24,7 +24,7 @@ EVA & GUARANI - Dynamic Roadmap and Quantum Prompt Manager
 Version: 7.5
 Created: 2025-03-26
 
-This module implements a dynamic system that automatically updates roadmaps 
+This module implements a dynamic system that automatically updates roadmaps
 and quantum prompts based on the current state of the project.
 """
 
@@ -65,13 +65,13 @@ class DynamicRoadmapManager:
         self.logger = logging.getLogger("dynamic-roadmap")
         self.version = "7.5"
         self.ensure_directories()
-        
+
     def ensure_directories(self):
         """Ensure all required directories exist."""
         os.makedirs(MASTER_DIR, exist_ok=True)
         os.makedirs(MCP_CONFIG_DIR, exist_ok=True)
         os.makedirs("logs", exist_ok=True)
-        
+
     def scan_implementation_status(self):
         """Scan codebase to detect implementation status."""
         status = {
@@ -79,7 +79,7 @@ class DynamicRoadmapManager:
             "mcp": {},
             "phases": {}
         }
-        
+
         # Scan QUANTUM_PROMPTS directory
         for subsystem in ["CRONOS", "ATLAS", "NEXUS", "ETHIK"]:
             subsystem_dir = os.path.join(QUANTUM_PROMPTS_DIR, subsystem)
@@ -95,7 +95,7 @@ class DynamicRoadmapManager:
                     "status": "planned",
                     "completion": 0.0
                 }
-                
+
         # Scan MCP directory
         for mcp in ["sequential-thinking", "perplexity", "cronos-mcp", "nexus-mcp"]:
             config_file = os.path.join(MCP_CONFIG_DIR, f"{mcp}.json")
@@ -111,13 +111,13 @@ class DynamicRoadmapManager:
                     "status": "planned",
                     "integration": 0.0
                 }
-                
+
         return status
-    
+
     def update_roadmap(self, status):
         """Update the roadmap file with current status."""
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-        
+
         content = f"""# EVA & GUARANI - Implementation Roadmap
 
 Version: {self.version}
@@ -128,49 +128,49 @@ Last Updated: {now}
 | Subsystem | Status | Completion |
 |-----------|--------|------------|
 """
-        
+
         for subsystem, data in status["subsystems"].items():
             content += f"| {subsystem} | {data['status']} | {data['completion']*100:.1f}% |\n"
-            
+
         content += "\n## MCP Integration Status\n\n"
         content += "| MCP | Status | Integration |\n"
         content += "|-----|--------|-------------|\n"
-        
+
         for mcp, data in status["mcp"].items():
             content += f"| {mcp} | {data['status']} | {data['integration']*100:.1f}% |\n"
-            
+
         with open(ROADMAP_FILE, "w") as f:
             f.write(content)
-            
+
         self.logger.info(f"Updated roadmap: {ROADMAP_FILE}")
-    
+
     def update_quantum_prompt(self, status):
         """Generate and update the quantum prompt."""
         now = datetime.datetime.now().isoformat()
-        
+
         content = f"""EVA & GUARANI - Quantum Prompt
 Version: {self.version}
 Generated: {now}
 
 Implementation Status:
 """
-        
+
         for subsystem, data in status["subsystems"].items():
             content += f"\n{subsystem}:"
             content += f"\n  Status: {data['status']}"
             content += f"\n  Completion: {data['completion']*100:.1f}%"
-            
+
         content += "\n\nMCP Integration:"
         for mcp, data in status["mcp"].items():
             content += f"\n{mcp}:"
             content += f"\n  Status: {data['status']}"
             content += f"\n  Integration: {data['integration']*100:.1f}%"
-            
+
         with open(OUTPUT_QUANTUM_PROMPT, "w") as f:
             f.write(content)
-            
+
         self.logger.info(f"Updated quantum prompt: {OUTPUT_QUANTUM_PROMPT}")
-    
+
     def run_update_cycle(self):
         """Run a complete update cycle."""
         try:
@@ -181,11 +181,11 @@ Implementation Status:
         except Exception as e:
             self.logger.error(f"Error in update cycle: {e}")
             return False
-    
+
     def start_monitoring(self, interval=3600):
         """Start continuous monitoring."""
         self.logger.info(f"Starting monitoring with {interval}s interval...")
-        
+
         try:
             while True:
                 self.run_update_cycle()
@@ -197,7 +197,7 @@ Implementation Status:
 
 if __name__ == "__main__":
     manager = DynamicRoadmapManager()
-    
+
     if len(sys.argv) > 1:
         if sys.argv[1] == "--monitor":
             interval = 3600
@@ -296,24 +296,24 @@ System:
   Version: "7.5"
   Type: "Master"
   Priority: 1
-  
+
 Integration:
   Subsystems:
     - Name: "CRONOS"
       Path: "../CRONOS/config/quantum_prompt.md"
       Priority: 2
       Dependencies: []
-      
+
     - Name: "ATLAS"
-      Path: "../ATLAS/config/quantum_prompt.md" 
+      Path: "../ATLAS/config/quantum_prompt.md"
       Priority: 3
       Dependencies: ["CRONOS"]
-      
+
     - Name: "NEXUS"
       Path: "../NEXUS/config/quantum_prompt.md"
       Priority: 4
       Dependencies: ["ATLAS"]
-      
+
     - Name: "ETHIK"
       Path: "../ETHIK/config/quantum_prompt.md"
       Priority: 5
@@ -536,7 +536,7 @@ class QuantumRoadmapManager:
         self.quantum_prompts_dir = "QUANTUM_PROMPTS"
         self.master_dir = os.path.join(self.quantum_prompts_dir, "MASTER")
         self.subsystems = ["CRONOS", "ATLAS", "NEXUS", "ETHIK"]
-        
+
         # Ensure directories exist
         os.makedirs(self.master_dir, exist_ok=True)
         for subsystem in self.subsystems:
@@ -546,10 +546,10 @@ class QuantumRoadmapManager:
         subsystem_dir = os.path.join(self.quantum_prompts_dir, subsystem)
         if not os.path.exists(subsystem_dir):
             return 0.0
-            
+
         total_files = 0
         implemented_files = 0
-        
+
         for root, _, files in os.walk(subsystem_dir):
             for file in files:
                 if file.endswith('.py'):
@@ -562,29 +562,29 @@ class QuantumRoadmapManager:
                                 implemented_files += 1
                     except Exception as e:
                         logging.error(f"Error reading file {file_path}: {e}")
-                            
+
         return (implemented_files / total_files * 100) if total_files > 0 else 0.0
 
     def update_roadmap(self):
         logging.info(f"{Fore.GREEN}Updating roadmap...{Style.RESET_ALL}")
-        
+
         try:
             # Calculate completion for each subsystem
             completion = {}
             for subsystem in tqdm(self.subsystems, desc="Analyzing subsystems"):
                 completion[subsystem] = self.calculate_completion(subsystem)
                 logging.info(f"{subsystem} completion: {completion[subsystem]:.1f}%")
-                
+
             # Update roadmap.md
             roadmap_path = os.path.join(self.master_dir, "roadmap.md")
             with open(roadmap_path, 'w') as f:
                 f.write("# EVA & GUARANI - Implementation Roadmap\n\n")
                 f.write(f"Last updated: {time.strftime('%Y-%m-%d %H:%M:%S')}\n\n")
-                
+
                 for subsystem in self.subsystems:
                     f.write(f"## {subsystem}\n")
                     f.write(f"Implementation: {completion[subsystem]:.1f}%\n\n")
-                    
+
             # Update quantum_prompt.txt
             prompt_path = "quantum_prompt.txt"
             with open(prompt_path, 'w') as f:
@@ -592,9 +592,9 @@ class QuantumRoadmapManager:
                 f.write("Implementation Status:\n")
                 for subsystem in self.subsystems:
                     f.write(f"{subsystem}: {completion[subsystem]:.1f}%\n")
-                    
+
             logging.info(f"{Fore.GREEN}Roadmap updated successfully!{Style.RESET_ALL}")
-            
+
         except Exception as e:
             logging.error(f"{Fore.RED}Error updating roadmap: {e}{Style.RESET_ALL}")
 
@@ -632,13 +632,13 @@ Maps and visualizes system connections.
 class SystemMapper:
     def __init__(self):
         self.connections = {}
-        
+
     def add_connection(self, source, target, connection_type="default"):
         """Add a connection between two components."""
         if source not in self.connections:
             self.connections[source] = {}
         self.connections[source][target] = connection_type
-        
+
     def get_connections(self, component):
         """Get all connections for a component."""
         return self.connections.get(component, {})

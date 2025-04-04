@@ -55,7 +55,7 @@ O `unified_telegram_bot.py` está bem estruturado e modularizado, com uma implem
 
 ## Melhorias Potenciais
 
-1. **Gestão de Dependências**: 
+1. **Gestão de Dependências**:
    - O arquivo `requirements.txt` foi criado, mas poderia ser expandido para incluir versões específicas para todas as dependências.
 
 2. **Manipulação de Erros**:

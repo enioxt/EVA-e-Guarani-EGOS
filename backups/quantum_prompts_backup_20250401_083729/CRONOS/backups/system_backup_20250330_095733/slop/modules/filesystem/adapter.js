@@ -45,7 +45,7 @@ METADATA:
  * EVA & GUARANI - Filesystem Module Client Adapter
  * Version: 1.0.0
  * Date: 2025-03-29
- * 
+ *
  * This module provides a client-side adapter for the filesystem module.
  */
 
@@ -200,4 +200,4 @@ if (typeof module !== 'undefined' && module.exports) {
 // For browser environments
 if (typeof window !== 'undefined') {
     window.EVAFilesystem = { createAdapter };
-} 
+}

@@ -20,8 +20,8 @@ import datetime
 # Setup basic logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler()]
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.StreamHandler()],
 )
 
 logger = logging.getLogger("simple_bot")
@@ -40,29 +40,30 @@ config_path = os.path.join(current_dir, "telegram_config.json")
 try:
     with open(config_path, "r", encoding="utf-8") as f:
         config = json.load(f)
-    
+
     token = config.get("token", "")
     bot_name = config.get("bot_name", "avatechartbot")
-    
+
     if not token:
         logger.error("Bot token not configured in telegram_config.json")
         sys.exit(1)
-        
+
     logger.info(f"Loaded configuration for bot: {bot_name}")
-    
+
 except Exception as e:
     logger.error(f"Error loading config: {e}")
     sys.exit(1)
 
 # Fake the imghdr module that might be missing in Python 3.13+
-sys.modules['imghdr'] = type('', (), {})()
-sys.modules['imghdr'].what = lambda *args, **kwargs: None
+sys.modules["imghdr"] = type("", (), {})()
+sys.modules["imghdr"].what = lambda *args, **kwargs: None
 
 # Now try to import telegram
 try:
     # Use alternative imports to avoid potential issues
     import telegram
     from telegram import Update
+
     logger.info(f"Successfully imported python-telegram-bot version {telegram.__version__}")
 except ImportError as e:
     logger.error(f"Failed to import python-telegram-bot. Error: {e}")
@@ -80,6 +81,7 @@ except ImportError as e:
 # Time tracking
 start_time = None
 
+
 def start_command(update: Update, context: CallbackContext):
     """Handle the /start command"""
     if update.effective_chat:
@@ -95,8 +97,9 @@ def start_command(update: Update, context: CallbackContext):
                 "• /credits - Show credit information\n\n"
                 "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
             ),
-            parse_mode=ParseMode.MARKDOWN
+            parse_mode=ParseMode.MARKDOWN,
         )
+
 
 def help_command(update: Update, context: CallbackContext):
     """Handle the /help command"""
@@ -113,8 +116,9 @@ def help_command(update: Update, context: CallbackContext):
                 "You can also simply chat with me by typing a message!\n\n"
                 "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
             ),
-            parse_mode=ParseMode.MARKDOWN
+            parse_mode=ParseMode.MARKDOWN,
         )
+
 
 def status_command(update: Update, context: CallbackContext):
     """Handle the /status command"""
@@ -124,7 +128,7 @@ def status_command(update: Update, context: CallbackContext):
         hours = seconds // 3600
         minutes = (seconds % 3600) // 60
         seconds = seconds % 60
-        
+
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=(
@@ -135,8 +139,9 @@ def status_command(update: Update, context: CallbackContext):
                 f"• Features available: Basic responses\n\n"
                 f"✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
             ),
-            parse_mode=ParseMode.MARKDOWN
+            parse_mode=ParseMode.MARKDOWN,
         )
+
 
 def credits_command(update: Update, context: CallbackContext):
     """Handle the /credits command"""
@@ -158,15 +163,16 @@ def credits_command(update: Update, context: CallbackContext):
                 "If you enjoy using this bot, please share it with friends!\n\n"
                 "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
             ),
-            parse_mode=ParseMode.MARKDOWN
+            parse_mode=ParseMode.MARKDOWN,
         )
+
 
 def text_message(update: Update, context: CallbackContext):
     """Handle text messages"""
     if update.effective_chat and update.message and update.message.text:
         # Show typing indicator
         context.bot.send_chat_action(chat_id=update.effective_chat.id, action="typing")
-        
+
         # Simple response
         context.bot.send_message(
             chat_id=update.effective_chat.id,
@@ -176,39 +182,41 @@ def text_message(update: Update, context: CallbackContext):
                 "like image generation, payment processing, and knowledge base access.\n\n"
                 "For now, try using commands like /start, /status, /help, or /credits.\n\n"
                 "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
-            )
+            ),
         )
+
 
 def main():
     """Main function to run the bot"""
     global start_time
     start_time = datetime.datetime.now()
-    
+
     print("\n✧༺❀༻∞ EVA & GUARANI - Simple Telegram Bot ∞༺❀༻✧\n")
     print(f"Starting bot: {bot_name}")
     print(f"Token: {token[:6]}...{token[-4:]}")
     print("Press Ctrl+C to stop the bot.")
     print()
-    
+
     # Create the Updater and dispatcher
     updater = Updater(token=token, use_context=True)
     dispatcher = updater.dispatcher
-    
+
     # Add handlers
     dispatcher.add_handler(CommandHandler("start", start_command))
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("status", status_command))
     dispatcher.add_handler(CommandHandler("credits", credits_command))
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, text_message))
-    
+
     # Start the bot
     updater.start_polling()
     print("Bot is running!")
-    
+
     # Run the bot until Ctrl+C is pressed
     updater.idle()
-    
+
     print("\n✧༺❀༻∞ Bot stopped ∞༺❀༻✧\n")
 
+
 if __name__ == "__main__":
-    main() 
+    main()

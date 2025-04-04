@@ -14,7 +14,7 @@ function Write-LogMessage {
         [string]$message,
         [string]$type = "INFO"
     )
-    
+
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $logMessage = "$timestamp [$type] $message"
     Write-Host $logMessage
@@ -60,24 +60,24 @@ foreach ($file in $files) {
     $content = Get-Content -Path $file.FullName -Raw -Encoding UTF8
     $oldPathEscaped = [regex]::Escape($oldPath)
     $newContent = $content -replace $oldPathEscaped, $newPath
-    
+
     # Also replace versions with backslash escape
     $oldPathWithBackslashes = $oldPath -replace "\\", "\\"
     $newPathWithBackslashes = $newPath -replace "\\", "\\"
     $newContent = $newContent -replace $oldPathWithBackslashes, $newPathWithBackslashes
-    
+
     # Replace versions with normal slash escape for URL use
     $oldPathForUrl = $oldPath -replace "\\", "/"
     $newPathForUrl = $newPath -replace "\\", "/"
     $newContent = $newContent -replace $oldPathForUrl, $newPathForUrl
-    
+
     # Check if there were changes
     if ($content -ne $newContent) {
         Set-Content -Path $file.FullName -Value $newContent -Encoding UTF8
         $replacements = (Select-String -InputObject $content -Pattern $oldPath -AllMatches).Matches.Count
         $replacements += (Select-String -InputObject $content -Pattern $oldPathWithBackslashes -AllMatches).Matches.Count
         $replacements += (Select-String -InputObject $content -Pattern $oldPathForUrl -AllMatches).Matches.Count
-        
+
         Write-LogMessage "File updated: $($file.FullName) - $replacements occurrences" "OK"
         $filesUpdated++
         $occurrencesReplaced += $replacements
@@ -92,7 +92,7 @@ $batchContent = @"
 echo Renaming project directory...
 timeout /t 2 /nobreak
 ren "$oldPath" "Eva e Guarani - EGOS"
-echo Renaming completed! 
+echo Renaming completed!
 echo Please reopen the project in the new directory: $newPath
 pause
 "@

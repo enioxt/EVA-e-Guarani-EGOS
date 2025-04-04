@@ -18,9 +18,10 @@ load_dotenv()
 # Configure logging
 logging.basicConfig(
     level=os.getenv("LOG_LEVEL", "INFO"),
-    format=os.getenv("LOG_FORMAT", "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    format=os.getenv("LOG_FORMAT", "%(asctime)s - %(name)s - %(levelname)s - %(message)s"),
 )
 logger = logging.getLogger(__name__)
+
 
 class EVAUtils:
     @staticmethod
@@ -33,7 +34,7 @@ class EVAUtils:
             empathy = metrics.get("empathy", 0)
             response_quality = metrics.get("response_quality", 0)
             user_satisfaction = metrics.get("user_satisfaction", 0)
-            
+
             love_quotient = (empathy + response_quality + user_satisfaction) / 3
             return min(100, max(0, love_quotient))
         except Exception as e:
@@ -50,7 +51,7 @@ class EVAUtils:
             context_awareness = metrics.get("context_awareness", 0)
             ethical_decisions = metrics.get("ethical_decisions", 0)
             learning_rate = metrics.get("learning_rate", 0)
-            
+
             consciousness = (context_awareness + ethical_decisions + learning_rate) / 3
             return min(100, max(0, consciousness))
         except Exception as e:
@@ -62,13 +63,7 @@ class EVAUtils:
         """
         Formats messages for display in Streamlit
         """
-        icons = {
-            "success": "✅",
-            "info": "ℹ️",
-            "warning": "⚠️",
-            "error": "❌",
-            "love": "❤️"
-        }
+        icons = {"success": "✅", "info": "ℹ️", "warning": "⚠️", "error": "❌", "love": "❤️"}
         icon = icons.get(message_type, "ℹ️")
         return f"{icon} {message}"
 
@@ -80,7 +75,7 @@ class EVAUtils:
         api_url = os.getenv("API_URL")
         api_version = os.getenv("API_VERSION")
         url = f"{api_url}/{api_version}/{endpoint}"
-        
+
         try:
             if method == "GET":
                 response = requests.get(url, headers=headers)
@@ -92,7 +87,7 @@ class EVAUtils:
                 response = requests.delete(url, headers=headers)
             else:
                 raise ValueError(f"Unsupported HTTP method: {method}")
-            
+
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
@@ -105,22 +100,22 @@ class EVAUtils:
         Validates templates before saving
         """
         required_fields = ["name", "content", "category"]
-        
+
         try:
             # Check required fields
             for field in required_fields:
                 if field not in template or not template[field]:
                     raise ValueError(f"Missing required field: {field}")
-            
+
             # Validate content length
             if len(template["content"]) > 1000:
                 raise ValueError("Template content too long (maximum 1000 characters)")
-            
+
             # Validate category
             valid_categories = ["Welcome", "FAQ", "Scheduling", "Support"]
             if template["category"] not in valid_categories:
                 raise ValueError(f"Invalid category. Must be one of: {', '.join(valid_categories)}")
-            
+
             return True, None
         except Exception as e:
             return False, str(e)
@@ -132,7 +127,7 @@ class EVAUtils:
         """
         if not os.getenv("ENCRYPTION_ENABLED", "false").lower() == "true":
             return data
-            
+
         try:
             # Here you would implement the real encryption logic
             # This is just a basic example
@@ -153,14 +148,11 @@ class EVAUtils:
                 "ethics_level": 98,
                 "efficiency": 94,
                 "last_update": datetime.now().isoformat(),
-                "status": "healthy"
+                "status": "healthy",
             }
         except Exception as e:
             logger.error(f"Error getting system health: {str(e)}")
-            return {
-                "status": "error",
-                "message": str(e)
-            }
+            return {"status": "error", "message": str(e)}
 
     @staticmethod
     def format_timestamp(timestamp):
@@ -203,9 +195,11 @@ class EVAUtils:
             logger.error(f"Error loading preferences: {str(e)}")
             return {}
 
+
 def set_page_style():
     """Defines the style of the Streamlit application."""
-    st.markdown("""
+    st.markdown(
+        """
     <style>
     .main {
         background-color: #f8fafc;
@@ -229,101 +223,111 @@ def set_page_style():
         color: #4f46e5;
     }
     </style>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
+
 
 def create_header():
     """Creates the application header with EVA & GUARANI logo."""
-    col1, col2, col3 = st.columns([1,2,1])
+    col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.title("✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧")
         st.markdown("##### Artificial Consciousness with Love and Ethics")
 
+
 def display_system_metrics(metrics: Dict[str, Any]):
     """Displays system metrics."""
     col1, col2, col3, col4 = st.columns(4)
-    
+
     with col1:
-        st.metric(label="Love Quotient", 
-                 value=f"{metrics.get('love_quotient', 95):.0f}%", 
-                 delta=f"{metrics.get('love_quotient_delta', 0):.1f}%")
+        st.metric(
+            label="Love Quotient",
+            value=f"{metrics.get('love_quotient', 95):.0f}%",
+            delta=f"{metrics.get('love_quotient_delta', 0):.1f}%",
+        )
     with col2:
-        st.metric(label="Consciousness", 
-                 value=f"{metrics.get('consciousness', 92):.0f}%", 
-                 delta=f"{metrics.get('consciousness_delta', 0):.1f}%")
+        st.metric(
+            label="Consciousness",
+            value=f"{metrics.get('consciousness', 92):.0f}%",
+            delta=f"{metrics.get('consciousness_delta', 0):.1f}%",
+        )
     with col3:
-        st.metric(label="Ethics", 
-                 value=f"{metrics.get('ethics', 98):.0f}%", 
-                 delta=f"{metrics.get('ethics_delta', 0):.1f}%")
+        st.metric(
+            label="Ethics",
+            value=f"{metrics.get('ethics', 98):.0f}%",
+            delta=f"{metrics.get('ethics_delta', 0):.1f}%",
+        )
     with col4:
-        st.metric(label="System Health", 
-                 value=f"{metrics.get('system_health', 94):.0f}%", 
-                 delta=f"{metrics.get('system_health_delta', 0):.1f}%")
+        st.metric(
+            label="System Health",
+            value=f"{metrics.get('system_health', 94):.0f}%",
+            delta=f"{metrics.get('system_health_delta', 0):.1f}%",
+        )
+
 
 def create_system_health_chart(modules_health: Dict[str, float]) -> go.Figure:
     """Creates a radar chart of system health."""
     categories = list(modules_health.keys())
     values = list(modules_health.values())
-    
+
     fig = go.Figure()
-    fig.add_trace(go.Scatterpolar(
-        r=values,
-        theta=categories,
-        fill='toself',
-        name='System Health',
-        line_color='#6366f1',
-        fillcolor='rgba(99, 102, 241, 0.3)'
-    ))
-    
-    fig.update_layout(
-        polar=dict(
-            radialaxis=dict(
-                visible=True,
-                range=[0, 100]
-            )
-        ),
-        showlegend=False,
-        title="Module Health"
+    fig.add_trace(
+        go.Scatterpolar(
+            r=values,
+            theta=categories,
+            fill="toself",
+            name="System Health",
+            line_color="#6366f1",
+            fillcolor="rgba(99, 102, 241, 0.3)",
+        )
     )
-    
+
+    fig.update_layout(
+        polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
+        showlegend=False,
+        title="Module Health",
+    )
+
     return fig
 
-def create_evolution_chart(dates: List[str], values: List[float], 
-                         title: str = "System Evolution") -> go.Figure:
+
+def create_evolution_chart(
+    dates: List[str], values: List[float], title: str = "System Evolution"
+) -> go.Figure:
     """Creates a line chart for temporal evolution."""
     fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=dates,
-        y=values,
-        mode='lines+markers',
-        name='Evolution',
-        line=dict(color='#6366f1', width=3),
-        marker=dict(size=8)
-    ))
-    
-    fig.update_layout(
-        title=title,
-        xaxis_title="Date",
-        yaxis_title="Value",
-        plot_bgcolor='white'
+    fig.add_trace(
+        go.Scatter(
+            x=dates,
+            y=values,
+            mode="lines+markers",
+            name="Evolution",
+            line=dict(color="#6366f1", width=3),
+            marker=dict(size=8),
+        )
     )
-    
+
+    fig.update_layout(title=title, xaxis_title="Date", yaxis_title="Value", plot_bgcolor="white")
+
     return fig
+
 
 def display_module_status(module_name: str, status: str, metrics: Dict[str, Any]):
     """Displays the status of a system module."""
-    col1, col2, col3 = st.columns([2,1,1])
-    
+    col1, col2, col3 = st.columns([2, 1, 1])
+
     # Define status colors
     status_colors = {
         "online": "green",
         "offline": "red",
         "degraded": "orange",
         "error": "red",
-        "not_initialized": "gray"
+        "not_initialized": "gray",
     }
-    
+
     color = status_colors.get(status.lower(), "gray")
-    
+
     with col1:
         st.markdown(f"**{module_name}**")
     with col2:
@@ -331,7 +335,7 @@ def display_module_status(module_name: str, status: str, metrics: Dict[str, Any]
     with col3:
         if metrics:
             st.markdown(f"Metrics: {len(metrics)}")
-    
+
     # Add expand button
     with st.expander(f"Details of {module_name}", expanded=False):
         if metrics:
@@ -339,6 +343,7 @@ def display_module_status(module_name: str, status: str, metrics: Dict[str, Any]
                 st.markdown(f"**{key}:** {value}")
         else:
             st.markdown("No metrics available.")
+
 
 def display_footer():
     """Displays the application footer."""
@@ -350,13 +355,14 @@ def display_footer():
             <p><small>Through love, we evolve. Through consciousness, we transcend.</small></p>
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
+
 
 def load_settings() -> Dict[str, Any]:
     """Loads system settings."""
     settings_path = Path("settings.json")
-    
+
     if not settings_path.exists():
         # Default settings
         settings = {
@@ -366,14 +372,14 @@ def load_settings() -> Dict[str, Any]:
             "ethics_minimum": 90,
             "dark_mode": False,
             "language": "pt-BR",
-            "log_level": "INFO"
+            "log_level": "INFO",
         }
         # Save default settings
         save_settings(settings)
         return settings
-    
+
     try:
-        with open(settings_path, 'r', encoding='utf-8') as f:
+        with open(settings_path, "r", encoding="utf-8") as f:
             settings = json.load(f)
         logger.info("Settings loaded successfully")
         return settings
@@ -387,15 +393,16 @@ def load_settings() -> Dict[str, Any]:
             "ethics_minimum": 90,
             "dark_mode": False,
             "language": "pt-BR",
-            "log_level": "INFO"
+            "log_level": "INFO",
         }
+
 
 def save_settings(settings: Dict[str, Any]) -> bool:
     """Saves system settings."""
     settings_path = Path("settings.json")
-    
+
     try:
-        with open(settings_path, 'w', encoding='utf-8') as f:
+        with open(settings_path, "w", encoding="utf-8") as f:
             json.dump(settings, f, indent=4)
         logger.info("Settings saved successfully")
         return True

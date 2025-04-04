@@ -45,18 +45,18 @@ javascript
 /**
  * EVA & GUARANI - Modular Analyzer (NEXUS)
  * ==========================================
- * 
+ *
  * This module implements the modular analysis system (NEXUS) for the VSCode extension,
  * enabling deep analysis of code structure and quality, identifying
  * patterns, relationships between components, and opportunities for improvement, all with an
  * ethical and conscious perspective.
- * 
+ *
  * Incorporated principles:
  * - Ethics: Respectful analysis that preserves the original intent of the code
  * - Love: Constructive suggestions focused on growth and learning
  * - Economy: Optimized processing and efficient contextual analyses
  * - Art: Elegant visualizations of complex code structures
- * 
+ *
  * @context EVA_GUARANI_NEXUS
  * @version 1.0.0
  * @author EVA & GUARANI Team
@@ -74,16 +74,16 @@ const fs = require('fs');
 const ANALYSIS_TYPES = {
     // Structural and organizational analysis
     STRUCTURAL: 'structural',
-    
+
     // Quality and best practices analysis
     QUALITY: 'quality',
-    
+
     // Connections and dependencies analysis
     CONNECTIONS: 'connections',
-    
+
     // Complexity and maintainability analysis
     COMPLEXITY: 'complexity',
-    
+
     // Ethical analysis (impacts, inclusion, accessibility)
     ETHICAL: 'ethical'
 };
@@ -115,7 +115,7 @@ const METRICS = {
         exportCount: { name: 'Export Count', unit: 'exports' },
         commentRatio: { name: 'Comment Ratio', unit: '%' }
     },
-    
+
     // Quality metrics
     quality: {
         documentationCoverage: { name: 'Documentation Coverage', unit: '%' },
@@ -123,7 +123,7 @@ const METRICS = {
         namingConsistency: { name: 'Naming Consistency', unit: '0-1' },
         testCoverage: { name: 'Test Coverage', unit: '%', optional: true }
     },
-    
+
     // Connections metrics
     connections: {
         inboundDependencies: { name: 'Inbound Dependencies', unit: 'modules' },
@@ -131,7 +131,7 @@ const METRICS = {
         coupling: { name: 'Coupling', unit: '0-1' },
         cohesion: { name: 'Cohesion', unit: '0-1' }
     },
-    
+
     // Complexity metrics
     complexity: {
         cyclomaticComplexity: { name: 'Cyclomatic Complexity', unit: 'points' },
@@ -139,7 +139,7 @@ const METRICS = {
         functionComplexity: { name: 'Function Complexity', unit: 'points' },
         maintainabilityIndex: { name: 'Maintainability Index', unit: '0-100' }
     },
-    
+
     // Ethical metrics
     ethical: {
         inclusivityScore: { name: 'Inclusivity Score', unit: '0-1' },
@@ -162,16 +162,16 @@ const REPORT_TEMPLATE = {
         duration: null,
         analyzedUnit: null
     },
-    
+
     // Collected metrics
     metrics: {},
-    
+
     // Findings and insights
     findings: [],
-    
+
     // Constructive recommendations
     recommendations: [],
-    
+
     // Summary and overall evaluation
     summary: {
         qualityScore: null,
@@ -196,13 +196,13 @@ class ModularAnalyzer {
         this.context = context;
         this.config = config;
         this.analysisResults = new Map();
-        
+
         // Current analysis status
         this.analyzing = false;
         this.progress = 0;
         this.lastAnalysisTime = null;
     }
-    
+
     /**
      * Starts a modular analysis
      * @param {string} targetPath - Path of the file or directory to be analyzed
@@ -218,7 +218,7 @@ class ModularAnalyzer {
         if (this.analyzing) {
             throw new Error('An analysis is already in progress. Please wait or cancel the current analysis.');
         }
-        
+
         // Define default options
         const defaultOptions = {
             types: Object.values(ANALYSIS_TYPES),
@@ -226,72 +226,72 @@ class ModularAnalyzer {
             includeDependencies: false,
             progressCallback: null
         };
-        
+
         // Merge options
         const analysisOptions = {...defaultOptions, ...options};
-        
+
         // Check if the target exists
         if (!fs.existsSync(targetPath)) {
             throw new Error(`Path not found: ${targetPath}`);
         }
-        
+
         // Update status
         this.analyzing = true;
         this.progress = 0;
-        
+
         // Record start time
         const startTime = Date.now();
-        
+
         // Create initial report
         const report = this._createNewReport(targetPath, analysisOptions.scope);
-        
+
         try {
             // Notify analysis start
             vscode.window.showInformationMessage(
                 `EVA & GUARANI: Starting modular analysis with love and consciousness.`
             );
-            
+
             // Start analysis based on scope
             switch (analysisOptions.scope) {
                 case ANALYSIS_SCOPE.FILE:
                     await this._analyzeFile(targetPath, analysisOptions, report);
                     break;
-                    
+
                 case ANALYSIS_SCOPE.MODULE:
                     await this._analyzeModule(targetPath, analysisOptions, report);
                     break;
-                    
+
                 case ANALYSIS_SCOPE.PROJECT:
                     await this._analyzeProject(targetPath, analysisOptions, report);
                     break;
-                    
+
                 default:
                     throw new Error(`Invalid analysis scope: ${analysisOptions.scope}`);
             }
-            
+
             // Calculate duration
             const duration = Date.now() - startTime;
             report.metadata.duration = duration;
-            
+
             // Generate summary
             await this._generateSummary(report);
-            
+
             // Store results
             const resultKey = `${targetPath}_${new Date().toISOString()}`;
             this.analysisResults.set(resultKey, report);
             this.lastAnalysisTime = new Date();
-            
+
             // Notify completion
             vscode.window.showInformationMessage(
                 `EVA & GUARANI: Modular analysis completed with love and consciousness (${duration}ms).`
             );
-            
+
             return report;
         } catch (error) {
             vscode.window.showErrorMessage(
                 `EVA & GUARANI: Error during modular analysis: ${error.message}`
             );
-            
+
             throw error;
         } finally {
             // Update status
@@ -299,7 +299,7 @@ class ModularAnalyzer {
             this.progress = 100;
         }
     }
-    
+
     /**
      * Cancels the ongoing analysis
      * @returns {boolean} Whether the analysis was successfully canceled
@@ -308,18 +308,18 @@ class ModularAnalyzer {
         if (!this.analyzing) {
             return false;
         }
-        
+
         // Update status
         this.analyzing = false;
-        
+
         // Notify cancellation
         vscode.window.showInformationMessage(
             `EVA & GUARANI: Modular analysis canceled with respect.`
         );
-        
+
         return true;
     }
-    
+
     /**
      * Gets the most recent analysis report
      * @returns {Object|null} Most recent report or null if none available
@@ -328,23 +328,23 @@ class ModularAnalyzer {
         if (this.analysisResults.size === 0) {
             return null;
         }
-        
+
         // Find the most recent report
         let latestReport = null;
         let latestTimestamp = 0;
-        
+
         for (const [key, report] of this.analysisResults) {
             const timestamp = report.metadata.timestamp;
-            
+
             if (timestamp > latestTimestamp) {
                 latestTimestamp = timestamp;
                 latestReport = report;
             }
         }
-        
+
         return latestReport;
     }
-    
+
     /**
      * Gets the current analysis status
      * @returns {Object} Current status
@@ -356,7 +356,7 @@ class ModularAnalyzer {
             lastAnalysisTime: this.lastAnalysisTime
         };
     }
-    
+
     /**
      * Creates a new analysis report
      * @private
@@ -367,15 +367,15 @@ class ModularAnalyzer {
     _createNewReport(targetPath, scope) {
         // Clone the template
         const report = JSON.parse(JSON.stringify(REPORT_TEMPLATE));
-        
+
         // Fill in metadata
         report.metadata.timestamp = Date.now();
         report.metadata.scope = scope;
         report.metadata.analyzedUnit = targetPath;
-        
+
         return report;
     }
-    
+
     /**
      * Analyzes an individual file
      * @private
@@ -390,50 +390,50 @@ class ModularAnalyzer {
         if (!stats.isFile()) {
             throw new Error(`The specified path is not a file: ${filePath}`);
         }
-        
+
         // Read file content
         const content = fs.readFileSync(filePath, 'utf8');
-        
+
         // Detect language
         const language = this._detectLanguage(filePath);
         report.metadata.language = language;
-        
+
         // Initialize metrics section
         report.metrics = {};
-        
+
         // Analyze based on requested types
         for (const type of options.types) {
             // Update progress
             this._updateProgress(options, type, options.types.length);
-            
+
             // Execute specific analysis
             switch (type) {
                 case ANALYSIS_TYPES.STRUCTURAL:
                     await this._analyzeStructural(filePath, content, language, report);
                     break;
-                    
+
                 case ANALYSIS_TYPES.QUALITY:
                     await this._analyzeQuality(filePath, content, language, report);
                     break;
-                    
+
                 case ANALYSIS_TYPES.CONNECTIONS:
                     await this._analyzeConnections(filePath, content, language, report);
                     break;
-                    
+
                 case ANALYSIS_TYPES.COMPLEXITY:
                     await this._analyzeComplexity(filePath, content, language, report);
                     break;
-                    
+
                 case ANALYSIS_TYPES.ETHICAL:
                     await this._analyzeEthical(filePath, content, language, report);
                     break;
-                    
+
                 default:
                     console.log(`EVA & GUARANI: Unknown analysis type: ${type}`);
             }
         }
     }
-    
+
     /**
      * Detects the programming language of a file
      * @private
@@ -442,74 +442,74 @@ class ModularAnalyzer {
      */
     _detectLanguage(filePath) {
         const ext = path.extname(filePath).toLowerCase();
-        
+
         switch (ext) {
             case '.js':
             case '.jsx':
             case '.mjs':
             case '.cjs':
                 return 'javascript';
-                
+
             case '.ts':
             case '.tsx':
                 return 'typescript';
-                
+
             case '.py':
                 return 'python';
-                
+
             case '.java':
                 return 'java';
-                
+
             case '.html':
             case '.htm':
                 return 'html';
-                
+
             case '.css':
                 return 'css';
-                
+
             case '.json':
                 return 'json';
-                
+
             case '.md':
                 return 'markdown';
-                
+
             case '.php':
                 return 'php';
-                
+
             case '.rb':
                 return 'ruby';
-                
+
             case '.go':
                 return 'go';
-                
+
             case '.c':
             case '.h':
                 return 'c';
-                
+
             case '.cpp':
             case '.hpp':
             case '.cc':
                 return 'cpp';
-                
+
             case '.cs':
                 return 'csharp';
-                
+
             case '.swift':
                 return 'swift';
-                
+
             case '.rs':
                 return 'rust';
-                
+
             case '.kt':
             case '.kts':
                 return 'kotlin';
-                
+
             default:
                 // Try to infer from content or return unknown
                 return 'unknown';
         }
     }
-    
+
     /**
      * Updates the analysis progress
      * @private
@@ -521,10 +521,10 @@ class ModularAnalyzer {
         // Calculate progress percentage
         const typeIndex = options.types.indexOf(currentType);
         const progress = Math.round((typeIndex + 1) / totalTypes * 100);
-        
+
         // Update status
         this.progress = progress;
-        
+
         // Call progress callback if provided
         if (options.progressCallback && typeof options.progressCallback === 'function') {
             options.progressCallback({
@@ -534,7 +534,7 @@ class ModularAnalyzer {
             });
         }
     }
-    
+
     /**
      * Performs structural analysis on a file
      * @private
@@ -547,19 +547,19 @@ class ModularAnalyzer {
     async _analyzeStructural(filePath, content, language, report) {
         // Initialize structural metrics
         report.metrics.structural = {};
-        
+
         // Basic file statistics
         const stats = fs.statSync(filePath);
         report.metrics.structural.fileSize = stats.size;
-        
+
         // Count lines
         const lines = content.split('\n');
         report.metrics.structural.lineCount = lines.length;
-        
+
         // Comment metrics (simplified)
         const commentLines = this._estimateCommentLines(content, language);
         report.metrics.structural.commentCount = commentLines;
-        
+
         // Calculate comment ratio
         if (lines.length > 0) {
             report.metrics.structural.commentRatio = parseFloat(
@@ -568,16 +568,16 @@ class ModularAnalyzer {
         } else {
             report.metrics.structural.commentRatio = 0;
         }
-        
+
         // Estimate functions and classes (simplified)
         const { functionCount, classCount } = this._estimateCodeStructures(content, language);
         report.metrics.structural.functionCount = functionCount;
         report.metrics.structural.classCount = classCount;
-        
+
         // Add findings based on analysis
         this._addBasicStructuralFindings(report);
     }
-    
+
     /**
      * Estimates the number of comment lines in the code
      * @private
@@ -589,12 +589,12 @@ class ModularAnalyzer {
         // Simplified implementation to estimate comments
         let count = 0;
         const lines = content.split('\n');
-        
+
         // Common comment patterns in various languages
         const lineCommentPatterns = ['//', '#', '--', '%'];
         const blockCommentStarts = ['/*', '"""', "'''", '<!--'];
         const blockCommentEnds = ['*/', '"""', "'''", '-->'];
-        
+
         // Check line comments
         for (const line of lines) {
             const trimmed = line.trim();
@@ -605,30 +605,30 @@ class ModularAnalyzer {
                 }
             }
         }
-        
+
         // A basic estimate for block comments
         for (let i = 0; i < blockCommentStarts.length; i++) {
             const start = blockCommentStarts[i];
             const end = blockCommentEnds[i];
-            
+
             let startIndex = content.indexOf(start);
             while (startIndex !== -1) {
                 const endIndex = content.indexOf(end, startIndex + start.length);
                 if (endIndex === -1) break;
-                
+
                 // Count lines between start and end
                 const segment = content.substring(startIndex, endIndex + end.length);
                 const lineCount = segment.split('\n').length;
                 count += lineCount;
-                
+
                 // Look for next
                 startIndex = content.indexOf(start, endIndex + end.length);
             }
         }
-        
+
         return count;
     }
-    
+
     /**
      * Estimates code structures (functions and classes)
      * @private
@@ -639,7 +639,7 @@ class ModularAnalyzer {
     _estimateCodeStructures(content, language) {
         let functionCount = 0;
         let classCount = 0;
-        
+
         // Common patterns for functions in different languages
         const functionPatterns = [
             /function\s+[a-zA-Z0-9_]+\s*\(/g,  // function name(

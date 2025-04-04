@@ -150,4 +150,4 @@ class QuantumTimeline {
 }
 
 // Initialize timeline
-const quantumTimeline = new QuantumTimeline(); 
+const quantumTimeline = new QuantumTimeline();

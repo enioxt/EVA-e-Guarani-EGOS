@@ -39,7 +39,7 @@ Fase 2: Implementar Nova Estrutura de Diretórios
 Fase 3: Implementar Estratégia de Versão
 Fase 4: Documentação Integrada
 
-O próximo passo lógico seria criar e executar um script para mover os duplicados identificados para quarentena, para completar a Fase 1. Vamos implementar essa ação.</think>Continuando com nossas recomendações, vamos implementar o próximo passo do plano de otimização: a consolidação dos arquivos duplicados identificados. 
+O próximo passo lógico seria criar e executar um script para mover os duplicados identificados para quarentena, para completar a Fase 1. Vamos implementar essa ação.</think>Continuando com nossas recomendações, vamos implementar o próximo passo do plano de otimização: a consolidação dos arquivos duplicados identificados.
 
 Primeiro, vou criar um script dedicado para mover os arquivos duplicados para quarentena:
 
@@ -70,7 +70,7 @@ from pathlib import Path
 def log_event(message, level='INFO'):
     """
     Registra evento no console com timestamp
-    
+
     Args:
         message (str): Mensagem a ser registrada
         level (str): Nível do log (INFO, WARNING, ERROR)
@@ -82,48 +82,48 @@ def log_event(message, level='INFO'):
 def parse_arguments():
     """
     Analisa argumentos da linha de comando
-    
+
     Returns:
         argparse.Namespace: Argumentos processados
     """
     parser = argparse.ArgumentParser(description='EVA & GUARANI - Consolidação de Duplicados')
-    
+
     parser.add_argument('--report-file', type=str, required=True,
                         help='Arquivo de relatório JSON com duplicatas identificadas')
-    
+
     parser.add_argument('--target-dir', type=str, default='./quarentena_duplicados',
                         help='Diretório onde serão movidas as duplicatas (padrão: ./quarentena_duplicados)')
-    
+
     parser.add_argument('--dry-run', action='store_true',
                         help='Executa em modo simulação sem mover arquivos')
-    
+
     parser.add_argument('--keep-newest', action='store_true',
                         help='Mantém o arquivo mais recente e move os outros (padrão: mantém o primeiro listado)')
-    
+
     parser.add_argument('--max-files', type=int, default=0,
                         help='Número máximo de arquivos a mover (0 = sem limite)')
-    
+
     parser.add_argument('--report-dir', type=str, default='./reports',
                         help='Diretório para salvar relatório da operação')
-    
+
     return parser.parse_args()
 
 def load_duplicate_report(report_file):
     """
     Carrega o relatório de duplicatas
-    
+
     Args:
         report_file (str): Caminho do arquivo de relatório
-        
+
     Returns:
         dict: Dados do relatório de duplicatas
     """
     log_event(f"Carregando relatório de duplicatas: {report_file}")
-    
+
     try:
         with open(report_file, 'r', encoding='utf-8') as f:
             report_data = json.load(f)
-            
+
         log_event(f"Relatório carregado com sucesso")
         return report_data
     except Exception as e:
@@ -133,23 +133,23 @@ def load_duplicate_report(report_file):
 def move_duplicates_to_quarantine(report_data, target_dir, dry_run=True, keep_newest=False, max_files=0):
     """
     Move arquivos duplicados para quarentena
-    
+
     Args:
         report_data (dict): Dados do relatório de duplicatas
         target_dir (str): Diretório de destino para quarentena
         dry_run (bool): Se True, apenas simula a operação sem mover arquivos
         keep_newest (bool): Se True, mantém o arquivo mais recente e move os outros
         max_files (int): Número máximo de arquivos a mover (0 = sem limite)
-        
+
     Returns:
         dict: Relatório da operação
     """
     log_event(f"{'Simulando' if dry_run else 'Executando'} movimentação de duplicatas para: {target_dir}")
-    
+
     # Criar diretório de quarentena se não existir e não for dry-run
     if not dry_run:
         os.makedirs(target_dir, exist_ok=True)
-    
+
     # Preparar relatório da operação
     operation_report = {
         'timestamp': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -161,27 +161,27 @@ def move_duplicates_to_quarantine(report_data, target_dir, dry_run=True, keep_ne
         'errors': 0,
         'groups': []
     }
-    
+
     # Acessar duplicatas exatas
     exact_duplicates = report_data.get('exact_duplicates', [])
-    
+
     if not exact_duplicates:
         log_event("Nenhum grupo de duplicatas exatas encontrado no relatório", 'WARNING')
         return operation_report
-    
+
     log_event(f"Processando {len(exact_duplicates)} grupos de duplicatas exatas")
-    
+
     # Contador de arquivos movidos
     files_moved = 0
-    
+
     # Processar cada grupo de duplicatas
     for group_index, dup_group in enumerate(exact_duplicates):
         hash_value = dup_group.get('hash', f"grupo_{group_index}")
         files = dup_group.get('files', [])
-        
+
         if len(files) <= 1:
             continue  # Pular se não houver duplicatas
-        
+
         group_report = {
             'hash': hash_value,
             'total_files': len(files),
@@ -189,7 +189,7 @@ def move_duplicates_to_quarantine(report_data, target_dir, dry_run=True, keep_ne
             'files_moved': [],
             'errors': []
         }
-        
+
         # Determinar qual arquivo manter
         if keep_newest:
             # Ordenar por data de modificação (mais recente primeiro)
@@ -197,92 +197,92 @@ def move_duplicates_to_quarantine(report_data, target_dir, dry_run=True, keep_ne
                 files.sort(key=lambda x: os.path.getmtime(x['absolute_path']), reverse=True)
             except Exception as e:
                 log_event(f"Erro ao ordenar arquivos por data: {e}", 'WARNING')
-        
+
         # Primeiro arquivo da lista é o que será mantido
         file_to_keep = files[0]
         group_report['files_kept'].append(file_to_keep['path'])
-        
+
         # Mover os demais arquivos
         for file_info in files[1:]:
             try:
                 src_path = file_info.get('absolute_path')
                 rel_path = file_info.get('path')
-                
+
                 if not src_path or not rel_path:
                     raise ValueError(f"Informações incompletas para o arquivo")
-                
+
                 # Verificar se o arquivo existe
                 if not os.path.exists(src_path):
                     raise FileNotFoundError(f"Arquivo não encontrado: {src_path}")
-                
+
                 # Criar diretório de destino preservando a estrutura
                 dest_dir = os.path.join(target_dir, os.path.dirname(rel_path))
                 dest_path = os.path.join(target_dir, rel_path)
-                
+
                 # Executar a movimentação se não for dry-run
                 if not dry_run:
                     # Criar diretórios de destino
                     os.makedirs(dest_dir, exist_ok=True)
-                    
+
                     # Mover arquivo
                     shutil.move(src_path, dest_path)
-                
+
                 # Registrar sucesso
                 group_report['files_moved'].append(rel_path)
                 files_moved += 1
-                
+
                 # Log a cada 10 arquivos
                 if files_moved % 10 == 0:
                     log_event(f"{'[SIMULAÇÃO] ' if dry_run else ''}Movidos {files_moved} arquivos duplicados...")
-                
+
                 # Verificar limite máximo
                 if max_files > 0 and files_moved >= max_files:
                     log_event(f"Limite máximo de {max_files} arquivos atingido")
                     break
-                    
+
             except Exception as e:
                 error_msg = f"Erro ao mover {rel_path}: {e}"
                 log_event(error_msg, 'ERROR')
                 group_report['errors'].append(error_msg)
                 operation_report['errors'] += 1
-        
+
         # Adicionar relatório do grupo
         operation_report['groups'].append(group_report)
         operation_report['exact_duplicates_processed'] += 1
-        
+
         # Verificar limite máximo (entre grupos)
         if max_files > 0 and files_moved >= max_files:
             break
-    
+
     # Atualizar contadores finais
     operation_report['files_moved'] = files_moved
-    
+
     log_event(f"Operação concluída: {files_moved} arquivos {'simulados' if dry_run else 'movidos'} para quarentena")
     return operation_report
 
 def generate_report(operation_report, report_dir):
     """
     Gera relatório detalhado da operação
-    
+
     Args:
         operation_report (dict): Dados da operação
         report_dir (str): Diretório para salvar o relatório
-    
+
     Returns:
         tuple: Caminhos dos arquivos de relatório (json, md)
     """
     # Criar diretório de relatórios se não existir
     os.makedirs(report_dir, exist_ok=True)
-    
+
     # Nome base para os arquivos de relatório
     timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     base_name = f"duplicate_consolidation_{timestamp}"
-    
+
     # Salvar relatório JSON
     json_path = os.path.join(report_dir, f"{base_name}.json")
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(operation_report, f, indent=2, ensure_ascii=False)
-    
+
     # Gerar relatório Markdown
     md_content = f"""# Relatório de Consolidação de Duplicados
 *Gerado em: {operation_report['timestamp']}*
@@ -302,36 +302,36 @@ def generate_report(operation_report, report_dir):
 
     # Adicionar informações de até 10 grupos mais significativos
     significant_groups = sorted(operation_report['groups'], key=lambda g: len(g['files_moved']), reverse=True)[:10]
-    
+
     for i, group in enumerate(significant_groups, 1):
         md_content += f"### Grupo {i}: {group['hash'][:8]}...\n\n"
         md_content += f"- **Total de Arquivos:** {group['total_files']}\n"
         md_content += f"- **Arquivos Preservados ({len(group['files_kept'])}):**\n"
-        
+
         for file in group['files_kept'][:3]:  # Mostrar até 3 arquivos mantidos
             md_content += f"  - `{file}`\n"
-            
+
         if len(group['files_kept']) > 3:
             md_content += f"  - ... mais {len(group['files_kept']) - 3} arquivo(s)\n"
-        
+
         md_content += f"- **Arquivos Movidos para Quarentena ({len(group['files_moved'])}):**\n"
-        
+
         for file in group['files_moved'][:5]:  # Mostrar até 5 arquivos movidos
             md_content += f"  - `{file}`\n"
-            
+
         if len(group['files_moved']) > 5:
             md_content += f"  - ... mais {len(group['files_moved']) - 5} arquivo(s)\n"
-        
+
         if group['errors']:
             md_content += f"- **Erros ({len(group['errors'])}):**\n"
             for error in group['errors'][:3]:
                 md_content += f"  - {error}\n"
-            
+
             if len(group['errors']) > 3:
                 md_content += f"  - ... mais {len(group['errors']) - 3} erro(s)\n"
-        
+
         md_content += "\n"
-    
+
     # Adicionar recomendações
     md_content += """
 ## 🚀 Próximos Passos Recomendados
@@ -347,15 +347,15 @@ def generate_report(operation_report, report_dir):
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 """
-    
+
     # Salvar relatório Markdown
     md_path = os.path.join(report_dir, f"{base_name}.md")
     with open(md_path, 'w', encoding='utf-8') as f:
         f.write(md_content)
-    
+
     log_event(f"Relatório JSON salvo em: {json_path}")
     log_event(f"Relatório Markdown salvo em: {md_path}")
-    
+
     return json_path, md_path
 
 def main():
@@ -364,23 +364,23 @@ def main():
     """
     print("✧༺❀༻∞ EVA & GUARANI - Sistema de Consolidação de Duplicados ∞༺❀༻✧")
     print("Iniciando consolidação de duplicados com amor e consciência...\n")
-    
+
     # Processar argumentos
     args = parse_arguments()
-    
+
     # Carregar relatório de duplicatas
     report_data = load_duplicate_report(args.report_file)
-    
+
     # Confirmação se não for simulação
     if not args.dry_run:
         print(f"\nATENÇÃO: Você está prestes a mover arquivos duplicados para quarentena.")
         print(f"Esta operação irá manter apenas uma cópia de cada grupo de arquivos duplicados.")
         confirmation = input(f"Deseja prosseguir? (s/n): ")
-        
+
         if confirmation.lower() != 's':
             print("Operação cancelada pelo usuário.")
             sys.exit(0)
-    
+
     # Mover duplicatas para quarentena
     operation_report = move_duplicates_to_quarantine(
         report_data,
@@ -389,10 +389,10 @@ def main():
         args.keep_newest,
         args.max_files
     )
-    
+
     # Gerar relatório
     json_report, md_report = generate_report(operation_report, args.report_dir)
-    
+
     print("\nProcesso concluído com amor e consciência!")
     print(f"Grupos processados: {operation_report['exact_duplicates_processed']}")
     print(f"Arquivos movidos: {operation_report['files_moved']}")
@@ -458,7 +458,7 @@ from pathlib import Path
 def log_event(message, level='INFO'):
     """
     Registra evento no console com timestamp
-    
+
     Args:
         message (str): Mensagem a ser registrada
         level (str): Nível do log (INFO, WARNING, ERROR)
@@ -470,39 +470,39 @@ def log_event(message, level='INFO'):
 def parse_arguments():
     """
     Analisa argumentos da linha de comando
-    
+
     Returns:
         argparse.Namespace: Argumentos processados
     """
     parser = argparse.ArgumentParser(description='EVA & GUARANI - Reorganização Estrutural')
-    
+
     parser.add_argument('--dry-run', action='store_true',
                         help='Executa em modo simulação sem mover arquivos')
-    
+
     parser.add_argument('--backup-dir', type=str, default='./backup_before_reorganization',
                         help='Diretório para backup antes da reorganização')
-    
+
     parser.add_argument('--report-dir', type=str, default='./reports',
                         help='Diretório para salvar relatórios')
-    
+
     parser.add_argument('--category', type=str, default='all',
                         help='Categoria específica para reorganizar (all, core, integrations, etc)')
-    
+
     return parser.parse_args()
 
 def create_directory_structure(root_path, dry_run=True):
     """
     Cria a estrutura de diretórios otimizada
-    
+
     Args:
         root_path (str): Caminho raiz do sistema
         dry_run (bool): Se True, apenas simula a operação
-        
+
     Returns:
         list: Lista de diretórios criados
     """
     log_event(f"{'[SIMULAÇÃO] ' if dry_run else ''}Criando estrutura de diretórios otimizada")
-    
+
     # Definir a nova estrutura de diretórios
     directory_structure = {
         'core': [
@@ -557,28 +557,28 @@ def create_directory_structure(root_path, dry_run=True):
             'exports'
         ]
     }
-    
+
     created_dirs = []
-    
+
     # Criar cada diretório na estrutura
     for category, subdirs in directory_structure.items():
         # Criar diretório principal da categoria
         category_path = os.path.join(root_path, category)
-        
+
         if not dry_run:
             os.makedirs(category_path, exist_ok=True)
-        
+
         created_dirs.append(category_path)
-        
+
         # Criar subdiretórios
         for subdir in subdirs:
             subdir_path = os.path.join(category_path, subdir)
-            
+
             if not dry_run:
                 os.makedirs(subdir_path, exist_ok=True)
-            
+
             created_dirs.append(subdir_path)
-            
+
             # Adicionar arquivo README.md em cada subdiretório
             readme_path = os.path.join(subdir_path, 'README.md')
             if not dry_run:
@@ -591,24 +591,24 @@ def create_directory_structure(root_path, dry_run=True):
                     f.write("*Adicione aqui os componentes específicos deste módulo*\n\n")
                     f.write("---\n\n")
                     f.write("✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧\n")
-    
+
     log_event(f"{'[SIMULAÇÃO] ' if dry_run else ''}Criados {len(created_dirs)} diretórios na nova estrutura")
     return created_dirs
 
 def backup_current_structure(root_path, backup_dir, dry_run=True):
     """
     Realiza backup da estrutura atual antes da reorganização
-    
+
     Args:
         root_path (str): Caminho raiz do sistema
         backup_dir (str): Diretório para backup
         dry_run (bool): Se True, apenas simula a operação
-        
+
     Returns:
         bool: True se o backup foi realizado com sucesso
     """
     log_event(f"{'[SIMULAÇÃO] ' if dry_run else ''}Iniciando backup da estrutura atual em: {backup_dir}")
-    
+
     # Diretórios a serem ignorados no backup
     ignore_dirs = [
         '.git', '.github', '.vscode', '.obsidian', '.cursor',
@@ -616,21 +616,21 @@ def backup_current_structure(root_path, backup_dir, dry_run=True):
         'quarentena', 'quarentena_duplicados', 'backup',
         os.path.basename(backup_dir)
     ]
-    
+
     # Adicionar qualquer pasta que começa com quarentena ou backup
     for d in os.listdir(root_path):
         dir_path = os.path.join(root_path, d)
         if os.path.isdir(dir_path) and (d.startswith('quarentena') or d.startswith('backup')):
             ignore_dirs.append(d)
-    
+
     # Criar diretório de backup
     if not dry_run:
         os.makedirs(backup_dir, exist_ok=True)
-    
+
     # Função auxiliar para ignorar diretórios
     def ignore_function(dir, files):
         return [f for f in files if f in ignore_dirs or os.path.basename(dir) in ignore_dirs]
-    
+
     # Realizar backup
     try:
         if not dry_run:
@@ -641,22 +641,22 @@ def backup_current_structure(root_path, backup_dir, dry_run=True):
                 'backup_path': backup_dir,
                 'description': 'Backup antes da reorganização estrutural do sistema EVA & GUARANI'
             }
-            
+
             metadata_file = os.path.join(backup_dir, 'backup_metadata.json')
             with open(metadata_file, 'w', encoding='utf-8') as f:
                 json.dump(metadata, f, indent=2, ensure_ascii=False)
-            
+
             # Copiar arquivos (exceto os ignorados)
             for item in os.listdir(root_path):
                 src_path = os.path.join(root_path, item)
                 dst_path = os.path.join(backup_dir, item)
-                
+
                 if os.path.isdir(src_path):
                     if item not in ignore_dirs:
                         shutil.copytree(src_path, dst_path, ignore=ignore_function)
                 else:
                     shutil.copy2(src_path, dst_path)
-        
+
         log_event(f"{'[SIMULAÇÃO] ' if dry_run else ''}Backup concluído com sucesso")
         return True
     except Exception as e:
@@ -666,11 +666,11 @@ def backup_current_structure(root_path, backup_dir, dry_run=True):
 def identify_file_category(file_path, file_name):
     """
     Identifica a categoria adequada para um arquivo baseado em seu nome e caminho
-    
+
     Args:
         file_path (str): Caminho do arquivo
         file_name (str): Nome do arquivo
-        
+
     Returns:
         dict: Informações de categoria e subcategoria
     """
@@ -681,35 +681,35 @@ def identify_file_category(file_path, file_name):
         'core/nexus': ['nexus_', 'module_', 'component_', 'analyser_'],
         'core/cronos': ['cronos_', 'backup_', 'version_', 'history_'],
         'core/ethik': ['ethik_', 'ethics_', 'moral_', 'ethical_'],
-        
+
         'integrations/bots': ['bot_', 'telegram_', 'discord_', 'chat_'],
         'integrations/apis': ['api_', 'rest_', 'graphql_', 'endpoint_'],
         'integrations/platforms': ['platform_', 'integrate_', 'connect_'],
         'integrations/services': ['service_', 'cloud_', 'saas_', 'online_'],
-        
+
         'modules/quantum': ['quantum_', 'prompt_', 'gpt_', 'llm_', 'ai_'],
         'modules/visualization': ['vis_', 'chart_', 'graph_', 'plot_', 'diagram_'],
         'modules/analysis': ['analys_', 'statistic_', 'data_', 'metric_'],
         'modules/preservation': ['preserv_', 'save_', 'archiv_', 'storage_'],
         'modules/customization': ['custom_', 'config_', 'setting_', 'prefer_'],
-        
+
         'tools/scripts': ['script_', 'run_', 'auto_', 'batch_'],
         'tools/utilities': ['util_', 'helper_', 'tool_', 'assist_'],
         'tools/maintenance': ['maint_', 'clean_', 'fix_', 'repair_'],
         'tools/deployment': ['deploy_', 'release_', 'publish_', 'distrib_'],
-        
+
         'docs': ['README', 'document', 'guide', 'manual', '.md', '.rst', '.txt'],
         'tests': ['test_', 'spec_', 'benchmark_', '.test.', '.spec.', 'pytest'],
         'ui': ['.html', '.css', '.scss', '.jsx', '.tsx', 'component', 'layout', 'theme'],
         'data': ['.json', '.csv', '.xml', '.yaml', '.yml', 'data_', 'model_']
     }
-    
+
     # Verificar extensão
     _, ext = os.path.splitext(file_name.lower())
-    
+
     # Match inicial baseado na extensão
     initial_category = None
-    
+
     if ext in ['.py', '.js', '.ts']:
         # Arquivos de código - precisam ser analisados mais profundamente
         pass
@@ -721,7 +721,7 @@ def identify_file_category(file_path, file_name):
         initial_category = 'data'
     elif file_name.startswith('test_') or '.test.' in file_name:
         initial_category = 'tests'
-    
+
     # Verificar padrões específicos
     for category, pattern_list in patterns.items():
         file_name_lower = file_name.lower()
@@ -741,7 +741,7 @@ def identify_file_category(file_path, file_name):
                         'main_category': parts[0],
                         'subcategory': parts[1] if len(parts) > 1 else None
                     }
-    
+
     # Se não encontrou um padrão específico mas tem match inicial
     if initial_category:
         if '/' in initial_category:
@@ -762,7 +762,7 @@ def identify_file_category(file_path, file_name):
                 'main_category': initial_category,
                 'subcategory': defaults.get(initial_category)
             }
-    
+
     # Se não conseguiu classificar, colocar em "tools/utilities"
     return {
         'main_category': 'tools',
@@ -772,34 +772,34 @@ def identify_file_category(file_path, file_name):
 def reorganize_files(root_path, dry_run=True, category_filter='all'):
     """
     Reorganiza os arquivos do sistema na nova estrutura de diretórios
-    
+
     Args:
         root_path (str): Caminho raiz do sistema
         dry_run (bool): Se True, apenas simula a operação
         category_filter (str): Categoria específica para reorganizar
-        
+
     Returns:
         dict: Estatísticas da reorganização
     """
     log_event(f"{'[SIMULAÇÃO] ' if dry_run else ''}Iniciando reorganização de arquivos")
-    
+
     # Diretórios a ignorar
     ignore_dirs = [
         '.git', '.github', '.vscode', '.obsidian', '.cursor',
         'venv', '__pycache__', 'node_modules',
         'quarentena', 'backup', 'reports'
     ]
-    
+
     # Adicionar qualquer pasta que começa com quarentena ou backup
     for d in os.listdir(root_path):
         dir_path = os.path.join(root_path, d)
         if os.path.isdir(dir_path) and (d.startswith('quarentena') or d.startswith('backup')):
             ignore_dirs.append(d)
-    
+
     # Adicionar as pastas da nova estrutura
     new_structure = ['core', 'integrations', 'modules', 'tools', 'docs', 'tests', 'ui', 'data']
     ignore_dirs.extend(new_structure)
-    
+
     # Estatísticas
     stats = {
         'total_files': 0,
@@ -808,52 +808,52 @@ def reorganize_files(root_path, dry_run=True, category_filter='all'):
         'errors': 0,
         'by_category': {}
     }
-    
+
     # Mapeamento de arquivos movidos para registro
     moved_files = []
-    
+
     # Percorrer todos os arquivos
     for root, dirs, files in os.walk(root_path):
         # Filtrar diretórios ignorados
         dirs[:] = [d for d in dirs if d not in ignore_dirs and not any(root.startswith(os.path.join(root_path, ign)) for ign in ignore_dirs)]
-        
+
         for file in files:
             stats['total_files'] += 1
             file_path = os.path.join(root, file)
             rel_path = os.path.relpath(file_path, root_path)
-            
+
             # Identificar categoria adequada
             category_info = identify_file_category(file_path, file)
             main_category = category_info['main_category']
             subcategory = category_info['subcategory']
-            
+
             # Verificar filtro de categoria
             if category_filter != 'all' and main_category != category_filter:
                 stats['skipped_files'] += 1
                 continue
-            
+
             # Atualizar estatísticas por categoria
             category_key = f"{main_category}/{subcategory}" if subcategory else main_category
             stats['by_category'][category_key] = stats['by_category'].get(category_key, 0) + 1
-            
+
             # Definir caminho de destino
             if subcategory:
                 dest_dir = os.path.join(root_path, main_category, subcategory)
             else:
                 dest_dir = os.path.join(root_path, main_category)
-            
+
             dest_path = os.path.join(dest_dir, file)
-            
+
             # Se o caminho de destino for igual ao de origem, pular
             if os.path.abspath(file_path) == os.path.abspath(dest_path):
                 stats['skipped_files'] += 1
                 continue
-            
+
             try:
                 # Criar diretório se não existir
                 if not dry_run:
                     os.makedirs(dest_dir, exist_ok=True)
-                
+
                 # Verificar se arquivo já existe no destino
                 if os.path.exists(dest_path):
                     # Adicionar sufixo numérico
@@ -861,13 +861,13 @@ def reorganize_files(root_path, dry_run=True, category_filter='all'):
                     counter = 1
                     while os.path.exists(os.path.join(dest_dir, f"{base}_{counter}{ext}")):
                         counter += 1
-                    
+
                     dest_path = os.path.join(dest_dir, f"{base}_{counter}{ext}")
-                
+
                 # Mover arquivo
                 if not dry_run:
                     shutil.move(file_path, dest_path)
-                
+
                 # Registrar movimentação
                 moved_files.append({
                     'source': rel_path,
@@ -875,40 +875,40 @@ def reorganize_files(root_path, dry_run=True, category_filter='all'):
                     'category': main_category,
                     'subcategory': subcategory
                 })
-                
+
                 stats['moved_files'] += 1
-                
+
                 # Log de progresso a cada 50 arquivos
                 if stats['moved_files'] % 50 == 0:
                     log_event(f"{'[SIMULAÇÃO] ' if dry_run else ''}Movidos {stats['moved_files']} arquivos...")
-                
+
             except Exception as e:
                 error_msg = f"Erro ao mover {rel_path}: {e}"
                 log_event(error_msg, 'ERROR')
                 stats['errors'] += 1
-    
+
     log_event(f"{'[SIMULAÇÃO] ' if dry_run else ''}Reorganização concluída: {stats['moved_files']} arquivos movidos, {stats['skipped_files']} ignorados, {stats['errors']} erros")
-    
+
     return stats, moved_files
 
 def generate_report(stats, moved_files, report_dir, dry_run=True):
     """
     Gera relatório detalhado da reorganização
-    
+
     Args:
         stats (dict): Estatísticas da reorganização
         moved_files (list): Lista de arquivos movidos
         report_dir (str): Diretório para salvar relatórios
         dry_run (bool): Se foi execução em modo simulação
-        
+
     Returns:
         tuple: Caminhos dos arquivos de relatório (json, md)
     """
     log_event(f"Gerando relatório da {'simulação de ' if dry_run else ''}reorganização")
-    
+
     # Criar diretório de relatórios se não existir
     os.makedirs(report_dir, exist_ok=True)
-    
+
     # Preparar relatório completo
     report_data = {
         'timestamp': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -916,16 +916,16 @@ def generate_report(stats, moved_files, report_dir, dry_run=True):
         'statistics': stats,
         'moved_files': moved_files
     }
-    
+
     # Nome dos arquivos de relatório
     timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     json_report = os.path.join(report_dir, f"reorganization_report_{timestamp}.json")
     md_report = os.path.join(report_dir, f"reorganization_report_{timestamp}.md")
-    
+
     # Salvar relatório JSON
     with open(json_report, 'w', encoding='utf-8') as f:
         json.dump(report_data, f, indent=2, ensure_ascii=False)
-    
+
     # Criar relatório Markdown
     md_content = f"""# Relatório de Reorganização Estrutural
 *Gerado em: {report_data['timestamp']}*
@@ -943,11 +943,11 @@ def generate_report(stats, moved_files, report_dir, dry_run=True):
 | Categoria | Quantidade |
 |-----------|------------|
 """
-    
+
     # Adicionar estatísticas por categoria
     for category, count in sorted(stats['by_category'].items(), key=lambda x: x[1], reverse=True):
         md_content += f"| {category} | {count} |\n"
-    
+
     # Exemplos de arquivos movidos
     md_content += """
 ## 🔄 Exemplos de Arquivos Reorganizados
@@ -955,14 +955,14 @@ def generate_report(stats, moved_files, report_dir, dry_run=True):
 | Origem | Destino | Categoria |
 |--------|---------|-----------|
 """
-    
+
     # Mostrar até 20 exemplos
     for file_info in moved_files[:20]:
         md_content += f"| {file_info['source']} | {file_info['destination']} | {file_info['category']}/{file_info['subcategory']} |\n"
-    
+
     if len(moved_files) > 20:
         md_content += f"| ... | ... | ... |\n"
-    
+
     # Recomendações
     md_content += """
 ## 🚀 Próximos Passos Recomendados
@@ -978,14 +978,14 @@ def generate_report(stats, moved_files, report_dir, dry_run=True):
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 """
-    
+
     # Salvar relatório Markdown
     with open(md_report, 'w', encoding='utf-8') as f:
         f.write(md_content)
-    
+
     log_event(f"Relatório JSON salvo em: {json_report}")
     log_event(f"Relatório Markdown salvo em: {md_report}")
-    
+
     return json_report, md_report
 
 def main():
@@ -994,15 +994,15 @@ def main():
     """
     print("✧༺❀༻∞ EVA & GUARANI - Reorganização Estrutural ∞༺❀༻✧")
     print("Iniciando reorganização do sistema com amor e consciência...\n")
-    
+
     # Processar argumentos
     args = parse_arguments()
-    
+
     # Confirmação se não for simulação
     if not args.dry_run:
         print("\nATENÇÃO: Esta operação irá reorganizar toda a estrutura do sistema.")
         print("É altamente recomendado fazer backup antes de prosseguir.")
-        
+
         backup_confirm = input("Deseja realizar backup antes da reorganização? (s/n): ")
         if backup_confirm.lower() == 's':
             backup_success = backup_current_structure('.', args.backup_dir, False)
@@ -1014,21 +1014,21 @@ def main():
             if proceed.lower() != 's':
                 print("Operação cancelada pelo usuário.")
                 sys.exit(0)
-        
+
         final_confirm = input("\nConfirma reorganização da estrutura do sistema? (s/n): ")
         if final_confirm.lower() != 's':
             print("Operação cancelada pelo usuário.")
             sys.exit(0)
-    
+
     # Criar nova estrutura de diretórios
     created_dirs = create_directory_structure('.', args.dry_run)
-    
+
     # Reorganizar arquivos
     stats, moved_files = reorganize_files('.', args.dry_run, args.category)
-    
+
     # Gerar relatório
     json_report, md_report = generate_report(stats, moved_files, args.report_dir, args.dry_run)
-    
+
     print("\nProcesso concluído com amor e consciência!")
     print(f"Diretórios criados: {len(created_dirs)}")
     print(f"Arquivos movidos: {stats['moved_files']}")
@@ -1884,7 +1884,7 @@ type ./reports/reorganization_report_20250319_160213.md
 Interessante. O script encontrou apenas um arquivo `.gitignore` para mover, o que sugere que:
 
 1. A maioria dos arquivos que precisavam ser reorganizados já foram movidos para quarentena
-2. Ou os arquivos restantes já estão na estrutura correta 
+2. Ou os arquivos restantes já estão na estrutura correta
 3. Ou pode haver um problema no algoritmo de identificação de arquivos a serem movidos
 
 Vamos verificar se há algum problema tentando executar a reorganização sem filtrar por categoria:
@@ -2596,35 +2596,35 @@ flowchart TD
     Root --> Tests[tests/]
     Root --> UI[ui/]
     Root --> Data[data/]
-    
+
     Core --> CoreEGOS[egos/]
     Core --> CoreATLAS[atlas/]
     Core --> CoreNEXUS[nexus/]
     Core --> CoreCRONOS[cronos/]
     Core --> CoreETHIK[ethik/]
-    
+
     Modules --> ModQuantum[quantum/]
     Modules --> ModVisualization[visualization/]
     Modules --> ModAnalysis[analysis/]
-    
+
     Integrations --> IntBots[bots/]
     Integrations --> IntAPIs[apis/]
     Integrations --> IntPlatforms[platforms/]
-    
+
     Tools --> ToolsScripts[scripts/]
     Tools --> ToolsUtilities[utilities/]
     Tools --> ToolsMaintenance[maintenance/]
-    
+
     Docs --> DocArch[architecture/]
     Docs --> DocUser[user_guides/]
     Docs --> DocDev[developer_guides/]
-    
+
     Tests --> TestUnit[unit/]
     Tests --> TestIntegration[integration/]
-    
+
     UI --> UIComponents[components/]
     UI --> UIAssets[assets/]
-    
+
     Data --> DataModels[models/]
     Data --> DataSchemas[schemas/]
 
@@ -2646,7 +2646,7 @@ graph LR
     Deploy --> Monitor[Monitoramento]
     Monitor --> Feedback[Feedback]
     Feedback --> Dev
-    
+
     class Dev,Build active;
     class Test,Deploy next;
     class Monitor,Feedback future;
@@ -2658,17 +2658,17 @@ graph LR
 gantt
     title Timeline do Projeto EVA & GUARANI
     dateFormat  YYYY-MM-DD
-    
+
     section Fase 1: Limpeza
     Quarentena de Arquivos    :done, task1, 2025-03-10, 3d
     Análise de Duplicatas     :done, task2, 2025-03-13, 2d
     Consolidação de Duplicatas:done, task3, 2025-03-15, 2d
-    
+
     section Fase 2: Reorganização
     Planejamento da Estrutura :done, task4, 2025-03-16, 1d
     Script de Reorganização   :done, task5, 2025-03-17, 1d
     Execução da Reorganização :done, task6, 2025-03-18, 2d
-    
+
     section Fase 3: Próximos Passos
     Atualização de Referências:       task7, 2025-03-20, 7d
     Testes de Integração      :       task8, 2025-03-27, 7d

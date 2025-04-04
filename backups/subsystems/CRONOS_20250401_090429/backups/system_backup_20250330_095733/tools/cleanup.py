@@ -13,15 +13,7 @@ import shutil
 from datetime import datetime
 
 # Configuration
-EXCLUDE_DIRS = [
-    "__pycache__",
-    ".git", 
-    ".vscode", 
-    ".pytest_cache", 
-    "venv",
-    ".obsidian",
-    ".cursor"
-]
+EXCLUDE_DIRS = ["__pycache__", ".git", ".vscode", ".pytest_cache", "venv", ".obsidian", ".cursor"]
 
 ARCHIVE_CANDIDATES = [
     "backup",
@@ -38,8 +30,9 @@ WORKING_MODULES = [
     "tools",
     "modules",
     "ui",
-    "integrations"
+    "integrations",
 ]
+
 
 def get_dir_size(path):
     """Calculate directory size recursively."""
@@ -50,6 +43,7 @@ def get_dir_size(path):
             if os.path.isfile(file_path):
                 total_size += os.path.getsize(file_path)
     return total_size
+
 
 def human_size(size_bytes):
     """Convert bytes to human-readable format."""
@@ -62,28 +56,29 @@ def human_size(size_bytes):
         i += 1
     return f"{size_bytes:.2f} {size_names[i]}"
 
+
 def analyze_project_structure(root_dir):
     """Analyze project structure and identify optimization opportunities."""
     print(f"\n{'-'*80}")
     print(f"EVA & GUARANI - Project Structure Analysis")
     print(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'-'*80}\n")
-    
+
     root_path = Path(root_dir)
-    
+
     # Analyze directory sizes
     print("Directory Size Analysis:")
     print(f"{'Directory':<40} {'Size':<15} {'Files':<10}")
     print(f"{'-'*70}")
-    
+
     dir_sizes = []
-    for item in sorted(root_path.glob('*')):
+    for item in sorted(root_path.glob("*")):
         if item.is_dir() and item.name not in EXCLUDE_DIRS:
             size = get_dir_size(item)
-            file_count = sum(1 for _ in item.glob('**/*') if _.is_file())
+            file_count = sum(1 for _ in item.glob("**/*") if _.is_file())
             dir_sizes.append((item.name, size, file_count))
             print(f"{item.name:<40} {human_size(size):<15} {file_count:<10}")
-    
+
     # Archive candidates
     print("\nArchive Candidates (Consider moving to external storage):")
     for dir_name in ARCHIVE_CANDIDATES:
@@ -91,7 +86,7 @@ def analyze_project_structure(root_dir):
         if dir_path.exists():
             size = get_dir_size(dir_path)
             print(f"- {dir_name:<40} {human_size(size):<15}")
-    
+
     # Working modules
     print("\nActive Development Modules:")
     for module in WORKING_MODULES:
@@ -99,24 +94,28 @@ def analyze_project_structure(root_dir):
         if module_path.exists():
             size = get_dir_size(module_path)
             print(f"- {module:<40} {human_size(size):<15}")
-    
+
     # Find duplicate files (by name only, not content)
     print("\nPotential Duplicate Files (by name):")
     all_files = {}
-    for path in root_path.glob('**/*'):
-        if path.is_file() and path.name != ".DS_Store" and not any(exclude in str(path) for exclude in EXCLUDE_DIRS):
+    for path in root_path.glob("**/*"):
+        if (
+            path.is_file()
+            and path.name != ".DS_Store"
+            and not any(exclude in str(path) for exclude in EXCLUDE_DIRS)
+        ):
             if path.name in all_files:
                 all_files[path.name].append(str(path))
             else:
                 all_files[path.name] = [str(path)]
-    
+
     duplicates = {name: paths for name, paths in all_files.items() if len(paths) > 1}
     if duplicates:
         for name, paths in list(duplicates.items())[:10]:  # Show only first 10
             print(f"- {name}: {len(paths)} occurrences")
     else:
         print("- No potential duplicates found")
-    
+
     # Optimization recommendations
     print("\nOptimization Recommendations:")
     print("1. Archive unused directories like 'backup' and 'quarantine'")
@@ -124,14 +123,15 @@ def analyze_project_structure(root_dir):
     print("3. Implement workspace settings to exclude large directories from indexing")
     print("4. Focus on specific modules during development rather than entire codebase")
     print("5. Use Git sparse-checkout to work with specific directories")
-    
+
     # Create VSCode workspace file
     create_workspace_file(root_path, dir_sizes)
-    
+
     print(f"\n{'-'*80}")
     print("Analysis complete. A VSCode workspace file has been created to help you")
     print("focus on specific modules during development.")
     print(f"{'-'*80}\n")
+
 
 def create_workspace_file(root_path, dir_sizes):
     """Create a VSCode workspace file to help focus on specific modules."""
@@ -145,7 +145,7 @@ def create_workspace_file(root_path, dir_sizes):
                 ".git": True,
                 ".vscode": True,
                 ".coverage": True,
-                "venv": True
+                "venv": True,
             },
             "search.exclude": {
                 "venv/**": True,
@@ -153,42 +153,34 @@ def create_workspace_file(root_path, dir_sizes):
                 "**/.pytest_cache/**": True,
                 "docs/**": True,
                 "backup/**": True,
-                "quarantine/**": True
-            }
-        }
+                "quarantine/**": True,
+            },
+        },
     }
-    
+
     # Add main workspace folder
-    workspace["folders"].append({
-        "name": "EVA & GUARANI",
-        "path": "."
-    })
-    
+    workspace["folders"].append({"name": "EVA & GUARANI", "path": "."})
+
     # Add separate entries for core modules
     for module in ["core/atlas", "core/nexus", "core/cronos", "core/ethik"]:
         module_path = root_path / module
         if module_path.exists():
-            workspace["folders"].append({
-                "name": module.split('/')[-1].upper(),
-                "path": module
-            })
-    
+            workspace["folders"].append({"name": module.split("/")[-1].upper(), "path": module})
+
     # Add other important directories
     for dir_name in ["tools", "ui", "modules", "integrations"]:
         dir_path = root_path / dir_name
         if dir_path.exists():
-            workspace["folders"].append({
-                "name": dir_name.upper(),
-                "path": dir_name
-            })
-    
+            workspace["folders"].append({"name": dir_name.upper(), "path": dir_name})
+
     # Write workspace file
     with open(root_path / "eva_guarani.code-workspace", "w") as f:
         json.dump(workspace, f, indent=4)
-    
+
     print("\nCreated VSCode workspace file: eva_guarani.code-workspace")
+
 
 if __name__ == "__main__":
     # Use current directory if no argument is provided
     root_dir = sys.argv[1] if len(sys.argv) > 1 else "."
-    analyze_project_structure(root_dir) 
+    analyze_project_structure(root_dir)

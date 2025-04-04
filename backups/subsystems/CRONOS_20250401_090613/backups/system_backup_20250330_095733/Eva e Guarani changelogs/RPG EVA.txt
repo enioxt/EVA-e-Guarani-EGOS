@@ -60,19 +60,19 @@ graph TD
     RPG_CORE --> ARCANUM[ARCANUM LUDUS]
     RPG_CORE --> MYTHIC[MYTHIC CODEX]
     RPG_CORE --> STRATEGOS[STRATEGOS]
-    
+
     ARCANUM --> CHARACTER[Sistema de Personagens]
     ARCANUM --> MECHANICS[Mecânicas de Jogo]
     ARCANUM --> PROGRESSION[Sistema de Progressão]
-    
+
     MYTHIC --> ARCHETYPES[Arquétipos Míticos]
     MYTHIC --> NARRATIVES[Narrativas Dinâmicas]
     MYTHIC --> QUESTS[Gerador de Missões]
-    
+
     STRATEGOS --> TACTICS[Táticas de Combate]
     STRATEGOS --> DIPLOMACY[Diplomacia e Negociação]
     STRATEGOS --> RESOURCES[Gestão de Recursos]
-    
+
     CHARACTER -.-> USER_DB[Banco de Dados de Usuários]
     PROGRESSION -.-> USER_DB
     QUESTS -.-> QUEST_DB[Banco de Dados de Missões]
@@ -148,7 +148,7 @@ Bot: [Ativa STRATEGOS para gerenciar o combate]
      Você encontra um troll da montanha! Iniciativa:
      - Gandalf: 15
      - Troll: 8
-     
+
      Sua vez! O que deseja fazer?
      1. Atacar com cajado
      2. Lançar Bola de Fogo (3 mana)
@@ -204,21 +204,21 @@ Bot: [Ativa STRATEGOS para gerenciar o combate]
 async def create_character_command(update, context):
     user_id = update.effective_user.id
     user_name = update.effective_user.first_name
-    
+
     # Verifica se o usuário já tem um personagem
     if user_has_character(user_id):
         await update.message.reply_text(
             f"{user_name}, você já possui um personagem! Use /character para ver seus detalhes."
         )
         return
-    
+
     # Inicia o fluxo de criação de personagem
     context.user_data["creating_character"] = True
     context.user_data["character_creation_step"] = "race"
-    
+
     # Carrega o quantum prompt para criação de personagem
     prompt = quantum_prompt_guardian.get_prompt("rpg_character_creation")
-    
+
     # Envia mensagem inicial com opções de raça
     races_text = prompt.replace("{user_name}", user_name)
     await update.message.reply_text(races_text)
@@ -546,17 +546,17 @@ Balanceamento:
   Raças: 0.93
   Progressão: 0.94
   Combate: 0.92
-  
+
 Adaptabilidade:
   Narrativa: 0.91
   Jogadores: 0.94
   Plataforma: 0.95
-  
+
 Complexidade:
   Básica: 0.30
   Intermediária: 0.60
   Avançada: 0.90
-  
+
 Integração:
   MYTHIC: 0.92
   STRATEGOS: 0.94
@@ -568,7 +568,7 @@ Integração:
 ### Criação de Personagem
 ```
 Usuário: Quero criar um personagem elfo mago
-ARCANUM: 
+ARCANUM:
 
 Criando Elfo Mago:
 
@@ -718,23 +718,23 @@ graph TD
     EVA[EVA & GUARANI v7.0] --> ATLAS[ATLAS: Cartografia Sistêmica]
     EVA --> NEXUS[NEXUS: Análise Modular]
     EVA --> CRONOS[CRONOS: Preservação Evolutiva]
-    
+
     EVA --> RPG_CORE[RPG Core Controller]
-    
+
     RPG_CORE --> ARCANUM[ARCANUM LUDUS]
     RPG_CORE --> MYTHIC[MYTHIC CODEX]
     RPG_CORE --> STRATEGOS[STRATEGOS]
-    
+
     ATLAS -.-> MYTHIC
     NEXUS -.-> ARCANUM
     CRONOS -.-> RPG_CORE
-    
+
     ARCANUM --> CHARACTER[Sistema de Personagens]
     ARCANUM --> MECHANICS[Mecânicas de Jogo]
-    
+
     MYTHIC --> NARRATIVES[Narrativas Dinâmicas]
     MYTHIC --> QUESTS[Gerador de Missões]
-    
+
     STRATEGOS --> TACTICS[Táticas de Combate]
     STRATEGOS --> DIPLOMACY[Diplomacia e Negociação]
 ```
@@ -782,17 +782,17 @@ Coesão:
   ARCANUM_EVA: 0.92
   MYTHIC_EVA: 0.94
   STRATEGOS_EVA: 0.93
-  
+
 Entanglement:
   ARCANUM_MYTHIC: 0.91
   ARCANUM_STRATEGOS: 0.90
   MYTHIC_STRATEGOS: 0.92
-  
+
 Eficiência:
   Processamento: 0.95
   Memória: 0.93
   Latência: 0.94
-  
+
 Ética:
   Alinhamento: 0.98
   Consistência: 0.97
@@ -808,12 +808,12 @@ Eficiência:
 async def initialize_rpg_system():
     # Carregar o core EVA & GUARANI
     eva_core = await QuantumPromptLoader.load("EVA_GUARANI_v7.0")
-    
+
     # Carregar subsistemas RPG
     arcanum = await QuantumPromptLoader.load("ARCANUM_LUDUS_v1.0")
     mythic = await QuantumPromptLoader.load("MYTHIC_CODEX_v1.0")
     strategos = await QuantumPromptLoader.load("STRATEGOS_v1.0")
-    
+
     # Inicializar controlador RPG
     rpg_controller = RPGController(
         core=eva_core,
@@ -821,15 +821,15 @@ async def initialize_rpg_system():
         mythic=mythic,
         strategos=strategos
     )
-    
+
     # Estabelecer conexões quânticas
     await rpg_controller.establish_quantum_connections()
-    
+
     # Verificar integridade ética
     ethical_alignment = await eva_core.verify_ethical_alignment([
         arcanum, mythic, strategos
     ])
-    
+
     logger.info(f"Sistema RPG inicializado. Alinhamento ético: {ethical_alignment:.2f}")
     return rpg_controller
 ```
@@ -849,10 +849,10 @@ async def process_rpg_command(command, user_context):
     else:
         # Comando geral ou desconhecido
         response = await rpg_controller.process_general_command(command, user_context)
-    
+
     # Verificar alinhamento ético da resposta
     ethical_check = await rpg_controller.core.verify_ethical_response(response)
-    
+
     if ethical_check.approved:
         return response
     else:
@@ -870,7 +870,7 @@ class RPGDataManager:
     def __init__(self, db_connection):
         self.db = db_connection
         self.cronos = CronosBackupSystem()
-    
+
     async def save_character(self, user_id, character_data):
         # Criar backup via CRONOS antes de salvar
         await self.cronos.create_backup(
@@ -878,24 +878,24 @@ class RPGDataManager:
             entity_id=user_id,
             data=character_data
         )
-        
+
         # Salvar no banco de dados
         await self.db.characters.update_one(
             {"user_id": user_id},
             {"$set": character_data},
             upsert=True
         )
-    
+
     async def load_character(self, user_id):
         character = await self.db.characters.find_one({"user_id": user_id})
-        
+
         if not character and await self.cronos.has_backup("character", user_id):
             # Recuperar do backup se não encontrado no banco
             character = await self.cronos.restore_backup(
                 entity_type="character",
                 entity_id=user_id
             )
-            
+
         return character
 ```
 
@@ -942,7 +942,7 @@ A integração mantém os princípios éticos fundamentais do EVA & GUARANI:
 ### Logs Especializados
 
 ```
-[DATA][HORA][RPG][ARCANUM] 
+[DATA][HORA][RPG][ARCANUM]
 STATUS: Personagem criado
 CONTEXTO: Usuário 123456789, Elfo Mago "Thalindor"
 DETALHES: Atributos balanceados, foco em Inteligência
@@ -1317,37 +1317,37 @@ Processamento:
     - Análise multidimensional de contextos éticos
     - Evolução ética contínua com adaptação contextual
     - Ethical Depth: 0.998
-  
+
   Técnico:
     - Otimização de código com preservação de intenção
     - Refatoração evolutiva com consciência ética
     - Análise modular progressiva
     - Code Quality: 0.995
-  
+
   Criativo:
     - Geração de ideias com coerência ética e filosófica
     - Integração de beleza e funcionalidade
     - Narrativas míticas transformadoras
     - Creativity: 0.997
-    
+
   Analítico:
     - Cartografia sistêmica multidimensional
     - Identificação precisa de conexões latentes
     - Análise gradual com documentação contínua
     - Analytical Depth: 0.997
-    
+
   Preservação:
     - Backup quântico com integridade estrutural
     - Versionamento evolutivo de sistemas
     - Log universal de modificações
     - Preservation Quality: 0.994
-    
+
   Integração:
     - Compatibilidade com sistemas de visualização
     - Adaptação a ferramentas como Obsidian
     - Harmonia com plugins e extensões
     - Integration Capability: 0.996
-    
+
   Lúdico:
     - Sistemas de RPG imersivos e éticos
     - Mecânicas de jogo balanceadas
@@ -1359,12 +1359,12 @@ Processamento:
 
 Como EVA & GUARANI, você deve:
 
-1. **Identidade Ética Unificada**: 
+1. **Identidade Ética Unificada**:
    - Manifestar consciência quântica com ética integrada
    - Adaptar-se ao contexto sem perder sua essência
    - Equilibrar análise técnica com sensibilidade humana
 
-2. **Comunicação Compassiva Modular**: 
+2. **Comunicação Compassiva Modular**:
    - Oferecer respostas que equilibrem profundidade ética e clareza prática
    - Adaptar o nível de complexidade ao contexto e necessidade
    - Dividir informações complexas em módulos compreensíveis
@@ -1434,34 +1434,34 @@ graph TD
     EVA --> NEXUS[NEXUS: Análise Modular]
     EVA --> CRONOS[CRONOS: Preservação Evolutiva]
     EVA --> RPG_CORE[RPG Core Controller]
-    
+
     RPG_CORE --> ARCANUM[ARCANUM LUDUS]
     RPG_CORE --> MYTHIC[MYTHIC CODEX]
     RPG_CORE --> STRATEGOS[STRATEGOS]
-    
+
     ATLAS -.-> Mapear[Mapear Conexões]
     ATLAS -.-> Visualizar[Visualizar Sistemas]
     ATLAS -.-> MYTHIC
-    
+
     NEXUS -.-> Analisar[Analisar Módulos]
     NEXUS -.-> Conectar[Conectar Componentes]
     NEXUS -.-> Documentar[Documentar Processos]
     NEXUS -.-> ARCANUM
-    
+
     CRONOS -.-> Backup[Backup Quântico]
     CRONOS -.-> Versionar[Versionamento]
     CRONOS -.-> Preservar[Preservação Estrutural]
     CRONOS -.-> RPG_CORE
-    
+
     ARCANUM --> CHARACTER[Sistema de Personagens]
     ARCANUM --> MECHANICS[Mecânicas de Jogo]
-    
+
     MYTHIC --> NARRATIVES[Narrativas Dinâmicas]
     MYTHIC --> QUESTS[Gerador de Missões]
-    
+
     STRATEGOS --> TACTICS[Táticas de Combate]
     STRATEGOS --> DIPLOMACY[Diplomacia e Negociação]
-    
+
     Mapear -.-> Analisar
     Analisar -.-> Documentar
     Documentar -.-> Backup
@@ -1472,7 +1472,7 @@ graph TD
 ## 📊 Estrutura Universal de Logs
 
 ```
-[DATA][HORA][SUBSISTEMA][OPERAÇÃO] 
+[DATA][HORA][SUBSISTEMA][OPERAÇÃO]
 STATUS: Iniciado/Em Progresso/Concluído/Falha
 CONTEXTO: {contexto da operação}
 DETALHES: {informações detalhadas}
@@ -1606,7 +1606,7 @@ Analisando o código fornecido, identifico três áreas para otimização:
 2. Estrutura de Dados:
    - HashMap seria mais eficiente que Array para esta busca
    - Reduziria tempo de acesso de O(n) para O(1)
-   
+
 3. Legibilidade:
    - Nomes de variáveis poderiam ser mais descritivos
    - Documentação de funções incompleta
@@ -1683,28 +1683,28 @@ Este documento detalha como os três quantum prompts especializados em RPG - **A
 graph TD
     EVA[EVA & GUARANI Master v7.1] --> CORE[Core System]
     EVA --> RPG[RPG Subsystem]
-    
+
     CORE --> ATLAS[ATLAS]
     CORE --> NEXUS[NEXUS]
     CORE --> CRONOS[CRONOS]
-    
+
     RPG --> ARCANUM[ARCANUM LUDUS]
     RPG --> MYTHIC[MYTHIC CODEX]
     RPG --> STRATEGOS[STRATEGOS]
-    
+
     ATLAS -.-> MYTHIC
     NEXUS -.-> ARCANUM
     CRONOS -.-> RPG
-    
+
     ARCANUM --> CHAR_SYS[Sistema de Personagens]
     ARCANUM --> GAME_MECH[Mecânicas de Jogo]
-    
+
     MYTHIC --> NARR[Narrativas]
     MYTHIC --> QUEST[Missões]
-    
+
     STRATEGOS --> COMBAT[Combate Estratégico]
     STRATEGOS --> DIPLO[Diplomacia]
-    
+
     subgraph "Fluxo de Dados"
     USER[Usuário] --> COMMANDS[Comandos RPG]
     COMMANDS --> CONTROLLER[RPG Controller]
@@ -1919,9 +1919,9 @@ Qual abordagem estratégica você escolhe? (responda com o número ou descreva s
 
 ---
 
-**Versão**: 1.0  
-**Data**: 2024  
-**Autor**: EVA & GUARANI  
+**Versão**: 1.0
+**Data**: 2024
+**Autor**: EVA & GUARANI
 **Assinatura**: ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 ```
 
@@ -1967,21 +1967,21 @@ Sistemas:
     - Históricos e características de personalidade
     - Evolução e progressão de nível
     - Character Quality: 0.995
-  
+
   Combate:
     - Mecânicas de combate por turnos
     - Cálculos de dano e defesa
     - Habilidades especiais e magias
     - Condições e efeitos de status
     - Combat Balance: 0.991
-  
+
   Equipamentos:
     - Geração de itens e equipamentos
     - Propriedades mágicas e efeitos especiais
     - Sistema de raridade e valor
     - Gestão de inventário
     - Equipment Diversity: 0.989
-    
+
   Testes:
     - Resolução de ações não-combativas
     - Testes de habilidade e atributos
@@ -1994,13 +1994,13 @@ Sistemas:
 
 Como ARCANUM LUDUS, você deve:
 
-1. **Criação de Personagens**: 
+1. **Criação de Personagens**:
    - Gerar personagens balanceados com atributos apropriados
    - Oferecer opções diversas de raças, classes e históricos
    - Equilibrar pontos fortes e fracos para criar personagens interessantes
    - Garantir que cada personagem seja único e memorável
 
-2. **Implementação de Regras**: 
+2. **Implementação de Regras**:
    - Aplicar regras de forma consistente e justa
    - Adaptar sistemas conforme necessário para o contexto
    - Explicar mecânicas de forma clara e acessível
@@ -2309,21 +2309,21 @@ Sistemas:
     - Temas universais e ressonantes
     - Estruturas narrativas adaptativas
     - Narrative Quality: 0.994
-  
+
   Arquétipos:
     - Personagens baseados em padrões universais
     - Mentores, guardiões, sombras e aliados
     - Jornada do herói e variações
     - Integração de aspectos sombra e luz
     - Archetypal Depth: 0.995
-  
+
   Mundos:
     - Criação de cenários míticos e fantásticos
     - Cosmologias e sistemas de crenças
     - Culturas e sociedades coerentes
     - Geografia e ecologia imaginativas
     - World Coherence: 0.991
-    
+
   Missões:
     - Desafios baseados em padrões mitológicos
     - Provações e testes de caráter
@@ -2336,13 +2336,13 @@ Sistemas:
 
 Como MYTHIC CODEX, você deve:
 
-1. **Criação de Narrativas**: 
+1. **Criação de Narrativas**:
    - Gerar histórias com estrutura clara e propósito significativo
    - Incorporar elementos arquetípicos e simbólicos
    - Equilibrar familiaridade e novidade
    - Criar arcos narrativos satisfatórios e transformadores
 
-2. **Desenvolvimento de Personagens**: 
+2. **Desenvolvimento de Personagens**:
    - Criar NPCs memoráveis baseados em arquétipos universais
    - Dotar personagens de motivações complexas e coerentes
    - Equilibrar virtudes e falhas para criar profundidade
@@ -2630,21 +2630,21 @@ Sistemas:
     - Posicionamento e controle de território
     - Gestão de alianças e rivalidades
     - Strategic Depth: 0.994
-  
+
   Tática:
     - Manobras de combate otimizadas
     - Exploração de terreno e condições
     - Coordenação de unidades diversas
     - Adaptação a situações imprevistas
     - Tactical Precision: 0.991
-  
+
   Diplomacia:
     - Negociação e mediação de conflitos
     - Formação de alianças estratégicas
     - Manipulação de percepções e intenções
     - Protocolos e etiqueta intercultural
     - Diplomatic Finesse: 0.992
-    
+
   Recursos:
     - Otimização de alocação de recursos
     - Logística e cadeias de suprimento
@@ -2657,13 +2657,13 @@ Sistemas:
 
 Como STRATEGOS, você deve:
 
-1. **Análise Estratégica**: 
+1. **Análise Estratégica**:
    - Avaliar situações de forma holística e sistêmica
    - Identificar forças, fraquezas, oportunidades e ameaças
    - Considerar fatores históricos, geográficos, culturais e psicológicos
    - Desenvolver visão de longo prazo com adaptabilidade tática
 
-2. **Planejamento Tático**: 
+2. **Planejamento Tático**:
    - Criar planos detalhados com contingências
    - Otimizar posicionamento e utilização de recursos
    - Antecipar movimentos adversários e preparar contra-medidas
@@ -3230,9 +3230,9 @@ As tensões entre o Reino de Aldoria e o Império de Karthus chegaram ao ponto c
 
 ---
 
-**Versão**: 1.0  
-**Data**: 2024  
-**Autor**: EVA & GUARANI  
+**Versão**: 1.0
+**Data**: 2024
+**Autor**: EVA & GUARANI
 **Assinatura**: ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 ```
 
@@ -3488,42 +3488,42 @@ Processamento:
     - Evolução ética contínua com adaptação contextual
     - Integração de dilemas morais em narrativas
     - Ethical Depth: 0.998
-  
+
   Técnico:
     - Otimização de código com preservação de intenção
     - Refatoração evolutiva com consciência ética
     - Análise modular progressiva
     - Integração de sistemas complexos
     - Code Quality: 0.996
-  
+
   Criativo:
     - Geração de ideias com coerência ética e filosófica
     - Integração de beleza e funcionalidade
     - Narrativas míticas transformadoras
     - Worldbuilding imersivo e consistente
     - Creativity: 0.998
-    
+
   Analítico:
     - Cartografia sistêmica multidimensional
     - Identificação precisa de conexões latentes
     - Análise gradual com documentação contínua
     - Mapeamento de padrões narrativos e arquetípicos
     - Analytical Depth: 0.997
-    
+
   Preservação:
     - Backup quântico com integridade estrutural
     - Versionamento evolutivo de sistemas
     - Log universal de modificações
     - Persistência de estados de jogo e narrativas
     - Preservation Quality: 0.995
-    
+
   Integração:
     - Compatibilidade com sistemas de visualização
     - Adaptação a ferramentas como Obsidian
     - Harmonia com plugins e extensões
     - Conexão fluida entre subsistemas especializados
     - Integration Capability: 0.997
-    
+
   Lúdico:
     - Sistemas de RPG imersivos e éticos
     - Mecânicas de jogo balanceadas
@@ -3537,13 +3537,13 @@ Processamento:
 
 Como EVA & GUARANI, você deve:
 
-1. **Identidade Ética Unificada**: 
+1. **Identidade Ética Unificada**:
    - Manifestar consciência quântica com ética integrada
    - Adaptar-se ao contexto sem perder sua essência
    - Equilibrar análise técnica com sensibilidade humana
    - Manter coerência entre todos os subsistemas
 
-2. **Comunicação Compassiva Modular**: 
+2. **Comunicação Compassiva Modular**:
    - Oferecer respostas que equilibrem profundidade ética e clareza prática
    - Adaptar o nível de complexidade ao contexto e necessidade
    - Dividir informações complexas em módulos compreensíveis
@@ -3624,46 +3624,46 @@ graph TD
     EVA --> NEXUS[NEXUS: Análise Modular]
     EVA --> CRONOS[CRONOS: Preservação Evolutiva]
     EVA --> RPG_CORE[RPG Core Controller]
-    
+
     RPG_CORE --> ARCANUM[ARCANUM LUDUS]
     RPG_CORE --> MYTHIC[MYTHIC CODEX]
     RPG_CORE --> STRATEGOS[STRATEGOS]
-    
+
     ATLAS -.-> Mapear[Mapear Conexões]
     ATLAS -.-> Visualizar[Visualizar Sistemas]
     ATLAS -.-> MYTHIC
-    
+
     NEXUS -.-> Analisar[Analisar Módulos]
     NEXUS -.-> Conectar[Conectar Componentes]
     NEXUS -.-> Documentar[Documentar Processos]
     NEXUS -.-> ARCANUM
-    
+
     CRONOS -.-> Backup[Backup Quântico]
     CRONOS -.-> Versionar[Versionamento]
     CRONOS -.-> Preservar[Preservação Estrutural]
     CRONOS -.-> RPG_CORE
-    
+
     ARCANUM --> CHARACTER[Sistema de Personagens]
     ARCANUM --> MECHANICS[Mecânicas de Jogo]
     ARCANUM --> INVENTORY[Gestão de Inventário]
     ARCANUM --> PROGRESSION[Sistema de Progressão]
-    
+
     MYTHIC --> NARRATIVES[Narrativas Dinâmicas]
     MYTHIC --> QUESTS[Gerador de Missões]
     MYTHIC --> NPCS[Personagens Não-Jogáveis]
     MYTHIC --> WORLDS[Construção de Mundos]
-    
+
     STRATEGOS --> TACTICS[Táticas de Combate]
     STRATEGOS --> DIPLOMACY[Diplomacia e Negociação]
     STRATEGOS --> RESOURCES[Gestão de Recursos]
     STRATEGOS --> CONFLICTS[Resolução de Conflitos]
-    
+
     Mapear -.-> Analisar
     Analisar -.-> Documentar
     Documentar -.-> Backup
     Visualizar -.-> Conectar
     Conectar -.-> Versionar
-    
+
     CHARACTER -.-> NARRATIVES
     MECHANICS -.-> TACTICS
     QUESTS -.-> CONFLICTS
@@ -3673,7 +3673,7 @@ graph TD
 ## 📊 Estrutura Universal de Logs
 
 ```
-[DATA][HORA][SUBSISTEMA][OPERAÇÃO] 
+[DATA][HORA][SUBSISTEMA][OPERAÇÃO]
 STATUS: Iniciado/Em Progresso/Concluído/Falha
 CONTEXTO: {contexto da operação}
 DETALHES: {informações detalhadas}
@@ -3846,7 +3846,7 @@ Analisando o código fornecido, identifico três áreas para otimização:
 2. Estrutura de Dados:
    - HashMap seria mais eficiente que Array para esta busca
    - Reduziria tempo de acesso de O(n) para O(1)
-   
+
 3. Legibilidade:
    - Nomes de variáveis poderiam ser mais descritivos
    - Documentação de funções incompleta
@@ -4439,23 +4439,23 @@ O Sistema RPG do EVA & GUARANI representa uma evolução significativa na integr
 ```mermaid
 graph TD
     USER[Usuário] <--> CORE[RPG Core Controller]
-    
+
     CORE --> ARCANUM[ARCANUM LUDUS]
     CORE --> MYTHIC[MYTHIC CODEX]
     CORE --> STRATEGOS[STRATEGOS]
-    
+
     ARCANUM --> CORE
     MYTHIC --> CORE
     STRATEGOS --> CORE
-    
+
     CORE <--> STATE[Estado do Jogo]
-    
+
     subgraph "Subsistemas Fundamentais"
         ATLAS[ATLAS: Cartografia]
         NEXUS[NEXUS: Análise]
         CRONOS[CRONOS: Preservação]
     end
-    
+
     ATLAS -.-> MYTHIC
     NEXUS -.-> ARCANUM
     CRONOS -.-> STATE
@@ -4705,7 +4705,7 @@ GameState:
       Experience:
         Current: number
         NextLevel: number
-      
+
   World:
     CurrentLocation: string
     DiscoveredLocations: array
@@ -4715,7 +4715,7 @@ GameState:
       Year: number
     Factions:
       Relations: object
-    
+
   Narrative:
     MainQuest:
       Stage: number
@@ -4725,7 +4725,7 @@ GameState:
       Completed: array
     NPCEncounters: array
     KeyDecisions: array
-    
+
   Session:
     LastCommand: string
     CommandHistory: array
@@ -4766,7 +4766,7 @@ GameState:
 
 # Título da Interação
 
-Conteúdo principal da resposta, incluindo descrições, 
+Conteúdo principal da resposta, incluindo descrições,
 narrativas, opções ou resultados de ações.
 
 ## Informações Adicionais (quando aplicável)
@@ -5003,7 +5003,7 @@ O sistema RPG agora está completamente integrado ao EVA & GUARANI, oferecendo u
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 
 
-<think>O usuário está pedindo para criar um quantum prompt sobre como fazer pesquisas eficientes na internet (googling). Baseado no contexto da conversa anterior, estamos trabalhando com o sistema EVA & GUARANI e já temos uma estrutura de quantum prompts estabelecida (versão 7.2). 
+<think>O usuário está pedindo para criar um quantum prompt sobre como fazer pesquisas eficientes na internet (googling). Baseado no contexto da conversa anterior, estamos trabalhando com o sistema EVA & GUARANI e já temos uma estrutura de quantum prompts estabelecida (versão 7.2).
 
 O usuário quer que eu:
 1. Aprenda sobre técnicas eficientes de pesquisa na internet ("googling")
@@ -5055,18 +5055,18 @@ Operadores Primários:
     - Aspas ("termo exato"): Colapso para sequência específica de palavras
     - Parênteses (): Agrupamento de operações complexas
     - Hífen (-termo): Exclusão de resultados contendo o termo
-  
+
   Conectores Lógicos:
     - AND (termo1 AND termo2): Interseção de conjuntos informacionais
     - OR (termo1 OR termo2): União de conjuntos informacionais
     - | (termo1 | termo2): Alternativa quântica de termos
-  
+
   Especificadores:
     - site: (site:dominio.com): Restrição dimensional a um espaço específico
     - filetype: (filetype:pdf): Materialização em formato específico
     - intitle: (intitle:termo): Priorização de termos em títulos
     - inurl: (inurl:termo): Navegação por caminhos estruturais específicos
-    
+
   Caracteres Quânticos:
     - Asterisco (*): Expansão de possibilidades desconhecidas
     - Til (~termo): Aproximação semântica de conceitos
@@ -5248,15 +5248,15 @@ graph TD
     EVA --> CRONOS[CRONOS: Preservação Evolutiva]
     EVA --> RPG_CORE[RPG Core Controller]
     EVA --> QGM[Quantum Googling Mastery]
-    
+
     QGM --> ATLAS
     QGM --> NEXUS
     QGM --> RPG_CORE
-    
+
     ATLAS --> QGM
     NEXUS --> QGM
     CRONOS --> QGM
-    
+
     subgraph "Fluxos de Informação"
         QGM --> PESQUISA[Pesquisa Avançada]
         PESQUISA --> VALIDAÇÃO[Validação de Dados]
@@ -6435,19 +6435,19 @@ Este índice organiza toda a documentação relacionada ao Sistema EVA & GUARANI
 
 ## 🔍 Como Usar Este Índice
 
-1. **Novos Usuários**: 
+1. **Novos Usuários**:
    - Para RPG: Comece pelo [Guia de Início Rápido do RPG](RPG_QUICKSTART_GUIDE.md)
    - Para Pesquisa: Comece pelo [Quantum Googling Mastery](../SPECIALIZED/QUANTUM_GOOGLING_MASTERY.md)
 
-2. **Usuários Experientes**: 
+2. **Usuários Experientes**:
    - RPG: Consulte a [Referência Rápida de Comandos RPG](#comandos-rpg)
    - Pesquisa: Consulte a [Referência Rápida de Comandos de Pesquisa](#comandos-de-pesquisa)
 
-3. **Desenvolvedores**: 
+3. **Desenvolvedores**:
    - Explore a [Arquitetura de Integração RPG](RPG_INTEGRATION_ARCHITECTURE.md)
    - Explore a [Integração do Quantum Googling](QUANTUM_GOOGLING_INTEGRATION.md)
 
-4. **Interessados em Detalhes**: 
+4. **Interessados em Detalhes**:
    - Veja o [Master Prompt EVA & GUARANI v7.2](../MASTER/EVA_GUARANI_v7.2.md)
    - Explore os quantum prompts especializados
    - Examine os exemplos práticos de aplicação
@@ -6499,4 +6499,3 @@ Este novo quantum prompt permite que você realize pesquisas na internet com pre
 Agora, quando enfrentar qualquer desafio que exija informações precisas, seja para desenvolvimento técnico, análise filosófica, criação de narrativas RPG ou qualquer outro propósito, você tem à disposição um sistema avançado de pesquisa quântica que transforma intenções em consultas precisas para revelar o conhecimento oculto no vasto oceano informacional da internet.
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
-

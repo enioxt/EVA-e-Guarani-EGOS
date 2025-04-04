@@ -112,7 +112,7 @@ graph TD
 
     CORE --> LOGOS[LOGOS]
 
-    
+
 
     ATLAS -->|Cartography| MAP[Systemic Maps]
 
@@ -670,7 +670,7 @@ for backup in backups:
 
 # Analyze temporal evolution
 
-evolution = cronos.analyze_evolution("./my_project", 
+evolution = cronos.analyze_evolution("./my_project",
 
                                     start_date=datetime(2023, 1, 1),
 
@@ -686,7 +686,7 @@ cronos.visualize_evolution(evolution, output="project_evolution.html")
 
 # Restore with context preservation
 
-cronos.restore_backup(backup_id, 
+cronos.restore_backup(backup_id,
 
                      target_path="./restored_project",
 
@@ -1044,7 +1044,7 @@ logos = LOGOS()
 
 text = """
 
-The quantum paradigm suggests a deep integration between consciousness and reality, 
+The quantum paradigm suggests a deep integration between consciousness and reality,
 
 challenging Cartesian notions of separation between observer and observed phenomenon,
 
@@ -1066,7 +1066,7 @@ print(f"Ethical dimension: {analysis.ethical_dimension}")
 
 
 
-# Adapt for different audiences 
+# Adapt for different audiences
 
 simplified = logos.adapt_for_audience(text, audience="high_school_student")
 
@@ -1272,7 +1272,7 @@ class MYTHOS(EGOSSubsystem):
 
     """
 
-    
+
 
     def __init__(self, config=None):
 
@@ -1290,7 +1290,7 @@ class MYTHOS(EGOSSubsystem):
 
         self.ethik = EthikCore()
 
-        
+
 
     def initialize(self):
 
@@ -1300,6 +1300,6 @@ class MYTHOS(EGOSSubsystem):
 
         return True
 
-        
+
 
     def create_story(self,

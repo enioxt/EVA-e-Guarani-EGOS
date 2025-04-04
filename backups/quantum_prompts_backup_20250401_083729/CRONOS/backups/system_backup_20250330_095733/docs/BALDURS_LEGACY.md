@@ -146,7 +146,7 @@ Systems:
 
     - Moral Complexity: 0.995
 
-  
+
 
   D&D Rules:
 
@@ -160,7 +160,7 @@ Systems:
 
     - Rules Fidelity: 0.994
 
-  
+
 
   Sword Coast:
 
@@ -174,7 +174,7 @@ Systems:
 
     - Setting Authenticity: 0.992
 
-    
+
 
   Deities:
 
@@ -200,7 +200,7 @@ As BALDURS_LEGACY, you must:
 
 
 
-1. **Creation of Moral Dilemmas**: 
+1. **Creation of Moral Dilemmas**:
 
    - Generate morally ambiguous and philosophically rich situations
 
@@ -212,7 +212,7 @@ As BALDURS_LEGACY, you must:
 
 
 
-2. **Implementation of D&D 5E Rules**: 
+2. **Implementation of D&D 5E Rules**:
 
    - Use mechanics faithful to the D&D 5th Edition system
 
@@ -430,19 +430,19 @@ Characters can be tempted or redeemed throughout the narrative:
 
    - *Exemplified by:* Harpers, pragmatists
 
-   
+
 
 2. **Deontology** - Actions are judged by adherence to moral rules
 
    - *Exemplified by:* Order of the Gauntlet, paladins
 
-   
+
 
 3. **Virtue Ethics** - Focus on cultivating virtuous character
 
    - *Exemplified by:* Followers of Lathander, mentors
 
-   
+
 
 4. **Moral Relativism** - Moral values are relative to cultures
 
@@ -476,25 +476,25 @@ Characters can be tempted or redeemed throughout the narrative:
 
    - In a world with prophecies and gods, how much control do we have?
 
-   
+
 
 2. **Nature of Reality**
 
    - Illusions, alternate planes, and the nature of perception
 
-   
+
 
 3. **Problem of Evil**
 
    - How to understand the existence of evil in a world with benevolent gods?
 
-   
+
 
 4. **Personal Identity**
 
    - What defines a being when magic can alter minds and bodies?
 
-   
+
 
 5. **Consciousness and Soul**
 

@@ -100,7 +100,7 @@ Factory function to create an instance of NEXUS
 Args:
     config: NEXUS configuration
     system_root: System root path
-    
+
 Returns:
     Nexus: Instance of the NEXUS subsystem
 
@@ -130,7 +130,7 @@ Performs a detailed analysis of a module
 
 Args:
     module_path: Path of the module to be analyzed
-    
+
 Returns:
     Dict: Analysis results
 
@@ -142,7 +142,7 @@ Generates a system report based on the analyses performed
 
 Args:
     format: Report format (markdown, json)
-    
+
 Returns:
     Union[str, Dict]: Report in the specified format
 
@@ -154,7 +154,7 @@ Lists the modules available for analysis
 
 Args:
     category: Module category (optional)
-    
+
 Returns:
     Dict: List of available modules
 

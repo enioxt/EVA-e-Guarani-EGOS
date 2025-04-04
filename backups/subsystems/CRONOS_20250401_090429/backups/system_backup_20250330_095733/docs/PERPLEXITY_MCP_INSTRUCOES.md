@@ -95,7 +95,7 @@ Se o servidor MCP não iniciar automaticamente, você pode iniciá-lo manualment
    ```bash
    # Windows
    .\tools\launchers\start_perplexity_mcp.bat
-   
+
    # Linux/Mac
    ./tools/launchers/start_perplexity_mcp.sh
    ```
@@ -130,7 +130,7 @@ Para verificar se o servidor MCP está ativo:
    ```bash
    # Windows
    netstat -an | findstr 38001
-   
+
    # Linux/Mac
    netstat -an | grep 38001
    ```

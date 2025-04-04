@@ -4,4 +4,4 @@ pathlib==1.0.1  # Path manipulation
 typing-extensions==4.7.1  # Type hints
 pyyaml==6.0.1  # YAML configuration
 python-json-logger==2.0.7  # JSON logging
-colorama==0.4.6  # Colored console output 
+colorama==0.4.6  # Colored console output

@@ -163,10 +163,10 @@ I will start by drafting the HARMONY PRD based on the MQP and the purpose of the
 ```markdown:docs/prd/harmony_compatibility.md
 # HARMONY Compatibility Framework - Product Requirements Document
 
-**Version:** 0.1  
-**Last Updated:** 2025-03-31  
-**Status:** Draft  
-**Owner:** EVA & GUARANI Team  
+**Version:** 0.1
+**Last Updated:** 2025-03-31
+**Status:** Draft
+**Owner:** EVA & GUARANI Team
 **Related Subsystem:** [QUANTUM_PROMPTS/HARMONY](../../QUANTUM_PROMPTS/HARMONY)
 **Mycelial Connections:** ATLAS, NEXUS, CRONOS, ETHIK
 
@@ -174,7 +174,7 @@ I will start by drafting the HARMONY PRD based on the MQP and the purpose of the
 metadata:
   subsystem: HARMONY
   category: COMPATIBILITY
-  related_files: 
+  related_files:
     - ../../QUANTUM_PROMPTS/HARMONY/roadmap.md
     - ../reports/sprint2_planning.md
     - ../../ROADMAP.md
@@ -238,23 +238,23 @@ The HARMONY framework must provide mechanisms to detect the current operating en
 1. **Platform Detection API**
    - Description: Provide reliable detection of the current OS (Windows, macOS, Linux) and potentially environment (Desktop, Web).
    - Priority: Critical
-   
+
 2. **File System Adapter**
    - Description: Abstract file system operations (path manipulation, read/write) to handle differences (e.g., path separators).
    - Priority: High
-   
+
 3. **UI Adaptation Layer**
    - Description: Allow UI components (especially web) to query platform conventions or adapt styling.
    - Priority: High
-   
+
 4. **Configuration Adapter**
    - Description: Handle platform-specific configuration loading or defaults.
    - Priority: Medium
-   
+
 5. **Compatibility Test Suite**
    - Description: Framework and basic tests for verifying core functionality on different platforms.
    - Priority: Medium
-   
+
 6. **Platform-Specific Documentation Standard**
    - Description: Guideline for documenting platform-specific code or considerations.
    - Priority: Medium
@@ -263,11 +263,11 @@ The HARMONY framework must provide mechanisms to detect the current operating en
 1. **Networking Adapter**
    - Description: Abstract common networking tasks that might have platform nuances.
    - Priority: Low
-   
+
 2. **Process Management Adapter**
    - Description: Abstract interactions with system processes.
    - Priority: Low
-   
+
 3. **Graceful Degradation Hooks**
    - Description: Allow modules to register alternative functionality for unsupported platforms.
    - Priority: Low
@@ -297,15 +297,15 @@ The HARMONY framework must provide mechanisms to detect the current operating en
    - [ ] Correctly identifies Windows 10/11.
    - [ ] Correctly identifies latest macOS version.
    - [ ] Correctly identifies Ubuntu LTS and Fedora latest.
-   
+
 2. **File System Adapter**
    - [ ] Converts paths correctly between Windows and POSIX styles.
    - [ ] Handles basic file read/write consistently across platforms.
-   
+
 3. **UI Adaptation Layer**
    - [ ] Allows web UI to query OS theme (light/dark) if available.
    - [ ] Provides mechanism for platform-specific CSS adjustments.
-   
+
 4. **Compatibility Test Suite**
    - [ ] Includes at least one test for file path handling.
    - [ ] Includes at least one test verifying core module startup on each target OS.
@@ -495,35 +495,35 @@ class CompatibilityTestResult:
 
 class IPlatformDetector(ABC):
     """Interface for detecting platform information."""
-    
+
     @abstractmethod
     def get_platform_info(self) -> PlatformInfo:
         """Get detailed information about the current platform.
-        
+
         Returns:
             Platform information dataclass
         """
         pass
-    
+
     @abstractmethod
     def get_current_os(self) -> OperatingSystem:
         """Get the current operating system.
-        
+
         Returns:
             OperatingSystem enum member
         """
         pass
-    
+
     @abstractmethod
     def is_windows(self) -> bool:
         """Check if the current OS is Windows."""
         pass
-    
+
     @abstractmethod
     def is_macos(self) -> bool:
         """Check if the current OS is macOS."""
         pass
-    
+
     @abstractmethod
     def is_linux(self) -> bool:
         """Check if the current OS is Linux."""
@@ -532,22 +532,22 @@ class IPlatformDetector(ABC):
 
 class IFileSystemAdapter(ABC):
     """Interface for adapting file system operations."""
-    
+
     @abstractmethod
     def normalize_path(
         self,
         path: Union[str, Path]
     ) -> str:
         """Normalize a path to the platform's preferred format.
-        
+
         Args:
             path: Path to normalize
-            
+
         Returns:
             Normalized path string
         """
         pass
-    
+
     @abstractmethod
     def convert_path_style(
         self,
@@ -555,34 +555,34 @@ class IFileSystemAdapter(ABC):
         target_style: PathStyle
     ) -> str:
         """Convert path separators between Windows and POSIX styles.
-        
+
         Args:
             path: Path to convert
             target_style: Target path style (WINDOWS or POSIX)
-            
+
         Returns:
             Path string with converted separators
         """
         pass
-    
+
     @abstractmethod
     def get_user_config_dir(self) -> Path:
         """Get the platform-specific user configuration directory.
-        
+
         Returns:
             Path object for the user config directory
         """
         pass
-    
+
     @abstractmethod
     def get_temp_dir(self) -> Path:
         """Get the platform-specific temporary directory.
-        
+
         Returns:
             Path object for the temporary directory
         """
         pass
-    
+
     @abstractmethod
     def read_text_file(
         self,
@@ -590,16 +590,16 @@ class IFileSystemAdapter(ABC):
         encoding: str = "utf-8"
     ) -> str:
         """Read a text file consistently across platforms.
-        
+
         Args:
             path: Path to the file
             encoding: File encoding
-            
+
         Returns:
             File content as string
         """
         pass
-    
+
     @abstractmethod
     def write_text_file(
         self,
@@ -608,12 +608,12 @@ class IFileSystemAdapter(ABC):
         encoding: str = "utf-8"
     ) -> bool:
         """Write a text file consistently across platforms.
-        
+
         Args:
             path: Path to the file
             content: String content to write
             encoding: File encoding
-            
+
         Returns:
             True if write was successful
         """
@@ -622,25 +622,25 @@ class IFileSystemAdapter(ABC):
 
 class IUIAdapter(ABC):
     """Interface for adapting UI elements and behaviors."""
-    
+
     @abstractmethod
     def get_os_theme(self) -> str:
         """Get the OS theme (e.g., 'light', 'dark').
-        
+
         Returns:
             Theme name or 'unknown'
         """
         pass
-    
+
     @abstractmethod
     def get_platform_font(self) -> Dict[str, str]:
         """Get default platform font information.
-        
+
         Returns:
             Dictionary with font family and size
         """
         pass
-    
+
     @abstractmethod
     def show_notification(
         self,
@@ -649,12 +649,12 @@ class IUIAdapter(ABC):
         urgency: str = "normal"
     ) -> bool:
         """Show a platform-native notification.
-        
+
         Args:
             title: Notification title
             message: Notification message
             urgency: Notification urgency level
-            
+
         Returns:
             True if notification was likely shown
         """
@@ -663,7 +663,7 @@ class IUIAdapter(ABC):
 
 class IConfigAdapter(ABC):
     """Interface for platform-aware configuration management."""
-    
+
     @abstractmethod
     def load_config(
         self,
@@ -671,16 +671,16 @@ class IConfigAdapter(ABC):
         default_config: Dict[str, Any] = None
     ) -> Dict[str, Any]:
         """Load configuration, considering platform-specific overrides.
-        
+
         Args:
             config_name: Name of the configuration
             default_config: Optional default configuration
-            
+
         Returns:
             Loaded configuration dictionary
         """
         pass
-    
+
     @abstractmethod
     def save_config(
         self,
@@ -688,16 +688,16 @@ class IConfigAdapter(ABC):
         config_data: Dict[str, Any]
     ) -> bool:
         """Save configuration.
-        
+
         Args:
             config_name: Name of the configuration
             config_data: Configuration data to save
-            
+
         Returns:
             True if save was successful
         """
         pass
-    
+
     @abstractmethod
     def get_platform_setting(
         self,
@@ -705,11 +705,11 @@ class IConfigAdapter(ABC):
         default_value: Any = None
     ) -> Any:
         """Get a setting value, checking for platform-specific overrides.
-        
+
         Args:
             setting_key: Key of the setting
             default_value: Default value if not found
-            
+
         Returns:
             Setting value
         """
@@ -718,7 +718,7 @@ class IConfigAdapter(ABC):
 
 class ICompatibilityTester(ABC):
     """Interface for running cross-platform compatibility tests."""
-    
+
     @abstractmethod
     def run_test(
         self,
@@ -727,17 +727,17 @@ class ICompatibilityTester(ABC):
         config: Dict[str, Any] = None
     ) -> CompatibilityTestResult:
         """Run a specific compatibility test on a target platform.
-        
+
         Args:
             test_id: Identifier of the test to run
             target_platform: Platform to simulate or test against
             config: Optional test configuration
-            
+
         Returns:
             Compatibility test result
         """
         pass
-    
+
     @abstractmethod
     def run_test_suite(
         self,
@@ -746,21 +746,21 @@ class ICompatibilityTester(ABC):
         config: Dict[str, Any] = None
     ) -> List[CompatibilityTestResult]:
         """Run a suite of compatibility tests across multiple platforms.
-        
+
         Args:
             suite_id: Identifier of the test suite
             target_platforms: List of platforms to test against
             config: Optional suite configuration
-            
+
         Returns:
             List of compatibility test results
         """
         pass
-    
+
     @abstractmethod
     def list_available_tests(self) -> List[Dict[str, Any]]:
         """List available compatibility tests.
-        
+
         Returns:
             List of test descriptions
         """

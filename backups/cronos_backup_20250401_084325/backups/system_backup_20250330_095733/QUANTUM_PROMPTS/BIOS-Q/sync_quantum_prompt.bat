@@ -104,4 +104,4 @@ echo ✓ Quantum Prompt successfully synchronized!
 echo ✓ Location: %USERPROFILE%\.cursor\quantum_prompt.md
 echo.
 echo ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
-echo. 
+echo.

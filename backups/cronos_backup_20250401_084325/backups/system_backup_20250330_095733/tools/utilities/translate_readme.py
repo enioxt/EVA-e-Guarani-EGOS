@@ -217,4 +217,4 @@ This project is licensed under the terms of the MIT license. See the `LICENSE` f
 with open(readme_path, "w", encoding="utf-8") as f:
     f.write(english_content)
 
-print(f"Successfully translated README.md to English") 
+print(f"Successfully translated README.md to English")

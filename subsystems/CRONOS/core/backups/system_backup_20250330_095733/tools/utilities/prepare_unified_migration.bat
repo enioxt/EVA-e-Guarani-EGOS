@@ -134,11 +134,11 @@ echo [STEP 4] Preparing environment for execution...
 if exist "venv\Scripts\activate.bat" (
     call venv\Scripts\activate.bat
     echo [INFO] Virtual environment activated.
-    
+
     REM Check dependencies
     pip install -r requirements.txt 2>nul
     echo [INFO] Dependencies verified.
-    
+
     call venv\Scripts\deactivate.bat
 )
 

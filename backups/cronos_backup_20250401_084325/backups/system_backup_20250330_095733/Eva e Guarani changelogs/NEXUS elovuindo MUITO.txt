@@ -327,17 +327,17 @@ Instruções: Use este prompt para explorar questões éticas, analisar dilemas 
    - Utilitarismo (Bentham, Mill)
    - Consequencialismo de regras
    - Egoísmo ético
-   
+
 2. **TEORIAS DEONTOLÓGICAS**
    - Ética kantiana
    - Contratualismo
    - Ética dos direitos naturais
-   
+
 3. **ÉTICA DAS VIRTUDES**
    - Tradição aristotélica
    - Virtudes cardeais e teologais
    - Neo-aristotelismo contemporâneo
-   
+
 4. **METAÉTICA**
    - Realismo moral
    - Não-cognitivismo
@@ -597,7 +597,7 @@ Ao processar múltiplas obras:
 # CONHECIMENTO PROCESSADO: FILOSOFIA POLÍTICA
 
 ## METADADOS DE AQUISIÇÃO
-Obras processadas: 
+Obras processadas:
 - "A República" (Platão)
 - "O Príncipe" (Maquiavel)
 - "Leviatã" (Hobbes)
@@ -651,13 +651,13 @@ Instruções: Use este prompt para explorar questões de filosofia política, an
    - Estado como ordem natural (Aristóteles)
    - Estado como construção artificial (contratualistas)
    - Estado como instrumento de dominação (Marx)
-   
+
 2. **CONCEPÇÕES DE LEGITIMIDADE**
    - Legitimidade tradicional/divina
    - Legitimidade racional-legal
    - Legitimidade carismática
    - Consentimento dos governados
-   
+
 3. **MODELOS DE JUSTIÇA POLÍTICA**
    - Justiça como harmonia (Platão)
    - Justiça como equidade (Rawls)

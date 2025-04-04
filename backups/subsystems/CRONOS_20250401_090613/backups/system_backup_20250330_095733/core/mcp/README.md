@@ -114,7 +114,7 @@ O monitor funcionará em segundo plano e salvará automaticamente o contexto qua
 Quando estiver no chat com Claude no Cursor, digite:
 
 - `@save` - Obter comando para salvar contexto
-- `@load` - Obter comando para carregar contexto  
+- `@load` - Obter comando para carregar contexto
 - `@list` - Obter comando para listar contextos salvos
 - `@status` - Verificar status do monitor de contexto
 - `@update` - Obter comando para atualizar limite de contexto (quando solicitado novo chat)

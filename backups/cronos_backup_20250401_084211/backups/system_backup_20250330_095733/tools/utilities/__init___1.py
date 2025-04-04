@@ -40,11 +40,8 @@ import logging
 # Logging configuration
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler("logs/bot_package.log"),
-        logging.StreamHandler()
-    ]
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("logs/bot_package.log"), logging.StreamHandler()],
 )
 logger = logging.getLogger("bot_package")
 
@@ -75,30 +72,35 @@ else:
 # Export main components
 try:
     from .unified_telegram_bot_utf8 import TelegramHandlers, BOT_CONFIG
+
     logger.info("Module unified_telegram_bot_utf8 imported successfully")
 except ImportError as e:
     logger.warning(f"Could not import module unified_telegram_bot_utf8: {e}")
 
 try:
     from .quantum_integration import QuantumIntegration
+
     logger.info("Module quantum_integration imported successfully")
 except ImportError as e:
     logger.warning(f"Could not import module quantum_integration: {e}")
 
 try:
     from .ethik_core import EthikCore
+
     logger.info("Module ethik_core imported successfully")
 except ImportError as e:
     logger.warning(f"Could not import module ethik_core: {e}")
 
 try:
     from .interactive_ui import InteractiveUI, TelegramUIBuilder, InteractiveUIManager
+
     logger.info("Module interactive_ui imported successfully")
 except ImportError as e:
     logger.warning(f"Could not import module interactive_ui: {e}")
 
 try:
     from .adaptive_model_selector import AdaptiveModelSelector
+
     logger.info("Module adaptive_model_selector imported successfully")
 except ImportError as e:
     logger.warning(f"Could not import module adaptive_model_selector: {e}")

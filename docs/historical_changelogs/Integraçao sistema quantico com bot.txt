@@ -46,38 +46,38 @@ class QuantumKnowledgeIntegrationManager:
     """
     Gerenciador de integração do sistema de conhecimento quântico no bot unificado.
     """
-    
+
     def __init__(self, bot_path: str = "unified_eva_guarani_bot.py", config_path: str = "config/integration_manager.json"):
         """
         Inicializa o gerenciador de integração.
-        
+
         Args:
             bot_path: Caminho para o arquivo do bot unificado
             config_path: Caminho para o arquivo de configuração
         """
         self.logger = logger
         self.logger.info("Inicializando Quantum Knowledge Integration Manager")
-        
+
         # Caminhos
         self.bot_path = Path(bot_path)
         self.config_path = Path(config_path)
-        
+
         # Estado interno
         self.config = self._load_config()
         self.bot_module = None
         self.bot_instance = None
         self.knowledge_hub = None
         self.knowledge_integrator = None
-        
+
         # Verificar ambientes
         self._ensure_directories()
-        
+
         self.logger.info("Quantum Knowledge Integration Manager inicializado")
-        
+
     def _load_config(self) -> Dict[str, Any]:
         """
         Carrega a configuração do gerenciador de integração.
-        
+
         Returns:
             Dicionário com as configurações
         """
@@ -102,7 +102,7 @@ class QuantumKnowledgeIntegrationManager:
                 "logs/quantum_integrator"
             ]
         }
-        
+
         # Tentar carregar configuração personalizada
         try:
             if self.config_path.exists():
@@ -119,11 +119,11 @@ class QuantumKnowledgeIntegrationManager:
                     json.dump(default_config, f, indent=2, ensure_ascii=False)
                 self.logger.info(f"Configuração padrão criada em {self.config_path}")
                 return default_config
-                
+
         except Exception as e:
             self.logger.error(f"Erro ao carregar configuração: {e}")
             return default_config
-            
+
     def _ensure_directories(self) -> None:
         """
         Cria os diretórios necessários para o sistema de conhecimento quântico.
@@ -131,99 +131,99 @@ class QuantumKnowledgeIntegrationManager:
         if not self.config.get("create_template_directories", True):
             self.logger.info("Criação de diretórios desativada")
             return
-            
+
         try:
             for directory in self.config.get("directories_to_create", []):
                 os.makedirs(directory, exist_ok=True)
                 self.logger.info(f"Diretório criado/verificado: {directory}")
-                
+
         except Exception as e:
             self.logger.error(f"Erro ao criar diretórios: {e}")
-            
+
     def _backup_bot(self) -> bool:
         """
         Cria uma cópia de backup do bot unificado antes da integração.
-        
+
         Returns:
             True se o backup foi bem-sucedido, False caso contrário
         """
         if not self.config.get("backup_bot_before_integration", True):
             self.logger.info("Backup do bot desativado")
             return True
-            
+
         try:
             # Verificar se o arquivo do bot existe
             if not self.bot_path.exists():
                 self.logger.error(f"Arquivo do bot não encontrado: {self.bot_path}")
                 return False
-                
+
             # Criar arquivo de backup
             backup_path = self.bot_path.with_suffix(".py.bak")
             with open(self.bot_path, 'r', encoding='utf-8') as src:
                 with open(backup_path, 'w', encoding='utf-8') as dst:
                     dst.write(src.read())
-                    
+
             self.logger.info(f"Backup do bot criado em {backup_path}")
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao fazer backup do bot: {e}")
             return False
-            
+
     async def initialize_components(self) -> bool:
         """
         Inicializa os componentes do sistema de conhecimento quântico.
-        
+
         Returns:
             True se todos os componentes foram inicializados com sucesso, False caso contrário
         """
         try:
             # 1. Inicializar QuantumKnowledgeHub
             from quantum_knowledge_hub import QuantumKnowledgeHub, create_default_config as create_hub_config
-            
+
             # Criar configuração padrão do hub
             create_hub_config()
-            
+
             # Inicializar hub
             self.knowledge_hub = QuantumKnowledgeHub()
             if not self.knowledge_hub.initialized:
                 self.logger.error("Falha ao inicializar QuantumKnowledgeHub")
                 return False
-                
+
             self.logger.info("QuantumKnowledgeHub inicializado com sucesso")
-            
+
             # 2. Inicializar QuantumKnowledgeIntegrator
             from quantum_knowledge_integrator import QuantumKnowledgeIntegrator, create_default_config as create_integrator_config
-            
+
             # Criar configuração padrão do integrador
             create_integrator_config()
-            
+
             # Inicializar integrador
             self.knowledge_integrator = QuantumKnowledgeIntegrator()
             if not self.knowledge_integrator.initialized:
                 self.logger.error("Falha ao inicializar QuantumKnowledgeIntegrator")
                 return False
-                
+
             self.logger.info("QuantumKnowledgeIntegrator inicializado com sucesso")
-            
+
             # 3. Conectar hub ao integrador
             await self.knowledge_integrator.initialize_hub()
-            
+
             # 4. Indexar conhecimento se configurado
             if self.config.get("auto_index_on_start", True):
                 await self.knowledge_integrator.index_quantum_knowledge()
-                
+
             self.logger.info("Componentes do sistema de conhecimento quântico inicializados com sucesso")
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao inicializar componentes: {e}")
             return False
-            
+
     async def load_bot(self) -> bool:
         """
         Carrega o módulo do bot unificado.
-        
+
         Returns:
             True se o bot foi carregado com sucesso, False caso contrário
         """
@@ -232,10 +232,10 @@ class QuantumKnowledgeIntegrationManager:
             if not self.bot_path.exists():
                 self.logger.error(f"Arquivo do bot não encontrado: {self.bot_path}")
                 return False
-                
+
             # Obter nome do módulo sem extensão
             module_name = self.bot_path.stem
-            
+
             # Se o módulo já foi importado, recarregá-lo
             if module_name in sys.modules:
                 self.bot_module = importlib.reload(sys.modules[module_name])
@@ -245,25 +245,25 @@ class QuantumKnowledgeIntegrationManager:
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
                 self.bot_module = module
-                
+
             # Verificar se o módulo contém a classe do bot
             bot_class_name = "EVAGuaraniBot"
             if not hasattr(self.bot_module, bot_class_name):
                 self.logger.error(f"Classe '{bot_class_name}' não encontrada no módulo")
                 return False
-                
+
             # Não criar instância do bot por enquanto, apenas garantir que o módulo está carregado
             self.logger.info(f"Módulo do bot '{module_name}' carregado com sucesso")
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao carregar módulo do bot: {e}")
             return False
-            
+
     async def integrate_knowledge_system(self) -> bool:
         """
         Integra o sistema de conhecimento quântico ao bot unificado.
-        
+
         Returns:
             True se a integração foi bem-sucedida, False caso contrário
         """
@@ -271,41 +271,41 @@ class QuantumKnowledgeIntegrationManager:
             # 1. Fazer backup do bot se configurado
             if not self._backup_bot():
                 self.logger.warning("Continuando sem backup")
-                
+
             # 2. Carregar bot
             if not await self.load_bot():
                 return False
-                
+
             # 3. Inicializar componentes
             if not await self.initialize_components():
                 return False
-                
+
             # 4. Verificar se há instância do bot disponível
             if hasattr(self.bot_module, "bot_instance") and self.bot_module.bot_instance is not None:
                 self.bot_instance = self.bot_module.bot_instance
-                
+
                 # 5. Integrar sistema de conhecimento ao bot
                 result = await self.knowledge_integrator.integrate_with_bot(self.bot_instance)
                 if result:
                     self.logger.info("Sistema de conhecimento quântico integrado ao bot com sucesso")
                 else:
                     self.logger.warning("Integração com bot existente falhou")
-                    
+
                 return result
             else:
                 # Bot ainda não foi inicializado, modificar arquivo para integração automática
                 self.logger.info("Bot não inicializado, preparando para integração na inicialização")
                 return await self._prepare_bot_for_integration()
-                
+
         except Exception as e:
             self.logger.error(f"Erro ao integrar sistema de conhecimento quântico: {e}")
             return False
-            
+
     async def _prepare_bot_for_integration(self) -> bool:
         """
         Prepara o bot para integração automática durante a inicialização.
         Isso envolve modificar o arquivo do bot para adicionar o código de integração.
-        
+
         Returns:
             True se a preparação foi bem-sucedida, False caso contrário
         """
@@ -313,12 +313,12 @@ class QuantumKnowledgeIntegrationManager:
             # Ler arquivo do bot
             with open(self.bot_path, 'r', encoding='utf-8') as f:
                 bot_code = f.read()
-                
+
             # Verificar se a integração já foi adicionada
             if "quantum_knowledge_integrator" in bot_code and "quantum_knowledge_hub" in bot_code:
                 self.logger.info("Código de integração já existe no arquivo do bot")
                 return True
-                
+
             # Código para adicionar importações
             import_code = """
 # Importações para integração do conhecimento quântico
@@ -331,7 +331,7 @@ except ImportError:
     QUANTUM_KNOWLEDGE_AVAILABLE = False
     print("Módulos de conhecimento quântico não disponíveis. Algumas funcionalidades serão limitadas.")
 """
-            
+
             # Código para adicionar na inicialização da classe do bot
             init_code = """
         # Inicializar sistema de conhecimento quântico se disponível
@@ -344,7 +344,7 @@ except ImportError:
             except Exception as e:
                 self.logger.error(f"Erro ao inicializar sistema de conhecimento quântico: {e}")
 """
-            
+
             # Código para adicionar método de configuração
             method_code = """
     async def _setup_quantum_knowledge(self):
@@ -354,36 +354,36 @@ except ImportError:
         try:
             # Inicializar integrador de conhecimento
             integrator = QuantumKnowledgeIntegrator()
-            
+
             # Inicializar hub de conhecimento
             await integrator.initialize_hub()
-            
+
             # Conectar à integração quântica existente
             if hasattr(self, 'quantum_integration') and self.quantum_integration is not None:
                 await integrator.connect_quantum_integration(self.quantum_integration)
-                
+
             # Indexar conhecimento existente
             await integrator.index_quantum_knowledge()
-            
+
             # Armazenar referência
             self.quantum_knowledge_integrator = integrator
-            
+
             self.logger.info("Sistema de conhecimento quântico configurado com sucesso")
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao configurar sistema de conhecimento quântico: {e}")
             return False
-            
+
     async def process_message_with_knowledge(self, message, user_id=None, conversation_id=None):
         """
         Processa uma mensagem usando o sistema de conhecimento quântico.
-        
+
         Args:
             message: Mensagem a ser processada
             user_id: ID do usuário que enviou a mensagem
             conversation_id: ID da conversa
-            
+
         Returns:
             Resposta processada usando conhecimento quântico ou None se não disponível
         """
@@ -391,10 +391,10 @@ except ImportError:
             if not hasattr(self, 'quantum_knowledge_integrator') or self.quantum_knowledge_integrator is None:
                 self.logger.warning("Sistema de conhecimento quântico não disponível")
                 return None
-                
+
             # Contexto da conversa
             conversation_history = self.get_conversation_history(conversation_id) if hasattr(self, 'get_conversation_history') else []
-            
+
             # Dados contextuais
             context_data = {
                 "user_id": user_id,
@@ -402,21 +402,21 @@ except ImportError:
                 "platform": "telegram",
                 "bot_name": "EVA & GUARANI"
             }
-            
+
             # Processar mensagem usando conhecimento quântico
             result = await self.quantum_knowledge_integrator.process_message(
                 message=message,
                 conversation_history=conversation_history,
                 context_data=context_data
             )
-            
+
             return result
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao processar mensagem com conhecimento quântico: {e}")
             return None
 """
-            
+
             # Modificar código para adicionar importações
             if "# Importações para integração do conhecimento quântico" not in bot_code:
                 # Encontrar última importação
@@ -425,11 +425,11 @@ except ImportError:
                 for i, line in enumerate(lines):
                     if line.startswith("import ") or line.startswith("from "):
                         import_index = i
-                        
+
                 # Adicionar após a última importação
                 modified_lines = lines[:import_index+1] + import_code.split("\n") + lines[import_index+1:]
                 bot_code = "\n".join(modified_lines)
-                
+
             # Adicionar código de inicialização na classe do bot
             if "# Inicializar sistema de conhecimento quântico se disponível" not in bot_code:
                 # Encontrar método __init__ da classe EVAGuaraniBot
@@ -437,7 +437,7 @@ except ImportError:
                 if init_index == -1:
                     self.logger.error("Método __init__ não encontrado na classe EVAGuaraniBot")
                     return False
-                    
+
                 # Encontrar fim da inicialização (provavelmente depois de self.logger = ...)
                 init_end_index = bot_code.find("self.logger =", init_index)
                 if init_end_index == -1:
@@ -451,15 +451,15 @@ except ImportError:
                                     init_end_index = bot_code.find(lines[j])
                                     break
                             break
-                            
+
                 if init_end_index == -1:
                     self.logger.error("Não foi possível encontrar o local para inserção do código de inicialização")
                     return False
-                    
+
                 # Encontrar onde termina o bloco de inicialização (próxima linha com mesma indentação)
                 init_end_line = bot_code[init_end_index:].split("\n")[0]
                 indent = len(init_end_line) - len(init_end_line.lstrip())
-                
+
                 # Procurar pela próxima linha com a mesma indentação ou antes de um novo método
                 lines = bot_code[init_end_index:].split("\n")
                 insertion_index = 0
@@ -467,13 +467,13 @@ except ImportError:
                     if (line.strip() and len(line) - len(line.lstrip()) == indent) or "    def " in line:
                         insertion_index = init_end_index + sum(len(line) + 1 for line in lines[:i])
                         break
-                        
+
                 if insertion_index == 0:
                     insertion_index = init_end_index + bot_code[init_end_index:].find("\n\n")
-                    
+
                 # Adicionar código de inicialização
                 bot_code = bot_code[:insertion_index] + init_code + bot_code[insertion_index:]
-                
+
             # Adicionar métodos se não existirem
             if "async def _setup_quantum_knowledge" not in bot_code:
                 # Encontrar último método da classe
@@ -490,11 +490,11 @@ except ImportError:
                         break
                     elif class_found and line.startswith("    def "):
                         last_method_index = sum(len(line) + 1 for line in lines[:i])
-                        
+
                 if last_method_index == 0 or class_end_index == 0:
                     self.logger.error("Não foi possível encontrar o local para inserção dos novos métodos")
                     return False
-                    
+
                 # Encontrar o final do último método
                 method_end_index = 0
                 current_indent = 4
@@ -503,28 +503,28 @@ except ImportError:
                     if line.strip() and len(line) - len(line.lstrip()) <= current_indent and (line.startswith("    def ") or i > 10):
                         method_end_index = last_method_index + sum(len(line) + 1 for line in lines[:i])
                         break
-                        
+
                 if method_end_index == 0:
                     method_end_index = class_end_index
-                    
+
                 # Adicionar novos métodos
                 bot_code = bot_code[:method_end_index] + "\n" + method_code + bot_code[method_end_index:]
-                
+
             # Salvar código modificado
             with open(self.bot_path, 'w', encoding='utf-8') as f:
                 f.write(bot_code)
-                
+
             self.logger.info("Bot preparado para integração automática do sistema de conhecimento quântico")
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao preparar bot para integração: {e}")
             return False
-            
+
     async def run(self) -> bool:
         """
         Executa a integração do sistema de conhecimento quântico.
-        
+
         Returns:
             True se a integração foi bem-sucedida, False caso contrário
         """
@@ -532,7 +532,7 @@ except ImportError:
             # 1. Integrar sistema de conhecimento
             if not await self.integrate_knowledge_system():
                 return False
-                
+
             # 2. Iniciar bot automaticamente se configurado
             if self.config.get("auto_start_bot", False) and self.bot_module is not None:
                 if hasattr(self.bot_module, "main") and callable(self.bot_module.main):
@@ -540,14 +540,14 @@ except ImportError:
                     await self.bot_module.main()
                 else:
                     self.logger.warning("Função main() não encontrada no módulo do bot")
-                    
+
             self.logger.info("Integração completa!")
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao executar integração: {e}")
             return False
-        
+
 # Função para criar diretórios básicos para o sistema de conhecimento
 def create_basic_directories():
     """
@@ -569,11 +569,11 @@ def create_basic_directories():
         "EGOS/blockchain",
         "EGOS/game_elements"
     ]
-    
+
     for directory in basic_dirs:
         os.makedirs(directory, exist_ok=True)
         logger.info(f"Diretório criado/verificado: {directory}")
-        
+
     return True
 
 # Função para criar arquivo de exemplo do prompt quântico
@@ -584,12 +584,12 @@ def create_sample_quantum_prompt():
     try:
         prompts_dir = Path("EGOS/quantum_prompts")
         sample_file = prompts_dir / "exemplo_prompt_quantico.md"
-        
+
         # Verificar se o arquivo já existe
         if sample_file.exists():
             logger.info(f"Arquivo de exemplo já existe: {sample_file}")
             return True
-            
+
         # Conteúdo de exemplo
         content = """# Prompt Quântico de Exemplo - EVA & GUARANI
 
@@ -623,14 +623,14 @@ Amor Incondicional: 0.995
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 """
-        
+
         # Criar arquivo
         with open(sample_file, 'w', encoding='utf-8') as f:
             f.write(content)
-            
+
         logger.info(f"Arquivo de exemplo criado: {sample_file}")
         return True
-        
+
     except Exception as e:
         logger.error(f"Erro ao criar arquivo de exemplo: {e}")
         return False
@@ -643,12 +643,12 @@ def create_sample_ethical_guidelines():
     try:
         ethics_dir = Path("EGOS/ethical_system")
         sample_file = ethics_dir / "diretrizes_basicas.json"
-        
+
         # Verificar se o arquivo já existe
         if sample_file.exists():
             logger.info(f"Arquivo de diretrizes já existe: {sample_file}")
             return True
-            
+
         # Conteúdo de exemplo
         content = {
             "name": "Diretrizes Éticas Básicas",
@@ -676,14 +676,14 @@ def create_sample_ethical_guidelines():
                 "Equilibrar objetividade com empatia"
             ]
         }
-        
+
         # Criar arquivo
         with open(sample_file, 'w', encoding='utf-8') as f:
             json.dump(content, f, indent=2, ensure_ascii=False)
-            
+
         logger.info(f"Arquivo de diretrizes éticas criado: {sample_file}")
         return True
-        
+
     except Exception as e:
         logger.error(f"Erro ao criar arquivo de diretrizes éticas: {e}")
         return False
@@ -696,12 +696,12 @@ def create_sample_personas():
     try:
         personas_dir = Path("EGOS/personas")
         sample_file = personas_dir / "persona_principal.json"
-        
+
         # Verificar se o arquivo já existe
         if sample_file.exists():
             logger.info(f"Arquivo de persona já existe: {sample_file}")
             return True
-            
+
         # Conteúdo de exemplo
         content = {
             "name": "EVA & GUARANI",
@@ -718,14 +718,14 @@ def create_sample_personas():
             ],
             "signature": "✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧"
         }
-        
+
         # Criar arquivo
         with open(sample_file, 'w', encoding='utf-8') as f:
             json.dump(content, f, indent=2, ensure_ascii=False)
-            
+
         logger.info(f"Arquivo de persona criado: {sample_file}")
         return True
-        
+
     except Exception as e:
         logger.error(f"Erro ao criar arquivo de persona: {e}")
         return False
@@ -737,18 +737,18 @@ async def main():
     """
     # Criar diretórios básicos
     create_basic_directories()
-    
+
     # Criar arquivos de exemplo
     create_sample_quantum_prompt()
     create_sample_ethical_guidelines()
     create_sample_personas()
-    
+
     # Inicializar gerenciador de integração
     manager = QuantumKnowledgeIntegrationManager()
-    
+
     # Executar integração
     success = await manager.run()
-    
+
     if success:
         logger.info("Sistema de conhecimento quântico integrado com sucesso ao bot unificado EVA & GUARANI")
         print("\n✅ Integração concluída com sucesso!\n")
@@ -759,7 +759,7 @@ async def main():
         logger.error("Falha na integração do sistema de conhecimento quântico")
         print("\n❌ Falha na integração!\n")
         print("Verifique os logs para mais detalhes: logs/quantum_integration.log")
-        
+
     return success
 
 if __name__ == "__main__":
@@ -1077,12 +1077,12 @@ Os logs são armazenados em arquivos separados para facilitar a depuração:
    ```python
    from quantum_knowledge_hub import QuantumKnowledgeHub
    import asyncio
-   
+
    async def reindex():
        hub = QuantumKnowledgeHub()
        count = await hub.index_quantum_prompts()
        print(f"Reindexados {count} prompts quânticos")
-       
+
    asyncio.run(reindex())
    ```
 
@@ -1090,12 +1090,12 @@ Os logs são armazenados em arquivos separados para facilitar a depuração:
    ```python
    from quantum_knowledge_integrator import QuantumKnowledgeIntegrator
    import asyncio
-   
+
    async def check_status():
        integrator = QuantumKnowledgeIntegrator()
        await integrator.initialize_hub()
        print("Sistema de conhecimento quântico operacional")
-       
+
    asyncio.run(check_status())
    ```
 
@@ -1212,29 +1212,29 @@ class QuantumKnowledgeTester:
     Classe para testar o Sistema de Conhecimento Quântico EVA & GUARANI.
     Permite enviar consultas, visualizar resultados e testar diferentes configurações.
     """
-    
+
     def __init__(self):
         """
         Inicializa o testador do sistema de conhecimento quântico.
         """
         self.logger = logger
         self.logger.info("Inicializando Testador do Sistema de Conhecimento Quântico")
-        
+
         # Verificar se os arquivos necessários existem
         self.check_files()
-        
+
         # Estado interno
         self.hub = None
         self.integrator = None
         self.conversation_history = []
         self.initialized = False
-        
+
         self.logger.info("Testador inicializado")
-        
+
     def check_files(self) -> bool:
         """
         Verifica se os arquivos necessários existem.
-        
+
         Returns:
             True se todos os arquivos existem, False caso contrário
         """
@@ -1242,68 +1242,68 @@ class QuantumKnowledgeTester:
             "quantum_knowledge_hub.py",
             "quantum_knowledge_integrator.py"
         ]
-        
+
         missing_files = []
         for file in required_files:
             if not Path(file).exists():
                 missing_files.append(file)
-                
+
         if missing_files:
             self.logger.error(f"Arquivos necessários não encontrados: {', '.join(missing_files)}")
             return False
-            
+
         return True
-        
+
     async def initialize(self) -> bool:
         """
         Inicializa os componentes do sistema de conhecimento quântico.
-        
+
         Returns:
             True se a inicialização foi bem-sucedida, False caso contrário
         """
         try:
             # Criar diretórios necessários
             os.makedirs("logs", exist_ok=True)
-            
+
             # Importar QuantumKnowledgeHub
             from quantum_knowledge_hub import QuantumKnowledgeHub
-            
+
             # Inicializar hub
             self.hub = QuantumKnowledgeHub()
-            
+
             # Importar QuantumKnowledgeIntegrator
             from quantum_knowledge_integrator import QuantumKnowledgeIntegrator
-            
+
             # Inicializar integrador
             self.integrator = QuantumKnowledgeIntegrator()
-            
+
             # Inicializar hub no integrador
             await self.integrator.initialize_hub()
-            
+
             self.initialized = True
             self.logger.info("Sistema de conhecimento quântico inicializado com sucesso")
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao inicializar sistema: {e}")
             return False
-            
+
     async def process_query(self, query: str) -> Dict[str, Any]:
         """
         Processa uma consulta usando o sistema de conhecimento quântico.
-        
+
         Args:
             query: Consulta a ser processada
-            
+
         Returns:
             Resultado do processamento
         """
         if not self.initialized:
             await self.initialize()
-            
+
         if not self.initialized:
             return {"error": "Sistema não inicializado"}
-            
+
         try:
             # Dados de contexto
             context_data = {
@@ -1312,33 +1312,33 @@ class QuantumKnowledgeTester:
                 "platform": "test",
                 "timestamp": datetime.now().isoformat()
             }
-            
+
             # Processar consulta
             result = await self.integrator.process_message(
                 message=query,
                 conversation_history=self.conversation_history,
                 context_data=context_data
             )
-            
+
             # Atualizar histórico de conversa
             self.conversation_history.append({"role": "user", "content": query})
             if "response" in result and result["response"]:
                 self.conversation_history.append({"role": "assistant", "content": result["response"]})
-                
+
             # Limitar tamanho do histórico
             if len(self.conversation_history) > 20:
                 self.conversation_history = self.conversation_history[-20:]
-                
+
             return result
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao processar consulta: {e}")
             return {"error": str(e)}
-            
+
     def display_result(self, result: Dict[str, Any]) -> None:
         """
         Exibe o resultado do processamento de forma amigável no console.
-        
+
         Args:
             result: Resultado do processamento
         """
@@ -1346,24 +1346,24 @@ class QuantumKnowledgeTester:
             print("\n❌ Erro:")
             print(f"  {result['error']}")
             return
-            
+
         # Exibir resposta
         if "response" in result and result["response"]:
             print("\n✨ Resposta:")
             print(f"{result['response']}")
-            
+
         # Exibir informações adicionais
         print("\n📊 Informações Adicionais:")
-        
+
         if "model_used" in result:
             print(f"  Modelo utilizado: {result['model_used']}")
-            
+
         if "complexity" in result:
             print(f"  Complexidade da consulta: {result['complexity']:.2f}")
-            
+
         if "knowledge_used" in result:
             print(f"  Conhecimento utilizado: {'Sim' if result['knowledge_used'] else 'Não'}")
-            
+
         # Exibir conhecimento relevante se disponível
         if "knowledge_package" in result and "relevant_knowledge" in result["knowledge_package"]:
             relevant = result["knowledge_package"]["relevant_knowledge"]
@@ -1373,9 +1373,9 @@ class QuantumKnowledgeTester:
                     print(f"  {i}. {item.get('text', '')[:100]}...")
             else:
                 print("\n📚 Nenhum conhecimento específico encontrado para esta consulta.")
-                
+
         print("\n" + "-" * 80)
-            
+
     async def run_interactive(self) -> None:
         """
         Executa o testador em modo interativo.
@@ -1383,11 +1383,11 @@ class QuantumKnowledgeTester:
         # Inicializar sistema
         if not self.initialized:
             await self.initialize()
-            
+
         if not self.initialized:
             print("❌ Falha ao inicializar o sistema. Verifique os logs.")
             return
-            
+
         # Imprimir cabeçalho
         print("\n" + "=" * 80)
         print("     ✧༺❀༻∞ Testador do Sistema de Conhecimento Quântico EVA & GUARANI ∞༺❀༻✧")
@@ -1398,13 +1398,13 @@ class QuantumKnowledgeTester:
         print("  !info      - Exibe informações sobre o sistema")
         print("  !reindexar - Reindexar conhecimento")
         print("-" * 80)
-        
+
         # Loop principal
         while True:
             try:
                 # Solicitar entrada do usuário
                 query = input("\n📝 Digite sua consulta: ")
-                
+
                 # Verificar comandos especiais
                 if query.lower() == "sair":
                     print("\n✨ Encerrando o testador. Até logo!")
@@ -1417,7 +1417,7 @@ class QuantumKnowledgeTester:
                     print("\n📋 Informações do Sistema:")
                     print(f"  Estado de inicialização: {'✓' if self.initialized else '✗'}")
                     print(f"  Mensagens no histórico: {len(self.conversation_history)}")
-                    
+
                     # Exibir configurações
                     if hasattr(self.integrator, 'config'):
                         print("  Configurações do integrador:")
@@ -1432,20 +1432,20 @@ class QuantumKnowledgeTester:
                     else:
                         print("\n❌ Hub não inicializado.")
                     continue
-                    
+
                 # Processar consulta
                 print("\n⏳ Processando consulta...")
                 result = await self.process_query(query)
-                
+
                 # Exibir resultado
                 self.display_result(result)
-                
+
             except KeyboardInterrupt:
                 print("\n\n✨ Encerrando o testador. Até logo!")
                 break
             except Exception as e:
                 print(f"\n❌ Erro: {e}")
-                
+
     def close(self) -> None:
         """
         Fecha o testador e libera recursos.
@@ -1453,9 +1453,9 @@ class QuantumKnowledgeTester:
         try:
             if self.integrator:
                 self.integrator.close()
-                
+
             self.logger.info("Testador fechado")
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao fechar testador: {e}")
 
@@ -1463,19 +1463,19 @@ class QuantumKnowledgeTester:
 async def run_single_test(query: str) -> None:
     """
     Executa um único teste com a consulta fornecida.
-    
+
     Args:
         query: Consulta a ser testada
     """
     tester = QuantumKnowledgeTester()
     await tester.initialize()
-    
+
     print(f"\n📝 Consulta: {query}")
     print("\n⏳ Processando consulta...")
-    
+
     result = await tester.process_query(query)
     tester.display_result(result)
-    
+
     tester.close()
 
 # Função principal
@@ -1486,10 +1486,10 @@ async def main():
     # Configurar parser de argumentos
     parser = argparse.ArgumentParser(description="Testador do Sistema de Conhecimento Quântico EVA & GUARANI")
     parser.add_argument("--query", "-q", type=str, help="Consulta a ser testada (modo não interativo)")
-    
+
     # Analisar argumentos
     args = parser.parse_args()
-    
+
     # Verificar modo de execução
     if args.query:
         # Modo não interativo
@@ -1562,7 +1562,7 @@ logger = logging.getLogger("telegram_bot")
 try:
     from telegram import Update, ParseMode
     from telegram.ext import (
-        Updater, CommandHandler, MessageHandler, Filters, 
+        Updater, CommandHandler, MessageHandler, Filters,
         CallbackContext, ConversationHandler
     )
     TELEGRAM_AVAILABLE = True
@@ -1583,32 +1583,32 @@ class TelegramBotWithKnowledge:
     """
     Bot do Telegram para EVA & GUARANI com sistema de conhecimento quântico.
     """
-    
+
     def __init__(self, config_path: str = "config/telegram_bot.json"):
         """
         Inicializa o bot do Telegram.
-        
+
         Args:
             config_path: Caminho para o arquivo de configuração
         """
         self.logger = logger
         self.logger.info("Inicializando bot do Telegram com Conhecimento Quântico")
-        
+
         # Verificar dependências
         if not TELEGRAM_AVAILABLE:
             self.logger.error("python-telegram-bot é necessário. Execute: pip install python-telegram-bot==13.15")
             raise ImportError("python-telegram-bot não encontrado")
-            
+
         # Caminhos
         self.config_path = Path(config_path)
-        
+
         # Estado interno
         self.config = self._load_config()
         self.updater = None
         self.dispatcher = None
         self.conversations = {}
         self.started = False
-        
+
         # Sistema de conhecimento quântico
         self.quantum_knowledge_integrator = None
         self.quantum_integration = None
@@ -1616,13 +1616,13 @@ class TelegramBotWithKnowledge:
             self.logger.info("Sistema de conhecimento quântico disponível")
         else:
             self.logger.warning("Sistema de conhecimento quântico não disponível")
-            
+
         self.logger.info("Bot do Telegram inicializado")
-        
+
     def _load_config(self) -> Dict[str, Any]:
         """
         Carrega a configuração do bot.
-        
+
         Returns:
             Dicionário com as configurações
         """
@@ -1643,7 +1643,7 @@ class TelegramBotWithKnowledge:
                 "reiniciar": "Reiniciar a conversa"
             }
         }
-        
+
         # Tentar carregar configuração personalizada
         try:
             if self.config_path.exists():
@@ -1652,11 +1652,11 @@ class TelegramBotWithKnowledge:
                     # Mesclar com configuração padrão
                     merged_config = {**default_config, **config}
                     self.logger.info(f"Configuração carregada de {self.config_path}")
-                    
+
                     # Verificar token
                     if not merged_config["token"]:
                         self.logger.warning("Token do Telegram não configurado")
-                        
+
                     return merged_config
             else:
                 # Criar arquivo de configuração padrão
@@ -1666,40 +1666,40 @@ class TelegramBotWithKnowledge:
                 self.logger.info(f"Configuração padrão criada em {self.config_path}")
                 self.logger.warning("Configure o token do Telegram em config/telegram_bot.json")
                 return default_config
-                
+
         except Exception as e:
             self.logger.error(f"Erro ao carregar configuração: {e}")
             return default_config
-            
+
     async def initialize_quantum_knowledge(self) -> bool:
         """
         Inicializa o sistema de conhecimento quântico.
-        
+
         Returns:
             True se a inicialização foi bem-sucedida, False caso contrário
         """
         if not QUANTUM_KNOWLEDGE_AVAILABLE:
             self.logger.warning("Sistema de conhecimento quântico não disponível para inicialização")
             return False
-            
+
         try:
             # Inicializar integrador
             self.quantum_knowledge_integrator = QuantumKnowledgeIntegrator()
-            
+
             # Inicializar hub de conhecimento
             await self.quantum_knowledge_integrator.initialize_hub()
-            
+
             # Integrar com sistema quantum integration, se disponível
             if hasattr(self, 'quantum_integration') and self.quantum_integration is not None:
                 await self.quantum_knowledge_integrator.connect_quantum_integration(self.quantum_integration)
-                
+
             self.logger.info("Sistema de conhecimento quântico inicializado com sucesso")
             return True
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao inicializar sistema de conhecimento quântico: {e}")
             return False
-            
+
     def setup_handlers(self) -> None:
         """
         Configura os handlers do bot.
@@ -1708,44 +1708,44 @@ class TelegramBotWithKnowledge:
         if not self.dispatcher:
             self.logger.error("Dispatcher não disponível")
             return
-            
+
         # Handler de início
         self.dispatcher.add_handler(CommandHandler("start", self._handle_start))
-        
+
         # Handler de ajuda
         self.dispatcher.add_handler(CommandHandler("ajuda", self._handle_help))
-        
+
         # Handler de reinício
         self.dispatcher.add_handler(CommandHandler("reiniciar", self._handle_restart))
-        
+
         # Handler de mensagens
         self.dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, self._handle_message))
-        
+
         # Handler de erro
         self.dispatcher.add_error_handler(self._handle_error)
-        
+
         self.logger.info("Handlers configurados")
-        
+
     def get_conversation_history(self, chat_id: int) -> List[Dict[str, str]]:
         """
         Obtém o histórico de conversa para um chat específico.
-        
+
         Args:
             chat_id: ID do chat
-            
+
         Returns:
             Lista com o histórico de conversa
         """
         # Criar histórico se não existir
         if chat_id not in self.conversations:
             self.conversations[chat_id] = []
-            
+
         return self.conversations[chat_id]
-        
+
     def add_to_conversation_history(self, chat_id: int, role: str, message: str) -> None:
         """
         Adiciona uma mensagem ao histórico de conversa.
-        
+
         Args:
             chat_id: ID do chat
             role: Papel do emissor ('user' ou 'assistant')
@@ -1754,47 +1754,47 @@ class TelegramBotWithKnowledge:
         # Criar histórico se não existir
         if chat_id not in self.conversations:
             self.conversations[chat_id] = []
-            
+
         # Adicionar mensagem
         self.conversations[chat_id].append({
             "role": role,
             "content": message,
             "timestamp": datetime.now().isoformat()
         })
-        
+
         # Limitar tamanho do histórico
         max_history = self.config.get("max_conversation_history", 20)
         if len(self.conversations[chat_id]) > max_history:
             self.conversations[chat_id] = self.conversations[chat_id][-max_history:]
-            
+
     def clear_conversation_history(self, chat_id: int) -> None:
         """
         Limpa o histórico de conversa para um chat específico.
-        
+
         Args:
             chat_id: ID do chat
         """
         self.conversations[chat_id] = []
-        
+
     def _handle_start(self, update: Update, context: CallbackContext) -> None:
         """
         Handler para o comando /start.
-        
+
         Args:
             update: Atualização do Telegram
             context: Contexto do callback
         """
         chat_id = update.effective_chat.id
         user_name = update.effective_user.first_name
-        
+
         # Limpar histórico de conversa
         self.clear_conversation_history(chat_id)
-        
+
         # Enviar mensagem de boas-vindas
         welcome_message = f"""
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
 
-Olá, {user_name}! 
+Olá, {user_name}!
 
 Sou EVA & GUARANI, seu assistente quântico universal.
 
@@ -1804,23 +1804,23 @@ Como posso auxiliar você hoje?
 
 Digite /ajuda para ver mais informações.
 """
-        
+
         # Enviar mensagem
         update.message.reply_text(welcome_message)
-        
+
         # Adicionar ao histórico
         self.add_to_conversation_history(chat_id, "assistant", welcome_message)
-        
+
     def _handle_help(self, update: Update, context: CallbackContext) -> None:
         """
         Handler para o comando /ajuda.
-        
+
         Args:
             update: Atualização do Telegram
             context: Contexto do callback
         """
         chat_id = update.effective_chat.id
-        
+
         # Montar mensagem de ajuda
         help_message = """
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧
@@ -1835,53 +1835,53 @@ Você pode me fazer perguntas sobre diversos assuntos. Estou aqui para ajudar co
 
 Sou alimentado por um sistema de conhecimento quântico que me permite manter minha identidade única mesmo quando utilizo modelos de IA econômicos.
 """
-        
+
         # Enviar mensagem
         update.message.reply_text(help_message, parse_mode=ParseMode.MARKDOWN)
-        
+
         # Adicionar ao histórico
         self.add_to_conversation_history(chat_id, "assistant", help_message)
-        
+
     def _handle_restart(self, update: Update, context: CallbackContext) -> None:
         """
         Handler para o comando /reiniciar.
-        
+
         Args:
             update: Atualização do Telegram
             context: Contexto do callback
         """
         chat_id = update.effective_chat.id
-        
+
         # Limpar histórico de conversa
         self.clear_conversation_history(chat_id)
-        
+
         # Enviar mensagem
         restart_message = "Conversa reiniciada. Como posso ajudar agora?"
         update.message.reply_text(restart_message)
-        
+
         # Adicionar ao histórico
         self.add_to_conversation_history(chat_id, "assistant", restart_message)
-        
+
     async def _process_message_with_knowledge(self, message: str, chat_id: int, user_id: int) -> str:
         """
         Processa uma mensagem usando o sistema de conhecimento quântico.
-        
+
         Args:
             message: Mensagem a ser processada
             chat_id: ID do chat
             user_id: ID do usuário
-            
+
         Returns:
             Resposta processada
         """
         if not QUANTUM_KNOWLEDGE_AVAILABLE or not self.quantum_knowledge_integrator:
             self.logger.warning("Sistema de conhecimento quântico não disponível para processamento")
             return "Desculpe, o sistema de conhecimento quântico não está disponível no momento. Por favor, tente novamente mais tarde."
-            
+
         try:
             # Obter histórico de conversa
             conversation_history = self.get_conversation_history(chat_id)
-            
+
             # Dados de contexto
             context_data = {
                 "user_id": user_id,
@@ -1889,7 +1889,7 @@ Sou alimentado por um sistema de conhecimento quântico que me permite manter mi
                 "platform": "telegram",
                 "timestamp": datetime.now().isoformat()
             }
-            
+
             # Processar mensagem
             start_time = time.time()
             result = await self.quantum_knowledge_integrator.process_message(
@@ -1898,11 +1898,11 @@ Sou alimentado por um sistema de conhecimento quântico que me permite manter mi
                 context_data=context_data
             )
             end_time = time.time()
-            
+
             # Registrar tempo de processamento
             processing_time = end_time - start_time
             self.logger.info(f"Tempo de processamento: {processing_time:.2f}s")
-            
+
             # Verificar resultado
             if "response" in result and result["response"]:
                 return result["response"]
@@ -1912,15 +1912,15 @@ Sou alimentado por um sistema de conhecimento quântico que me permite manter mi
             else:
                 self.logger.warning("Nenhuma resposta ou erro retornado pelo sistema de conhecimento quântico")
                 return "Desculpe, não consegui processar sua mensagem adequadamente. Por favor, tente novamente com outra pergunta."
-                
+
         except Exception as e:
             self.logger.error(f"Erro ao processar mensagem com conhecimento quântico: {e}")
             return f"Desculpe, ocorreu um erro ao processar sua mensagem: {str(e)}"
-            
+
     def _handle_message(self, update: Update, context: CallbackContext) -> None:
         """
         Handler para mensagens de texto.
-        
+
         Args:
             update: Atualização do Telegram
             context: Contexto do callback
@@ -1928,15 +1928,15 @@ Sou alimentado por um sistema de conhecimento quântico que me permite manter mi
         chat_id = update.effective_chat.id
         user_id = update.effective_user.id
         message = update.message.text
-        
+
         # Adicionar mensagem ao histórico
         self.add_to_conversation_history(chat_id, "user", message)
-        
+
         # Verificar se o sistema de conhecimento quântico está ativado
         if QUANTUM_KNOWLEDGE_AVAILABLE and self.config.get("use_quantum_knowledge", True) and self.quantum_knowledge_integrator:
             # Informar que está digitando
             context.bot.send_chat_action(chat_id=chat_id, action="typing")
-            
+
             # Processar mensagem de forma assíncrona
             asyncio.create_task(self._async_process_and_reply(message, chat_id, user_id, update, context))
         else:
@@ -1944,11 +1944,11 @@ Sou alimentado por um sistema de conhecimento quântico que me permite manter mi
             response = "Desculpe, o sistema de conhecimento quântico não está disponível no momento. Por favor, tente novamente mais tarde."
             update.message.reply_text(response)
             self.add_to_conversation_history(chat_id, "assistant", response)
-            
+
     async def _async_process_and_reply(self, message: str, chat_id: int, user_id: int, update: Update, context: CallbackContext) -> None:
         """
         Processa a mensagem de forma assíncrona e envia a resposta.
-        
+
         Args:
             message: Mensagem a ser processada
             chat_id: ID do chat
@@ -1959,7 +1959,7 @@ Sou alimentado por um sistema de conhecimento quântico que me permite manter mi
         try:
             # Processar mensagem com sistema de conhecimento quântico
             response = await self._process_message_with_knowledge(message, chat_id, user_id)
-            
+
             # Verificar limite de tempo
             time_limit = self.config.get("response_time_limit", 30)
             if len(response) > 4000:
@@ -1971,38 +1971,38 @@ Sou alimentado por um sistema de conhecimento quântico que me permite manter mi
             else:
                 # Enviar resposta
                 context.bot.send_message(chat_id=chat_id, text=response, parse_mode=ParseMode.MARKDOWN)
-                
+
             # Adicionar resposta ao histórico
             self.add_to_conversation_history(chat_id, "assistant", response)
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao processar mensagem de forma assíncrona: {e}")
             error_message = "Desculpe, ocorreu um erro ao processar sua mensagem. Por favor, tente novamente."
             context.bot.send_message(chat_id=chat_id, text=error_message)
             self.add_to_conversation_history(chat_id, "assistant", error_message)
-            
+
     def _handle_error(self, update: Update, context: CallbackContext) -> None:
         """
         Handler para erros.
-        
+
         Args:
             update: Atualização do Telegram
             context: Contexto do callback
         """
         # Registrar erro
         self.logger.error(f"Erro ao processar atualização: {context.error}")
-        
+
         # Tentar obter chat_id
         try:
             chat_id = update.effective_chat.id
         except:
             chat_id = None
-            
+
         # Enviar mensagem de erro se o chat_id estiver disponível
         if chat_id:
             error_message = "Desculpe, ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde."
             context.bot.send_message(chat_id=chat_id, text=error_message)
-            
+
     async def start(self) -> None:
         """
         Inicia o bot.
@@ -2011,30 +2011,30 @@ Sou alimentado por um sistema de conhecimento quântico que me permite manter mi
         if not self.config.get("token"):
             self.logger.error("Token do Telegram não configurado. Configure-o em config/telegram_bot.json")
             return
-            
+
         try:
             # Inicializar sistema de conhecimento quântico
             if QUANTUM_KNOWLEDGE_AVAILABLE and self.config.get("use_quantum_knowledge", True):
                 await self.initialize_quantum_knowledge()
-                
+
             # Criar Updater
             self.updater = Updater(self.config["token"], use_context=True)
             self.dispatcher = self.updater.dispatcher
-            
+
             # Configurar handlers
             self.setup_handlers()
-            
+
             # Iniciar bot
             use_webhook = self.config.get("use_webhook", False)
             if use_webhook:
                 # Modo webhook
                 webhook_url = self.config.get("webhook_url", "")
                 webhook_port = self.config.get("webhook_port", 8443)
-                
+
                 if not webhook_url:
                     self.logger.error("URL do webhook não configurada. Configure-a em config/telegram_bot.json")
                     return
-                    
+
                 self.updater.start_webhook(
                     listen="0.0.0.0",
                     port=webhook_port,
@@ -2046,15 +2046,15 @@ Sou alimentado por um sistema de conhecimento quântico que me permite manter mi
                 # Modo polling
                 self.updater.start_polling()
                 self.logger.info("Bot iniciado em modo polling")
-                
+
             self.started = True
-            
+
             # Manter o bot rodando
             self.updater.idle()
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao iniciar bot: {e}")
-            
+
     def stop(self) -> None:
         """
         Para o bot.
@@ -2063,7 +2063,7 @@ Sou alimentado por um sistema de conhecimento quântico que me permite manter mi
             self.updater.stop()
             self.started = False
             self.logger.info("Bot parado")
-            
+
         # Fechar integrador de conhecimento quântico
         if self.quantum_knowledge_integrator:
             self.quantum_knowledge_integrator.close()
@@ -2077,15 +2077,15 @@ async def main():
     # Criar diretórios necessários
     os.makedirs("logs", exist_ok=True)
     os.makedirs("config", exist_ok=True)
-    
+
     # Inicializar bot
     bot = TelegramBotWithKnowledge()
-    
+
     # Verificar dependências
     if not TELEGRAM_AVAILABLE:
         logger.error("python-telegram-bot é necessário. Execute: pip install python-telegram-bot==13.15")
         return
-        
+
     # Iniciar bot
     await bot.start()
 
@@ -2520,7 +2520,7 @@ def print_error(message):
 def create_directories():
     """Cria a estrutura de diretórios necessária."""
     print_step("Criando estrutura de diretórios")
-    
+
     for directory in DIRECTORIES:
         path = Path(directory)
         if not path.exists():
@@ -2535,19 +2535,19 @@ def create_directories():
 def create_config_files():
     """Cria arquivos de configuração padrão."""
     print_step("Criando arquivos de configuração")
-    
+
     for file_path, config in DEFAULT_CONFIGS.items():
         path = Path(file_path)
-        
+
         # Criar diretório pai se não existir
         if not path.parent.exists():
             path.parent.mkdir(parents=True, exist_ok=True)
-        
+
         # Verificar se o arquivo já existe
         if path.exists():
             print_warning(f"Arquivo de configuração já existe: {file_path}")
             continue
-        
+
         # Criar o arquivo de configuração
         try:
             with open(path, 'w', encoding='utf-8') as f:
@@ -2559,19 +2559,19 @@ def create_config_files():
 def create_example_content():
     """Cria arquivos de exemplo para a base de conhecimento."""
     print_step("Criando conteúdo de exemplo")
-    
+
     for file_path, content in EXAMPLE_CONTENT.items():
         path = Path(file_path)
-        
+
         # Criar diretório pai se não existir
         if not path.parent.exists():
             path.parent.mkdir(parents=True, exist_ok=True)
-        
+
         # Verificar se o arquivo já existe
         if path.exists():
             print_warning(f"Arquivo de exemplo já existe: {file_path}")
             continue
-        
+
         # Criar o arquivo de exemplo
         try:
             with open(path, 'w', encoding='utf-8') as f:
@@ -2584,9 +2584,9 @@ def install_dependencies(args):
     """Instala as dependências Python necessárias."""
     if not args.skip_deps:
         print_step("Instalando dependências Python")
-        
+
         requirements_file = Path("requirements_quantum_knowledge.txt")
-        
+
         # Criar arquivo de requisitos
         try:
             with open(requirements_file, 'w', encoding='utf-8') as f:
@@ -2596,7 +2596,7 @@ def install_dependencies(args):
         except Exception as e:
             print_error(f"Erro ao criar arquivo de requisitos: {e}")
             return
-        
+
         # Instalar dependências
         try:
             subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", str(requirements_file)])
@@ -2611,35 +2611,35 @@ def install_dependencies(args):
 def create_log_file():
     """Cria um arquivo de log de instalação."""
     print_step("Criando arquivo de log de instalação")
-    
+
     log_file = Path("logs/setup_log.txt")
-    
+
     # Criar diretório de logs se não existir
     if not log_file.parent.exists():
         log_file.parent.mkdir(parents=True, exist_ok=True)
-    
+
     # Criar arquivo de log
     try:
         with open(log_file, 'w', encoding='utf-8') as f:
             f.write(f"# EVA & GUARANI - Log de Instalação do Sistema de Conhecimento Quântico\n")
             f.write(f"Data: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
             f.write(f"Versão: {VERSION}\n\n")
-            
+
             f.write("## Diretórios Criados\n")
             for directory in DIRECTORIES:
                 path = Path(directory)
                 f.write(f"- {directory}: {'Criado' if path.exists() else 'Falha'}\n")
-            
+
             f.write("\n## Arquivos de Configuração\n")
             for file_path in DEFAULT_CONFIGS:
                 path = Path(file_path)
                 f.write(f"- {file_path}: {'Criado' if path.exists() else 'Falha'}\n")
-            
+
             f.write("\n## Arquivos de Exemplo\n")
             for file_path in EXAMPLE_CONTENT:
                 path = Path(file_path)
                 f.write(f"- {file_path}: {'Criado' if path.exists() else 'Falha'}\n")
-        
+
         print_success(f"Arquivo de log criado: {log_file}")
     except Exception as e:
         print_error(f"Erro ao criar arquivo de log: {e}")
@@ -2647,14 +2647,14 @@ def create_log_file():
 def create_readme():
     """Cria um arquivo README explicando o sistema."""
     print_step("Criando arquivo README")
-    
+
     readme_file = Path("README_QUANTUM_KNOWLEDGE.md")
-    
+
     # Verificar se o arquivo já existe
     if readme_file.exists():
         print_warning(f"Arquivo README já existe: {readme_file}")
         return
-    
+
     # Criar arquivo README
     try:
         with open(readme_file, 'w', encoding='utf-8') as f:
@@ -2704,7 +2704,7 @@ Consulte o arquivo `DOCUMENTACAO_CONHECIMENTO_QUANTICO.md` para uma documentaç�
 ---
 
 ✧༺❀༻∞ EVA & GUARANI ∞༺❀༻✧""")
-        
+
         print_success(f"Arquivo README criado: {readme_file}")
     except Exception as e:
         print_error(f"Erro ao criar arquivo README: {e}")
@@ -2716,23 +2716,23 @@ def main():
     parser.add_argument("--skip-deps", action="store_true", help="Pular instalação de dependências")
     parser.add_argument("--skip-examples", action="store_true", help="Pular criação de conteúdo de exemplo")
     args = parser.parse_args()
-    
+
     # Exibir banner
     print_banner()
-    
+
     # Executar etapas de configuração
     create_directories()
     create_config_files()
-    
+
     if not args.skip_examples:
         create_example_content()
     else:
         print_warning("Criação de conteúdo de exemplo ignorada (--skip-examples)")
-    
+
     install_dependencies(args)
     create_log_file()
     create_readme()
-    
+
     # Exibir mensagem de conclusão
     print("\n" + Colors.GREEN + Colors.BOLD + "✓ Configuração concluída com sucesso!" + Colors.ENDC)
     print("""
